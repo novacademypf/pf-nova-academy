@@ -1,5 +1,5 @@
 import Layout from "../../Layout";
-import CourseCard from "../../components/CourseCards/CourseCard";
+import CourseCard from "../../components/CourseCards/CourseCards";
 
 const Courses = () => {
   return (
