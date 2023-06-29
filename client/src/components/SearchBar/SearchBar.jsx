@@ -4,13 +4,25 @@ import { Provider } from "react-redux";
 import store from "./redux/store/store"; */
 // import "./index.css";
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CourseCards from "../../components/CourseCards/CourseCards";
+import { useResolvedPath } from 'react-router-dom';
+import { filterByCategory } from '../../redux/actions/filterByCategoryActions';
+import { getAllCategories } from '../../redux/actions/allCategoriesActions';
 
 const SearchBar = () => {
+  const dispatch = useDispatch()
+  
   const [searchTerm, setSearchTerm] = useState('');
   const courses = useSelector((state) => state.coursesReducer.courses);
   const [filteredCourses, setFilteredCourses] = useState([]);
+  const categories = useSelector((state) => state.categories)
+  const allCourses = useSelector((state) => state.course)
+  
+  //const [categories, setCategories] = useState(allCategories)
+  
+
+  
 
   useEffect(() => {
     const searchTermLowerCase = searchTerm.toLowerCase();
@@ -29,6 +41,22 @@ const SearchBar = () => {
     const { value } = event.target;
     setSearchTerm(value);
   };
+
+  function handleFilterByCategory(e) {
+    dispatch(getAllCategories(e.target.value))
+    dispatch(getAllCategories("All"))
+};
+
+function handleChange(order) {
+  switch (order.target.value) {
+    case "asc":
+      return dispatch(orderByPrice(order.target.value))
+    case "des":
+      return dispatch(orderByPrice(order.target.value))
+    default:
+      break;
+  }
+}
 
   return (
     <div className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gradient-to-br">
@@ -68,7 +96,18 @@ const SearchBar = () => {
           ))
         )}
       </div>
-    </div>
+      <ul>
+           <h2>CATEGORIAS</h2> 
+           <select onChange={e => handleFilterByCategory(e)}>
+                            <option key={0} value='All'>Todas las categorias</option>
+                            {categories.map(cat=> {
+                                
+                      <option value={cat.name}>{cat.name}</option>
+                                
+                            })}
+                        </select> 
+      </ul>
+          </div>
 
   );
 };
