@@ -1,21 +1,13 @@
 /** @type {import('tailwindcss').Config} */
-
+import flowbitePlugin from "flowbite/plugin";
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}",
+  ],
   theme: {
-    colors: {
-      "primary-purple": "#7D5FFF",
-      "primary-blue": "#00FFFF",
-      "second-purple": "#AA52FF",
-      "second-blue": "#088BFF",
-      "light-gray": "#808080",
-      "dark-gray": "#4D4D4D",
-    },
-    fontFamily: {
-      montserrat: ["Montserrat", "sans-serif"],
-    },
-
     extend: {},
   },
-  plugins: [],
+  plugins: [flowbitePlugin],
 };
