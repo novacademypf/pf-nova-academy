@@ -12,14 +12,16 @@ import { getAllCategories } from '../../redux/actions/allCategoriesActions';
 
 const SearchBar = () => {
   const dispatch = useDispatch()
-  
+  //const [name, Setname] = useState ("")
   const [searchTerm, setSearchTerm] = useState('');
   const courses = useSelector((state) => state.coursesReducer.courses);
   const [filteredCourses, setFilteredCourses] = useState([]);
   const categories = useSelector((state) => state.categories)
-  const allCourses = useSelector((state) => state.course)
+  //const allCourses = useSelector((state) => state.course)
   
-  //const [categories, setCategories] = useState(allCategories)
+  
+
+  
   
 
   
@@ -42,10 +44,10 @@ const SearchBar = () => {
     setSearchTerm(value);
   };
 
-  function handleFilterByCategory(e) {
-    dispatch(getAllCategories(e.target.value))
-    dispatch(getAllCategories("All"))
-};
+  function handlefilterByCategory(e) {
+    dispatch(filterByCategory("all"))
+    dispatch(filterByCategory(e.target.value));
+  }
 
 function handleChange(order) {
   switch (order.target.value) {
@@ -98,14 +100,14 @@ function handleChange(order) {
       </div>
       <ul>
            <h2>CATEGORIAS</h2> 
-           <select onChange={e => handleFilterByCategory(e)}>
-                            <option key={0} value='All'>Todas las categorias</option>
-                            {categories.map(cat=> {
-                                
-                      <option value={cat.name}>{cat.name}</option>
-                                
-                            })}
-                        </select> 
+           <span>Filter by </span>
+      <select onChange={handlefilterByCategory} >
+        <option value={"All"}>Filtro Por Categorias</option>
+        {categories.map(category =>
+          <option value={category.name} key={category.name}>{category.name[0].toUpperCase() + category.name}</option>
+        )}
+      </select>
+           
       </ul>
           </div>
 
