@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import { SIGN_UP_SUCCESS, 
   SIGN_UP_FAILURE, 
@@ -7,12 +8,17 @@ import { SIGN_UP_SUCCESS,
 
 
 export const signUpSuccess = (user) => {
-    return {
-      type: SIGN_UP_SUCCESS,
-      payload: user,
-    };
+  return {
+    type: SIGN_UP_SUCCESS,
+    payload: user,
   };
-  
+};
+
+export const signUpFailure = (error) => {
+  return {
+    type: SIGN_UP_FAILURE,
+    payload: error,
+  };  
   export const signUpFailure = (error) => {
     return {
       type: SIGN_UP_FAILURE,
@@ -42,3 +48,5 @@ export const signUpSuccess = (user) => {
       }
     };
   };
+};
+

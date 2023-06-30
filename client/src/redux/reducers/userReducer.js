@@ -4,7 +4,6 @@ import { SIGN_UP_SUCCESS,
   CHECK_EMAIL_EXISTENCE_SUCCESS,
   CHECK_EMAIL_EXISTENCE_FAILURE, } from "../action-type/action-types";
 
-
 const initialState = {
   user: null,
   error: null,
@@ -14,13 +13,13 @@ const initialState = {
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'SIGN_UP_SUCCESS':
+    case SIGN_UP_SUCCESS:
       return {
         ...state,
         user: action.payload,
         error: null,
       };
-    case 'SIGN_UP_FAILURE':
+    case SIGN_UP_FAILURE:
       return {
         ...state,
         user: null,

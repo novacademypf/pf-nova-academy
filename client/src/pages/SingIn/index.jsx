@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { gapi } from "gapi-script";
 import GoogleLogin from "react-google-login";
 import { Link } from "react-router-dom";
-
+/* eslint-disable */
 // import { useHistory } from 'react-router-dom';
 
 const SingIn = () => {
@@ -47,8 +47,10 @@ const SingIn = () => {
       });
   };
 
-
-
+  if (loggedIn) {
+    return <redirect to="/" />; // Redirecciona a la pagina de perfil-home con sus datos
+  }
+  q;
   const clientID =
     "1025111478798-qcpl6unb1c4j99cpnf86ts4p75a4llm5.apps.googleusercontent.com";
   const [user, setUser] = useState({});
