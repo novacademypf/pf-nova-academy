@@ -1,4 +1,4 @@
-const { Lesson } = require("../db");
+const { Lesson, Module } = require("../db");
 
 const createLesson = async (req, res) => {
   try {
