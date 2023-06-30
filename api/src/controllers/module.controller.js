@@ -16,6 +16,7 @@ const createModule = async (req, res) => {
     if(!order){
       return res.status(404).json({ error: "Order missing" });
     }
+    
     const module = await Module.create({ 
       name, 
       description, 
