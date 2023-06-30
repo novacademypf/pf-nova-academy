@@ -2,19 +2,16 @@ import React from 'react';
 import axios from 'axios';
 import { useState } from 'react';
 import { connect } from 'react-redux';
-import {signUpSuccess, signUpFailure} from '../../redux/actions/userActions';
+import {signUpSuccess, signUpFailure, checkEmailExistence} from '../../redux/actions/userActions';
+import Swal from 'sweetalert2';
 
 
 
-const SignUp = ({ signUpSuccess, signUpFailure }) => {
-
-  //definir un solo estado con los 3 
+const SignUp = ({ checkEmailExistence, signUpSuccess, signUpFailure, isCheckingEmail, emailError }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [user, setUser] = useState(null);
   const [passwordError, setPasswordError] = useState('');
-
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -33,34 +30,47 @@ const SignUp = ({ signUpSuccess, signUpFailure }) => {
     return passwordRegex.test(password);
   };
 
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // Realizar el envío del formulario o la lógica adicional aquí
+
+    // Realizar la validación del email antes de enviar la solicitud al servidor
+    checkEmailExistence(email);
+
     if (!validatePassword(password)) {
-      setPasswordError(
-        'La contraseña debe tener al menos 8 caracteres, una mayúscula y un número'
-      );
+      setPasswordError('La contraseña debe tener al menos 8 caracteres, una mayúscula y un número');
       return;
     }
-    try{
-      const response = await axios.post('http://localhost:3001/user/singup',{
+
+    try {
+      const response = await axios.post('http://localhost:3001/user', {
         name,
         email,
         password,
-        
       });
-      console.log('submit exitoso ')
+
+      console.log('submit exitoso');
+      Swal.fire({
+        icon: 'success',
+        title: 'Registro completo',
+        text: 'Creaste tu cuenta ahora puedes ingresar',
+        footer: '<a href="http://localhost:5173/login">Ingresa desde AQUI</a>',
+      });
+
       const user = response.data;
-      signUpSuccess(user); // Dispatch de la acción de éxito
+      signUpSuccess(user);
       setName('');
       setEmail('');
       setPassword('');
       setPasswordError('');
-
     } catch (error) {
-      console.log(error)
-      signUpFailure(error); // Dispatch de la acción de fallo
+      console.log(error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Ya existe un usuario con este email registrado',
+      });
+
+      signUpFailure(error);
       console.error('Error al registrar', error);
     }
   };
@@ -96,6 +106,8 @@ const SignUp = ({ signUpSuccess, signUpFailure }) => {
                 onChange={handleEmailChange}
                 required
               />
+              {isCheckingEmail && <p className="text-red-500 text-xs mt-1">Verificando email...</p>}
+              {!isCheckingEmail && emailError && <p className="text-red-500 text-xs mt-1">{emailError}</p>}
             </div>
             <div className="mb-4">
               <label className="text-gray-600">Contraseña:</label>
@@ -125,4 +137,11 @@ const SignUp = ({ signUpSuccess, signUpFailure }) => {
   );
 };
 
-export default connect(null, { signUpSuccess, signUpFailure })(SignUp);
+const mapStateToProps = (state) => {
+  return {
+    isCheckingEmail: state.userReducer.isCheckingEmail,
+    emailError: state.userReducer.emailError,
+  };
+};
+
+export default connect(mapStateToProps, { signUpSuccess, signUpFailure, checkEmailExistence })(SignUp);
