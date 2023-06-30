@@ -6,3 +6,14 @@ export const loginUser = async (data) => {
     return user;
       
 };
+export const loginUserGoogle = async (data) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + data
+      },
+    };
+  
+    const response = await api.post("google/verifyToken", {}, config);
+    return response
+  };

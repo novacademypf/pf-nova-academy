@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
-const ModalErrorForm = ({setShowModal }) => {
+const ModalErrorForm = ({setShowModal,text }) => {
   const navigate = useNavigate();
   const handleCloseModal = (e) => {
     if (e.target.name === "createAccount") {
@@ -18,7 +18,7 @@ const ModalErrorForm = ({setShowModal }) => {
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             <div className="relative p-6 flex-auto">
               <p className="my-4 text-slate-500 text-lg leading-relaxed">
-                No credentials found. Would you like to create an account?
+              {text}
               </p>
             </div>
             {/*footer*/}
