@@ -5,11 +5,6 @@ export default function FormCourse() {
 
   return (
     <div>
-      <input
-        type="text"
-        placeholder="Escribe el nombre del curso"
-        onChange={(e) => setModule(e.target.value)}
-      />
       {/* {module.map((e, i) => {
         return (
           <div key={i}>
@@ -18,9 +13,6 @@ export default function FormCourse() {
           </div>
         );
       })} */}
-      <button onClick={()=> alert(module)}>Click</button>
     </div>
   );
 }
-
-// Prueba conexion con nuevo repo

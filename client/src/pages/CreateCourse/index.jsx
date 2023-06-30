@@ -15,12 +15,34 @@ export default function CreateCourse() {
   };
 
   const deleteModule = () => {
-    if(modules === 1) return
+    if (modules === 1) return;
     setModules(modules - 1);
   };
 
   return (
     <div>
+      <label>Nombre del curso:</label>
+      <input
+        type="text"
+        placeholder="Escribe el nombre del curso."
+        onChange={(e) => setModule(e.target.value)}
+      />
+      <br />
+      <label>Descripcion del curso</label>
+      <input
+        type="text"
+        placeholder="Escribe una descripcion del curso."
+        onChange={(e) => setModule(e.target.value)}
+      />
+      <br />
+      <label for="categorias">Selecciona una categoria:</label>
+      <select id="fruits" name="fruits">
+        <option value="programacion">programacion</option>
+        <option value="musica">musica</option>
+        <option value="matematicas">matematicas</option>
+        <option value="ciencia">ciencia</option>
+      </select>
+      <br />
       {renderModules()}
       <button onClick={addModule}>Agregar Módulo</button>
       <br />
@@ -28,26 +50,3 @@ export default function CreateCourse() {
     </div>
   );
 }
-
-
-      {/* <span>Name of Course:</span>
-      <input
-        type="text"
-        placeholder="Escribe el nombre del curso"
-        // onChange={(e) => setModule(e.target.value)}
-      />
-
-      <span>Name of Course:</span>
-      <input
-        type="text"
-        placeholder="Descripcion"
-        // onChange={(e) => setModule(e.target.value)}
-      />
-
-      <span>Name of Course:</span>
-      <input
-        type="text"
-        placeholder="Price"
-        // onChange={(e) => setModule(e.target.value)}
-      /> */}
-
