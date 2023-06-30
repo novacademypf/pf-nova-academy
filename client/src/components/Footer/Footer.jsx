@@ -21,7 +21,7 @@ const Footer = () => {
             </li>
             <li>
               <Link
-                href="https://henry-gaming.ar/join/sign-in"
+                href="https://"
                 target="_blank"
                 className="py-1 hover:underline"
               >
@@ -30,7 +30,7 @@ const Footer = () => {
             </li>
             <li>
               <Link
-                href="https://www.instant-gaming.com/en/frequently-asked-questions/"
+                href="https://"
                 target="_blank"
                 className="py-1 hover:underline"
               >
