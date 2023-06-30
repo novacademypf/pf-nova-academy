@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+
 const Footer = () => {
   return (
     <footer className="bg-dark-gray text-primary-blue static bottom-0 w-full h-max">
@@ -38,6 +39,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
+      
     </footer>
   );
 };
