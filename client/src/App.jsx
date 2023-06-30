@@ -15,6 +15,7 @@ import Home from "./pages/Home";
 import NavBar from "./components/NavBar";
 import Detail from "./pages/Detail";
 import Footer from "./components/Footer/Footer";
+import About from "./components/About";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const App = () => {
       { path: "/register", element: <SingUp /> },
       { path: "/detail/:courseId", element: <Detail /> },
       { path: "/*", element: <NotFound /> },
+      { path: "/about", element: <About /> },
     ]);
 
     return routes;
