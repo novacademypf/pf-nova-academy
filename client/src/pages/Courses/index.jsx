@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Layout from "../../Layout";
 import CourseCards from "../../components/CourseCards/CourseCards";
 import { filterByCategory } from "../../redux/actions/filterByCategoryActions";
+import SectionCursos from "./SectionCursos";
 //eslint-disable-next-line
 
 const Courses = () => {
@@ -16,32 +17,10 @@ const Courses = () => {
     dispatch(filterByCategory(e.target.value));
   }
 
-  return (
-    <Layout>
-        <h1 className="mainContainer"></h1>
-        
-        <select onChange={(e) => handleFilteredByCateg(e)}>
-            <option value="all">BUSCA POR CATEGORIA</option>
-            {categories&&categories.map((categ) => {
-              return (
-                <option value={categ} key={categ}>
-                  {categ}
-                </option>
-              );
-            })}
-          </select>
-          
-
-
-  
-
-
-
-
-
-      
-      <CourseCards courses={courses} />
-    </Layout>
+  return (  
+       <main className="bg-green-500">
+       <SectionCursos/>
+       </main> 
   );
 };
 
