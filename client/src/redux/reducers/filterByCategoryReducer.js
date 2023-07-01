@@ -14,7 +14,7 @@ const filterByCategoryRed = (state = initialState, action) => {
     case FILTER_BY_CATEGORY:
       return {
         ...state,
-        categories: action.payload,
+        dogs: action.payload,
       };
     default:
       return state;
