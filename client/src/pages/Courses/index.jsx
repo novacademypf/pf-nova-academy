@@ -8,7 +8,7 @@ import SectionCursos from "./SectionCursos";
 //eslint-disable-next-line
 
 const Courses = () => {
-  const courses = useSelector((state) => state).coursesReducer.courses;
+
 
  const categories = useSelector((state) => state.categories);
  
@@ -18,7 +18,7 @@ const Courses = () => {
   }
 
   return (  
-       <main className="bg-green-500">
+       <main className="bg-green-500 relative top-[5.5rem] ">
        <SectionCursos/>
        </main> 
   );
