@@ -42,7 +42,7 @@ const SignUp = ({ checkEmailExistence, signUpSuccess, signUpFailure, isCheckingE
     }
 
     try {
-      const response = await axios.post('http://localhost:3001/user', {
+      const response = await axios.post('http://localhost:3001/user/singup', {
         name,
         email,
         password,

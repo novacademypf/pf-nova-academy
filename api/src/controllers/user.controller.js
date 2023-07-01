@@ -8,6 +8,12 @@ const createUser = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
     console.log(role)
+    
+    const existingUser = await User.findOne({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({ error: "El correo electrónico ya está registrado" });
+    }
+
     const user = await User.create({
       name,
       email,
