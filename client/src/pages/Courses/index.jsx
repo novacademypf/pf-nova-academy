@@ -18,7 +18,8 @@ const Courses = () => {
 
   return (
     <Layout>
-
+        <h1 className="mainContainer"></h1>
+        
         <select onChange={(e) => handleFilteredByCateg(e)}>
             <option value="all">BUSCA POR CATEGORIA</option>
             {categories&&categories.map((categ) => {
@@ -29,6 +30,13 @@ const Courses = () => {
               );
             })}
           </select>
+          
+
+
+  
+
+
+
 
 
       

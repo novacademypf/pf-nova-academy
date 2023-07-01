@@ -9,7 +9,7 @@ const Landing = () => {
       <Banner />
       <SearchBar />
       <Carrousel />
-      <Footer />
+      
     </Layout>
   );
 };
