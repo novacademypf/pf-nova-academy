@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-no-undef */
+// import About from "../../components/About/index";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -13,7 +14,7 @@ const Footer = () => {
           <ul className="flex flex-col">
             <li>
               <Link
-                href="https://"
+                href="/About"
                 target="_blank"
                 className="py-1 hover:underline"
               >
