@@ -1,10 +1,19 @@
+import { useSelector } from "react-redux";
 import Pagination from "../../components/pagination/Pagination";
+import CourseCards from "../../components/CourseCards/CourseCards";
 
 
 const SectionCursos = () => {
+    const courses = useSelector((state) => state.coursesReducer.courses)
   return (
-    <section className="w-[80%] bg-orange-400 h-[100vh]">
+    <section className="w-[80%] bg-orange-400  relative ">
       <Pagination />
+      <div className="bg-amber-800 w-full relative top-[3.5em] " >
+      <CourseCards courses={courses} />
+
+      </div>
+        
+    
     </section>
   );
 };

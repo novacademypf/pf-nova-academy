@@ -9,7 +9,7 @@ import SectionFilter from "./SectionFilter";
 //eslint-disable-next-line
 
 const Courses = () => {
-  const courses = useSelector((state) => state).coursesReducer.courses;
+
 
  const categories = useSelector((state) => state.categories);
  
@@ -18,11 +18,8 @@ const Courses = () => {
     dispatch(filterByCategory(e.target.value));
   }
 
-  return ( 
-      
-      
-       <main className="bg-green-500 flex" >
-        <SectionFilter/>
+  return (  
+       <main className="bg-green-500 relative top-[5.5rem] ">
        <SectionCursos/>
        </main> 
   );
