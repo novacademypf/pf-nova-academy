@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import CourseCards from "../../components/CourseCards/CourseCards";
 import { filterByCategory } from "../../redux/actions/filterByCategoryActions";
 import SectionCursos from "./SectionCursos";
+import SectionFilter from "./SectionFilter";
 //eslint-disable-next-line
 
 const Courses = () => {
@@ -17,8 +18,11 @@ const Courses = () => {
     dispatch(filterByCategory(e.target.value));
   }
 
-  return (  
-       <main className="bg-green-500">
+  return ( 
+      
+      
+       <main className="bg-green-500 flex" >
+        <SectionFilter/>
        <SectionCursos/>
        </main> 
   );
