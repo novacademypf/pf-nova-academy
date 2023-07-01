@@ -23,16 +23,30 @@ const postCreateCourseForSale = async (req, res) => {
 
 const getCourseForSale = async (req, res) => {
   try {
-    /*   const user = await getUserToken(req); */
+    const {page,limit}=req.query
 
+    if(page && limit){
+      const offset = (page - 1) * limit;
+      const courseAll = await CourseForSale.findAll({
+      offset,
+      limit,
+        include: {
+          model: Profile,
+          attributes: { exclude: ["photo"] },
+        },
+      });
+      const courseCount = await CourseForSale.count();
+      res.send({ courseCount, courseAll }); 
+    }
     const courseAll = await CourseForSale.findAll({
-      include: {
-        model: Profile,
-        attributes: { exclude: ["photo"] },
-      },
-    });
-    const courseCount = await CourseForSale.count();
-    res.send({ courseCount, courseAll });
+        include: {
+          model: Profile,
+          attributes: { exclude: ["photo"] },
+        },
+      });
+      const courseCount = await CourseForSale.count();
+      res.send({ courseCount, courseAll }); 
+    
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

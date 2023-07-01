@@ -17,11 +17,13 @@ const main = async () => {
     server.listen(PORT, () => {
       console.log(`Example app listening on port ${PORT}`);
     });
+
     await loaderUsers();
     await loaderCategory();
     await loaderCourseForSale()
   } catch (error) {
     console.error("Unable to connect to the database:", error.message);
+  
   }
 };
 main();

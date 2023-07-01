@@ -45,6 +45,7 @@ const cursos = [
 
 
 
+
 const category = [
   { name: "Matemáticas" },
   { name: "Ciencias Naturales" },

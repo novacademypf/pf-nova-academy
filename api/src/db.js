@@ -52,8 +52,12 @@ const {
   Profile,
   CourseForSale,
   CourseBought,
+  UserGoogle
 } = sequelize.models;
 
+//relacion entre userGoogle y perfil uno a uno
+UserGoogle.hasOne(Profile, { foreignKey: "id", onDelete: "CASCADE" });
+Profile.belongsTo(UserGoogle, { foreignKey: "id" });
 // Relacion entre Usurio y Perfil (Uno a Uno)
 User.hasOne(Profile, { foreignKey: "userId", onDelete: "CASCADE" });
 Profile.belongsTo(User, { foreignKey: "userId" });
