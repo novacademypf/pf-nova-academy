@@ -9,8 +9,8 @@ import { filterByCategory } from "../../redux/actions/filterByCategoryActions";
 const Courses = () => {
   const courses = useSelector((state) => state).coursesReducer.courses;
 
-  const categories = useSelector((state) => state.categories);
-
+ const categories = useSelector((state) => state.categories);
+ 
   function handleFilteredByCateg(e) {
     e.preventDefault();
     dispatch(filterByCategory(e.target.value));
@@ -18,9 +18,10 @@ const Courses = () => {
 
   return (
     <Layout>
-      <select onChange={(e) => handleFilteredByCateg(e)}>
+
+        <select onChange={(e) => handleFilteredByCateg(e)}>
             <option value="all">BUSCA POR CATEGORIA</option>
-            {categories.map((categ) => {
+            {categories&&categories.map((categ) => {
               return (
                 <option value={categ} key={categ}>
                   {categ}
@@ -28,6 +29,9 @@ const Courses = () => {
               );
             })}
           </select>
+
+
+      
       <CourseCards courses={courses} />
     </Layout>
   );
