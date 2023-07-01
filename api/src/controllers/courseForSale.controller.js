@@ -34,22 +34,6 @@ const postCreateCourseForSale = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-  /* try {
-    const user = await getUserToken(req);
-    const dataCourse = cursos.map((course) => {
-      return {
-        name: course.name,
-        category: course.category,
-        duration: course.duration,
-        price: course.price,
-        idProfile: user.idUser,
-      };
-    });
-    const newCourse = await CourseForSale.bulkCreate(dataCourse);
-    res.json(newCourse);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  } */
 };
 
 const getCourseForSale = async (req, res) => {
