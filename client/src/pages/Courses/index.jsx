@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Layout from "../../Layout";
+
 import CourseCards from "../../components/CourseCards/CourseCards";
 import { filterByCategory } from "../../redux/actions/filterByCategoryActions";
 import SectionCursos from "./SectionCursos";
