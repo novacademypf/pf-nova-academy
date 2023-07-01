@@ -19,7 +19,8 @@ const Courses = () => {
   }
 
   return (  
-       <main className="bg-green-500 relative top-[5.5rem] ">
+       <main className="bg-green-500 relative top-[5.5rem] flex ">
+       <SectionFilter/>
        <SectionCursos/>
        </main> 
   );
