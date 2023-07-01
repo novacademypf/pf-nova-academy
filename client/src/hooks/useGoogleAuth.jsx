@@ -1,8 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { loginUser, loginUserGoogle } from "../services/loginUserRequest";
+import { loginUserGoogle } from "../services/loginUserRequest";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useEffect, useState } from "react";
-import axios from "axios";
 
 export const useGoogleAuth = () => {
   const [errorsDb, setErrorsDb] = useState("");
@@ -20,6 +19,7 @@ export const useGoogleAuth = () => {
     }
     console.log(codeResponse);
     const response = await loginUserGoogle(codeResponse.access_token);
+    localStorage.setItem("token", response.data.token);
     console.log(response);
     response.data.token && response.status === 200 && navigate("/");
   };

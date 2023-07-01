@@ -10,7 +10,7 @@ export const Input = ({
   return (
     <>
       {type === "checkbox" ? (
-        <div class="flex items-center">
+        <div className="flex items-center">
           <input
             id="link-checkbox"
             name={name}

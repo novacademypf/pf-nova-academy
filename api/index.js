@@ -17,6 +17,7 @@ const main = async () => {
     server.listen(PORT, () => {
       console.log(`Example app listening on port ${PORT}`);
     });
+
     await loaderUsers();
     await loaderCategory();
     await loaderCourseForSale()

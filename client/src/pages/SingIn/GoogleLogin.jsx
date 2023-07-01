@@ -10,12 +10,12 @@ const GoogleLogin = () => {
         onClick={() => {
           login();
         }}
-        class="flex justify-center items-center w-full bg-white border border-gray-300 rounded-lg shadow-md px-6 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+        className="flex justify-center items-center w-full bg-white border border-gray-300 rounded-lg shadow-md px-6 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
       >
         <svg
-          class="h-6 w-6 mr-2"
+          className="h-6 w-6 mr-2"
           xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlnsXlink="http://www.w3.org/1999/xlink"
           width="800px"
           height="800px"
           viewBox="-0.5 0 48 48"
@@ -26,9 +26,9 @@ const GoogleLogin = () => {
           <g
             id="Icons"
             stroke="none"
-            stroke-width="1"
+            strokeWidth="1"
             fill="none"
-            fill-rule="evenodd"
+            fillRule="evenodd"
           >
             <g id="Color-" transform="translate(-401.000000, -860.000000)">
               <g id="Google" transform="translate(401.000000, 860.000000)">
@@ -58,7 +58,7 @@ const GoogleLogin = () => {
         </svg>
         <span>Continuar con Google</span>
       </button>
-      {true && (
+      {showModal && (
         <ModalErrorForm showModal={showModal} setShowModal={setShowModal} text={"No se puede vincular la cuenta de Google, ya existe una cuenta registrada con ese correo electrónico."} />
       )}
     </div>

@@ -1,4 +1,4 @@
-const { User,Profile } = require("../db");
+const { User,Profile,UserGoogle } = require("../db");
 const { createtoken } = require("../helpers/generateToken");
 const { compare, encrypt } = require("../helpers/handleBcrypt");
 
@@ -8,6 +8,18 @@ const createUser = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
     console.log(role)
+    const searchedUserGoogle  = await UserGoogle.findOne({where: {email: email}})
+    const searchedUser = await User.findOne({where: {email: email}})
+    if(searchedUserGoogle){
+      const error = new Error("The user is already registered with Google. ")
+      error.status=409
+      throw error
+    }
+    if(searchedUser){
+      const error = new Error("The user is already registered ")
+      error.status=409
+      throw error
+    }
     const user = await User.create({
       name,
       email,
@@ -22,7 +34,8 @@ const createUser = async (req, res) => {
     res.send('user created successfully');
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Error creating user" });
+    const status = error.status || 500;
+    res.status(status).json({ error: error.message });
   }
 };
 
