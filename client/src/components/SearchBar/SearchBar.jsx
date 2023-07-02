@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-
+import { useNavigate } from "react-router-dom";
 import ResultSearchBar from "../ResultSearchBar/ResultSearchBar";
 
 const SearchBar = () => {
   const courses = useSelector((state) => state).coursesReducer.courses;
   const [term, setTerm] = useState("");
   const [filteredCourses, setFilteredCourses] = useState([]);
+  let navigate = useNavigate();
 
   let coursesFlat = courses.map((el) => {
     return {
@@ -55,7 +56,7 @@ const SearchBar = () => {
   const handleEnter = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      console.log("Estoy en enter");
+      navigate(`/search?name=${term}`);
     }
   };
   return (
