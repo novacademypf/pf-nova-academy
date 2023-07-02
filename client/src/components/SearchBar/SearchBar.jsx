@@ -1,77 +1,75 @@
-/* import App from "./App.jsx";
-import { BrowserRouter as Router } from "react-router-dom";
-import { Provider } from "react-redux";
-import store from "./redux/store/store"; */
-// import "./index.css";
-import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import CourseCards from "../../components/CourseCards/CourseCards";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const SearchBar = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const courses = useSelector((state) => state.coursesReducer.courses);
+  const courses = useSelector((state) => state).coursesReducer.courses;
+  let coursesFlat = courses.map((el) => {
+    return {
+      id: el.id,
+      name: el.name
+        .replace(/[,.-]/g, "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, ""),
+      description: el.description
+        .replace(/[,.-]/g, "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, ""),
+      category: el.category
+        .join(" ")
+        .replace(/[,.-]/g, "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, ""),
+    };
+  });
+
+  const [term, setTerm] = useState("");
   const [filteredCourses, setFilteredCourses] = useState([]);
 
-  useEffect(() => {
-    const searchTermLowerCase = searchTerm.toLowerCase();
-    const filteredCourses = courses.filter((course) => {
-      const courseName = course?.name?.toLowerCase();
-      return courseName && courseName.includes(searchTermLowerCase);
+  const filterCourse = (value) => {
+    let filter = coursesFlat.filter((el) => {
+      return (
+        el.name.includes(value) ||
+        el.description.includes(value) ||
+        el.category.includes(value)
+      );
     });
+    setFilteredCourses(filter);
+  };
 
-    setFilteredCourses(filteredCourses);
-    console.log(courses)
-    console.log('Término de búsqueda actualizado:', searchTerm);
-    console.log(filteredCourses);
-  }, [searchTerm, courses]);
+  useEffect(() => {
+    filterCourse(term);
+  }, [term]);
 
-  const handleSearch = (event) => {
-    const { value } = event.target;
-    setSearchTerm(value);
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setTerm(value);
   };
 
   return (
-    <div className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gradient-to-br">
-      <div className="relative rounded-2xl bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:px-10">
-        <div className="mx-auto max-w-md">
-          <form action="" className="relative mx-auto w-max">
-            <h3 className="xl:text-4xl text-3xl font-semibold leading-9 text-gray-800">Search Bar</h3>
-            <input
-              type="search"
-              className="peer cursor-pointer relative z-10 h-12 w-12 rounded-full border bg-transparent pl-12 outline-none focus:w-full focus:cursor-text focus:border-lime-300 focus:pl-16 focus:pr-4"
-              onChange={handleSearch}
-              placeholder="buscar..."
-            />
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="absolute inset-y-0 my-auto h-8 w-12 border-r border-transparent stroke-gray-500 px-3.5 peer-focus:border-lime-300 peer-focus:stroke-lime-500"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-          </form>
-
-
+    <div>
+      <input
+        type="text"
+        list="datalist-options"
+        placeholder="Buscar un curso"
+        onChange={handleChange}
+        className="border mb-8"
+        value={term}
+      />
+      {filteredCourses.length > 0 && (
+        <div className="flex flex-row flex-wrap">
+          {filteredCourses.map((el) => (
+            <div className="border p-2" key={el.id}>
+              <Link>{el.name}</Link>
+            </div>
+          ))}
         </div>
-      </div>
-      <div>
-        {searchTerm && filteredCourses.length > 0 && (
-          filteredCourses.map((course) => (
-            <div key={course.id}><CourseCards courses={filteredCourses} /></div>
-          ))
-        )}
-      </div>
+      )}
     </div>
-
   );
 };
 
 export default SearchBar;
-

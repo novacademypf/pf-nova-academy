@@ -14,14 +14,15 @@ import SingUp from "./pages/SingUp";
 import Home from "./pages/Home";
 import NavBar from "./components/NavBar";
 import Detail from "./pages/Detail";
+import Footer from "./components/Footer/Footer";
 import CreateCourse from "./pages/CreateCourse";
 
 const App = () => {
-  const dispatch = useDispatch();
+/*   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllCourses());
-  }, []);
+  }, []); */
 
   const AppRouter = () => {
     let routes = useRoutes([
@@ -45,6 +46,7 @@ const App = () => {
     <div>
       <NavBar />
       <AppRouter />
+      <Footer />
     </div>
   );
 };
