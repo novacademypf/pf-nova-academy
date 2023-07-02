@@ -1,6 +1,7 @@
 const { CourseForSale, Profile, User } = require("../db");
 const getUserToken = require("../helpers/getUsertoken");
 const { cursos, category } = require("../constants/data");
+const { Op } = require("sequelize");
 
 const postCreateCourseForSale = async (req, res) => {
   /* try {
@@ -23,32 +24,44 @@ const postCreateCourseForSale = async (req, res) => {
 
 const getCourseForSale = async (req, res) => {
   try {
-    const {page,limit}=req.query
-
-    if(page && limit){
+    const { page, limit } = req.query;
+    const category = req.query.categories || [];
+    const priceMin = req.query.priceMin || 0;
+    const priceMax = req.query.priceMax || Infinity;
+     if (page && limit) {
       const offset = (page - 1) * limit;
-      const courseAll = await CourseForSale.findAll({
-      offset,
-      limit,
+      filterOptions = { category }; // Filtrar por categoría si se proporciona
+       const { count, rows } = await CourseForSale.findAndCountAll({
+        where: filterOptions,
+        offset,
+        limit,
         include: {
           model: Profile,
           attributes: { exclude: ["photo"] },
         },
       });
-      const courseCount = await CourseForSale.count();
-      res.send({ courseCount, courseAll }); 
+       res.send({ courseCount: count, courseAll: rows });
+    } else {
+      ; // Filtrar por categoría si se proporciona
+       const { count, rows } = await CourseForSale.findAndCountAll({
+        where: {
+          category: {
+            [Op.overlap]: category,
+          },
+          price: {
+            [Op.between]: [priceMin, priceMax],
+          },
+        },
+        include: {
+          model: Profile,
+          attributes: { exclude: ["photo"] },
+        },
+      });
+      console.log('--->',rows);
+       res.send({ courseCount: count, courseAll: rows });
     }
-    const courseAll = await CourseForSale.findAll({
-        include: {
-          model: Profile,
-          attributes: { exclude: ["photo"] },
-        },
-      });
-      const courseCount = await CourseForSale.count();
-      res.send({ courseCount, courseAll }); 
-    
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json({ error: error.message }); 
   }
 };
 const updateCourseForSale = async (req, res) => {
