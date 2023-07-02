@@ -1,5 +1,6 @@
 const { CourseForSale, Profile, User } = require("../db");
 const getUserToken = require("../helpers/getUsertoken");
+const { Op} = require('sequelize');
 const { cursos, category } = require("../constants/data");
 
 const postCreateCourseForSale = async (req, res) => {
@@ -107,11 +108,27 @@ const getCourseForSaleById = async (req, res) => {
     res.status(500).json({ error: "Error retrieving course" });
   }
 };
+searchCoursesByName = async (name) => {
+  const dataBaseCourses= await CourseForSale.findAll({
+    where:{
+      name:{
+        [Op.iLike]:`%${name}%`
+      }
+    },
+  });
+  const results=[...dataBaseCourses];
+  if(results.length > 0){
+    return results;
+  } else {
+    return {message: `No se encontraron Cursos que coincidan con ${name}`}
+  }
 
+}
 module.exports = {
   postCreateCourseForSale,
   getCourseForSale,
   deleteCourseForSale,
   updateCourseForSale,
-  getCourseForSaleById
+  getCourseForSaleById,
+  searchCoursesByName
 };
