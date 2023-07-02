@@ -17,11 +17,11 @@ import Detail from "./pages/Detail";
 import Footer from "./components/Footer/Footer";
 
 const App = () => {
-  const dispatch = useDispatch();
+/*   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllCourses());
-  }, []);
+  }, []); */
 
   const AppRouter = () => {
     let routes = useRoutes([
