@@ -7,6 +7,7 @@ const ResultSearchBar = ({ results }) => {
         <Link
           className=" flex flex-row items-center bg-gray-50 border border-[#00FFFF] hover:bg-cyan-400 text-gray-900 text-lg font-bold rounded-lg focus:shadow-lg w-full pl-10 p-2.5 m-0.5"
           key={el.id}
+          to={`/detail/${el.id}`}
         >
           {
             <img
