@@ -174,24 +174,6 @@ const searchCoursesByName = async (req, res) => {
   }
 };
 
-
-// const searchCoursesByName = async (req, res) => {
-//   console.log("searg")
-//   const {name}=req.query;
-//   const dataBaseCourses= await CourseForSale.findAll({
-//     where:{
-//       name:{
-//         [Op.iLike]:`%${name}%`
-//       }
-//     },
-//   });
-//   const results=[...dataBaseCourses];
-//   if(results.length > 0){
-//     res.json(results);
-//   } else {
-//     res.status(500).json({error: `No se encontraron Cursos que coincidan con ${name}`})
-//   }
-// }
 module.exports = {
   postCreateCourseForSale,
   getCourseForSale,
