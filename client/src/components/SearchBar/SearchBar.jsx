@@ -5,6 +5,9 @@ import ResultSearchBar from "../ResultSearchBar/ResultSearchBar";
 
 const SearchBar = () => {
   const courses = useSelector((state) => state).coursesReducer.courses;
+  const [term, setTerm] = useState("");
+  const [filteredCourses, setFilteredCourses] = useState([]);
+
   let coursesFlat = courses.map((el) => {
     return {
       id: el.id,
@@ -28,9 +31,6 @@ const SearchBar = () => {
     };
   });
 
-  const [term, setTerm] = useState("");
-  const [filteredCourses, setFilteredCourses] = useState([]);
-
   const filterCourse = (value) => {
     value = value.toLowerCase();
     let filter = coursesFlat.filter((el) => {
@@ -52,7 +52,12 @@ const SearchBar = () => {
     const value = e.target.value;
     setTerm(value);
   };
-
+  const handleEnter = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      console.log("Estoy en enter");
+    }
+  };
   return (
     <>
       <form className="flex items-center mb-8 relative">
@@ -82,6 +87,9 @@ const SearchBar = () => {
             placeholder="Buscar curso"
             onChange={handleChange}
             value={term}
+            onKeyDown={(e) => {
+              handleEnter(e);
+            }}
             required
           />
         </div>
