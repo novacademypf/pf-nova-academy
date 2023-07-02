@@ -14,44 +14,44 @@ export const signUpSuccess = (user) => {
   };
 };
 
-// export const signUpFailure = (error) => {
-//   return {
-//     type: SIGN_UP_FAILURE,
-//     payload: error,
-//   };
 export const signUpFailure = (error) => {
   return {
     type: SIGN_UP_FAILURE,
     payload: error,
   };
-};
+  export const signUpFailure = (error) => {
+    return {
+      type: SIGN_UP_FAILURE,
+      payload: error,
+    };
+  };
 
-export const checkEmailExistence = (email) => {
-  return async (dispatch) => {
-    dispatch({ type: CHECK_EMAIL_EXISTENCE });
+  export const checkEmailExistence = (email) => {
+    return async (dispatch) => {
+      dispatch({ type: CHECK_EMAIL_EXISTENCE });
 
-    try {
-      // realizo la consulta al back para verificar la existencia del email
-      const response = await axios.post("http://localhost:3001/user/signup", {
-        email,
-      });
+      try {
+        // realizo la consulta al back para verificar la existencia del email
+        const response = await axios.post("http://localhost:3001/user/signup", {
+          email,
+        });
 
-      // Si el email existe, se devuelve un mensaje de error
-      if (response.data.exists) {
+        // Si el email existe, se devuelve un mensaje de error
+        if (response.data.exists) {
+          dispatch({
+            type: CHECK_EMAIL_EXISTENCE_FAILURE,
+            payload: "El email ya está registrado",
+          });
+          console.log("El email ya está registrado");
+        } else {
+          dispatch({ type: CHECK_EMAIL_EXISTENCE_SUCCESS });
+        }
+      } catch (error) {
         dispatch({
           type: CHECK_EMAIL_EXISTENCE_FAILURE,
-          payload: "El email ya está registrado",
+          payload: "Error al verificar el email",
         });
-        console.log("El email ya está registrado");
-      } else {
-        dispatch({ type: CHECK_EMAIL_EXISTENCE_SUCCESS });
       }
-    } catch (error) {
-      dispatch({
-        type: CHECK_EMAIL_EXISTENCE_FAILURE,
-        payload: "Error al verificar el email",
-      });
-    }
+    };
   };
 };
-// };
