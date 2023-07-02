@@ -14,6 +14,7 @@ import SingUp from "./pages/SingUp";
 import Home from "./pages/Home";
 import NavBar from "./components/NavBar";
 import Detail from "./pages/Detail";
+import About from "./components/About";
 
 const App = () => {
   const dispatch = useDispatch();
