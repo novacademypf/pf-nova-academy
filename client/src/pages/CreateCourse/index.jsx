@@ -51,7 +51,6 @@ export default function CreateCourse() {
     } else if (!form.category) {
       return alert("Selecione Categoria")
     }
-    console.log(form.images)
 
     // crear boton submit para pushear todo al back, 
     // crear boton submit lecion para hacer el post de cada lecion en cada modulo.
