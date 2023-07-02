@@ -3,43 +3,24 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div className="max-width: 32rem">
-      <div className="flex flex-col">
-        <div>
-          <Link href="/"></Link>
-        </div>
-        <div>
-          <ul className="flex flex-col">
-            <li>
-              <Link
-                href="https://"
-                target="_blank"
-                className="py-1 hover:underline"
-              >
-                Quienes Somos
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="https://"
-                target="_blank"
-                className="py-1 hover:underline"
-              >
-                Contacto
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="https://"
-                target="_blank"
-                className="py-1 hover:underline"
-              >
-                NewsLetter
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </div>
+    <div className="max-w-screen-xl  h-auto flex flex-wrap items-center justify-between  p-4 mx-automax-width: 32rem">
+      <ul className="flex flex-col">
+        <li>
+          <Link to="/about" className="py-1 hover:underline">
+            Quienes Somos
+          </Link>
+        </li>
+        <li>
+          <Link href="#" className="py-1 hover:underline">
+            Contacto
+          </Link>
+        </li>
+        <li>
+          <Link href="#" className="py-1 hover:underline">
+            NewsLetter
+          </Link>
+        </li>
+      </ul>
 
       <div className="flex justify-end">
         <Link
