@@ -24,6 +24,7 @@ const SearchBar = () => {
         .toLowerCase()
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, ""),
+      image: "https://picsum.photos/800/600?random=1",
     };
   });
 
@@ -39,7 +40,7 @@ const SearchBar = () => {
         el.category.includes(value)
       );
     });
-    console.log("filter", filter);
+
     setFilteredCourses(filter);
   };
 
@@ -54,7 +55,7 @@ const SearchBar = () => {
 
   return (
     <>
-      <form className="flex items-center mb-8">
+      <form className="flex items-center mb-8 relative">
         <label htmlFor="simple-search" className="sr-only">
           Buscar curso ...
         </label>
@@ -86,7 +87,7 @@ const SearchBar = () => {
         </div>
         <button
           type="submit"
-          className="p-2.5 ml-2 text-sm font-medium text-white bg-[#00FFFF] rounded-lg border  hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-blue-300 "
+          className="p-2.5 ml-2 text-sm font-medium text-gray-900 bg-[#00FFFF] rounded-lg border  hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-blue-300 "
         >
           <svg
             className="w-5 h-5"
@@ -105,28 +106,9 @@ const SearchBar = () => {
           <span className="sr-only">Buscar curso...</span>
         </button>
       </form>
-      <ResultSearchBar results={filteredCourses} />
+      {term.length > 0 && <ResultSearchBar results={filteredCourses} />}
     </>
   );
 };
 
 export default SearchBar;
-/*  <div>
-     <input
-       type="text"
-       list="datalist-options"
-       placeholder="Buscar un curso"
-       onChange={handleChange}
-       className="border mb-8"
-       value={term}
-     />
-     {filteredCourses.length > 0 && (
-       <div className="flex flex-row flex-wrap">
-         {filteredCourses.map((el) => (
-           <div className="border p-2" key={el.id}>
-             <Link>{el.name}</Link>
-           </div>
-         ))}
-       </div>
-     )}
-   </div> */
