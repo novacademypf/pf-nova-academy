@@ -8,7 +8,6 @@ export const getAllCourses = () => {
       let getDogs = await axios.get(endpoint);
       let data = getDogs.data;
       let courseList = data.courseAll;
-
       return dispatch({ type: GET_ALL_COURSES, payload: courseList });
     } catch (err) {
       console.log({ errorGetAllCourses: err, message: err.message });

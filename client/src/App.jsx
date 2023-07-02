@@ -15,6 +15,7 @@ import Home from "./pages/Home";
 import NavBar from "./components/NavBar";
 import Detail from "./pages/Detail";
 import About from "./components/About";
+import CreateCourse from "./pages/CreateCourse";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ const App = () => {
       { path: "/login", element: <SingIn /> },
       { path: "/register", element: <SingUp /> },
       { path: "/about", element: <About /> },
+      { path: "/create", element: <CreateCourse /> },
       { path: "/detail/:courseId", element: <Detail /> },
       { path: "/*", element: <NotFound /> },
       { path: "/about", element: <About /> },

@@ -1,24 +1,40 @@
 const { CourseForSale, Profile, User } = require("../db");
 const getUserToken = require("../helpers/getUsertoken");
+const { Op} = require('sequelize');
 const { cursos, category } = require("../constants/data");
 
 const postCreateCourseForSale = async (req, res) => {
-  /* try {
+  try {
+    const { name, category, duration, description, images, price } = req.body;
     const user = await getUserToken(req);
-    const dataCourse = cursos.map((course) => {
-      return {
-        name: course.name,
-        category: course.category,
-        duration: course.duration,
-        price: course.price,
-        idProfile: user.idUser,
-      };
-    });
-    const newCourse = await CourseForSale.bulkCreate(dataCourse);
+    if(!name){
+      return res.status(404).json({ error: "Name missing" });
+    }
+    if(!category){
+      return res.status(404).json({ error: "Category missing" });
+    }
+    if(!duration){
+      return res.status(404).json({ error: "Duration missing" });
+    }
+    if(!images){
+      return res.status(404).json({ error: "Images missing" });
+    }
+    if(!price){
+      return res.status(404).json({ error: "Price missing" });
+    }
+    const newCourse = await CourseForSale.create({
+      name,
+      category,
+      duration,
+      description,
+      images,
+      price,
+      idProfile: user.idUser,
+    });    
     res.json(newCourse);
   } catch (error) {
     res.status(500).json({ error: error.message });
-  } */
+  }
 };
 
 const getCourseForSale = async (req, res) => {
@@ -92,11 +108,27 @@ const getCourseForSaleById = async (req, res) => {
     res.status(500).json({ error: "Error retrieving course" });
   }
 };
+searchCoursesByName = async (name) => {
+  const dataBaseCourses= await CourseForSale.findAll({
+    where:{
+      name:{
+        [Op.iLike]:`%${name}%`
+      }
+    },
+  });
+  const results=[...dataBaseCourses];
+  if(results.length > 0){
+    return results;
+  } else {
+    return {message: `No se encontraron Cursos que coincidan con ${name}`}
+  }
 
+}
 module.exports = {
   postCreateCourseForSale,
   getCourseForSale,
   deleteCourseForSale,
   updateCourseForSale,
-  getCourseForSaleById
+  getCourseForSaleById,
+  searchCoursesByName
 };

@@ -76,6 +76,9 @@ const NavBar = () => {
         <div>
           <ul className="flex">
             <li>
+              <NavLink to="/create">CREAR CURSO</NavLink>
+            </li>
+            <li>
               <NavLink to="/login">Iniciar Sesion</NavLink>
             </li>
             <li>
