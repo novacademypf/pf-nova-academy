@@ -24,6 +24,7 @@ export default function CreateCourse() {
     description: "",
     images: "",
     price: "",
+    idProfile:"",
   });
 
   useEffect(() => {
@@ -50,13 +51,18 @@ export default function CreateCourse() {
       return alert("Ingrese Precio")
     } else if (!form.category) {
       return alert("Selecione Categoria")
+    } else if (!form.price.match(/^[0-9]+$/)) {
+      return alert("Precio solo permite numeros");
     }
 
     // crear boton submit para pushear todo al back, 
     // crear boton submit lecion para hacer el post de cada lecion en cada modulo.
     // revisar los axios
+//     localStorage.setItem("token", response.data.token);
+// token de google
 
-
+// token de user registrado
+// localStorage.setItem("token", user.data);
 
 
     await api.post("/courseForSale/createCourse", {
@@ -242,7 +248,12 @@ export default function CreateCourse() {
       </div>
 
       <div className="flex flex-col justify-evenly">{renderModules()}</div>
-      <button>submit</button>
+      <button
+      className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+      onClick={submitHandler}
+      >
+        Submit
+      </button>
     </div>
   );
 }

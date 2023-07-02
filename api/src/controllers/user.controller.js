@@ -44,6 +44,7 @@ const getLoginUser = async (req, res) => {
   try {
     console.log('-->',email)
     const user = await User.findOne({ where: { email: email } }); // Se busca en la base de datos un usuario con el correo electrónico proporcionado
+    console.log(user)
     if (!user){
       const error = new Error("user not found");
       error.status = 404;
