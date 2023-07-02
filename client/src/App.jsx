@@ -37,6 +37,7 @@ const App = () => {
       { path: "/about", element: <About /> },
       { path: "/detail/:courseId", element: <Detail /> },
       { path: "/*", element: <NotFound /> },
+      { path: "/about", element: <About /> },
     ]);
 
     return routes;
