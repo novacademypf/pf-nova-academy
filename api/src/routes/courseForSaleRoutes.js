@@ -4,7 +4,8 @@ const {
   getCourseForSale,
   deleteCourseForSale,
   updateCourseForSale,
-  getCourseForSaleById
+  getCourseForSaleById,
+  getFilterCourseForSale
 } = require("../controllers/courseForSale.controller");
 
 const VerifyAuthorization = require("../middleware/auth");
@@ -12,7 +13,7 @@ const { verificarRole } = require("../middleware/authRole");
 const courseForsaleRouter = Router();
 
 courseForsaleRouter.get("/", getCourseForSale);
-
+courseForsaleRouter.get("/filter",getFilterCourseForSale)
 courseForsaleRouter.get("/:courseId", getCourseForSaleById )
 
 courseForsaleRouter.post(

@@ -23,45 +23,62 @@ const postCreateCourseForSale = async (req, res) => {
 };
 
 const getCourseForSale = async (req, res) => {
-  try {
-    const { page, limit } = req.query;
-    const category = req.query.categories || [];
-    const priceMin = req.query.priceMin || 0;
-    const priceMax = req.query.priceMax || Infinity;
-     if (page && limit) {
+   try {
+    const { page, limit } = req.query;    
       const offset = (page - 1) * limit;
-      filterOptions = { category }; // Filtrar por categoría si se proporciona
        const { count, rows } = await CourseForSale.findAndCountAll({
-        where: filterOptions,
-        offset,
-        limit,
         include: {
           model: Profile,
           attributes: { exclude: ["photo"] },
         },
       });
-       res.send({ courseCount: count, courseAll: rows });
-    } else {
-      ; // Filtrar por categoría si se proporciona
-       const { count, rows } = await CourseForSale.findAndCountAll({
-        where: {
-          category: {
-            [Op.overlap]: category,
-          },
-          price: {
-            [Op.between]: [priceMin, priceMax],
-          },
-        },
-        include: {
-          model: Profile,
-          attributes: { exclude: ["photo"] },
-        },
-      });
-      console.log('--->',rows);
-       res.send({ courseCount: count, courseAll: rows });
-    }
+       res.send({ courseCount: count, courseAll: rows });    
   } catch (error) {
     res.status(400).json({ error: error.message }); 
+  }
+};
+const getFilterCourseForSale = async (req, res) => {
+  try {
+    const { categories, priceMin, priceMax } = req.query;
+    if (categories && priceMin && priceMax) {
+      console.log('estoy aca')
+      const { count, rows } = await CourseForSale.findAndCountAll({
+        where: {
+          category: {
+            [Op.contains]: categories
+          },
+          price: {
+            [Op.between]: [priceMin, priceMax]
+          }
+        },
+        include: {
+          model: Profile,
+          attributes: { exclude: ["photo"] },
+        },
+      });
+      
+      return res.json({ courseCount: count, courseAll: rows });
+    }
+    if (categories) {
+      console.log('estoy aca')
+      const { count, rows } = await CourseForSale.findAndCountAll({
+        where: {
+          category: {
+            [Op.contains]: categories
+          }
+         
+        },
+        include: {
+          model: Profile,
+          attributes: { exclude: ["photo"] },
+        },
+      });
+      
+      return res.json({ courseCount: count, courseAll: rows });
+    }
+   
+  } catch (error) {
+    res.json({ error: error.message });
   }
 };
 const updateCourseForSale = async (req, res) => {
@@ -125,5 +142,6 @@ module.exports = {
   getCourseForSale,
   deleteCourseForSale,
   updateCourseForSale,
-  getCourseForSaleById
+  getCourseForSaleById,
+  getFilterCourseForSale,
 };

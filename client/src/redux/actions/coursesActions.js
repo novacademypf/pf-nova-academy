@@ -7,6 +7,7 @@ export const getAllCourses = () => {
     try {
       let getDogs = await axios.get(endpoint);
       let data = getDogs.data;
+      console.log(data)
       let courseList = data.courseAll;
 
       return dispatch({ type: GET_ALL_COURSES, payload: courseList });

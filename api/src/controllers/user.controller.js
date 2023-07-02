@@ -94,6 +94,7 @@ const getUserById = async (req, res) => {
   }
 };
 
+
 const updateUserById = async (req, res) => {
   try {
     const { userId } = req.params;
