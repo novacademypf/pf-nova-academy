@@ -14,7 +14,7 @@ import SingUp from "./pages/SingUp";
 import Home from "./pages/Home";
 import NavBar from "./components/NavBar";
 import Detail from "./pages/Detail";
-import About from "./components/About";
+import About from "./pages/About";
 import { SearchCourse } from "./pages/SearchCourse/SearchCourse";
 
 const App = () => {

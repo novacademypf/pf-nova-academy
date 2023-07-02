@@ -3,7 +3,10 @@ import { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 
 export const SearchCourse = () => {
-  const [courses, setCourses] = useState([{}, {}]);
+  const [courses, setCourses] = useState([
+    { id: 1, name: "primer curso" },
+    { id: 2, name: "segundo curso" },
+  ]);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const name = searchParams.get("name");
