@@ -9,8 +9,8 @@ const SectionFilter = () => {
     const [isOpenU, setIsOpenU] = useState(false)
     const [isOpenCat, setIsOpenCat] = useState(false)
   return (
-    <section className="w-[20%] bg-purple-400 h-[100vh] flex-col  justify-center">
-    <div>
+    <section className=" min-w-[15em] border-2 border-red-600 bg-purple-400 relative h-[100vh] flex-col  justify-center">
+    <div className="fixed">
     <div className="bg-[#00FFFF] text-green-700 px-1 py-1 m-8">
         <button onClick={() => setIsOpenCat((prev) => !prev)} className="bg-Esmerald-200 p-4 w-full flex item">
             <h1 className="text-center font-bold">CATEGORIAS</h1>
