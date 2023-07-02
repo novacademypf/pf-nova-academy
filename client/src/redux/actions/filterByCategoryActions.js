@@ -1,13 +1,14 @@
 //import  category  from "../../../../api/src/constants/data"
+import { getCategoryFilters } from "../../services/courseForSaleRequest"
 import { FILTER_BY_CATEGORY } from "../action-type/action-types"
 
 
 
 
-export function filterByCategory(payload) {
+export function filterByCategory(categories) {
     return async function (dispatch) {
         try {
-            var json = await axios.get(`http://localhost:3001/category`);
+            var json = await getCategoryFilters(categories)
             console.log(json)
             return dispatch({
                 type: FILTER_BY_CATEGORY ,

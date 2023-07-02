@@ -9,7 +9,7 @@ export const getAllCourses = (page, limit) => {
     try {
       let getDogs = await getCourseForSale(page, limit);
       let data = getDogs.data;
-      console.log(data);
+     
       let courseList = data;
 
       return dispatch({

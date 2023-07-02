@@ -2,6 +2,7 @@ import { useState } from "react";
 import { AiOutlineCaretUp, AiOutlineCaretDown } from "react-icons/ai";
 import list from "./list.json";
 import { getCategories } from "../../services/categoryRequest";
+import { getCategoryFilters } from "../../services/courseForSaleRequest";
 
 const SectionFilter = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,6 +14,11 @@ const SectionFilter = () => {
     setCategories(categories.data);
     setIsOpenCat((prev) => !prev);
   };
+  const  handleSelectedClick = async (e)=>{
+    const {textContent}=e.target
+    await getCategoryFilters(textContent)
+    
+  }
   return (
     <section className=" w-[15em] min-w-[15em]  border-red-600 bg-purple-400 fixed  z-50 left-[0] h-[calc(100vh-5.5em)] right-0 flex-col  overflow-auto justify-center">
       <div className="">
@@ -32,7 +38,7 @@ const SectionFilter = () => {
             <div className="bg-Esmerald-100 relative h-[7em]  overflow-auto flex flex-col items-start rounded-lg p-2 w-full">
               {categories && categories.map((item, i) => (
                 <div key={i} >
-                  <h3>{item.name}</h3>
+                  <h3 onClick={handleSelectedClick}>{item.name}</h3>
                 </div>
               ))}
             </div>
