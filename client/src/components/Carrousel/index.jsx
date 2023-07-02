@@ -39,14 +39,14 @@ const Carrousel = () => {
   };
 
   return (
-    <div className="carousel relative mb-4">
+    <div className=" carousel relative mb-4 ">
       <div className="flex">
         {images.slice(currentIndex, currentIndex + 5).map((image, index) => (
           <img
             key={index}
             src={image.src}
             alt={image.alt}
-            className="w-1/5 h-56 object-cover p-2 carousel-item"
+            className="w-1/5 h-auto object-cover p-2 carousel-item"
           />
         ))}
       </div>
@@ -57,7 +57,7 @@ const Carrousel = () => {
         style={{ backgroundColor: "rgb(226 232 240)" }}
       >
         <svg
-          className="h-5 w-5 text-white svg-prev"
+          className="h-5 w-5 text-[#00FFFF] svg-prev"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -76,7 +76,7 @@ const Carrousel = () => {
         style={{ backgroundColor: "rgb(226 232 240)" }}
       >
         <svg
-          className="h-5 w-5 text-red-500"
+          className="h-5 w-5 text-[#00FFFF]"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
