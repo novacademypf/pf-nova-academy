@@ -2,12 +2,21 @@ const { CourseForSale, Profile, User } = require("../db");
 const getUserToken = require("../helpers/getUsertoken");
 const { Op} = require('sequelize');
 const { cursos, category } = require("../constants/data");
-const { Op } = require("sequelize");
 
 const postCreateCourseForSale = async (req, res) => {
   try {
+    // {
+    //   "name":"asd",
+    //   "category":["asdasd"],
+    //   "duration":"3meses",
+    //   "description":"asd",
+    //   "images":["asd"],
+    //   "price":123,
+    //   "idProfile":2
+    // }
     const { name, category, duration, description, images, price } = req.body;
     const user = await getUserToken(req);
+    console.log("user trae", user)
     if(!name){
       return res.status(404).json({ error: "Name missing" });
     }
@@ -85,7 +94,6 @@ const getFilterCourseForSale = async (req, res) => {
           category: {
             [Op.contains]: categories
           }
-         
         },
         include: {
           model: Profile,
@@ -95,7 +103,6 @@ const getFilterCourseForSale = async (req, res) => {
       
       return res.json({ courseCount: count, courseAll: rows });
     }
-   
   } catch (error) {
     res.json({ error: error.message });
   }
@@ -169,7 +176,6 @@ searchCoursesByName = async (name) => {
   } else {
     return {message: `No se encontraron Cursos que coincidan con ${name}`}
   }
-
 }
 module.exports = {
   postCreateCourseForSale,
@@ -177,6 +183,6 @@ module.exports = {
   deleteCourseForSale,
   updateCourseForSale,
   getCourseForSaleById,
-  getFilterCourseForSale,,
+  getFilterCourseForSale,
   searchCoursesByName
 };

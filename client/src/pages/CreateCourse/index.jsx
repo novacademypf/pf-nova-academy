@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCategories } from "../../redux/actions/categoryAction.js";
 import FormCourse from "./ModuleCreate";
-import axios from "axios";
+import api from "../../services/api.js"
 
 export default function CreateCourse() {
   const dispatch = useDispatch();
@@ -59,15 +59,15 @@ export default function CreateCourse() {
 
 
 
-    // await axios.post("http://localhost:3001/courseForSale/createCourse", {
-    //   ...form,
-    //   idProfile: 1// Aquí debes añadir el ID del perfil correspondiente
-    //   },
-    //   {
-    //   headers:{
-    //     Authorization:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzZXIiOjEsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjg4MjUyMzU2LCJleHAiOjE2ODgyNTk1NTZ9.8XJ0SexydPrtqZ7YUVM76wLSd9Bgiyj9IAUggS75qKw",
-    //   },
-    // });
+    await api.post("/courseForSale/createCourse", {
+      ...form,
+      idProfile: 1// Aquí debes añadir el ID del perfil correspondiente
+      },
+      {
+      headers:{
+        Authorization:"ya29.a0AbVbY6MsLv-dwtzjG0iFjf0jCKeNxfmwNao3BZ4hjAtBY_j0AQEe_GOvOZtw1XLVQhETWOc5nRROKQK7HH8ITl_OMzy7nL9UDDeYM8UoNupRbB4qa0Ak7Io9--a4-AU-dLMAwwAN78zz3RwKRDW98sXeHnETaCgYKAc4SARESFQFWKvPlfgATSGyyIJWGc-yW3uUnHQ0163"
+      },
+    });
     alert("Curso creado, Agrega modulos")
     setModules(modules + 1);
   };
