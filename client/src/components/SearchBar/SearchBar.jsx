@@ -106,7 +106,9 @@ const SearchBar = () => {
           <span className="sr-only">Buscar curso...</span>
         </button>
       </form>
-      {term.length > 0 && <ResultSearchBar results={filteredCourses} />}
+      {term.length > 0 && term !== " " && (
+        <ResultSearchBar results={filteredCourses} />
+      )}
     </>
   );
 };
