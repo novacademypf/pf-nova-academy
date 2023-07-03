@@ -13,7 +13,7 @@ const Dropdown = ({
     <div className="relative">
       <label
         className={`${
-          isLabel ? " text-xs text-gray-500 bg-white" : "text-sm"
+          isLabel ? " text-xs text-gray-700 bg-white" : "text-sm"
         } absolute transition-all duration-300 pointer-events-none left-2 ${
            isLabel ? "top-[-9px]" : "top-2"
         }`}

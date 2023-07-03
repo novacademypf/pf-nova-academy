@@ -62,14 +62,26 @@ function handleSortByName(order) {
         
       />
       <button className="focus:outline-none mt-1 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" onClick={handleDeleteFilters}>borrar filtros</button>
-      <li >
-                        <select onChange={e => handleSortByName(e)}>
-                            <option value="selected"  >Ordenado Por Curso</option>
+      
+                  <div className="relative">
+                        <select className="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" onChange={handleSortByName}>
+                            <option value="selected">Filtro Por Orden Alfabetico</option>
                             <option value="ABC">A - Z</option>
                             <option value="ZYX">Z - A</option>
                         </select>
-                    </li>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+    <svg class="fill-current h-4 w-4" viewBox="0 0 20 20">
+      <path
+        d="M10 12l-6-6 1.5-1.5L10 9l4.5-4.5L16 6l-6 6z"
+      />
+    </svg>
+      </div>
+        </div>
+                  
+        
     </section>
+    
+
   );
 };
 
