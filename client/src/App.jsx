@@ -14,8 +14,7 @@ import SingUp from "./pages/SingUp";
 import Home from "./pages/Home";
 import NavBar from "./components/NavBar";
 import Detail from "./pages/Detail";
-import About from "./pages/About";
-import { SearchCourse } from "./pages/SearchCourse/SearchCourse";
+import Footer from "./components/Footer/Footer";
 
 const App = () => {
 /*   const dispatch = useDispatch();
@@ -35,7 +34,6 @@ const App = () => {
       { path: "/order", element: <MyOrder /> },
       { path: "/login", element: <SingIn /> },
       { path: "/register", element: <SingUp /> },
-      { path: "/about", element: <About /> },
       { path: "/detail/:courseId", element: <Detail /> },
       { path: "/search", element: <SearchCourse /> },
       { path: "/*", element: <NotFound /> },
