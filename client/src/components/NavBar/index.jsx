@@ -73,6 +73,7 @@ const NavBar = () => {
             </ul>
           </nav>
         </div>
+      <NavLink to="/create">CREAR CURSO</NavLink>
         <div>
           <ul className="flex">
             <li>

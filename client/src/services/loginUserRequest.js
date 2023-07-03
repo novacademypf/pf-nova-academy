@@ -3,6 +3,7 @@ export const loginUser = async (data) => {
 
     console.log(data);
     const user = await api.post("/user/login", data);
+    console.log(user.data)
     return user;
       
 };

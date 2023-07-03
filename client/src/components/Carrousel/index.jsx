@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Carrousel = () => {
   const [images, setImages] = useState([]);
+  const courses = useSelector((state) => state).coursesReducer.courses; // <--  Ali este es el array con la info de los cursos
+  console.log(courses);
 
   useEffect(() => {
     const imageArray = [];
     for (let i = 0; i < 100; i++) {
       const imageObject = {
-        src: `https://picsum.photos/800/600?random=${i}`,
+        src: `https://source.unsplash.com/random/800x600/?book=${i}`,
         alt: `Imagen ${i}`,
       };
       imageArray.push(imageObject);
@@ -36,16 +40,27 @@ const Carrousel = () => {
   };
 
   return (
-    <div className="carousel relative">
+    <div className=" carousel relative mb-4 ">
       <div className="flex">
-        {images.slice(currentIndex, currentIndex + 5).map((image, index) => (
-          <img
-            key={index}
-            src={image.src}
-            alt={image.alt}
-            className="w-1/5 h-auto carousel-item"
-          />
-        ))}
+        {images.slice(currentIndex, currentIndex + 5).map((image, index) => {
+          const courseId = courses && courses[index] && courses[index].id;
+          return (
+            <div
+              key={index}
+              className="w-1/5 h-auto object-cover p-2 carousel-item"
+            >
+              <Link to={`/detail/${courseId}`}>
+                <img src={image.src} alt={image.alt} className="w-full" />
+              </Link>
+              {courses && courses[index] && (
+                <div className="text-center">
+                  <h3 className="text-lg font-bold">{courses[index].name}</h3>
+                  <p className="text-sm font-medium">${courses[index].price}</p>
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
       <button
         className="absolute top-1/2 left-0 transform -translate-y-1/2 px-4 py-2  border-radius: 0.25rem hover:underline rounded-full"
@@ -54,7 +69,7 @@ const Carrousel = () => {
         style={{ backgroundColor: "rgb(226 232 240)" }}
       >
         <svg
-          className="h-5 w-5 text-white svg-prev"
+          className="h-5 w-5 text-[#00FFFF] svg-prev"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -73,7 +88,7 @@ const Carrousel = () => {
         style={{ backgroundColor: "rgb(226 232 240)" }}
       >
         <svg
-          className="h-5 w-5 text-red-500"
+          className="h-5 w-5 text-[#00FFFF]"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"

@@ -1,20 +1,27 @@
-//import  category  from "../../../../api/src/constants/data"
-import { FILTER_BY_CATEGORY } from "../action-type/action-types"
+/* //import  category  from "../../../../api/src/constants/data"
+import { getCategoryFilters } from "../../services/courseForSaleRequest"
+import { FILTER_BY_CATEGORY, GET_ALL_COURSES } from "../action-type/action-types"
 
 
 
 
-export function filterByCategory(payload) {
+export function filterByCategory(categories) {
     return async function (dispatch) {
         try {
-            var json = await axios.get(`http://localhost:3001/category`);
-            console.log(json)
+            const courseList = await getCategoryFilters(categories)
+           
             return dispatch({
-                type: FILTER_BY_CATEGORY ,
-                payload: json.data
+                
+                    type: GET_ALL_COURSES,
+                    payload: {
+                      courseAll: courseList.courseAll,
+                      courseCount: courseList.courseCount,
+                    },
+                  
             })
         } catch (error) {
             console.log(error, "Error")
         }
     }
 }
+ */

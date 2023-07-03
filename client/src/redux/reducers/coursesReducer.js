@@ -1,4 +1,4 @@
-import { GET_ALL_COURSES } from "../action-type/action-types";
+import { GET_ALL_COURSES, SAVE_COURSE } from "../action-type/action-types";
 
 const initialState = {
   courses: [],
@@ -6,10 +6,11 @@ const initialState = {
 
 export default function coursesReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_ALL_COURSES: {
+    case SAVE_COURSE: {
+     
       return {
         ...state,
-        courses: action.payload,
+       courses: action.payload
       };
     }
 

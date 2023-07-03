@@ -17,11 +17,11 @@ import Detail from "./pages/Detail";
 import Footer from "./components/Footer/Footer";
 
 const App = () => {
-  const dispatch = useDispatch();
+/*   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllCourses());
-  }, []);
+  }, []); */
 
   const AppRouter = () => {
     let routes = useRoutes([
@@ -35,6 +35,7 @@ const App = () => {
       { path: "/login", element: <SingIn /> },
       { path: "/register", element: <SingUp /> },
       { path: "/detail/:courseId", element: <Detail /> },
+      { path: "/search", element: <SearchCourse /> },
       { path: "/*", element: <NotFound /> },
     ]);
 
@@ -44,7 +45,6 @@ const App = () => {
     <div>
       <NavBar />
       <AppRouter />
-      {/* <Footer /> */}
     </div>
   );
 };
