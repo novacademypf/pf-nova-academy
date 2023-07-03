@@ -7,7 +7,6 @@ import Checkout from "./pages/Checkout";
 import Courses from "./pages/Courses";
 import Landing from "./pages/Landing";
 import MyAccount from "./pages/MyAccount";
-
 import NotFound from "./pages/NotFound";
 import SingIn from "./pages/SingIn";
 import SingUp from "./pages/SingUp";
@@ -32,7 +31,6 @@ const App = () => {
       { path: "/checkout", element: <Checkout /> },
       { path: "/courses", element: <Courses /> },
       { path: "/account", element: <MyAccount /> },
-
       { path: "/login", element: <SingIn /> },
       { path: "/register", element: <SingUp /> },
       { path: "/about", element: <About /> },
