@@ -61,10 +61,10 @@ function handleSortByName(order) {
         handleOptionSelect={handleOptionSelect}
         
       />
-      <button className="focus:outline-none mt-1 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" onClick={handleDeleteFilters}>borrar filtros</button>
+      <button className="focus:outline-none mt-1 text-white bg-violet-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" onClick={handleDeleteFilters}>borrar filtros</button>
       
                   <div className="relative">
-                        <select className="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" onChange={handleSortByName}>
+                        <select className="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-3 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" onChange={handleSortByName}>
                             <option value="selected">Filtro Por Orden Alfabetico</option>
                             <option value="ABC">A - Z</option>
                             <option value="ZYX">Z - A</option>
