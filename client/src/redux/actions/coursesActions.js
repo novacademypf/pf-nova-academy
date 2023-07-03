@@ -18,24 +18,10 @@ export const getAllCourses = (page, limit) => {
 
 
 
-
-
-export function filterByCategoryCourse(categories) {
-    return async function (dispatch) {
-        try {
-            const courseList = await getCategoryFilters(categories)
-           
-            return dispatch(saveCourse(courseList.data)); 
-            
-        } catch (error) {
-            console.log(error, "Error")
-        }
-    }
-}
-
-export const saveCourse=(course)=>{
+export const saveCourse=(course,isFilter)=>{
   return {
     type:SAVE_COURSE,
-    payload:course
+    payload:course,
+    isFilter:isFilter
   }
 }

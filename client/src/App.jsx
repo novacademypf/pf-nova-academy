@@ -35,7 +35,6 @@ const App = () => {
       { path: "/login", element: <SingIn /> },
       { path: "/register", element: <SingUp /> },
       { path: "/detail/:courseId", element: <Detail /> },
-      { path: "/search", element: <SearchCourse /> },
       { path: "/*", element: <NotFound /> },
     ]);
 

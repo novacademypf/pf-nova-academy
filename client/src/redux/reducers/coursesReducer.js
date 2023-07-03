@@ -2,6 +2,7 @@ import { GET_ALL_COURSES, SAVE_COURSE } from "../action-type/action-types";
 
 const initialState = {
   courses: [],
+  isFilter:false
 };
 
 export default function coursesReducer(state = initialState, action) {
@@ -10,7 +11,8 @@ export default function coursesReducer(state = initialState, action) {
      
       return {
         ...state,
-       courses: action.payload
+       courses: action.payload,
+       isFilter: action.isFilter
       };
     }
 

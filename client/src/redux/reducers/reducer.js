@@ -5,6 +5,7 @@ import userReducer from "./userReducer.js";
 import filterByCategoryRed from "./filterByCategoryReducer.js";
 import getAllCategories from "./allCategoriesReducer.js"
 import categoriesReducer from "./categoryReducer.js"
+import {setOptionsFiltersReducer}from "./filtersReducer.js"
 const reducer = combineReducers({
   categoriesReducer: categoriesReducer,
   shoppingCartReducer: shoppingCartReducer,
@@ -12,6 +13,7 @@ const reducer = combineReducers({
   userReducer: userReducer,
   getAllCategories: getAllCategories,
   filterByCategoryRed:filterByCategoryRed,
+  setOptionsFiltersReducer ,
 });
 
 export default reducer;

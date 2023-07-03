@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const courses = useSelector((state) => state).shoppingCartReducer.cart;
+  const courses = useSelector((state) => state.shoppingCartReducer.cart)
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
