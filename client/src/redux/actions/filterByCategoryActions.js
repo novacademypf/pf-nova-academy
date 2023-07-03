@@ -1,5 +1,5 @@
  //import  category  from "../../../../api/src/constants/data"
-import { getCategoryFilters } from "../../services/courseForSaleRequest"
+/*import { getCategoryFilters } from "../../services/courseForSaleRequest"
 import { FILTER_BY_CATEGORY, GET_ALL_COURSES } from "../action-type/action-types"
 
 
@@ -23,5 +23,5 @@ export function filterByCategory(categories) {
             console.log(error, "Error")
         }
     }
-}
+}*/
  
