@@ -1,9 +1,9 @@
 import axios from "axios";
-import { GET_ALL_COURSES, SAVE_COURSE } from "../action-type/action-types";
-import api from "../../services/api";
+import {SAVE_COURSE } from "../action-type/action-types";
+
 import { getCategoryFilters, getCourseForSale } from "../../services/courseForSaleRequest";
-const endpoint = "http://localhost:3001/courseForSale ";
-import { GET_ALL_COURSES } from "../action-type/action-types";
+
+
 const endpoint = "http://localhost:3001/courseForSale?page=1&limit=10";
 
 export const getAllCourses = (page, limit) => {

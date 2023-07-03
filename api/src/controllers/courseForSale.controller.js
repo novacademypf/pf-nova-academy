@@ -1,7 +1,6 @@
 const { CourseForSale, Profile, User } = require("../db");
 const getUserToken = require("../helpers/getUsertoken");
 const { Op } = require('sequelize');
-const { Op } = require('sequelize');
 const { cursos, category } = require("../constants/data");
 
 const postCreateCourseForSale = async (req, res) => {
