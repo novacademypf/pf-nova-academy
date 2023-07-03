@@ -16,7 +16,7 @@ courseForsaleRouter.get("/", getCourseForSale);
 
 courseForsaleRouter.get("/:courseId", getCourseForSaleById )
 
-courseForsaleRouter.post(
+courseForsaleRouter.post(       
   "/createCourse",
   VerifyAuthorization,
   verificarRole("user"),
