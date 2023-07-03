@@ -20,7 +20,7 @@ export const useGoogleAuth = () => {
     console.log(codeResponse);
     const response = await loginUserGoogle(codeResponse.access_token);
     localStorage.setItem("token", response.data.token);
-    console.log(response);
+    console.log("test token login",response.data.token);
     response.data.token && response.status === 200 && navigate("/");
   };
   const error = () => {

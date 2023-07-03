@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllCategories } from "../../redux/actions/categoryAction.js";
 import FormCourse from "./ModuleCreate";
 import api from "../../services/api.js"
-
+import { useGoogleAuth } from "../../hooks/useGoogleAuth.jsx";
 export default function CreateCourse() {
   const dispatch = useDispatch();
   const categoryList = useSelector((state) => state.categoryList);
@@ -24,7 +24,6 @@ export default function CreateCourse() {
     description: "",
     images: "",
     price: "",
-    idProfile:"",
   });
 
   useEffect(() => {
@@ -58,20 +57,19 @@ export default function CreateCourse() {
     // crear boton submit para pushear todo al back, 
     // crear boton submit lecion para hacer el post de cada lecion en cada modulo.
     // revisar los axios
-//     localStorage.setItem("token", response.data.token);
+// console.log(localStorage.setItem("token", response.data.token));
 // token de google
 
 // token de user registrado
-// localStorage.setItem("token", user.data);
+console.log(localStorage.token)
 
 
     await api.post("/courseForSale/createCourse", {
-      ...form,
-      idProfile: 1// Aquí debes añadir el ID del perfil correspondiente
+      ...form
       },
       {
       headers:{
-        Authorization:"ya29.a0AbVbY6MsLv-dwtzjG0iFjf0jCKeNxfmwNao3BZ4hjAtBY_j0AQEe_GOvOZtw1XLVQhETWOc5nRROKQK7HH8ITl_OMzy7nL9UDDeYM8UoNupRbB4qa0Ak7Io9--a4-AU-dLMAwwAN78zz3RwKRDW98sXeHnETaCgYKAc4SARESFQFWKvPlfgATSGyyIJWGc-yW3uUnHQ0163"
+        Authorization:localStorage.token
       },
     });
     alert("Curso creado, Agrega modulos")

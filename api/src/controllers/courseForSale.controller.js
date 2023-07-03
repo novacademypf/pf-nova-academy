@@ -7,9 +7,6 @@ const postCreateCourseForSale = async (req, res) => {
   try {
     const { name, category, duration, description, images, price } = req.body;
     const user = await getUserToken(req);
-
-    console.log("user trae", user.idUser)
-    console.log("profile.userid trae", Profile.userId)
     if (!name) {
       return res.status(404).json({ error: "Name missing" });
     }
@@ -159,7 +156,6 @@ const searchCoursesByName = async (req, res) => {
   try {
     const { name } = req.query;
     console.log(name)
-    // const dataBaseCourses=await CourseForSale.find({name:{ $regex:name,$options:"i"}})
     const dataBaseCourses = await CourseForSale.findAll({
       where: {
         name: {

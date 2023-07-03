@@ -15,7 +15,7 @@ const courseForsaleRouter = Router();
 courseForsaleRouter.get("/",getCourseForSale);
 courseForsaleRouter.get("/filter",getFilterCourseForSale);
 courseForsaleRouter.get("/search", searchCoursesByName);
-courseForsaleRouter.get("/:courseId", getCourseForSaleById );
+courseForsaleRouter.get("/:courseId", getCourseForSaleById);
 
 courseForsaleRouter.post(
   "/createCourse",
