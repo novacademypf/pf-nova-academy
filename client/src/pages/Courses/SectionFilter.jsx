@@ -8,7 +8,8 @@ import { useSelector, useDispatch } from "react-redux";
 import Dropdown from "../../components/DropDown/DropDown";
 import { useDropDown } from "../../hooks/useDropdown";
 import { getAllCategories } from "../../redux/actions/allCategoriesActions";
-import {  filterByCategoryCourse,  updateOptionFilters } from "../../redux/actions/filterActions";
+import {  filterByCategoryCourse,  setDefaultFilters,  updateOptionFilters } from "../../redux/actions/filterActions";
+import { getAllCourses } from "../../redux/actions/coursesActions";
 const SectionFilter = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.getAllCategories.categories);
@@ -29,6 +30,10 @@ const SectionFilter = () => {
     dispatch(filterByCategoryCourse(value, true));
     setIsOpen(false);
   };
+  const handleDeleteFilters=()=>{
+    dispatch(setDefaultFilters())
+    dispatch(getAllCourses())
+  }
   return (
     <section className=" w-[15em] min-w-[15em] py-[2em] px-[1em]  fixed  z-50 left-[0] h-[calc(100vh-5.5em)] right-0 flex-col  overflow-auto justify-center">
       <Dropdown
@@ -41,6 +46,7 @@ const SectionFilter = () => {
         getData={getData}
         handleOptionSelect={handleOptionSelect}
       />
+      <button className="focus:outline-none mt-1 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" onClick={handleDeleteFilters}>borrar filtros</button>
     </section>
   );
 };
