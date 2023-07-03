@@ -1,6 +1,6 @@
 const { CourseForSale, Profile, User } = require("../db");
 const getUserToken = require("../helpers/getUsertoken");
-const { Op } = require('sequelize');
+const { Op,fn, Sequelize, col } = require('sequelize');
 const { cursos, category } = require("../constants/data");
 
 const postCreateCourseForSale = async (req, res) => {
@@ -53,7 +53,18 @@ const getCourseForSale = async (req, res) => {
         attributes: { exclude: ["photo"] },
       },
     });
-    res.send({ courseCount: count, courseAll: rows });
+    const course = await CourseForSale.findOne({
+      attributes: [
+        [fn('max', col('price')), 'maxPrice'],
+        [fn('min', col('price')), 'minPrice']
+      ],
+    });
+    const maxPrice = course.get('maxPrice');
+const minPrice = course.get('minPrice');
+
+console.log(maxPrice, minPrice);
+   
+    res.send({ courseCount: count, courseAll: rows,maxPrice,minPrice });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
