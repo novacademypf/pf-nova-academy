@@ -23,7 +23,7 @@ const postCreateCourseForSale = async (req, res) => {
 };
 
 const getCourseForSale = async (req, res) => {
-  try {
+ /* try {
     const { page, limit } = req.query;
     const category = req.query.categories || [];
     const priceMin = req.query.priceMin || 0;
@@ -62,8 +62,31 @@ const getCourseForSale = async (req, res) => {
     }
   } catch (error) {
     res.status(400).json({ error: error.message }); 
-  }
+  }*/
 };
+
+const getfilterCourseForSale = async (req, res) => {
+  try {
+    const{categories, priceMin, priceMax}=req.query
+    if(categories && priceMin && priceMax){
+      const {count,rows} = await CourseForSale.findAndCountAll({
+        where:{
+         [Op.and] : [
+          {category: categories},
+          {priceMax: priceMax},
+          {priceMin: priceMin}
+         ]
+        }
+    });
+    res.send({courseCount: count, couseAll: rows})
+    }
+
+    console.log(categories, priceMin, priceMax);
+    res.send("hola")
+  } catch (error){
+
+  }
+}
 const updateCourseForSale = async (req, res) => {
   try {
     const courseId = req.params.courseId;
@@ -125,5 +148,6 @@ module.exports = {
   getCourseForSale,
   deleteCourseForSale,
   updateCourseForSale,
-  getCourseForSaleById
+  getCourseForSaleById,
+  getfilterCourseForSale
 };
