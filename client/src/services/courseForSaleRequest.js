@@ -13,6 +13,13 @@ const encodedCategories = categories&&categories.map(category => encodeURICompon
 // Concatena los valores codificados en una cadena separada por ampersand '&'
 const queryString = 'categories[]=' + encodedCategories.join('&categories[]=');
 
-    const response = await api.get(`courseForSale/filter?`)
-    console.log('-->', response.data)
+try {
+    const response = await api.get(`courseForSale/filter?${queryString}`)
+  
+    return response
+} catch (error) {
+    console.log(error)
+}
+   
+   
 }

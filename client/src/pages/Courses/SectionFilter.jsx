@@ -2,13 +2,16 @@ import { useState } from "react";
 import { AiOutlineCaretUp, AiOutlineCaretDown } from "react-icons/ai";
 import list from "./list.json";
 import { getCategories } from "../../services/categoryRequest";
-import { getCategoryFilters } from "../../services/courseForSaleRequest";
 
+import { useSelector, useDispatch } from "react-redux";
+import { filterByCategoryCourse, saveCourse } from "../../redux/actions/coursesActions";
 const SectionFilter = () => {
+  const dispatch =useDispatch()
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenU, setIsOpenU] = useState(false);
   const [isOpenCat, setIsOpenCat] = useState(false);
   const [categories, setCategories] = useState([]);
+
   const handleOnClick = async () => {
     const categories = await getCategories();
     setCategories(categories.data);
@@ -16,8 +19,8 @@ const SectionFilter = () => {
   };
   const  handleSelectedClick = async (e)=>{
     const {textContent}=e.target
-    await getCategoryFilters(textContent)
-    
+    console.log(textContent)
+   dispatch(filterByCategoryCourse(textContent))
   }
   return (
     <section className=" w-[15em] min-w-[15em]  border-red-600 bg-purple-400 fixed  z-50 left-[0] h-[calc(100vh-5.5em)] right-0 flex-col  overflow-auto justify-center">
@@ -38,7 +41,7 @@ const SectionFilter = () => {
             <div className="bg-Esmerald-100 relative h-[7em]  overflow-auto flex flex-col items-start rounded-lg p-2 w-full">
               {categories && categories.map((item, i) => (
                 <div key={i} >
-                  <h3 onClick={handleSelectedClick}>{item.name}</h3>
+                  <h3 onClick={handleSelectedClick} className="cursor-pointer">{item.name}</h3>
                 </div>
               ))}
             </div>
@@ -60,7 +63,7 @@ const SectionFilter = () => {
           {isOpen && (
             <div className="bg-Esmerald-100 relative flex flex-col items-start rounded-lg p-2 w-full">
               {list.map((item, i) => (
-                <div>
+                <div key={i}>
                   <h3>{item.city}</h3>
                 </div>
               ))}
@@ -82,7 +85,7 @@ const SectionFilter = () => {
           {isOpenU && (
             <div className="bg-Esmerald-100 relative flex flex-col items-start rounded-lg p-2 w-full">
               {list.map((item, i) => (
-                <div>
+                <div key={i}>
                   <h3>{item.city}</h3>
                 </div>
               ))}

@@ -1,7 +1,7 @@
 import axios from "axios";
-import { GET_ALL_COURSES } from "../action-type/action-types";
+import { GET_ALL_COURSES, SAVE_COURSE } from "../action-type/action-types";
 import api from "../../services/api";
-import { getCourseForSale } from "../../services/courseForSaleRequest";
+import { getCategoryFilters, getCourseForSale } from "../../services/courseForSaleRequest";
 const endpoint = "http://localhost:3001/courseForSale ";
 
 export const getAllCourses = (page, limit) => {
@@ -9,18 +9,33 @@ export const getAllCourses = (page, limit) => {
     try {
       let getDogs = await getCourseForSale(page, limit);
       let data = getDogs.data;
-     
-      let courseList = data;
-
-      return dispatch({
-        type: GET_ALL_COURSES,
-        payload: {
-          courseAll: courseList.courseAll,
-          courseCount: courseList.courseCount,
-        },
-      });
+      return dispatch(saveCourse(data));
     } catch (err) {
       console.log({ errorGetAllCourses: err, message: err.message });
     }
   };
 };
+
+
+
+
+
+export function filterByCategoryCourse(categories) {
+    return async function (dispatch) {
+        try {
+            const courseList = await getCategoryFilters(categories)
+           
+            return dispatch(saveCourse(courseList.data)); 
+            
+        } catch (error) {
+            console.log(error, "Error")
+        }
+    }
+}
+
+export const saveCourse=(course)=>{
+  return {
+    type:SAVE_COURSE,
+    payload:course
+  }
+}

@@ -22,7 +22,7 @@ const Pagination = () => {
         onPageChange={handlePageClick}
         pageRangeDisplayed={3}
         marginPagesDisplayed={3}
-        pageCount={courseCount/10}
+        pageCount={ Math.ceil(courseCount / 10)}
         containerClassName={"flex bg-white drop-shadow-lg rounded-[1em] px-4 py-2 jusify-center items-center gap-2"}
         pageClassName={
           "w-[1.5em] h-[1.5em]  rounded-[50%] flex items-center justify-center"
