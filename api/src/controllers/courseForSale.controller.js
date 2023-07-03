@@ -1,12 +1,16 @@
 const { CourseForSale, Profile, User } = require("../db");
 const getUserToken = require("../helpers/getUsertoken");
 const { Op } = require('sequelize');
+const { Op } = require('sequelize');
 const { cursos, category } = require("../constants/data");
 
 const postCreateCourseForSale = async (req, res) => {
   try {
     const { name, category, duration, description, images, price } = req.body;
     const user = await getUserToken(req);
+
+    console.log("user trae", user.idUser)
+    console.log("profile.userid trae", Profile.userId)
     if (!name) {
       return res.status(404).json({ error: "Name missing" });
     }
@@ -38,7 +42,7 @@ const postCreateCourseForSale = async (req, res) => {
 };
 
 const getCourseForSale = async (req, res) => {
- /* try {
+  try {
     const { page, limit } = req.query;
     console.log({ page, limit })
     const offset = (page - 1) * limit;
@@ -96,7 +100,7 @@ const getFilterCourseForSale = async (req, res) => {
   } catch (error) {
     res.json({ error: error.message });
   }
-}
+};
 const updateCourseForSale = async (req, res) => {
   try {
     const courseId = req.params.courseId;
@@ -156,6 +160,7 @@ const searchCoursesByName = async (req, res) => {
   try {
     const { name } = req.query;
     console.log(name)
+    // const dataBaseCourses=await CourseForSale.find({name:{ $regex:name,$options:"i"}})
     const dataBaseCourses = await CourseForSale.findAll({
       where: {
         name: {
@@ -175,5 +180,7 @@ module.exports = {
   getCourseForSale,
   deleteCourseForSale,
   updateCourseForSale,
-  getCourseForSaleById
+  getCourseForSaleById,
+  getFilterCourseForSale,
+  searchCoursesByName,
 };
