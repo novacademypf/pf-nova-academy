@@ -69,7 +69,7 @@ console.log(localStorage.token)
       },
       {
       headers:{
-        Authorization:localStorage.token
+        Authorization:"Bearer"+localStorage.token
       },
     });
     alert("Curso creado, Agrega modulos")

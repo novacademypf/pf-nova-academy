@@ -7,21 +7,11 @@ const postCreateCourseForSale = async (req, res) => {
   try {
     const { name, category, duration, description, images, price } = req.body;
     const user = await getUserToken(req);
-    if (!name) {
-      return res.status(404).json({ error: "Name missing" });
+    console.log("usuario",user)
+    if (!name || !category || !duration || !description || !images || !price ) {
+      return res.status(404).json({ error: "Data missing" });
     }
-    if (!category) {
-      return res.status(404).json({ error: "Category missing" });
-    }
-    if (!duration) {
-      return res.status(404).json({ error: "Duration missing" });
-    }
-    if (!images) {
-      return res.status(404).json({ error: "Images missing" });
-    }
-    if (!price) {
-      return res.status(404).json({ error: "Price missing" });
-    }
+    
     const newCourse = await CourseForSale.create({
       name,
       category,
@@ -29,7 +19,7 @@ const postCreateCourseForSale = async (req, res) => {
       description,
       images,
       price,
-      idProfile: user.idUser,
+      emailId: user.email,
     });
     res.json(newCourse);
   } catch (error) {

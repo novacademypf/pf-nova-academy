@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { Sequelize } = require("sequelize");
+const { Sequelize, DataTypes } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
 const courseForSale = require("./models/courseForSale");
@@ -63,10 +63,16 @@ User.hasOne(Profile, { foreignKey: "userId", onDelete: "CASCADE" });
 Profile.belongsTo(User, { foreignKey: "userId" });
 //relacion de uno a muchos de perfil a cursos en venta
 Profile.hasMany(CourseForSale, {
-  foreignKey: "idProfile",
+  foreignKey: {
+    name: 'emailId',
+    type: DataTypes.STRING // Asegúrate de importar correctamente DataTypes de Sequelize
+    },
 });
 CourseForSale.belongsTo(Profile, {
-  foreignKey: "idProfile",
+  foreignKey: {
+    name: 'emailId',
+    type: DataTypes.STRING // Asegúrate de importar correctamente DataTypes de Sequelize
+    },
 });
 //relacion de uno a muchos de perfil a curso comprado
 Profile.hasMany(CourseBought, {
@@ -82,8 +88,14 @@ Category.belongsToMany(CourseForSale, { through: "CourseCategory" });
 CourseForSale.hasMany(Module, {
   foreignKey: "idCourseForSale",
 });
+Module.belongsTo(CourseForSale, {
+  foreignKey: "idCourseForSale",
+});
 // relacion de module a lesson, de uno a muhcos
 Module.hasMany(Lesson, {
+  foreignKey: "idModule",
+});
+Lesson.belongsTo(Module, {
   foreignKey: "idModule",
 });
 

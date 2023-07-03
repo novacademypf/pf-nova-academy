@@ -26,7 +26,7 @@ const postLoginGoogle = async (req, res) => {
         console.log("-->",userGoogle)
         const newUser = await UserGoogle.create({ name: userName, email: userEmail });
 
-        const newProfile = await Profile.create({ name: userName, photo: userPhoto });
+        const newProfile = await Profile.create({ name: userName, photo: userPhoto, email:userEmail});
 
         newUser.setProfile(newProfile);
 

@@ -7,6 +7,7 @@ const createtoken = async (user) => {
     {
       idUser: user.userId,
       role: user.role,
+      email:user.email
     },
     JWT_SECRET,
     { expiresIn: "2h" }

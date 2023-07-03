@@ -30,6 +30,7 @@ const createUser = async (req, res) => {
     const newPerfil = await Profile.create({
       userId: user.userId, // ID del usuario se guarda en la columna 'userId' de la tabla 'Perfil'
       name: user.name,
+      email:user.email,
     });
     res.send('user created successfully');
   } catch (error) {

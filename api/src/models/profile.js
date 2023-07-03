@@ -10,7 +10,8 @@ module.exports = (sequelize) => {
         autoIncrement: true,
       },
       name: { type: DataTypes.STRING},
-      photo:{type: DataTypes.STRING}
+      photo:{type: DataTypes.STRING},
+      email:{type: DataTypes.STRING}
       
     }
     , {
