@@ -2,23 +2,29 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllCourses } from "../../redux/actions/coursesActions";
 import ReactPaginate from "react-paginate";
 import { filterByCategoryCourse } from "../../redux/actions/filterActions";
+import { useEffect, useState } from "react";
 
 const Pagination = () => {
-  const { courseCount,courseAll } = useSelector((state) => state.coursesReducer.courses);
+  const { courseCount, courseAll } = useSelector((state) => state.coursesReducer.courses);
   const isFilter = useSelector((state) => state.coursesReducer.isFilter);
-  const { category } = useSelector(
-    (state) => state.setOptionsFiltersReducer.filters
-  );
-console.log(courseAll)
+  const { category } = useSelector((state) => state.setOptionsFiltersReducer.filters);
+
   const dispatch = useDispatch();
+  const [selectedPage, setSelectedPage] = useState(0);
+
+  useEffect(() => {
+    setSelectedPage(0); // Reinicia la página seleccionada cuando se obtienen nuevas páginas
+  }, [courseCount]); // Actualiza el estado cuando cambia la cantidad total de cursos
+
   const handlePageClick = (page) => {
+    const newSelectedPage = Number(page.selected);
+    setSelectedPage(newSelectedPage);
+
     if (!isFilter) {
-      dispatch(getAllCourses(Number(page.selected + 1)));
+      dispatch(getAllCourses(newSelectedPage + 1));
+    } else {
+      dispatch(filterByCategoryCourse(category, true, newSelectedPage + 1));
     }
-    if(isFilter){
-      dispatch(filterByCategoryCourse(category,true,Number(page.selected + 1)));
-    }
-   
   };
   return (
     <div className="w-[calc(100%-15em)]  left-[15em] bg-white h-14 fixed z-30  flex justify-center items-center gap-2 ">
@@ -45,6 +51,8 @@ console.log(courseAll)
         previousLabel="prev"
         previousLinkClassName="font-bold"
         renderOnZeroPageCount={null}
+        initialPage={0}
+        forcePage={selectedPage}
       />
     </div>
   );
