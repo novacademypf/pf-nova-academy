@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import ButtonPagination from "./ButtonPagination";
 import { getAllCourses } from "../../redux/actions/coursesActions";
 import ReactPaginate from "react-paginate";
 
