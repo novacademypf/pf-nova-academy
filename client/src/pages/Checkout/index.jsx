@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import Layout from "../../Layout";
-import CartItem from "../../components/cartItem/CartItem";
+
 import { clearCart } from "../../redux/actions/shoppingCartActions";
 import axios from "axios";
+import CartItem from "../../components/CartItem/CartItem";
 
 const Checkout = () => {
   const coursesCart = useSelector((state) => state).shoppingCartReducer.cart;
