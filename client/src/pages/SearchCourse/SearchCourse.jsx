@@ -15,7 +15,7 @@ export const SearchCourse = () => {
   const getCoursesParams = async (name) => {
     try {
       let getCourses = await axios.get(
-        `http://localhost:3001/courseForSale/searc?name=${name}`
+        `http://localhost:3001/courseForSale/search?name=${name}`
       );
       let data = await getCourses.data;
       console.log(data);
@@ -31,7 +31,9 @@ export const SearchCourse = () => {
 
   return (
     <Layout>
-      <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-4 m-8 mx-auto">
+      <div
+        className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 m-8 mx-auto`}
+      >
         {courses.map((el) => {
           return (
             <figure
@@ -59,7 +61,7 @@ export const SearchCourse = () => {
                   type="button"
                   className=" bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
                 >
-                  <Link to="detail">Ver mas</Link>
+                  <Link to={`/detail/${el.id}`}>Ver mas</Link>
                 </button>
               </figcaption>
             </figure>
