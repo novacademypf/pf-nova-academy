@@ -1,10 +1,19 @@
+import { Link } from "react-router-dom";
 import "./styles.css";
-export const ShoppingCartAside = () => {
+
+/* eslint-disable */
+
+export const ShoppingCartAside = ({ toggle, cartItems }) => {
   return (
-    <aside className=" shopping-aside flex flex-col fixed right-0 bg-white  border-2 rounded  z-20">
-      <section className="flex items-center  justify-between p-6">
+    <aside className=" shopping-aside flex flex-col fixed right-0 bg-white  border-2 rounded  z-20 p-6">
+      <section className="flex items-center  justify-between">
         <h2 className=" font-medium text-xl">Carrito de compras</h2>
-        <button className="hover:bg-slate-600">
+        <button
+          className="hover:bg-slate-600"
+          onClick={() => {
+            toggle();
+          }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -21,6 +30,12 @@ export const ShoppingCartAside = () => {
           </svg>
         </button>
       </section>
+      <div>
+        {cartItems.map((el) => (
+          <div>{el.name}</div>
+        ))}
+      </div>
+      <Link to="/checkout">Pagar</Link>
     </aside>
   );
 };
