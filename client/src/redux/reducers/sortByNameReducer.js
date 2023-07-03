@@ -11,7 +11,7 @@ const initialState = {
         switch(action.type){
             case SORT_BY_NAME:
                     const sortedName = action.payload === 'ABC' ?
-                        state.dogs.sort(function (a, b) {
+                        state.courses.sort(function (a, b) {
                             if (a.name.toLowerCase() > b.name.toLowerCase()) {
                                 return 1;
                             }
@@ -20,7 +20,7 @@ const initialState = {
                             }
                             return 0
                         }) :
-                        state.dogs.sort(function (a, b) {
+                        state.courses.sort(function (a, b) {
                             if (a.name.toLowerCase() > b.name.toLowerCase()) {
                                 return -1;
                             }
@@ -31,7 +31,7 @@ const initialState = {
                         })
                     return {
                         ...state,
-                        dogs: sortedName
+                        courses:sortedName
                     }
                 default:
                     return state;
