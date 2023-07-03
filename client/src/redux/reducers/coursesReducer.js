@@ -1,4 +1,4 @@
-import { GET_ALL_COURSES, SAVE_COURSE } from "../action-type/action-types";
+import {  SAVE_COURSE } from "../action-type/action-types";
 
 const initialState = {
   courses: [],
