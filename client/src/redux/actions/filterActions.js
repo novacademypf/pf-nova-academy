@@ -1,6 +1,7 @@
 import { getCourseForSale } from "../../services/courseForSaleRequest";
 import {
   APPLY_FILTER,
+  DELETE_FILTERS,
   FILTER_COURSE_CATEGORY,
   FILTER_ORDEN_ALFABETICO,
   GET_COURSE_FILTER_DEFAULT,
@@ -51,6 +52,9 @@ export const applyFilter = (category, precio, orderAlphabetico,isFiltered) => {
     isFiltered: isFiltered
   };
 };
+export const deleteFilters=()=>{
+  return { type: DELETE_FILTERS}
+}
 export const FilterCourseCategory = (option, data) => {
   return {
     type: FILTER_COURSE_CATEGORY,

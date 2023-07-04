@@ -1,6 +1,7 @@
 import { getCourseForSale } from "../../services/courseForSaleRequest";
 import {
   APPLY_FILTER,
+  DELETE_FILTERS,
   FILTER_COURSE_CATEGORY,
   FILTER_ORDEN_ALFABETICO,
   GET_COURSE_FILTER_DEFAULT,
@@ -16,7 +17,7 @@ const initialState = {
   filters: {
     category: "todos",
     precio: "todos",
-    orderAlphabetico: "A-z",
+    orderAlphabetico: "todos",
   },
   isFiltered: false,
   // otros estados iniciales...
@@ -33,7 +34,7 @@ export const filterReducer = (state = initialState, action) => {
     case APPLY_FILTER:
       console.log(action.filters);
       const { category, precio, orderAlphabetico } = action.filters;
-
+console.log( '--->precio rereucer',precio)
       if (category !== "todos") {
         const data = state.cursos.courseAll.filter((c) => {
           return c.category.includes(category);
@@ -45,12 +46,29 @@ export const filterReducer = (state = initialState, action) => {
           isFiltered: action.isFiltered,
         };
       }
+      if(precio!=='todos'){
+        const minPrice = 0; // Precio mínimo del rango
+        const maxPrice =  +precio; // Precio máximo del rango
+      
+        const data = state.cursos.courseAll.filter((c) => {
+          // Asegúrate de tener una propiedad 'price' en cada curso
+          console.log('----->azzzz',c.price,maxPrice)
+          return  c.price <= maxPrice;
+        });
+        return {
+          ...state,
+          cursos: state.cursos,
+          cursosFiltrados: { courseAll: data },
+          isFiltered: true,
+        };
+      
+      }
       if(orderAlphabetico !=='A-z'){
         const copia = [...state.cursos.courseAll];
       const ordenAlfiltrado = copia.sort((a, b) =>
         a.name.localeCompare(b.name)
       );
-
+      console.log( 'aqui estoy')
       return {
         ...state,
         cursos: state.cursos,
@@ -71,8 +89,20 @@ export const filterReducer = (state = initialState, action) => {
       isFiltered: action.isFiltered,
     }; 
   }
-      return state;
 
+      return state;
+  case DELETE_FILTERS:
+     return {
+      ...state,
+      cursos: state.cursos,
+      cursosFiltrados: [],
+      filters: {
+        category: "todos",
+        precio: "todos",
+        orderAlphabetico: "todos",
+      },
+      isFiltered: false,
+     }
     case GET_COURSE_FILTER_DEFAULT:
       return {
         ...state,
@@ -94,7 +124,6 @@ export const filterReducer = (state = initialState, action) => {
       const ordenAlfiltrado = copia.sort((a, b) =>
         a.name.localeCompare(b.name)
       );
-      console.log("===>", ordenAlfiltrado);
       return {
         ...state,
         cursosFiltrados: [...ordenAlfiltrado],
