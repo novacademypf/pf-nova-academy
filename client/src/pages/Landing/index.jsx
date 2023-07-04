@@ -12,6 +12,8 @@ const Landing = () => {
       <Carrousel />
       
     </Layout>
+
+
   );
 };
 
