@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import Pagination from "../../components/pagination/Pagination";
 import CourseCards from "../../components/CourseCards/CourseCards";
-import { useEffect } from "react";
+
 
 
 const SectionCursos = () => {
@@ -11,7 +11,7 @@ const SectionCursos = () => {
     <section className=" min-w-[calc(100%-15em)] left-[15em]   relative ">
       <Pagination />
       <div className=" w-full relative  top-[3.5em] " >
-      <CourseCards  courses={courseAll}/>
+      <CourseCards courses={courseAll} />
 
       </div>
         

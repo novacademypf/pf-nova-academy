@@ -1,6 +1,6 @@
 const { CourseForSale, Profile, User } = require("../db");
 const getUserToken = require("../helpers/getUsertoken");
-const { Op } = require('sequelize');
+const { Op,fn, Sequelize, col } = require('sequelize');
 const { cursos, category } = require("../constants/data");
 
 const postCreateCourseForSale = async (req, res) => {
@@ -40,23 +40,34 @@ const getCourseForSale = async (req, res) => {
         attributes: { exclude: ["photo"] },
       },
     });
-    res.send({ courseCount: count, courseAll: rows });
+    const course = await CourseForSale.findOne({
+      attributes: [
+        [fn('max', col('price')), 'maxPrice'],
+        [fn('min', col('price')), 'minPrice']
+      ],
+    });
+    const maxPrice = course.get('maxPrice');
+const minPrice = course.get('minPrice');
+
+console.log(maxPrice, minPrice);
+   
+    res.send({ courseCount: count, courseAll: rows,maxPrice,minPrice });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 const getFilterCourseForSale = async (req, res) => {
   try {
-    const { categories, priceMin, priceMax } = req.query;
+    const { categories, priceMin, priceMax, page, limit } = req.query;
+
     if (categories && priceMin && priceMax) {
-      console.log('estoy aca')
       const { count, rows } = await CourseForSale.findAndCountAll({
         where: {
           category: {
             [Op.contains]: categories
           },
           price: {
-            [Op.between]: [priceMin, priceMax]
+            [Op.between]: [parseInt(priceMin), parseInt(priceMax)]
           }
         },
         include: {
@@ -67,9 +78,12 @@ const getFilterCourseForSale = async (req, res) => {
 
       return res.json({ courseCount: count, courseAll: rows });
     }
+
     if (categories) {
-      console.log('estoy aca')
+      const offset = (page - 1) * limit;
       const { count, rows } = await CourseForSale.findAndCountAll({
+        offset,
+        limit,
         where: {
           category: {
             [Op.contains]: categories
@@ -84,9 +98,10 @@ const getFilterCourseForSale = async (req, res) => {
       return res.json({ courseCount: count, courseAll: rows });
     }
   } catch (error) {
-    res.json({ error: error.message });
+    res.status(400).json({ error: error.message });
   }
 };
+
 const updateCourseForSale = async (req, res) => {
   try {
     const courseId = req.params.courseId;
@@ -146,6 +161,7 @@ const searchCoursesByName = async (req, res) => {
   try {
     const { name } = req.query;
     console.log(name)
+    // const dataBaseCourses=await CourseForSale.find({name:{ $regex:name,$options:"i"}})
     const dataBaseCourses = await CourseForSale.findAll({
       where: {
         name: {

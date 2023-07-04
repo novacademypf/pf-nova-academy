@@ -18,14 +18,8 @@ export const signUpFailure = (error) => {
   return {
     type: SIGN_UP_FAILURE,
     payload: error,
-  };  
-}
-  // export const signUpFailure = (error) => {
-  //   return {
-  //     type: SIGN_UP_FAILURE,
-  //     payload: error,
-  //   };
-  // };
+  };
+};
 
 export const checkEmailExistence = (email) => {
   return async (dispatch) => {
@@ -33,7 +27,7 @@ export const checkEmailExistence = (email) => {
 
     try {
       // realizo la consulta al back para verificar la existencia del email
-      const response = await axios.post("http://localhost:3001/user", {
+      const response = await axios.post('http://localhost:3001/user/signup', {
         email,
       });
 

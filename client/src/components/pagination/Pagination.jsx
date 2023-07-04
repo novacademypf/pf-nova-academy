@@ -1,42 +1,58 @@
 import { useDispatch, useSelector } from "react-redux";
-import ButtonPagination from "./ButtonPagination";
 import { getAllCourses } from "../../redux/actions/coursesActions";
 import ReactPaginate from "react-paginate";
+import { filterByCategoryCourse } from "../../redux/actions/filterActions";
+import { useEffect, useState } from "react";
 
 const Pagination = () => {
-  const {courseCount}= useSelector((state)=>state.coursesReducer.courses)
+  const { courseCount, courseAll } = useSelector((state) => state.coursesReducer.courses);
+  const isFilter = useSelector((state) => state.coursesReducer.isFilter);
+  const { category } = useSelector((state) => state.setOptionsFiltersReducer.filters);
 
   const dispatch = useDispatch();
-  const handlePageClick = (page) => {
-    
+  const [selectedPage, setSelectedPage] = useState(0);
 
-    dispatch(getAllCourses(Number(page.selected+1)));
+  useEffect(() => {
+    setSelectedPage(0); // Reinicia la página seleccionada cuando se obtienen nuevas páginas
+  }, [courseCount]); // Actualiza el estado cuando cambia la cantidad total de cursos
+
+  const handlePageClick = (page) => {
+    const newSelectedPage = Number(page.selected);
+    setSelectedPage(newSelectedPage);
+
+    if (!isFilter) {
+      dispatch(getAllCourses(newSelectedPage + 1));
+    } else {
+      dispatch(filterByCategoryCourse(category, true, newSelectedPage + 1));
+    }
   };
   return (
     <div className="w-[calc(100%-15em)]  left-[15em] bg-white h-14 fixed z-30  flex justify-center items-center gap-2 ">
-     
       <ReactPaginate
         breakLabel="..."
         nextLabel="next"
-        nextClassName='font-bold'
+        nextClassName="font-bold"
         onPageChange={handlePageClick}
         pageRangeDisplayed={3}
         marginPagesDisplayed={3}
-        pageCount={courseCount/10}
-        containerClassName={"flex bg-white drop-shadow-lg rounded-[1em] px-4 py-2 jusify-center items-center gap-2"}
+        pageCount={Math.ceil(courseCount / 10) || 0}
+        containerClassName={
+          "flex bg-white drop-shadow-lg rounded-[1em] px-4 py-2 jusify-center items-center gap-2"
+        }
         pageClassName={
           "w-[1.5em] h-[1.5em]  rounded-[50%] flex items-center justify-center"
         }
         pageLinkClassName={
           "w-[1.5em] h-[1.5em] rounded-[50%] flex items-center font-bold  justify-center  "
         }
-        activeClassName='bg-blue-600 text-white'
-       
-        breakClassName='flex items-center justify-center '
+        activeClassName="bg-blue-600 text-white"
+        breakClassName="flex items-center justify-center "
         breakLinkClassName="font-bold pointer-events-none"
         previousLabel="prev"
-        previousLinkClassName='font-bold'
+        previousLinkClassName="font-bold"
         renderOnZeroPageCount={null}
+        initialPage={0}
+        forcePage={selectedPage}
       />
     </div>
   );

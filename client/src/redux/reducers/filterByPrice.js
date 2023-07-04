@@ -27,4 +27,4 @@ case FILTER_BY_PRICE:
             ...state,
             courses: sortedCoursesByPrice
           };
-        }
+    }}

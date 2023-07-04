@@ -7,7 +7,6 @@ import Checkout from "./pages/Checkout";
 import Courses from "./pages/Courses";
 import Landing from "./pages/Landing";
 import MyAccount from "./pages/MyAccount";
-import MyOrder from "./pages/MyOrder";
 import NotFound from "./pages/NotFound";
 import SingIn from "./pages/SingIn";
 import SingUp from "./pages/SingUp";
@@ -15,7 +14,6 @@ import Home from "./pages/Home";
 import NavBar from "./components/NavBar";
 import Detail from "./pages/Detail";
 import Footer from "./components/Footer/Footer";
-import CreateCourse from "./pages/CreateCourse";
 
 const App = () => {
 /*   const dispatch = useDispatch();
@@ -32,10 +30,8 @@ const App = () => {
       { path: "/checkout", element: <Checkout /> },
       { path: "/courses", element: <Courses /> },
       { path: "/account", element: <MyAccount /> },
-      { path: "/order", element: <MyOrder /> },
       { path: "/login", element: <SingIn /> },
       { path: "/register", element: <SingUp /> },
-      { path: "/create", element: <CreateCourse /> },
       { path: "/detail/:courseId", element: <Detail /> },
       { path: "/*", element: <NotFound /> },
     ]);
@@ -46,7 +42,6 @@ const App = () => {
     <div>
       <NavBar />
       <AppRouter />
-      <Footer />
     </div>
   );
 };
