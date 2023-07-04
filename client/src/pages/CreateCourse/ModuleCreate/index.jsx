@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import CreateLesson from "../LessonCreate";
-import axios from "axios";
+import api from "../../../services/api.js";
+
 
 export default function FormCourse() {
   const dispatch = useDispatch();
@@ -27,11 +28,12 @@ export default function FormCourse() {
     } else if(!form.description){
       return alert("Ingrese Descripcion");
     } 
-    // await axios.post("http://localhost:3001/module/createModule", form, {
-    //   headers:{
-    //     Authorization:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzZXIiOjEsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjg4MjUyMzU2LCJleHAiOjE2ODgyNTk1NTZ9.8XJ0SexydPrtqZ7YUVM76wLSd9Bgiyj9IAUggS75qKw",
-    //   },
-    // });
+    await api.post("/module/createModule", form, {
+      headers: {
+        'Authorization': localStorage.getItem("token"),
+        form,
+      },
+    });
     alert("Modulo creado, Agrega leccion")
     setLesson(lesson + 1);
   };

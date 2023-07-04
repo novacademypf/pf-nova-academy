@@ -5,9 +5,11 @@ const { cursos, category } = require("../constants/data");
 
 const postCreateCourseForSale = async (req, res) => {
   try {
-    const { name, category, duration, description, images, price } = req.body;
+    console.log("req body courseForSale controlelr",req.body.headers.form)
+    const { name, category, duration, description, images, price } = req.body.headers.form;
+    console.log("gettoken", getUserToken(req))
     const user = await getUserToken(req);
-    console.log("usuario",user)
+    console.log("usuario",user);
     if (!name || !category || !duration || !description || !images || !price ) {
       return res.status(404).json({ error: "Data missing" });
     }
@@ -21,8 +23,11 @@ const postCreateCourseForSale = async (req, res) => {
       price,
       idProfile: user.idUser,
     });
+    console.log("newCourse", newCourse)
     res.json(newCourse);
-  } catch (error) {
+  } 
+  catch (error) {
+    console.log("error de post courseForSale")
     res.status(500).json({ error: error.message });
   }
 };

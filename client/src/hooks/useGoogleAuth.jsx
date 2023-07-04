@@ -17,10 +17,9 @@ export const useGoogleAuth = () => {
     } catch (error) {
       error.response.status === 409 && setErrorsDb(error.response.data);
     }
-    console.log(codeResponse);
     const response = await loginUserGoogle(codeResponse.access_token);
     localStorage.setItem("token", response.data.token);
-    console.log("test token login",response.data);
+    console.log("test token login",response.data.token);
     response.data.token && response.status === 200 && navigate("/");
   };
   const error = () => {

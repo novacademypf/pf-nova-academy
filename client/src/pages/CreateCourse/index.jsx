@@ -4,6 +4,7 @@ import { getAllCategories } from "../../redux/actions/categoryAction.js";
 import FormCourse from "./ModuleCreate";
 import api from "../../services/api.js"
 import { useGoogleAuth } from "../../hooks/useGoogleAuth.jsx";
+import axios from "axios";
 export default function CreateCourse() {
   const dispatch = useDispatch();
   const categoryList = useSelector((state) => state.categoryList);
@@ -57,21 +58,39 @@ export default function CreateCourse() {
     // crear boton submit para pushear todo al back, 
     // crear boton submit lecion para hacer el post de cada lecion en cada modulo.
     // revisar los axios
-// console.log(localStorage.setItem("token", response.data.token));
-// token de google
+    // console.log(localStorage.setItem("token", response.data.token));
+    // token de google
 
-// token de user registrado
-console.log("local get",localStorage.getItem("token"))
+    // token de user registrado
+    console.log("local get", localStorage.getItem("token"))
 
 
-    await api.post("/courseForSale/createCourse", form,
+    await api.post("/courseForSale/createCourse",
       {
         headers: {
-          'Authorization': `Bearer`+ localStorage.getItem("token") // Agregar el token en el encabezado 'Authorization'
+          'Authorization': localStorage.getItem("token"),
+          form,// Agregar el token en el encabezado 'Authorization'
         },
+      }
+    );
+    alert("Curso creado")
+    setForm({
+      name: "",
+      category: [],
+      duration: "",
+      description: "",
+      images: "",
+      price: "",
     });
-    alert("Curso creado, Agrega modulos")
-    setModules(modules + 1);
+    setErrors({
+      name: "",
+      category: [],
+      duration: "",
+      description: "",
+      images: "",
+      price: "",
+    });
+    // setModules(modules + 1);
   };
 
   const deleteModule = () => {
@@ -95,7 +114,7 @@ console.log("local get",localStorage.getItem("token"))
       errores.name = "Ingrese Nombre";
     } else if (form.name.match(/^[A-Za-z]+$/)) {
       errores.name = "";
-    } 
+    }
     if (!form.description) {
       errores.description = "Ingrese Descripcion";
     } else {
@@ -132,9 +151,9 @@ console.log("local get",localStorage.getItem("token"))
     setSelectedCategories(selectedCategoryIds);
     setForm({ ...form, category: selectedCategoryIds });
   };
-  const submitHandler= async (event)=>{
+  const submitHandler = async (event) => {
     event.preventDefault();
-    alert ("Creado Correctamente")
+    alert("Creado Correctamente")
     setErrors()
     setForm();
   }
@@ -161,7 +180,7 @@ console.log("local get",localStorage.getItem("token"))
             onChange={categorySelectionHandler}
             multiple
             className="w-96 p-2 mb-4 border border-gray-300 rounded"
-            // value={selectedCategories}
+          // value={selectedCategories}
           >
             <option value="programacion">Programación</option>
             <option value="musica">Música</option>
@@ -232,24 +251,25 @@ console.log("local get",localStorage.getItem("token"))
           className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
           onClick={addModule}
         >
-          Agregar Módulo
+          {/* Agregar Módulo */}
+          Crear Curso
         </button>
 
-        <button
+        {/* <button
           className="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600"
           onClick={deleteModule}
         >
           Eliminar Módulo
-        </button>
+        </button> */}
       </div>
 
       <div className="flex flex-col justify-evenly">{renderModules()}</div>
-      <button
-      className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
-      onClick={submitHandler}
+      {/* <button
+        className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+        onClick={submitHandler}
       >
         Submit
-      </button>
+      </button> */}
     </div>
   );
 }
