@@ -7,7 +7,8 @@ const Dropdown = ({
   isOpen,
   handleOptionSelect,
   data,
-  getData
+  getData,
+  name
 }) => {
   return (
     <div className="relative">
@@ -25,6 +26,7 @@ const Dropdown = ({
           isOpen ? "border-blue-500" : "border-gray-300"
         } border rounded-md p-2 flex items-center justify-between cursor-pointer`}
         onClick={()=>{ toggleDropdown(),getData()}}
+       
       >
         <div className="text-gray-700">{isLabel && selectedOption}</div>
         <svg
@@ -51,6 +53,7 @@ const Dropdown = ({
                   key={item.id}
                   className="py-1 px-3 hover:bg-gray-100 cursor-pointer"
                   onClick={handleOptionSelect}
+                  name={name}
                 >
                   {item.name}
                 </li>
