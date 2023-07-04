@@ -43,17 +43,26 @@ const postCreateCourseForSale = async (req, res) => {
 const getCourseForSale = async (req, res) => {
   try {
     const { page, limit } = req.query;
-    console.log({ page, limit })
-    const offset = (page - 1) * limit;
+    if (page && limit){const offset = (page - 1) * limit;
+      const { count, rows } = await CourseForSale.findAndCountAll({
+        offset,
+        limit,
+        include: {
+          model: Profile,
+          attributes: { exclude: ["photo"] },
+        },
+      });
+      res.send({ courseCount: count, courseAll: rows })}
+   else{
     const { count, rows } = await CourseForSale.findAndCountAll({
-      offset,
-      limit,
+      
       include: {
         model: Profile,
         attributes: { exclude: ["photo"] },
       },
     });
-    res.send({ courseCount: count, courseAll: rows });
+    res.send({ courseCount: count, courseAll: rows })
+   } 
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
