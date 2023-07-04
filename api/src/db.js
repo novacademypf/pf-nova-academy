@@ -63,16 +63,11 @@ User.hasOne(Profile, { foreignKey: "userId", onDelete: "CASCADE" });
 Profile.belongsTo(User, { foreignKey: "userId" });
 //relacion de uno a muchos de perfil a cursos en venta
 Profile.hasMany(CourseForSale, {
-  foreignKey: {
-    name: 'emailId',
-    type: DataTypes.STRING // Asegúrate de importar correctamente DataTypes de Sequelize
-    },
+  foreignKey: "profileId",
+  onDelete: 'CASCADE',
 });
 CourseForSale.belongsTo(Profile, {
-  foreignKey: {
-    name: 'emailId',
-    type: DataTypes.STRING // Asegúrate de importar correctamente DataTypes de Sequelize
-    },
+  foreignKey: "profileId"
 });
 //relacion de uno a muchos de perfil a curso comprado
 Profile.hasMany(CourseBought, {
