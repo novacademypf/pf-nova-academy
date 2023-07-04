@@ -17,11 +17,12 @@ console.log('-->cursosqqwwq',cursosFiltrados);
      {/*  <Pagination /> */}
       <Pagination/>     
       <div className=" w-full relative  top-[3.5em] " >
-      <CourseCards courses={newData&&newData} />
+      {/*<CourseCards courses={newData&&newData} />*/}
 
       {/*  <Pagination /> */}
       <div className=" w-full relative  top-[3.5em] ">
         <CourseCards courses={isFiltered?cursosFiltrados.courseAll:cursos.courseAll} />
+      </div>
       </div>
     </section>
   );

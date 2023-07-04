@@ -89,7 +89,7 @@ const handleChangeRange =(e)=>{
   }
 
   return (
-  <div className="bg-blue-500">
+  
     <section className=" w-[15em] min-w-[15em] py-[2em] px-[1em]  fixed  z-50 left-[0] h-[calc(100vh-5.5em)] right-0 flex-col  overflow-auto justify-center">
       <Dropdown
         labelValue={"filtrar cursos por:"}
@@ -103,16 +103,16 @@ const handleChangeRange =(e)=>{
         name={"category"}
       />
 
-      <button
+     {/* <button
         className="focus:outline-none mt-1 text-white bg-violet-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
         onClick={handleDeleteFilters}
       >
         borrar filtros
-      </button>
+      </button>*/}
 
       <div className="relative inline-block w-64" />
       <select
-        className="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-3 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+        className="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-3 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
         name="orderAlphabetico"
         onChange={handleSortByName}
       >
@@ -145,8 +145,8 @@ const handleChangeRange =(e)=>{
       <p>price:{value}</p>
     </section>
     
+    
+  )}
 
-  
-}
 
 export default SectionFilter;
