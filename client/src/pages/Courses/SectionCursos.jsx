@@ -4,22 +4,14 @@ import CourseCards from "../../components/CourseCards/CourseCards";
 import { saveCourse } from "../../redux/actions/coursesActions";
 import { useEffect } from "react";
 
-
-
-
 const SectionCursos = () => {
-  const {courseAll}= useSelector((state)=>state.coursesReducer.courses)
-  const  data = useSelector((state)=>state.filterReducer.listaCategoria)
-  console.log('===>', data)
-  const newData = data? data: courseAll
 
-  const dispatch = useDispatch()
-  /*useEffect(() =>{
-    dispatch(saveCourse(newData))
-   }, [data])*/
-   
-
-
+  
+  const { cursosFiltrados, filters,isFiltered,cursos } = useSelector((state) => {
+    console.log('->>>',state.filterReducer);
+    return state.filterReducer;
+  });
+console.log('-->cursosqqwwq',cursosFiltrados);
   return (
     <section className=" min-w-[calc(100%-15em)] left-[15em]   relative ">
      {/*  <Pagination /> */}
@@ -27,9 +19,10 @@ const SectionCursos = () => {
       <div className=" w-full relative  top-[3.5em] " >
       <CourseCards courses={newData&&newData} />
 
+      {/*  <Pagination /> */}
+      <div className=" w-full relative  top-[3.5em] ">
+        <CourseCards courses={isFiltered?cursosFiltrados.courseAll:cursos.courseAll} />
       </div>
-        
-    
     </section>
   );
 };
