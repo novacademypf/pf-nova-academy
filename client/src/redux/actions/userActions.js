@@ -19,12 +19,13 @@ export const signUpFailure = (error) => {
     type: SIGN_UP_FAILURE,
     payload: error,
   };  
-  export const signUpFailure = (error) => {
-    return {
-      type: SIGN_UP_FAILURE,
-      payload: error,
-    };
-  };
+}
+  // export const signUpFailure = (error) => {
+  //   return {
+  //     type: SIGN_UP_FAILURE,
+  //     payload: error,
+  //   };
+  // };
 
 export const checkEmailExistence = (email) => {
   return async (dispatch) => {
