@@ -14,8 +14,8 @@ import Home from "./pages/Home";
 import NavBar from "./components/NavBar";
 import Detail from "./pages/Detail";
 import About from "./pages/About";
-import AdminHome from "./pages/AdminHome/AdminHome";
 import { SearchCourse } from "./pages/SearchCourse/SearchCourse";
+import AdminHome from "./pages/AdminHome/AdminHome";
 
 const App = () => {
   const dispatch = useDispatch();

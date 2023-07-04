@@ -30,12 +30,23 @@ export const ShoppingCartAside = ({ toggle, cartItems }) => {
           </svg>
         </button>
       </section>
-      <div>
+      <div className=" mt-2">
         {cartItems.map((el) => (
-          <div>{el.name}</div>
+          <div
+            key={el.id}
+            className="flex flex-row justify-between border  border-[#00FFFF] rounded p-4 w-full mb-2"
+          >
+            <div>{el.name}</div>
+            <div>${el.price}</div>
+          </div>
         ))}
       </div>
-      <Link to="/checkout">Pagar</Link>
+      <button
+        type="button"
+        className=" bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-4 mx-auto w-full"
+      >
+        <Link to="/checkout">Pagar</Link>
+      </button>
     </aside>
   );
 };

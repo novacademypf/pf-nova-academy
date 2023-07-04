@@ -1,17 +1,25 @@
-import React from 'react';
-import axios from 'axios';
-import { useState } from 'react';
-import { connect } from 'react-redux';
-import {signUpSuccess, signUpFailure, checkEmailExistence} from '../../redux/actions/userActions';
-import Swal from 'sweetalert2';
+import React from "react";
+import axios from "axios";
+import { useState } from "react";
+import { connect } from "react-redux";
+import {
+  signUpSuccess,
+  signUpFailure,
+  checkEmailExistence,
+} from "../../redux/actions/userActions";
+import Swal from "sweetalert2";
 
-
-
-const SignUp = ({ checkEmailExistence, signUpSuccess, signUpFailure, isCheckingEmail, emailError }) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+const SignUp = ({
+  checkEmailExistence,
+  signUpSuccess,
+  signUpFailure,
+  isCheckingEmail,
+  emailError,
+}) => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -37,41 +45,44 @@ const SignUp = ({ checkEmailExistence, signUpSuccess, signUpFailure, isCheckingE
     checkEmailExistence(email);
 
     if (!validatePassword(password)) {
-      setPasswordError('La contraseña debe tener al menos 8 caracteres, una mayúscula y un número');
+      setPasswordError(
+        "La contraseña debe tener al menos 8 caracteres, una mayúscula y un número"
+      );
       return;
     }
 
     try {
       const response = await axios.post('http://localhost:3001/user/singup', {
+
         name,
         email,
         password,
       });
 
-      console.log('submit exitoso');
+      console.log("submit exitoso");
       Swal.fire({
-        icon: 'success',
-        title: 'Registro completo',
-        text: 'Creaste tu cuenta ahora puedes ingresar',
+        icon: "success",
+        title: "Registro completo",
+        text: "Creaste tu cuenta ahora puedes ingresar",
         footer: '<a href="http://localhost:5173/login">Ingresa desde AQUI</a>',
       });
 
       const user = response.data;
       signUpSuccess(user);
-      setName('');
-      setEmail('');
-      setPassword('');
-      setPasswordError('');
+      setName("");
+      setEmail("");
+      setPassword("");
+      setPasswordError("");
     } catch (error) {
       console.log(error);
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Ya existe un usuario con este email registrado',
+        icon: "error",
+        title: "Oops...",
+        text: "Ya existe un usuario con este email registrado",
       });
 
       signUpFailure(error);
-      console.error('Error al registrar', error);
+      console.error("Error al registrar", error);
     }
   };
 
@@ -106,8 +117,14 @@ const SignUp = ({ checkEmailExistence, signUpSuccess, signUpFailure, isCheckingE
                 onChange={handleEmailChange}
                 required
               />
-              {isCheckingEmail && <p className="text-red-500 text-xs mt-1">Verificando email...</p>}
-              {!isCheckingEmail && emailError && <p className="text-red-500 text-xs mt-1">{emailError}</p>}
+              {isCheckingEmail && (
+                <p className="text-red-500 text-xs mt-1">
+                  Verificando email...
+                </p>
+              )}
+              {!isCheckingEmail && emailError && (
+                <p className="text-red-500 text-xs mt-1">{emailError}</p>
+              )}
             </div>
             <div className="mb-4">
               <label className="text-gray-600">Contraseña:</label>
@@ -122,14 +139,13 @@ const SignUp = ({ checkEmailExistence, signUpSuccess, signUpFailure, isCheckingE
                 <p className="text-red-500 text-xs mt-1">{passwordError}</p>
               )}
             </div>
-            
+
             <button
               className="mt-4 bg-blue-600 hover:underline px-4 py-2 text-white uppercase rounded text-xs tracking-wider"
               type="submit"
             >
               Registrarse
             </button>
-
           </form>
         </div>
       </div>
@@ -144,4 +160,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { signUpSuccess, signUpFailure, checkEmailExistence })(SignUp);
+export default connect(mapStateToProps, {
+  signUpSuccess,
+  signUpFailure,
+  checkEmailExistence,
+})(SignUp);
