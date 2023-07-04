@@ -6,6 +6,7 @@ import Footer from "../../components/Footer/Footer";
 
 const Landing = () => {
   return (
+
     <>
       <Layout>
         <Banner />

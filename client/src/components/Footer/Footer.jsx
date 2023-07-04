@@ -1,8 +1,8 @@
-/* eslint-disable react/jsx-no-undef */
 import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
+
     <footer className="bg-gray-700 text-[#00FFFF]">
       <div className="max-w-screen-xl h-auto flex flex-wrap items-center justify-between  p-4 mx-auto">
         <ul className="flex flex-col">
@@ -99,6 +99,7 @@ const Footer = () => {
           <div className="ml-auto">
             <p>Copyright © 2023 Nova Academy</p>
             <p>All rights reserved</p>
+
           </div>
         </div>
       </div>

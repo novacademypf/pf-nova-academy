@@ -52,7 +52,8 @@ const SignUp = ({
     }
 
     try {
-      const response = await axios.post("http://localhost:3001/user/singup", {
+      const response = await axios.post('http://localhost:3001/user/singup', {
+
         name,
         email,
         password,
