@@ -84,9 +84,6 @@ console.log(localStorage.token)
   const changeHandler = (event) => {
     const property = event.target.name;
     const value = event.target.value;
-    // if(property === "images"){
-    //   value=value.split(",");
-    // }
     const updatedForm = { ...form, [property]: value };
     setForm(updatedForm);
     setErrors(validate(updatedForm));
