@@ -1,13 +1,14 @@
 import {
-    SORT_BY_NAME
+    SORT_BY_NAME, SET_DATA
 } from "../action-type/action-types"
 
 const initialState = {
   
-    courses: [],
+    filter: " ",
+    data: []
   };
 
-    function sortByNameReducer(state= initialState, action) {
+   /* function sortByNameReducer(state= initialState, action) {
         switch(action.type){
             case SORT_BY_NAME:
                     const sortedName = action.payload === 'ABC' ?
@@ -31,14 +32,35 @@ const initialState = {
                         })
                     return {
                         ...state,
-                        courses:sortedName
+                        filteredData:action.data
                     }
                 default:
                     return state;
         }
     }
 
-    export default sortByNameReducer;
+    export default sortByNameReducer;*/
+
+      
+      const sortByNameReducer = (state = initialState, action) => {
+        switch (action.type) {
+          case SORT_BY_NAME:
+            return {
+              ...state,
+              filter: action.data,
+            };
+           case SET_DATA:
+                return{
+                    ...state,
+                    data: action.payload
+                };
+          // Otros casos de acción...
+          default:
+            return state;
+        }
+      };
+      
+      export default sortByNameReducer;
 
             
            

@@ -28,3 +28,5 @@ case FILTER_BY_PRICE:
             courses: sortedCoursesByPrice
           };
     }}
+
+    export default filterByPriceRed;
