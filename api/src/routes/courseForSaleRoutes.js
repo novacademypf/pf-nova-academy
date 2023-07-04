@@ -1,19 +1,21 @@
 const { Router } = require("express");
 const {
   postCreateCourseForSale,
-  getCourseForSale,
   deleteCourseForSale,
   updateCourseForSale,
-  getCourseForSaleById
+  getCourseForSaleById,
+  getFilterCourseForSale,
+  getCourseForSale,
+  searchCoursesByName
 } = require("../controllers/courseForSale.controller");
-
 const VerifyAuthorization = require("../middleware/auth");
 const { verificarRole } = require("../middleware/authRole");
 const courseForsaleRouter = Router();
 
-courseForsaleRouter.get("/", getCourseForSale);
-
-courseForsaleRouter.get("/:courseId", getCourseForSaleById )
+courseForsaleRouter.get("/",getCourseForSale);
+courseForsaleRouter.get("/filter",getFilterCourseForSale);
+courseForsaleRouter.get("/search", searchCoursesByName);
+courseForsaleRouter.get("/:courseId", getCourseForSaleById );
 
 courseForsaleRouter.post(
   "/createCourse",
