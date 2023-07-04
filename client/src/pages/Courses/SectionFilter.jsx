@@ -8,18 +8,17 @@ import Dropdown from "../../components/DropDown/DropDown";
 import { useDropDown } from "../../hooks/useDropdown";
 import { getAllCategories } from "../../redux/actions/allCategoriesActions";
 import {
-  FilterCourseCategory,
-  FilterOrdenAlfabetico,
+
   applyFilter,
-  filterByCategoryCourse,
+
+  deleteFilters,
+
   getCourseDefaultFilters,
   setDefaultFilters,
   setOptionFilters,
-  updateOptionFilters,
+
 } from "../../redux/actions/filterActions";
 import { getAllCourses } from "../../redux/actions/coursesActions";
-import { getSortByName, setData } from "../../redux/actions/sortByNameActions";
-import { setOptionsFiltersReducer } from "../../redux/reducers/filtersReducer";
 
 const SectionFilter = () => {
   const dispatch = useDispatch();
@@ -46,8 +45,12 @@ const SectionFilter = () => {
 const [value,setValue]=useState(100)
 
 const handleChangeRange =(e)=>{
+  const name = e.target.getAttribute("name");
   const value = e.target.value; 
+  console.log('range-->',name, value);
   setValue(value)
+  dispatch(setOptionFilters({ [name]: value }));
+  
 }
 
   const handleOptionSelect = (e) => {
@@ -61,8 +64,8 @@ const handleChangeRange =(e)=>{
   };
 
   const handleDeleteFilters = () => {
-    dispatch(setDefaultFilters());
-    dispatch(getAllCourses());
+    dispatch(deleteFilters())
+    setValue(0)
   };
 
   useEffect(() => {
@@ -84,7 +87,8 @@ const handleChangeRange =(e)=>{
   function handleSortByName(e) {
     const name = e.target.getAttribute("name");
     const value = e.target.value;
-    setOptionsFilter({ ...optionsFilters, [name]: value });
+  
+   
     dispatch(setOptionFilters({ [name]: value }));
   }
 
@@ -95,7 +99,7 @@ const handleChangeRange =(e)=>{
         labelValue={"filtrar cursos por:"}
         isLabel={isLabel}
         isOpen={isOpen}
-        selectedOption={category}
+        selectedOption={filters.category}
         toggleDropdown={toggleDropdown}
         data={data}
         getData={getData}
@@ -114,6 +118,7 @@ const handleChangeRange =(e)=>{
       <select
         className="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-3 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
         name="orderAlphabetico"
+        value={filters.orderAlphabetico}
         onChange={handleSortByName}
       >
         <option value="selected">Filtro Por Orden Alfabetico</option>
@@ -136,13 +141,21 @@ const handleChangeRange =(e)=>{
       <input
         id="default-range"
         type="range"
-        min={200}
+        min={100}
         max={200}
+        name='precio'
         value={value}
         onChange={handleChangeRange}
         className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
       />
       <p>price:{value}</p>
+      <button
+        className="focus:outline-none mt-1 text-white bg-violet-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+        onClick={handleDeleteFilters}
+      >
+        borrar filtros
+      </button>
+
     </section>
     
     
