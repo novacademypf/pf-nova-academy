@@ -63,7 +63,7 @@ const SectionCursos = () => {
       <div className="w-full relative top-[3.5em]">
         <CourseCards courses={paginatedCourses} />
       </div>
-      </div>
+      
     </section>
   );
 };
