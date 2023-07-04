@@ -61,21 +61,21 @@ const category = [
 
 // El arreglo 'educationCategories' contiene 10 objetos de categoría relacionados a una plataforma educativa
 const users = [
-  // {
-  //   name: "John Doe",
-  //   email: "john.doe@example.com",
-  //   password: "Password123",
-  // },
-  // {
-  //   name: "Alice Smith",
-  //   email: "alice.smith@example.com",
-  //   password: "Password456",
-  // },
-  // {
-  //   name: "Bob Johnson",
-  //   email: "bob.johnson@example.com",
-  //   password: "Password789",
-  // },
+  {
+    name: "John Doe",
+    email: "john.doe@example.com",
+    password: "Password123",
+  },
+  {
+    name: "Alice Smith",
+    email: "alice.smith@example.com",
+    password: "Password456",
+  },
+  {
+    name: "Bob Johnson",
+    email: "bob.johnson@example.com",
+    password: "Password789",
+  },
   
 ];
 

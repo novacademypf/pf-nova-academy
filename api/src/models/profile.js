@@ -11,8 +11,6 @@ module.exports = (sequelize) => {
       },
       name: { type: DataTypes.STRING},
       photo:{type: DataTypes.STRING},
-      email:{type: DataTypes.STRING}
-      
     }
     , {
       tableName: 'Profile',
