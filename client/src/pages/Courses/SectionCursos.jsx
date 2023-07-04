@@ -23,6 +23,7 @@ const SectionCursos = () => {
   return (
     <section className=" min-w-[calc(100%-15em)] left-[15em]   relative ">
      {/*  <Pagination /> */}
+      <Pagination/>     
       <div className=" w-full relative  top-[3.5em] " >
       <CourseCards courses={newData&&newData} />
 
