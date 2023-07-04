@@ -9,8 +9,15 @@ module.exports = (sequelize) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      name: { type: DataTypes.STRING},
-      photo:{type: DataTypes.STRING},
+      name: { type: DataTypes.STRING },
+      photo: { type: DataTypes.STRING },
+      role: {
+        type: DataTypes.ENUM('user', 'admin'),
+        defaultValue: 'user',
+        allowNull: false
+      },
+      email: { type: DataTypes.STRING },
+
     }
     , {
       tableName: 'Profile',

@@ -61,16 +61,14 @@ export default function CreateCourse() {
 // token de google
 
 // token de user registrado
-console.log(localStorage.token)
+console.log("local get",localStorage.getItem("token"))
 
 
-    await api.post("/courseForSale/createCourse", {
-      ...form
-      },
+    await api.post("/courseForSale/createCourse", form,
       {
-      headers:{
-        Authorization:"Bearer"+localStorage.token
-      },
+        headers: {
+          'Authorization': `Bearer`+ localStorage.getItem("token") // Agregar el token en el encabezado 'Authorization'
+        },
     });
     alert("Curso creado, Agrega modulos")
     setModules(modules + 1);

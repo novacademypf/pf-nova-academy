@@ -19,7 +19,7 @@ const postCreateCourseForSale = async (req, res) => {
       description,
       images,
       price,
-      profileId: user.idUser,
+      idProfile: user.idUser,
     });
     res.json(newCourse);
   } catch (error) {

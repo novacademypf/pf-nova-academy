@@ -63,11 +63,11 @@ User.hasOne(Profile, { foreignKey: "userId", onDelete: "CASCADE" });
 Profile.belongsTo(User, { foreignKey: "userId" });
 //relacion de uno a muchos de perfil a cursos en venta
 Profile.hasMany(CourseForSale, {
-  foreignKey: "profileId",
+  foreignKey: "idProfile",
   onDelete: 'CASCADE',
 });
 CourseForSale.belongsTo(Profile, {
-  foreignKey: "profileId"
+  foreignKey: "idProfile"
 });
 //relacion de uno a muchos de perfil a curso comprado
 Profile.hasMany(CourseBought, {

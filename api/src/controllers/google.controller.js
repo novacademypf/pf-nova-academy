@@ -2,7 +2,7 @@ const { User, UserGoogle, Profile } = require("../db");
 const { createtoken } = require("../helpers/generateToken");
 
 const postLoginGoogle = async (req, res) => {
-  const { userEmail, userName, userPhoto } = req.user;
+  const { userEmail, userName, userPhoto} = req.user;
 
   try {
     const user = await User.findOne({ where: { email: userEmail } });
@@ -17,20 +17,16 @@ const postLoginGoogle = async (req, res) => {
       throw error;
     } else {
       if (userGoogle) {
-        console.log(2)
-        console.log("-->",userGoogle)
-        const tokenSession = await createtoken(userGoogle);
+        const profile = await Profile.findOne({ where: { email: userEmail } });
+        const tokenSession = await createtoken(profile);
         res.status(200).json({ token: tokenSession,message:"The user is already registered with a Google account." });
       } else {
         console.log(3)
         console.log("-->",userGoogle)
         const newUser = await UserGoogle.create({ name: userName, email: userEmail });
-
         const newProfile = await Profile.create({ name: userName, photo: userPhoto, email:userEmail});
-
         newUser.setProfile(newProfile);
-
-        const tokenSession = await createtoken(newUser);
+        const tokenSession = await createtoken(newProfile);
         res.status(200).json({ token: tokenSession,message:"User created successfully." });
       }
     }

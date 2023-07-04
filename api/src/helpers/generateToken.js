@@ -3,12 +3,14 @@ const jwt = require("jsonwebtoken");
 
 const { JWT_SECRET } = process.env;
 const createtoken = async (user) => {
+  console.log("token user",user)
   return jwt.sign(
     {
-
-      idUser: user.userId,
+      
+      idUser: user.profileId,
       role: user.role,
-      // email:user.email
+      email:user.email
+      
     },
     JWT_SECRET,
     { expiresIn: "2h" }
