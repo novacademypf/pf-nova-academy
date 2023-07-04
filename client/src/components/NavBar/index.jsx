@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/icons/logo.svg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ShoppingCartAside } from "../ShoppingCartAside/ShoppingCartAside";
+import { delFromCart } from "../../redux/actions/shoppingCartActions";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [cartIsOpen, setCartIsOpen] = useState(false);
   const courses = useSelector((state) => state).shoppingCartReducer.cart;
+  const dispatch = useDispatch();
+  const location = useLocation();
+  let pathname = location.pathname;
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -15,9 +19,13 @@ const NavBar = () => {
   const toggleCart = () => {
     setCartIsOpen(!cartIsOpen);
   };
+
+  const deleteItemfromAside = (id) => {
+    dispatch(delFromCart(id));
+  };
   useEffect(() => {
     courses.length > 0 && toggleCart();
-  }, [courses]);
+  }, [courses, pathname]);
 
   const links = [{ to: "/courses", name: "Cursos" }];
   const activeStyle = "font-bold";
@@ -131,7 +139,11 @@ const NavBar = () => {
         </div>
       </div>
       {cartIsOpen && (
-        <ShoppingCartAside toggle={toggleCart} cartItems={courses} />
+        <ShoppingCartAside
+          toggle={toggleCart}
+          cartItems={courses}
+          deleteItemfromAside={deleteItemfromAside}
+        />
       )}
     </nav>
   );
