@@ -27,7 +27,7 @@ export const checkEmailExistence = (email) => {
 
     try {
       // realizo la consulta al back para verificar la existencia del email
-      const response = await axios.post("http://localhost:3001/user/signup", {
+      const response = await axios.post("http://localhost:3001/user", {
         email,
       });
 
@@ -49,5 +49,3 @@ export const checkEmailExistence = (email) => {
     }
   };
 };
-
-

@@ -50,6 +50,7 @@ const SingIn = () => {
   if (loggedIn) {
     return <redirect to="/" />; // Redirecciona a la pagina de perfil-home con sus datos
   }
+  ;
   const clientID =
     "1025111478798-qcpl6unb1c4j99cpnf86ts4p75a4llm5.apps.googleusercontent.com";
   const [user, setUser] = useState({});
@@ -80,7 +81,7 @@ const SingIn = () => {
     <section className="h-screen flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0">
       <div className="md:w-1/3 max-w-sm">
         <img
-          src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+          src="https://media.istockphoto.com/id/1281150061/vector/register-account-submit-access-login-password-username-internet-online-website-concept.jpg?s=612x612&w=0&k=20&c=9HWSuA9IaU4o-CK6fALBS5eaO1ubnsM08EOYwgbwGBo="
           alt="Sample image"
         />
       </div>

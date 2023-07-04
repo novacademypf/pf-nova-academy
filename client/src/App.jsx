@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useRoutes } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getAllCourses } from "./redux/actions/coursesActions";
-import Admin from "./pages/Admin";
+import Admin from "./pages/Admin/Admin";
 import Checkout from "./pages/Checkout";
 import Courses from "./pages/Courses";
 import Landing from "./pages/Landing";
@@ -15,6 +15,7 @@ import NavBar from "./components/NavBar";
 import Detail from "./pages/Detail";
 import About from "./pages/About";
 import { SearchCourse } from "./pages/SearchCourse/SearchCourse";
+import AdminHome from "./pages/AdminHome/AdminHome";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const App = () => {
       { path: "/", element: <Landing /> },
       { path: "/home", element: <Home /> },
       { path: "/admin", element: <Admin /> },
+      { path: "/adminhome", element: <AdminHome /> },
       { path: "/checkout", element: <Checkout /> },
       { path: "/courses", element: <Courses /> },
       { path: "/account", element: <MyAccount /> },
