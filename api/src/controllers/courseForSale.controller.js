@@ -1,6 +1,5 @@
 const { CourseForSale, Profile, User } = require("../db");
 const getUserToken = require("../helpers/getUsertoken");
-const { Op } = require('sequelize');
 const { cursos, category } = require("../constants/data");
 
 const postCreateCourseForSale = async (req, res) => {
@@ -38,6 +37,8 @@ const getCourseForSale = async (req, res) => {
     console.log({ page, limit })
     const offset = (page - 1) * limit;
     const { count, rows } = await CourseForSale.findAndCountAll({
+      offset,
+      limit,
       offset,
       limit,
       include: {
@@ -92,6 +93,48 @@ const getFilterCourseForSale = async (req, res) => {
     res.json({ error: error.message });
   }
 };
+// const getFilterCourseForSale = async (req, res) => {
+//   try {
+//     const { categories, priceMin, priceMax } = req.query;
+//     if (categories && priceMin && priceMax) {
+//       console.log('estoy aca')
+//       const { count, rows } = await CourseForSale.findAndCountAll({
+//         where: {
+//           category: {
+//             [Op.contains]: categories
+//           },
+//           price: {
+//             [Op.between]: [priceMin, priceMax]
+//           }
+//         },
+//         include: {
+//           model: Profile,
+//           attributes: { exclude: ["photo"] },
+//         },
+//       });
+
+//       return res.json({ courseCount: count, courseAll: rows });
+//     }
+//     if (categories) {
+//       console.log('estoy aca')
+//       const { count, rows } = await CourseForSale.findAndCountAll({
+//         where: {
+//           category: {
+//             [Op.contains]: categories
+//           }
+//         },
+//         include: {
+//           model: Profile,
+//           attributes: { exclude: ["photo"] },
+//         },
+//       });
+
+//       return res.json({ courseCount: count, courseAll: rows });
+//     }
+//   } catch (error) {
+//     res.json({ error: error.message });
+//   }
+// };
 const updateCourseForSale = async (req, res) => {
   try {
     const courseId = req.params.courseId;
