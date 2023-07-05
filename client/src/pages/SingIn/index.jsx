@@ -1,9 +1,9 @@
 import jwt_decode from "jwt-decode";
-
+import { gapi } from "gapi-script";
 import { FormSingIn } from "../../components/formSingIn/Formulario";
 import { useGoogleAuth } from "../../hooks/useGoogleAuth";
 import { loginUserGoogle } from "../../services/loginUserRequest";
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import GoogleLogin from "./GoogleLogin";
 
 /* eslint-disable */

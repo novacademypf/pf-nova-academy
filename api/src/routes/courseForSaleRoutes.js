@@ -6,11 +6,7 @@ const {
   getCourseForSaleById,
   getFilterCourseForSale,
   getCourseForSale,
-  searchCoursesByName
-  getCourseForSaleById,
-  getFilterCourseForSale,
-  getCourseForSale,
-  searchCoursesByName
+  searchCoursesByName,
 } = require("../controllers/courseForSale.controller");
 const VerifyAuthorization = require("../middleware/auth");
 const { verificarRole } = require("../middleware/authRole");
