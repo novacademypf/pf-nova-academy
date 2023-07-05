@@ -173,4 +173,7 @@ module.exports = {
   getCourseForSaleById,
   getFilterCourseForSale,
   searchCoursesByName,
+  getCourseForSaleById,
+  getFilterCourseForSale,
+  searchCoursesByName,
 };

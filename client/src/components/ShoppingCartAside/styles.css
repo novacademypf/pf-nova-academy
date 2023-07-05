@@ -1,0 +1,10 @@
+.shopping-aside {
+  width: 360px;
+  height: calc(100vh - 89.27px);
+  top: 89.27px;
+}
+.shopping-aside {
+  width: 320px;
+  height: calc(100vh - 89.27px);
+  top: 89.27px;
+}
