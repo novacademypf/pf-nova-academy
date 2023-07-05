@@ -1,13 +1,9 @@
 const { CourseForSale, Profile, User } = require("../db");
 const getUserToken = require("../helpers/getUsertoken");
-const { Op } = require('sequelize');
 const { cursos, category } = require("../constants/data");
 
 const postCreateCourseForSale = async (req, res) => {
-  try {
-    console.log("req body courseForSale controlelr",req.body.headers.form)
-    const { name, category, duration, description, images, price } = req.body.headers.form;
-    console.log("gettoken", getUserToken(req))
+  /* try {
     const user = await getUserToken(req);
     console.log("usuario",user);
     if (!name || !category || !duration || !description || !images || !price ) {
@@ -23,7 +19,7 @@ const postCreateCourseForSale = async (req, res) => {
       price,
       idProfile: user.idUser,
     });
-    console.log("newCourse", newCourse)
+    const newCourse = await CourseForSale.bulkCreate(dataCourse);
     res.json(newCourse);
   } 
   catch (error) {
@@ -40,14 +36,63 @@ const getCourseForSale = async (req, res) => {
     const { count, rows } = await CourseForSale.findAndCountAll({
       offset,
       limit,
+    const { page, limit } = req.query;
+    console.log({ page, limit })
+    const offset = (page - 1) * limit;
+    const { count, rows } = await CourseForSale.findAndCountAll({
+      offset,
+      limit,
       include: {
         model: Profile,
         attributes: { exclude: ["photo"] },
       },
     });
     res.send({ courseCount: count, courseAll: rows });
+    res.send({ courseCount: count, courseAll: rows });
   } catch (error) {
     res.status(400).json({ error: error.message });
+  }
+};
+const getFilterCourseForSale = async (req, res) => {
+  try {
+    const { categories, priceMin, priceMax } = req.query;
+    if (categories && priceMin && priceMax) {
+      console.log('estoy aca')
+      const { count, rows } = await CourseForSale.findAndCountAll({
+        where: {
+          category: {
+            [Op.contains]: categories
+          },
+          price: {
+            [Op.between]: [priceMin, priceMax]
+          }
+        },
+        include: {
+          model: Profile,
+          attributes: { exclude: ["photo"] },
+        },
+      });
+
+      return res.json({ courseCount: count, courseAll: rows });
+    }
+    if (categories) {
+      console.log('estoy aca')
+      const { count, rows } = await CourseForSale.findAndCountAll({
+        where: {
+          category: {
+            [Op.contains]: categories
+          }
+        },
+        include: {
+          model: Profile,
+          attributes: { exclude: ["photo"] },
+        },
+      });
+
+      return res.json({ courseCount: count, courseAll: rows });
+    }
+  } catch (error) {
+    res.json({ error: error.message });
   }
 };
 const getFilterCourseForSale = async (req, res) => {
@@ -170,6 +215,9 @@ module.exports = {
   getCourseForSale,
   deleteCourseForSale,
   updateCourseForSale,
+  getCourseForSaleById,
+  getFilterCourseForSale,
+  searchCoursesByName,
   getCourseForSaleById,
   getFilterCourseForSale,
   searchCoursesByName,

@@ -20,6 +20,12 @@ const createUser = async (req, res) => {
       error.status=409
       throw error
     }
+    
+    const existingUser = await User.findOne({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({ error: "El correo electrónico ya está registrado" });
+    }
+
     const user = await User.create({
       name,
       email,
