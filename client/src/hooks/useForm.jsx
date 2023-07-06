@@ -19,7 +19,7 @@ export const useForm = (dataValue) => {
     }
   }, [valueInput.isCheked]);
   useEffect(() => {
-    if (errorsDb.error === "user not found") {
+    if (errorsDb.error) {
       setShowModal(true);
     }
   }, [errorsDb]);
@@ -49,11 +49,12 @@ export const useForm = (dataValue) => {
       const user = await loginUser(valueInput);
       localStorage.setItem("token", user.data);
       console.log("token user registrado",user.data)
-      user.status === 200 && navigate("/");
+      user.status === 200 && navigate("/home");
     } catch (error) {
       error.response.status === 404 && setErrorsDb(error.response.data);
       error.response.status === 401 && console.error(error.response.data);
       error.response.status === 403 && console.error(error.response.data);
+      error.response.status === 409 && setErrorsDb(error.response.data);
     }
   };
 

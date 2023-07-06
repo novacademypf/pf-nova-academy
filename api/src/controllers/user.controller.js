@@ -39,12 +39,17 @@ const createUser = async (req, res) => {
   }
 };
 
-const getLoginUser = async (req, res) => {
+const postLoginUser = async (req, res) => {
   const { email, password } = req.body; // Se extraen el correo electrónico y la contraseña del cuerpo de la solicitud
   try {
-    console.log('-->',email)
-    const user = await User.findOne({ where: { email: email } }); // Se busca en la base de datos un usuario con el correo electrónico proporcionado
-    console.log(user)
+    const searchedUserGoogle  = await UserGoogle.findOne({where: {email: email}})
+    const user = await User.findOne({ where: { email: email } }); // Se busca en la base de datos un usuario con el correo electrónico proporcionado     
+    console.log('-->>>>>>',searchedUserGoogle)
+    if(searchedUserGoogle){
+      const error = new Error("por favor inicia sesión con Google")
+      error.status=409
+      throw error
+    }
     if (!user){
       const error = new Error("user not found");
       error.status = 404;
@@ -129,7 +134,7 @@ const deleteUserById = async (req, res) => {
 
 module.exports = {
   createUser,
-  getLoginUser,
+  postLoginUser,
   getUsers,
   getUserById,
   updateUserById,

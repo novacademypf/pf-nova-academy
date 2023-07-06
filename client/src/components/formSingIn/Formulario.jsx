@@ -3,6 +3,7 @@ import { Input } from "./inputForm";
 import { useForm } from "../../hooks/useForm";
 import ModalErrorForm from "./ModalErrorForm";
 import { Checkbox } from "flowbite-react";
+import { useEffect } from "react";
 
 const objForm = { email: "", password: "", isCheked: false };
 export const FormSingIn = () => {
@@ -14,6 +15,7 @@ export const FormSingIn = () => {
     errors,
     setShowModal,
     showModal,
+    errorsDb
   } = useForm(objForm);
 
   return (
@@ -76,7 +78,7 @@ export const FormSingIn = () => {
         </NavLink>
       </p>
       {showModal && (
-        <ModalErrorForm showModal={showModal} text={"No se encontraron credenciales. ¿Te gustaría crear una cuenta?"} setShowModal={setShowModal} />
+        <ModalErrorForm showModal={showModal} text={errorsDb.error} setShowModal={setShowModal} />
       )}
     </form>
   );

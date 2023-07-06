@@ -21,7 +21,7 @@ export const useGoogleAuth = () => {
     const response = await loginUserGoogle(codeResponse.access_token);
     localStorage.setItem("token", response.data.token);
     console.log("test token login",response.data.token);
-    response.data.token && response.status === 200 && navigate("/");
+    response.data.token && response.status === 200 && navigate("/home");
   };
   const error = () => {
     console.log("login failed");
