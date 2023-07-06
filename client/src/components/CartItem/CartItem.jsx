@@ -1,13 +1,11 @@
 import { useDispatch } from "react-redux";
-import {
-  addToCart,
-  delFromCart,
-} from "../../redux/actions/shoppingCartActions";
+import { delFromCart } from "../../redux/actions/shoppingCartActions";
 
 /* eslint-disable */
 const CartItem = ({ dataCard }) => {
   const dipatch = useDispatch();
   const { id, name, images, price, quantity } = dataCard;
+  console.log(name);
   let total = quantity * price;
   return (
     <div className="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 ">
@@ -26,30 +24,21 @@ const CartItem = ({ dataCard }) => {
                 />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
+                <p className="text-sm font-medium text-gray-900 truncate">
                   {name}
                 </p>
-                <div classNameName="flex flex-row items-center justify-between">
+                <div className="flex flex-row items-center justify-between">
                   <button
-                    classNameName=" flex justify-center items-center bg-[#FFFFFF] w-6 h-6 rounded-full m-2 p-2"
+                    className=" flex justify-center items-center bg-[#FFFFFF] w-6 h-6 rounded-full m-2 p-2"
                     onClick={() => {
                       dipatch(delFromCart(id));
                     }}
                   >
                     -
                   </button>
-                  <span classNameName="text-lg font-medium">{quantity}</span>
-                  <button
-                    classNameName="flex justify-center items-center bg-[#FFFFFF] w-6 h-6 rounded-full m-2 p-2"
-                    onClick={() => {
-                      dipatch(addToCart(dataCard));
-                    }}
-                  >
-                    +
-                  </button>
                 </div>
               </div>
-              <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+              <div className="inline-flex items-center text-base font-semibold text-gray-900">
                 ${price}
               </div>
             </div>

@@ -7,7 +7,6 @@ const createUser = async (req, res) => {
   console.log(req.body)
   try {
     const { name, email, password, role } = req.body;
-    console.log(role)
     const searchedUserGoogle  = await UserGoogle.findOne({where: {email: email}})
     const searchedUser = await User.findOne({where: {email: email}})
     if(searchedUserGoogle){
@@ -20,6 +19,14 @@ const createUser = async (req, res) => {
       error.status=409
       throw error
     }
+
+    
+    const existingUser = await User.findOne({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({ error: "El correo electrónico ya está registrado" });
+    }
+
+
     const user = await User.create({
       name,
       email,
