@@ -1,38 +1,25 @@
 import { useEffect, useState } from "react";
-import { AiOutlineCaretUp, AiOutlineCaretDown } from "react-icons/ai";
-import list from "./list.json";
-import { getCategories } from "../../services/categoryRequest";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-
 import Dropdown from "../../components/DropDown/DropDown";
 import { useDropDown } from "../../hooks/useDropdown";
 import { getAllCategories } from "../../redux/actions/allCategoriesActions";
 import {
-
   applyFilter,
-
   deleteFilters,
-
   getCourseDefaultFilters,
-  setDefaultFilters,
   setOptionFilters,
-
 } from "../../redux/actions/filterActions";
-import { getAllCourses } from "../../redux/actions/coursesActions";
 
 const SectionFilter = () => {
   const dispatch = useDispatch();
-  const { courseAll } = useSelector((state) => state.coursesReducer.courses);
+
 
   const data = useSelector((state) => state.getAllCategories.categories);
-  const { category } = useSelector(
-    (state) => state.setOptionsFiltersReducer.filters
-  );
+
   const { cursosFiltrados, filters, isFiltered } = useSelector((state) => {
     return state.filterReducer;
   });
-  console.log("satet-->", cursosFiltrados, filters, isFiltered);
   const [optionsFilters, setOptionsFilter] = useState({
     category: "todos",
     precio: "todos",
@@ -43,16 +30,15 @@ const SectionFilter = () => {
   const getData = () => {
     dispatch(getAllCategories());
   };
-const [value,setValue]=useState(100)
+  const [value, setValue] = useState(100);
 
-const handleChangeRange =(e)=>{
-  const name = e.target.getAttribute("name");
-  const value = e.target.value; 
-  console.log('range-->',name, value);
-  setValue(value)
-  dispatch(setOptionFilters({ [name]: value }));
-  
-}
+  const handleChangeRange = (e) => {
+    const name = e.target.getAttribute("name");
+    const value = e.target.value;
+    console.log("range-->", name, value);
+    setValue(value);
+    dispatch(setOptionFilters({ [name]: value }));
+  };
 
   const handleOptionSelect = (e) => {
     const value = e.target.textContent;
@@ -60,13 +46,12 @@ const handleChangeRange =(e)=>{
     setOptionsFilter({ ...optionsFilters, [name]: value });
     dispatch(setOptionFilters({ [name]: value }));
 
-    /*   dispatch(FilterCourseCategory(value, courseAll)); */
     setIsOpen(false);
   };
 
   const handleDeleteFilters = () => {
-    dispatch(deleteFilters())
-    setValue(0)
+    dispatch(deleteFilters());
+    setValue(0);
   };
 
   useEffect(() => {
@@ -87,9 +72,7 @@ const handleChangeRange =(e)=>{
 
   function handleSortByName(e) {
     const name = e.target.getAttribute("name");
-    const value = e.target.value;
-  
-   
+    const value = e.target.value;   
     dispatch(setOptionFilters({ [name]: value }));
   }
 
@@ -107,7 +90,6 @@ const handleChangeRange =(e)=>{
         name={"category"}
       />
 
-    
       <div className="relative inline-block w-64" />
       <select
         className="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-3 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -127,17 +109,17 @@ const handleChangeRange =(e)=>{
       </div>
 
       <label
-        for="default-range"
+        htmlFor="default-range"
         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
       >
-       seleccione el rango de precio
+        seleccione el rango de precio
       </label>
       <input
         id="default-range"
         type="range"
         min={100}
         max={200}
-        name='precio'
+        name="precio"
         value={value}
         onChange={handleChangeRange}
         className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
@@ -149,7 +131,6 @@ const handleChangeRange =(e)=>{
       >
         borrar filtros
       </button>
-
     </section>
   );
 };

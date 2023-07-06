@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import CourseCards from "../../components/CourseCards/CourseCards";
-import { saveCourse } from "../../redux/actions/coursesActions";
+
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 
@@ -11,7 +11,7 @@ const SectionCursos = () => {
       return state.filterReducer;
     }
   );
-
+console.log(cursos?.courseAll)
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 10; // Cantidad de elementos por página
   const totalCourses = isFiltered
@@ -26,10 +26,6 @@ const SectionCursos = () => {
     
     setCurrentPage(selected);
   };
-
- 
-   
-
   const pageCount = Math.ceil((totalCourses?.length || 0) / itemsPerPage); // Número total de páginas
  
   return (

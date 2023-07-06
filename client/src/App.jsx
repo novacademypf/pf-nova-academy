@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useRoutes } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { getAllCourses } from "./redux/actions/coursesActions";
+
 import Admin from "./pages/Admin";
 import Checkout from "./pages/Checkout";
 import Courses from "./pages/Courses";
@@ -17,11 +16,7 @@ import Detail from "./pages/Detail";
 import Footer from "./components/Footer/Footer";
 
 const App = () => {
-/*   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getAllCourses());
-  }, []); */
 
   const AppRouter = () => {
     let routes = useRoutes([
