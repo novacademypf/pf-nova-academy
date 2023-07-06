@@ -37,18 +37,19 @@ const Checkout = () => {
 
   return (
     <Layout>
-      <div className="flex flex-row items-center ">
+      <div className="flex flex-row items-center m-8 justify-between">
         <button
-          className="flex justify-center items-center bg-primary-purple rounded-full m-2 p-2"
+          className=" bg-red-500 hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-4 "
           onClick={() => {
             dispatch(clearCart());
           }}
         >
           Limpiar carrito
         </button>
-        <span className="font-extrabold">Total compra: ${totalPrice}</span>
+        <span className="font-extrabold m-4">Total compra: ${totalPrice}</span>
         <button
-          className="flex justify-center items-center bg-second-blue rounded-full m-2 p-2"
+          type="button"
+          className=" bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-4"
           onClick={() => {
             handlePayment(dataToPayment);
           }}
