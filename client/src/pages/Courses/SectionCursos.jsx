@@ -26,7 +26,11 @@ const SectionCursos = () => {
     
     setCurrentPage(selected);
   };
-
+  
+  useEffect(() => {
+    // Actualizar la página actual cuando cambie el filtro
+    setCurrentPage(0);
+  }, [isFiltered]);
  
    
 
