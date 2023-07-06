@@ -13,7 +13,7 @@ const SectionCursos = () => {
   );
 
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 10; // Cantidad de elementos por página
+  const itemsPerPage = 8; // Cantidad de elementos por página
   const totalCourses = isFiltered
     ? cursosFiltrados?.courseAll
     : cursos?.courseAll; // Array de cursos total
@@ -33,9 +33,9 @@ const SectionCursos = () => {
   const pageCount = Math.ceil((totalCourses?.length || 0) / itemsPerPage); // Número total de páginas
  
   return (
-    <section className="min-w-[calc(100%-15em)] left-[15em] relative">
+    <section className="min-w-[calc(100%-15em)] left-[15em] absolute">
       {/* Aca va la paginación */}
-      <div className="w-[calc(100%-15em)]  left-[15em] bg-white h-14 fixed z-30  flex justify-center items-center gap-2 ">
+      <div className="bg-purple-500 w-[calc(100%-15em)]  left-[15em] bg-white h-14 fixed z-30  flex justify-center items-center gap-2 ">
         <ReactPaginate
           previousLabel={"<"}
           nextLabel={">"}
@@ -59,7 +59,6 @@ const SectionCursos = () => {
           renderOnZeroPageCount={null}
         />
       </div>
-
       <div className="w-full relative top-[3.5em]">
         <CourseCards courses={paginatedCourses} />
       </div>
