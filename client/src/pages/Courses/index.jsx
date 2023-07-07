@@ -11,9 +11,9 @@ import { applyFilter, getCourseDefaultFilters } from "../../redux/actions/filter
 const Courses = () => {
   
 const dispatch = useDispatch()
-/*   useEffect(()=>{
-    dispatch(getAllCourses(1,10))
-  },[]) */
+  useEffect(()=>{
+    dispatch(getAllCourses())
+  },[])
   
   return (  
        <main className=" relative top-[5.5rem] flex ">
