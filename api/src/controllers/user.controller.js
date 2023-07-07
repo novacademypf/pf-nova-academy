@@ -4,10 +4,16 @@ const { compare, encrypt } = require("../helpers/handleBcrypt");
 
 
 const createUser = async (req, res) => {
-  console.log(req.body)
+  console.log('req createUser ',req.body)
   try {
     const { name, email, password, role } = req.body;
     console.log(role)
+    
+    const existingUser = await User.findOne({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({ error: "El correo electrónico ya está registrado" });
+    }
+
     const user = await User.create({
       name,
       email,
@@ -21,7 +27,7 @@ const createUser = async (req, res) => {
     });
     res.send('user created successfully');
   } catch (error) {
-    console.error(error);
+    console.error('error catch',error);
     res.status(500).json({ error: "Error creating user" });
   }
 };

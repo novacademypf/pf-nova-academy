@@ -1,6 +1,6 @@
 import axios from "axios";
 import { GET_ALL_COURSES } from "../action-type/action-types";
-const endpoint = "http://localhost:3001/courseForSale ";
+const endpoint = "http://localhost:3001/courseForSale?page=1&limit=10";
 
 export const getAllCourses = () => {
   return async (dispatch) => {
@@ -13,5 +13,12 @@ export const getAllCourses = () => {
     } catch (err) {
       console.log({ errorGetAllCourses: err, message: err.message });
     }
+  };
+};
+
+export const deleteCourse = (courseId) => {
+  return {
+    type: 'DELETE_COURSE',
+    payload: courseId,
   };
 };
