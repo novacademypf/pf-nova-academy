@@ -64,17 +64,33 @@ export default function CreateCourse() {
 console.log(localStorage.token)
 
 
-    await api.post("/courseForSale/createCourse", {
-      ...form
-      },
-      {
-      headers:{
-        Authorization:localStorage.token
-      },
-    });
-    alert("Curso creado, Agrega modulos")
-    setModules(modules + 1);
-  };
+await api.post("/courseForSale/createCourse",
+{
+  headers: {
+    'Authorization': localStorage.getItem("token"),
+    form,// Agregar el token en el encabezado 'Authorization'
+  },
+}
+);
+alert("Curso creado")
+setForm({
+name: "",
+category: [],
+duration: "",
+description: "",
+images: "",
+price: "",
+});
+setErrors({
+name: "",
+category: [],
+duration: "",
+description: "",
+images: "",
+price: "",
+});
+// setModules(modules + 1);
+};
 
   const deleteModule = () => {
     if (modules === 0) return;

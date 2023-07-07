@@ -20,6 +20,12 @@ const createUser = async (req, res) => {
       error.status=409
       throw error
     }
+    
+    const existingUser = await User.findOne({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({ error: "El correo electrónico ya está registrado" });
+    }
+
     const user = await User.create({
       name,
       email,
@@ -30,7 +36,11 @@ const createUser = async (req, res) => {
     const newPerfil = await Profile.create({
       userId: user.userId, // ID del usuario se guarda en la columna 'userId' de la tabla 'Perfil'
       name: user.name,
+      email:user.email,
+      role:user.role
     });
+    user.setProfile(newPerfil);
+
     res.send('user created successfully');
   } catch (error) {
     console.error(error);
@@ -44,13 +54,15 @@ const getLoginUser = async (req, res) => {
   try {
     console.log('-->',email)
     const user = await User.findOne({ where: { email: email } }); // Se busca en la base de datos un usuario con el correo electrónico proporcionado
-    console.log(user)
+    const profile= await Profile.findOne({where:{email:email}})
+    console.log("login profile",profile)
+    console.log("login user",user)
     if (!user){
       const error = new Error("user not found");
       error.status = 404;
       throw error;} // Si no se encuentra ningún usuario, se lanza un error
     const checkPassword = await compare(password, user.password); // Se compara la contraseña proporcionada con la contraseña almacenada en la base de datos
-    const tokenSession = await createtoken(user); // Si la contraseña coincide, se crea un token de sesión
+    const tokenSession = await createtoken(profile); // Si la contraseña coincide, se crea un token de sesión
     if (checkPassword)
       res
         .status(200)
