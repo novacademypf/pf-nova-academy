@@ -15,9 +15,9 @@ const createPayment = async (req, res) => {
     const preference = {
       items: prod,
       back_urls: {
-        success: "http://localhost:3001",
-        failure: "",
-        pending: "",
+        success: "http://127.0.0.1:5173/",
+        failure: "http://127.0.0.1:5173/",
+        pending: "http://127.0.0.1:5173/",
       },
       auto_return: "approved",
       binary_mode: true,
@@ -28,7 +28,7 @@ const createPayment = async (req, res) => {
 
     mercadopago.preferences
       .create(preference)
-      .then((response) => res.status(200).send({ response }));
+      .then((response) => res.status(200).json({ response }));
 
     // Redireccionar al usuario a la página de pago de MercadoPago
     /*return res.redirect(response.body.init_point);*/
