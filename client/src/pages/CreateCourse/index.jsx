@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCategories } from "../../redux/actions/categoryAction.js";
+import { getAllCategories } from "../../redux/actions/allCategoriesActions";
 import FormCourse from "./ModuleCreate";
 import api from "../../services/api.js"
 import { useGoogleAuth } from "../../hooks/useGoogleAuth.jsx";
 export default function CreateCourse() {
   const dispatch = useDispatch();
-  const categoryList = useSelector((state) => state.categoryList);
+  const categoryList = useSelector((state) => state.getAllCategories.categories);
   const [modules, setModules] = useState(0);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [errors, setErrors] = useState({
@@ -25,7 +25,7 @@ export default function CreateCourse() {
     images: "",
     price: "",
   });
-
+console.log("categoryList", categoryList)
   useEffect(() => {
     dispatch(getAllCategories());
   }, [dispatch]);
@@ -53,22 +53,11 @@ export default function CreateCourse() {
     } else if (!form.price.match(/^[0-9]+$/)) {
       return alert("Precio solo permite numeros");
     }
-
-    // crear boton submit para pushear todo al back, 
-    // crear boton submit lecion para hacer el post de cada lecion en cada modulo.
-    // revisar los axios
-// console.log(localStorage.setItem("token", response.data.token));
-// token de google
-
-// token de user registrado
-console.log(localStorage.token)
-
-
 await api.post("/courseForSale/createCourse",
 {
   headers: {
     'Authorization': localStorage.getItem("token"),
-    form,// Agregar el token en el encabezado 'Authorization'
+    form,
   },
 }
 );
@@ -145,8 +134,12 @@ price: "",
   };
 
   const categorySelectionHandler = (event) => {
+    console.log("categoryselectionhandler", event.target.selectedOptions)
+
     const selectedOptions = Array.from(event.target.selectedOptions);
+    console.log("selectoptions", selectedOptions)
     const selectedCategoryIds = selectedOptions.map((option) => option.value);
+    console.log("selectedcategory", selectedCategoryIds)
     setSelectedCategories(selectedCategoryIds);
     setForm({ ...form, category: selectedCategoryIds });
   };
@@ -181,15 +174,15 @@ price: "",
             className="w-96 p-2 mb-4 border border-gray-300 rounded"
             // value={selectedCategories}
           >
-            <option value="programacion">Programación</option>
+            {/* <option value="programacion">Programación</option>
             <option value="musica">Música</option>
             <option value="matematicas">Matemáticas</option>
-            <option value="ciencia">Ciencia</option>
-            {/* {categoryList.map((op) => (
-                <option key={op.id} value={op.id}>
+            <option value="ciencia">Ciencia</option> */}
+            {categoryList.map((op) => (
+                <option key={op.id} value={op.name}>
                   {op.name}
                 </option>
-              ))} */}
+              ))}
           </select>
 
           <div>

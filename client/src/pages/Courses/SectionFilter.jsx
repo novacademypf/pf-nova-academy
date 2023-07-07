@@ -94,9 +94,9 @@ const handleChangeRange =(e)=>{
 
   return (
   
-    <section className=" w-[15em] min-w-[15em] py-[2em] px-[1em]  fixed  z-50 left-[0] h-[calc(100vh-5.5em)] right-0 flex-col  overflow-auto justify-center">
+    <section className=" bg-green-200 w-[15em] min-w-[15em] py-[2em] px-[1em]  fixed  z-50 left-[0] h-[calc(100vh-5.5em)] right-0 flex-col  overflow-auto justify-center">
       <Dropdown
-        labelValue={"filtrar cursos por:"}
+        labelValue={"filtrar Categorias:"}
         isLabel={isLabel}
         isOpen={isOpen}
         selectedOption={filters.category}
@@ -116,7 +116,7 @@ const handleChangeRange =(e)=>{
 
       <div className="relative inline-block w-64" />
       <select
-        className="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-3 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+        className="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2.4 px-3 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm"
         name="orderAlphabetico"
         value={filters.orderAlphabetico}
         onChange={handleSortByName}
@@ -136,7 +136,7 @@ const handleChangeRange =(e)=>{
         for="default-range"
         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
       >
-       seleccione el rango de precio
+      Seleccione el Rango de Precio
       </label>
       <input
         id="default-range"
@@ -153,7 +153,7 @@ const handleChangeRange =(e)=>{
         className="focus:outline-none mt-1 text-white bg-violet-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
         onClick={handleDeleteFilters}
       >
-        borrar filtros
+        Borrar Filtros
       </button>
 
     </section>
