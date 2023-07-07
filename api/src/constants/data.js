@@ -45,17 +45,18 @@ const cursos = [
 
 
 
+
 const category = [
-  { name: "Matemáticas" },
-  { name: "Ciencias Naturales" },
-  { name: "Historia" },
-  { name: "Idiomas" },
-  { name: "Programación" },
+  { name: "Matemáticas" },//
+  { name: "Ciencias Naturales" },//
+  { name: "Historia" },//
+  { name: "Idiomas" },//
+  { name: "Programación" },//
   { name: "Arte y Diseño" },
-  { name: "Literatura" },
-  { name: "Economía" },
+  { name: "Literatura" },//
+  { name: "Economía" },//
   { name: "Psicología" },
-  { name: "Música" },
+  { name: "Música" },//
 ];
 
 // El arreglo 'educationCategories' contiene 10 objetos de categoría relacionados a una plataforma educativa

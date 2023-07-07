@@ -31,7 +31,7 @@ const NavBar = () => {
   const activeStyle = "font-bold";
 
   return (
-    <nav className="bg-[#00FFFF]">
+    <nav className="bg-[#00FFFF] h-[5.5em] top-0 z-40 fixed w-full">
       <div className=" max-w-screen-xl  h-auto flex flex-wrap items-center justify-between  p-4 mx-auto ">
         <div className="-mr-2  flex basis-1/3 md:hidden">
           <button onClick={toggleMenu}>
@@ -89,6 +89,7 @@ const NavBar = () => {
             </ul>
           </nav>
         </div>
+      <NavLink to="/create">CREAR CURSO</NavLink>
         <div>
           <ul className="flex">
             <li>
