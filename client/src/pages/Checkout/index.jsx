@@ -37,7 +37,7 @@ const Checkout = () => {
 
   return (
     <Layout>
-      <div className="flex flex-row items-center  items-center m-8 justify-between">
+      <div className="flex flex-row items-center m-8 justify-between">
         <button
           className=" bg-red-500 hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-4 "
           onClick={() => {
@@ -46,12 +46,10 @@ const Checkout = () => {
         >
           Limpiar carrito
         </button>
-
         <span className="font-extrabold m-4">Total compra: ${totalPrice}</span>
-
         <button
           type="button"
-          className=" bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+          className=" bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-4"
           onClick={() => {
             handlePayment(dataToPayment);
           }}
