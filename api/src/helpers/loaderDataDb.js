@@ -8,6 +8,7 @@ const loaderCategory = async () => {
   if (categoriesCount === 0) {
     await Category.bulkCreate(category);
   }
+  console.log("esty cargando catehorias "+categoriesCount)
 };
 
 
@@ -34,6 +35,7 @@ const loaderUsers = async () => {
 
       await transaction.commit();
     }
+    console.log("esty cargando usaurios " +usersCount)
   } catch (error) {
     if (transaction) await transaction.rollback();
     console.error("Error loading users:", error);
@@ -41,33 +43,42 @@ const loaderUsers = async () => {
 };
 
 const loaderCourseForSale = async () => {
-    const profileIds = await Profile.findAll({ attributes: ['profileId'] });
-    const objGnerated= generateCourseObjects(cursos,20)
-    const coursesToAdd = profileIds.flatMap(profile => {
-      return objGnerated.map(cur => {
-        
-        return {
-          name: cur.name,
-          category: cur.category,
-          duration: cur.duration,
-          description: cur.description,
-          images: cur.images,
-          price: cur.price,
-          idProfile: profile.profileId,
-        };
-      });
+  const courseCount = await CourseForSale.count();
+
+  if (courseCount > 0) {
+    // Si ya hay cursos en la base de datos, no se realiza la carga nuevamente
+    console.log("me esty cargando en la base de datos "+courseCount)
+    return;
+  }
+  const profileIds = await Profile.findAll({ attributes: ['profileId'] });
+  const objGenerated = generateCourseObjects(cursos, 20);
+  const coursesToAdd = profileIds.flatMap((profile) => {
+    return objGenerated.map((cur) => {
+      return {
+        name: cur.name,
+        category: cur.category,
+        duration: cur.duration,
+        description: cur.description,
+        images: cur.images,
+        price: cur.price,
+        idProfile: profile.profileId,
+      };
     });
-  
-    const courseCreate = await CourseForSale.bulkCreate(coursesToAdd, { returning: true });
-  
-    for (const course of courseCreate) {
-      const categories = await Category.findAll({
-        where: { name: course.category },
-      });
-  
-      await course.addCategory(categories);
-    }
-  };
+  });
+
+  const courseCreate = await CourseForSale.bulkCreate(coursesToAdd, { returning: true });
+
+  for (const course of courseCreate) {
+    const categories = await Category.findAll({
+      where: { name: course.category },
+    });
+
+    await course.addCategory(categories);
+    console.log('cursos'+courseCount)
+   
+  }
+};
+
   
 
 module.exports = {loaderCategory,loaderUsers,loaderCourseForSale};

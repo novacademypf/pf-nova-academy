@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/icons/logo.svg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ShoppingCartAside } from "../ShoppingCartAside/ShoppingCartAside";
+import { delFromCart } from "../../redux/actions/shoppingCartActions";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [cartIsOpen, setCartIsOpen] = useState(false);
   const courses = useSelector((state) => state).shoppingCartReducer.cart;
+  const dispatch = useDispatch();
+  const location = useLocation();
+  let pathname = location.pathname;
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -15,15 +19,19 @@ const NavBar = () => {
   const toggleCart = () => {
     setCartIsOpen(!cartIsOpen);
   };
+
+  const deleteItemfromAside = (id) => {
+    dispatch(delFromCart(id));
+  };
   useEffect(() => {
     courses.length > 0 && toggleCart();
-  }, [courses]);
+  }, [courses, pathname]);
 
   const links = [{ to: "/courses", name: "Cursos" }];
   const activeStyle = "font-bold";
 
   return (
-    <nav className="bg-[#00FFFF]">
+    <nav className="bg-[#00FFFF] h-[5.5em] top-0 z-40 fixed w-full">
       <div className=" max-w-screen-xl  h-auto flex flex-wrap items-center justify-between  p-4 mx-auto ">
         <div className="-mr-2  flex basis-1/3 md:hidden">
           <button onClick={toggleMenu}>
@@ -81,6 +89,7 @@ const NavBar = () => {
             </ul>
           </nav>
         </div>
+      <NavLink to="/create">CREAR CURSO</NavLink>
         <div>
           <ul className="flex">
             <li>
@@ -131,7 +140,11 @@ const NavBar = () => {
         </div>
       </div>
       {cartIsOpen && (
-        <ShoppingCartAside toggle={toggleCart} cartItems={courses} />
+        <ShoppingCartAside
+          toggle={toggleCart}
+          cartItems={courses}
+          deleteItemfromAside={deleteItemfromAside}
+        />
       )}
     </nav>
   );
