@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 import ResultSearchBar from "../ResultSearchBar/ResultSearchBar";
 
 const SearchBar = () => {
-  const courses = useSelector((state) => state).coursesReducer.courses;
+  const {courseAll} = useSelector((state) => state.coursesReducer.courses);
   const [term, setTerm] = useState("");
   const [filteredCourses, setFilteredCourses] = useState([]);
   let navigate = useNavigate();
 
-  let coursesFlat = courses.map((el) => {
+  let coursesFlat = courseAll && courseAll.map((el) => {
     return {
       id: el.id,
       name: el.name
@@ -34,7 +34,7 @@ const SearchBar = () => {
 
   const filterCourse = (value) => {
     value = value.toLowerCase();
-    let filter = coursesFlat.filter((el) => {
+    let filter = coursesFlat && coursesFlat.filter((el) => {
       return (
         el.name.includes(value) ||
         el.description.includes(value) ||
@@ -116,7 +116,7 @@ const SearchBar = () => {
         </button>
       </form>
       {term.length > 0 && term !== " " && (
-        <ResultSearchBar results={filteredCourses} />
+        <ResultSearchBar results={ filteredCourses} />
       )}
     </>
   );
