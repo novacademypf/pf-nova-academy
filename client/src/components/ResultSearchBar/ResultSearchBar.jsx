@@ -22,5 +22,4 @@ const ResultSearchBar = ({ results }) => {
     </div>
   );
 };
-
 export default ResultSearchBar;
