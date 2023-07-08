@@ -30,21 +30,21 @@ const userReducer = (state = initialState, action) => {
         error: action.payload,
       };
 
-      case 'CHECK_EMAIL_EXISTENCE':
+      case CHECK_EMAIL_EXISTENCE:
       return {
         ...state,
         isCheckingEmail: true,
         emailError: '',
       };
 
-    case 'CHECK_EMAIL_EXISTENCE_SUCCESS':
+    case CHECK_EMAIL_EXISTENCE_SUCCESS:
       return {
         ...state,
         isCheckingEmail: false,
         emailError: '',
       };
 
-    case 'CHECK_EMAIL_EXISTENCE_FAILURE':
+    case CHECK_EMAIL_EXISTENCE_FAILURE:
       return {
         ...state,
         isCheckingEmail: false,
