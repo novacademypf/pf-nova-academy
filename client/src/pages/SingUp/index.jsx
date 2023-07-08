@@ -57,6 +57,10 @@ const SignUp = ({
         name,
         email,
         password,
+
+        
+      },{ headers:{ 'Content-Type': 'application/json' }
+
       });
 
       console.log("submit exitoso");
@@ -64,7 +68,9 @@ const SignUp = ({
         icon: "success",
         title: "Registro completo",
         text: "Creaste tu cuenta ahora puedes ingresar",
-        footer: '<a href="http://localhost:5173/login">Ingresa desde AQUI</a>',
+        footer: '<a href="http://localhost:5173/home">Vamos a tu cuenta</a>',
+        backdrop: 'static',
+        allowOutsideClick: false,
       });
 
       const user = response.data;
