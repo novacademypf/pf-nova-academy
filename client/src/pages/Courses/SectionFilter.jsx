@@ -97,12 +97,18 @@ const handleChangeRange =(e)=>{
 
   return (
   
+
     <section className=" bg-purple-300 w-[15em] min-w-[15em] py-[2em] px-[1em]  fixed  z-50 left-[0] h-[calc(100vh-5.5em)] right-0 flex-col  overflow-auto justify-center">
       
       <h2 className="mb-5">Filtra Por Categoria:</h2>
       <Dropdown
         //labelValue={"Filtrar Categorias:"}
         isLabel={"Filtrar Categorias"}
+
+    <section className=" bg-green-200 w-[15em] min-w-[15em] py-[2em] px-[1em]  fixed  z-50 left-[0] h-[calc(100vh-5.5em)] right-0 flex-col  overflow-auto justify-center">
+      <Dropdown
+        labelValue={"filtrar Categorias:"}
+        isLabel={isLabel}
         isOpen={isOpen}
         selectedOption={filters.category}
         toggleDropdown={toggleDropdown}
@@ -122,7 +128,11 @@ const handleChangeRange =(e)=>{
       <h2 className="mb-0">Filtra Por Orden Alfabetico:</h2>
       <div className="relative inline-block w-64" />
       <select
+
         className="block appearance-none w-full bg-white border border-gray-300 text-gray-700 p-3 py-3 px-3 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-base"
+
+        className="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2.4 px-3 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm"
+
         name="orderAlphabetico"
         value={filters.orderAlphabetico}
         onChange={handleSortByName}
@@ -141,7 +151,9 @@ const handleChangeRange =(e)=>{
       <label
         for="default-range"
         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+
       >Seleccione el Rango de Precio
+
       </label>
       <input
         id="default-range"
