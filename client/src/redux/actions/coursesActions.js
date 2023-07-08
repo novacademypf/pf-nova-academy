@@ -6,10 +6,10 @@ import { getCategoryFilters, getCourseForSale } from "../../services/courseForSa
 
 const endpoint = "http://localhost:3001/courseForSale?page=1&limit=10";
 
-export const getAllCourses = (page, limit) => {
+export const getAllCourses = () => {
   return async (dispatch) => {
     try {
-      let getDogs = await getCourseForSale(page, limit);
+      let getDogs = await getCourseForSale();
       let data = getDogs.data;
       return dispatch(saveCourse(data));
     } catch (err) {
