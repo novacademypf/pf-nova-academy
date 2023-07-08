@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllCategories } from "../../redux/actions/allCategoriesActions";
 import FormCourse from "./ModuleCreate";
 import api from "../../services/api.js"
+import { uploadFile } from "../../firebase/config";
 import { useGoogleAuth } from "../../hooks/useGoogleAuth.jsx";
 export default function CreateCourse() {
   const dispatch = useDispatch();
   const categoryList = useSelector((state) => state.getAllCategories.categories);
+  const [ file, setFile ] = useState(null)
   const [modules, setModules] = useState(0);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [errors, setErrors] = useState({
@@ -26,6 +28,7 @@ export default function CreateCourse() {
     price: "",
   });
 console.log("categoryList", categoryList)
+
   useEffect(() => {
     dispatch(getAllCategories());
   }, [dispatch]);
@@ -35,6 +38,16 @@ console.log("categoryList", categoryList)
       <FormCourse key={index} modules={modules} />
     ));
   };
+
+  const handleUpdate = async(e) => {
+    e.preventDefault()
+    try {
+      const url = await uploadFile(file)
+      console.log(url)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const addModule = async (event) => {
     event.preventDefault();
@@ -215,12 +228,13 @@ price: "",
           </div>
           <label className="block mb-2 font-bold">Imagen:</label>
           <input
-            type="text"
+            type="file"
             className="w-96 p-2 mb-4 border border-gray-300 rounded"
-            value={form.images}
-            onChange={changeHandler}
+            // value={form.images}
+            onChange={(e)=> setFile(e.target.files[0])}
             name="images"
           />
+          <button onClick={handleUpdate}>SUBIR IMAGEN</button>
           <div>
             {errors.image && <span>{errors.image}</span>}
           </div>
@@ -261,6 +275,7 @@ price: "",
       >
         Submit
       </button>
+      {/* <img src="https://firebasestorage.googleapis.com/v0/b/image-novacademy.appspot.com/o/35309d7a-3ab9-4b9f-901c-10d32563acac?alt=media&token=079a2b60-9910-46c6-b6c6-f56605878154" alt="nombre" /> */}
     </div>
   );
 }
