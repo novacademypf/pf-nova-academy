@@ -13,10 +13,11 @@ import SingUp from "./pages/SingUp";
 import Home from "./pages/Home";
 import NavBar from "./components/NavBar";
 import Detail from "./pages/Detail";
-import About from "./pages/About";
- /* import { SearchCourse } from "./pages/SearchCourse/SearchCourse"; */
+
+/* import { SearchCourse } from "./pages/SearchCourse/SearchCourse"; */
 import AdminHome from "./pages/AdminHome/AdminHome";
 import CreateCourse from "./pages/CreateCourse";
+import { SearchCourse } from "./pages/SearchCourse/SearchCourse";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ const App = () => {
       { path: "/register", element: <SingUp /> },
       { path: "/detail/:courseId", element: <Detail /> },
       { path: "/create", element: <CreateCourse /> },
+      { path: "/search", element: <SearchCourse /> },
       { path: "/*", element: <NotFound /> },
     ]);
 
