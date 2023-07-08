@@ -38,8 +38,8 @@ const createUser = async (req, res) => {
       role:user.role
     });
     user.setProfile(newPerfil);
-    console.log("trasporter", NODEMAILER_EMAIL)
-    console.log("trasporter", transporter)
+    console.log(`"Nova Academy" <${NODEMAILER_EMAIL}>`, NODEMAILER_EMAIL)
+    console.log("trasporter", user.email)
    
     const mensaje={
       from: `"Nova Academy" <${NODEMAILER_EMAIL}>`, // sender address
@@ -48,7 +48,7 @@ const createUser = async (req, res) => {
       html: "<b>Hello world?</b>", // html body
     } 
     console.log("trasporter", mensaje)
-    await transporter.sendMail(mensaje);
+    const info = await transporter.sendMail(mensaje);
 
     console.log("trasporter", info)
     
