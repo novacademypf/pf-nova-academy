@@ -14,8 +14,9 @@ import Home from "./pages/Home";
 import NavBar from "./components/NavBar";
 import Detail from "./pages/Detail";
 import About from "./pages/About";
-import { SearchCourse } from "./pages/SearchCourse/SearchCourse";
+ /* import { SearchCourse } from "./pages/SearchCourse/SearchCourse"; */
 import AdminHome from "./pages/AdminHome/AdminHome";
+import CreateCourse from "./pages/CreateCourse";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -35,9 +36,8 @@ const App = () => {
       { path: "/account", element: <MyAccount /> },
       { path: "/login", element: <SingIn /> },
       { path: "/register", element: <SingUp /> },
-      { path: "/about", element: <About /> },
       { path: "/detail/:courseId", element: <Detail /> },
-      { path: "/search", element: <SearchCourse /> },
+      { path: "/create", element: <CreateCourse /> },
       { path: "/*", element: <NotFound /> },
     ]);
 

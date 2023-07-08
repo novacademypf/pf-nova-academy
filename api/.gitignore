@@ -105,5 +105,4 @@ dist
 
 # package-lock.json
 package-lock.json
-
-database.js
+.env

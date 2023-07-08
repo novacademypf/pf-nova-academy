@@ -1,7 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import Layout from "../../Layout";
 import Footer from '../../components/Footer/Footer'
-
 const Home = () => {
+  const navigate = useNavigate();
+  const username = localStorage.getItem("username");
+  const password = localStorage.getItem("password");
+  if (username && password) {    
+    navigate("/home");
+  }
   return (
     <Layout>
   <h2 className="h-screen flex flex-col">HOME</h2>
