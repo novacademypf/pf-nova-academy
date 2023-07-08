@@ -1,13 +1,12 @@
 const { User,Profile,UserGoogle } = require("../db");
 const { createtoken } = require("../helpers/generateToken");
 const { compare, encrypt } = require("../helpers/handleBcrypt");
-
-
+const {transporter} = require("../helpers/nodemailer.js")
+const { NODEMAILER_EMAIL } = process.env;
 const createUser = async (req, res) => {
   console.log(req.body)
   try {
     const { name, email, password, role } = req.body;
-    console.log(role)
     const searchedUserGoogle  = await UserGoogle.findOne({where: {email: email}})
     const searchedUser = await User.findOne({where: {email: email}})
     if(searchedUserGoogle){
@@ -32,7 +31,6 @@ const createUser = async (req, res) => {
       password: await encrypt(password),
       role,
     });
-    
     const newPerfil = await Profile.create({
       userId: user.userId, // ID del usuario se guarda en la columna 'userId' de la tabla 'Perfil'
       name: user.name,
@@ -40,7 +38,20 @@ const createUser = async (req, res) => {
       role:user.role
     });
     user.setProfile(newPerfil);
+    console.log("trasporter", NODEMAILER_EMAIL)
+    console.log("trasporter", transporter)
+   
+    const mensaje={
+      from: `"Nova Academy" <${NODEMAILER_EMAIL}>`, // sender address
+      to: user.email, // list of receivers
+      subject: "Nova Academy", // Subject line
+      html: "<b>Hello world?</b>", // html body
+    } 
+    console.log("trasporter", mensaje)
+    await transporter.sendMail(mensaje);
 
+    console.log("trasporter", info)
+    
     res.send('user created successfully');
   } catch (error) {
     console.error(error);
