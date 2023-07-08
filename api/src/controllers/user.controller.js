@@ -4,7 +4,7 @@ const { compare, encrypt } = require("../helpers/handleBcrypt");
 const {transporter} = require("../helpers/nodemailer.js")
 const { NODEMAILER_EMAIL } = process.env;
 const createUser = async (req, res) => {
-  console.log(req.body)
+  console.log('req createUser ',req.body)
   try {
     const { name, email, password, role } = req.body;
     const searchedUserGoogle  = await UserGoogle.findOne({where: {email: email}})

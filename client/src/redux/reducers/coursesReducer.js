@@ -1,4 +1,4 @@
-import {  SAVE_COURSE } from "../action-type/action-types";
+import { GET_ALL_COURSES, DELETE_COURSE, SAVE_COURSE} from "../action-type/action-types";
 
 const initialState = {
   courses: [],
@@ -15,6 +15,19 @@ export default function coursesReducer(state = initialState, action) {
        isFilter: action.isFilter
       };
     }
+
+    case DELETE_COURSE:
+      // Filtrar el curso a borrar según el ID
+      const updatedCourses = state.courses.filter(
+        (course) => course.id !== action.payload
+      );
+
+      return {
+        ...state,
+        courses: updatedCourses,
+      };
+
+      
 
     default:
       return state;
