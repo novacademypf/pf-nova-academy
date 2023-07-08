@@ -4,7 +4,7 @@ const { compare, encrypt } = require("../helpers/handleBcrypt");
 
 
 const createUser = async (req, res) => {
-  console.log(req.body)
+  console.log('req createUser ',req.body)
   try {
     const { name, email, password, role } = req.body;
     console.log(role)

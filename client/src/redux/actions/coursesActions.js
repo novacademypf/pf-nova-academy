@@ -18,6 +18,13 @@ export const getAllCourses = () => {
   };
 };
 
+export const deleteCourse = (courseId) => {
+  return {
+    type: 'DELETE_COURSE',
+    payload: courseId,
+  };
+};
+
 
 
 export const saveCourse=(course,isFilter)=>{
