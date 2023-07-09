@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllCategories } from "../../redux/actions/allCategoriesActions";
 import FormCourse from "./ModuleCreate";
 import api from "../../services/api.js"
+import { uploadFile } from "../../firebase/config";
 import { useGoogleAuth } from "../../hooks/useGoogleAuth.jsx";
 export default function CreateCourse() {
   const dispatch = useDispatch();
   const categoryList = useSelector((state) => state.getAllCategories.categories);
+  const [ file, setFile ] = useState(null)
   const [modules, setModules] = useState(0);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [errors, setErrors] = useState({
@@ -26,6 +28,7 @@ export default function CreateCourse() {
     price: "",
   });
 console.log("categoryList", categoryList)
+
   useEffect(() => {
     dispatch(getAllCategories());
   }, [dispatch]);
@@ -36,28 +39,43 @@ console.log("categoryList", categoryList)
     ));
   };
 
+  const handleUpdate = async(e) => {
+    e.preventDefault()
+    try {
+      const url = await uploadFile(file)
+      console.log(url)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const addModule = async (event) => {
     event.preventDefault();
-    if (!form.name) {
-      return alert("Ingrese Nombre")
-    } else if (!form.description) {
-      return alert("Ingrese Descripcion")
-    } else if (!form.duration) {
-      return alert("Ingrese Duracion")
-    } else if (!form.images) {
-      return alert("Ingrese Imagen")
-    } else if (!form.price) {
-      return alert("Ingrese Precio")
-    } else if (!form.category) {
-      return alert("Selecione Categoria")
-    } else if (!form.price.match(/^[0-9]+$/)) {
-      return alert("Precio solo permite numeros");
+    // if (!form.name) {
+    //   return alert("Ingrese Nombre")
+    // } else if (!form.description) {
+    //   return alert("Ingrese Descripcion")
+    // } else if (!form.duration) {
+    //   return alert("Ingrese Duracion")
+    // // } else if (!form.images) {
+    // //   return alert("Ingrese Imagen")
+    // } else if (!form.price) {
+    //   return alert("Ingrese Precio")
+    // } else if (!form.category) {
+    //   return alert("Selecione Categoria")
+    // } else if (!form.price.match(/^[0-9]+$/)) {
+    //   return alert("Precio solo permite numeros");
+    // }
+    const body = {
+      ...form,
+      images: await uploadFile(file)
     }
+    console.log(body)
 await api.post("/courseForSale/createCourse",
 {
   headers: {
     'Authorization': localStorage.getItem("token"),
-    form,
+    body,
   },
 }
 );
@@ -120,11 +138,11 @@ price: "",
     } else {
       errores.price = "";
     }
-    if (form.images.length === 0) {
-      errores.images = "Ingrese un Imagen";
-    } else {
-      errores.images = "";
-    }
+    // if (form.images.length === 0) {
+    //   errores.images = "Ingrese un Imagen";
+    // } else {
+    //   errores.images = "";
+    // }
     if (form.category.length === 0) {
       errores.category = "Seleccione una categoría";
     } else {
@@ -215,12 +233,13 @@ price: "",
           </div>
           <label className="block mb-2 font-bold">Imagen:</label>
           <input
-            type="text"
+            type="file"
             className="w-96 p-2 mb-4 border border-gray-300 rounded"
-            value={form.images}
-            onChange={changeHandler}
+            // value={form.images}
+            onChange={(e)=> {setFile(e.target.files[0]), console.log(e.target.files[0])}}
             name="images"
           />
+          <button onClick={handleUpdate}>SUBIR IMAGEN</button>
           <div>
             {errors.image && <span>{errors.image}</span>}
           </div>
@@ -261,6 +280,7 @@ price: "",
       >
         Submit
       </button>
+      {/* <img src="https://firebasestorage.googleapis.com/v0/b/image-novacademy.appspot.com/o/35309d7a-3ab9-4b9f-901c-10d32563acac?alt=media&token=079a2b60-9910-46c6-b6c6-f56605878154" alt="nombre" /> */}
     </div>
   );
 }
