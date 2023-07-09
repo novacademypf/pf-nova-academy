@@ -51,26 +51,31 @@ console.log("categoryList", categoryList)
 
   const addModule = async (event) => {
     event.preventDefault();
-    if (!form.name) {
-      return alert("Ingrese Nombre")
-    } else if (!form.description) {
-      return alert("Ingrese Descripcion")
-    } else if (!form.duration) {
-      return alert("Ingrese Duracion")
-    } else if (!form.images) {
-      return alert("Ingrese Imagen")
-    } else if (!form.price) {
-      return alert("Ingrese Precio")
-    } else if (!form.category) {
-      return alert("Selecione Categoria")
-    } else if (!form.price.match(/^[0-9]+$/)) {
-      return alert("Precio solo permite numeros");
+    // if (!form.name) {
+    //   return alert("Ingrese Nombre")
+    // } else if (!form.description) {
+    //   return alert("Ingrese Descripcion")
+    // } else if (!form.duration) {
+    //   return alert("Ingrese Duracion")
+    // // } else if (!form.images) {
+    // //   return alert("Ingrese Imagen")
+    // } else if (!form.price) {
+    //   return alert("Ingrese Precio")
+    // } else if (!form.category) {
+    //   return alert("Selecione Categoria")
+    // } else if (!form.price.match(/^[0-9]+$/)) {
+    //   return alert("Precio solo permite numeros");
+    // }
+    const body = {
+      ...form,
+      images: await uploadFile(file)
     }
+    console.log(body)
 await api.post("/courseForSale/createCourse",
 {
   headers: {
     'Authorization': localStorage.getItem("token"),
-    form,
+    body,
   },
 }
 );
@@ -133,11 +138,11 @@ price: "",
     } else {
       errores.price = "";
     }
-    if (form.images.length === 0) {
-      errores.images = "Ingrese un Imagen";
-    } else {
-      errores.images = "";
-    }
+    // if (form.images.length === 0) {
+    //   errores.images = "Ingrese un Imagen";
+    // } else {
+    //   errores.images = "";
+    // }
     if (form.category.length === 0) {
       errores.category = "Seleccione una categoría";
     } else {
@@ -231,7 +236,7 @@ price: "",
             type="file"
             className="w-96 p-2 mb-4 border border-gray-300 rounded"
             // value={form.images}
-            onChange={(e)=> setFile(e.target.files[0])}
+            onChange={(e)=> {setFile(e.target.files[0]), console.log(e.target.files[0])}}
             name="images"
           />
           <button onClick={handleUpdate}>SUBIR IMAGEN</button>
