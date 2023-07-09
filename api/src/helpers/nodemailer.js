@@ -14,3 +14,4 @@ transporter.verify(function (error, success) {
     console.log("Server is ready to take our messages");
   }
 })
+module.exports= transporter

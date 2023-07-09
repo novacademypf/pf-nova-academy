@@ -72,9 +72,15 @@ const users = [
     password: "Password456",
   },
   {
-    name: "Bob Johnson",
+    name: "Bob nson",
     email: "bob.johnson@example.com",
     password: "Password789",
+  },
+  {
+    name: "Javier Gaitan",
+    email: "javii.gaitan@gmail.com",
+    password: "Password123",
+    role:"admin"
   },
   
 ];

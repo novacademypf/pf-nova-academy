@@ -1,7 +1,8 @@
 const { User,Profile,UserGoogle } = require("../db");
 const { createtoken } = require("../helpers/generateToken");
 const { compare, encrypt } = require("../helpers/handleBcrypt");
-const {transporter} = require("../helpers/nodemailer.js")
+const nodemailer = require("nodemailer")
+const transporter = require("../helpers/nodemailer.js")
 const { NODEMAILER_EMAIL } = process.env;
 const createUser = async (req, res) => {
   console.log('req createUser ',req.body)
@@ -38,21 +39,12 @@ const createUser = async (req, res) => {
       role:user.role
     });
     user.setProfile(newPerfil);
-    console.log(`"Nova Academy" <${NODEMAILER_EMAIL}>`, NODEMAILER_EMAIL)
-    console.log("trasporter", user.email)
-    const mensaje= user.email;
-    //  { 
-      
-      // from: `"Nova Academy" <${NODEMAILER_EMAIL}>`, // sender address
-      // to: user.email, // list of receivers
-      // subject: "Nova Academy", // Subject line
-      // html: "<b>Hello world?</b>", // html body
-    // };
-    console.log("trasporter", mensaje);
-    const info = await transporter.sendMail(mensaje);
-
-    console.log("trasporter", info)
-    
+    const info = await transporter.sendMail({ 
+      from: `"Nova Academy" <${NODEMAILER_EMAIL}>`,
+      to: user.email, 
+      subject: "Nova Academy", 
+      html: "<b>Hello world?</b>", 
+    });
     res.send('user created successfully');
   } catch (error) {
     console.error(error);
