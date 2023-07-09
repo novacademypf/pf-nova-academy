@@ -12,6 +12,28 @@ const ChatBot = () => {
     setIsMinimized(true);
   };
 
+  const header = (
+    <header className="h-8  p-5 bg-purple-700 text-white text-lg flex items-center justify-between">
+      <strong>ChatBot Novacademy</strong>
+      <button onClick={toggleMinimize}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-6 h-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+    </header>
+  );
+
   return (
     <div className="fixed  bottom-0 right-0 z-50 p-4  ">
       {isMinimized ? (
@@ -27,6 +49,8 @@ const ChatBot = () => {
         </button>
       ) : (
         <SimpleChatBot
+          headerComponent={header}
+          placeholder="Escribe el mensaje ... "
           steps={[
             {
               id: "1",
