@@ -11,21 +11,23 @@ const NavBar = () => {
   const courses = useSelector((state) => state).shoppingCartReducer.cart;
   const dispatch = useDispatch();
   const location = useLocation();
-  let pathname = location.pathname;
-
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-  const toggleCart = () => {
-    setCartIsOpen(!cartIsOpen);
+  const openCart = () => {
+    setCartIsOpen(true);
+  };
+  const closeCart = () => {
+    setCartIsOpen(false);
   };
 
   const deleteItemfromAside = (id) => {
     dispatch(delFromCart(id));
   };
   useEffect(() => {
-    courses.length > 0 && toggleCart();
-  }, [courses, pathname]);
+    if (!cartIsOpen) courses.length > 0 && openCart();
+    //if (location.pathname === "/checkout") closeCart();
+  }, [courses]);
 
   const links = [
     { to: "/courses", name: "Cursos" },
@@ -120,7 +122,7 @@ const NavBar = () => {
             <li className="flex">
               <button
                 onClick={() => {
-                  toggleCart();
+                  cartIsOpen ? closeCart() : openCart();
                 }}
               >
                 <svg
@@ -145,7 +147,8 @@ const NavBar = () => {
       </div>
       {cartIsOpen && (
         <ShoppingCartAside
-          toggle={toggleCart}
+          openCart={openCart}
+          closeCart={closeCart}
           cartItems={courses}
           deleteItemfromAside={deleteItemfromAside}
         />
