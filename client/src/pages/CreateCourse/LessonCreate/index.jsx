@@ -2,16 +2,19 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 
-export default function CreateLesson() {
+export default function CreateLesson({moduleId}) {
   const dispatch = useDispatch();
 
   const [errors, setErrors] = useState({
     title: "",
     content: "",
+    
+
   });
   const [form, setForm] = useState({
     title: "",
     content: "",
+    idModule:moduleId
   });
   const changeHandler = (event) => {
     const property = event.target.name;

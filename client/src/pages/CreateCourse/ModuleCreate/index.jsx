@@ -3,9 +3,11 @@ import { useDispatch } from "react-redux";
 import CreateLesson from "../LessonCreate";
 import api from "../../../services/api"
 
-export default function FormCourse() {
+export default function FormCourse({courseId}) {
   const dispatch = useDispatch();
   const [lesson, setLesson] = useState(0);
+  const [moduleId, setModuleId] = useState(0)
+
   const [errors, setErrors] = useState({
     name: "",
     description: "",
@@ -13,10 +15,11 @@ export default function FormCourse() {
   const [form, setForm] = useState({
     name: "",
     description: "",
+    courseId:courseId
   });
   const renderLesson = () => {
     return Array.from({ length: lesson }, (_, index) => (
-      <CreateLesson key={index} />
+      <CreateLesson key={index} moduleId={moduleId} />
     ));
   };
 
@@ -31,7 +34,7 @@ export default function FormCourse() {
       ...form,
     }
     console.log("body",body)
-await api.post("/module/createModule",
+const moduleCreate = await api.post("/module/createModule",
 {
   headers: {
     'Authorization': localStorage.getItem("token"),
@@ -40,6 +43,8 @@ await api.post("/module/createModule",
 }
 );
     alert("Modulo creado, Agrega leccion")
+    console.log("course id", moduleCreate.data.id)
+    setModuleId(moduleCreate.data.id)
     setLesson(lesson + 1);
   };
 

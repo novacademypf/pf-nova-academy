@@ -35,7 +35,7 @@ export default function CreateCourse() {
 
   const renderModules = () => {
     return Array.from({ length: modules }, (_, index) => (
-      <FormCourse key={index} modules={modules} />
+      <FormCourse key={index} modules={modules} courseId={courseId}/>
     ));
   };
 
@@ -70,8 +70,6 @@ export default function CreateCourse() {
       ...form,
       images: await uploadFile(file)
     }
-    console.log(body)
-    
 const coursecreate = await api.post("/courseForSale/createCourse",
 {
   headers: {
@@ -80,29 +78,9 @@ const coursecreate = await api.post("/courseForSale/createCourse",
   },
 }
 );
-const ida= coursecreate.data.id
-console.log("course id", ida)
 
-setCourseId(ida)
-console.log("course id", courseId)
+setCourseId(coursecreate.data.id)
 alert("Curso creado")
-setForm({
-name: "",
-category: [],
-duration: "",
-description: "",
-images: "",
-price: "",
-});
-setErrors({
-name: "",
-category: [],
-duration: "",
-description: "",
-images: "",
-price: "",
-});
-
 setModules(modules + 1);
 };
 
