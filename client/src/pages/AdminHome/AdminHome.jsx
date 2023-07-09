@@ -29,7 +29,7 @@ function AdminHome() {
                 </div>
             </div>
             <div className="-mt-16 sm:-mt-48 lg:-mt-32 xl:-mt-40 2xl:container 2xl:mx-auto flex justify-center items-center space-y-4 px-4 md:px-6 2xl:px-0 mb-16">
-            <CourseCardsAdmin courses={courses} />
+            { /*<CourseCardsAdmin courses={courses} />*/}
                 
             </div>
 

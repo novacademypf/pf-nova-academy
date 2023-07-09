@@ -11,7 +11,7 @@ const CourseCardAdmin = ({ dataCard }) => {
   const dispatch = useDispatch();
 
   const handleDelete = () => {
-    axios.delete(`/api/courses/${id}`)
+    axios.delete(`http://localhost:3001/courses/${id}`)
       .then((response) => {
         // Despachar la acción de borrado del curso solo si la eliminación en el servidor fue exitosa
         dispatch(deleteCourse(id));

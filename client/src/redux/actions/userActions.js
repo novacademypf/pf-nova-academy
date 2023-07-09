@@ -50,7 +50,7 @@ export const checkEmailExistence = (email) => {
 export const getUsers = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get('http://localhost:3001/user/');
+      const response = await axios.get('http://localhost:3001/login/');
       dispatch({
         type: GET_USERS,
         payload: response.data,
