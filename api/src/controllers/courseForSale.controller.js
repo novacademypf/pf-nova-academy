@@ -5,26 +5,15 @@ const { cursos, category } = require("../constants/data");
 
 const postCreateCourseForSale = async (req, res) => {
   try {
-    const { name, category, duration, description, images, price } = req.body;
+    console.log("req body courseForSale controlelr",req.body.headers)
+    const { name, category, duration, description, images, price } = req.body.headers.form;
+    console.log("gettoken", getUserToken(req))
     const user = await getUserToken(req);
-
-    console.log("user trae", user.idUser)
-    console.log("profile.userid trae", Profile.userId)
-    if (!name) {
-      return res.status(404).json({ error: "Name missing" });
+    console.log("usuario",user);
+    if (!name || !category || !duration || !description || !images || !price ) {
+      return res.status(404).json({ error: "Data missing" });
     }
-    if (!category) {
-      return res.status(404).json({ error: "Category missing" });
-    }
-    if (!duration) {
-      return res.status(404).json({ error: "Duration missing" });
-    }
-    if (!images) {
-      return res.status(404).json({ error: "Images missing" });
-    }
-    if (!price) {
-      return res.status(404).json({ error: "Price missing" });
-    }
+    console.log(name, category, duration, description, images, price)
     const newCourse = await CourseForSale.create({
       name,
       category,
@@ -34,8 +23,11 @@ const postCreateCourseForSale = async (req, res) => {
       price,
       idProfile: user.idUser,
     });
+    console.log("newCourse", newCourse)
     res.json(newCourse);
-  } catch (error) {
+  } 
+  catch (error) {
+    console.log("error de post courseForSale")
     res.status(500).json({ error: error.message });
   }
 };

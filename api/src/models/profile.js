@@ -10,7 +10,13 @@ module.exports = (sequelize) => {
         autoIncrement: true,
       },
       name: { type: DataTypes.STRING},
-      photo:{type: DataTypes.STRING}
+      photo:{type: DataTypes.STRING},
+      role: {
+        type: DataTypes.ENUM('user', 'admin'),
+        defaultValue: 'user',
+        allowNull: false
+      },
+      email: { type: DataTypes.STRING },
       
     }
     , {
