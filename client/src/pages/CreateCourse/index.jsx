@@ -13,6 +13,7 @@ export default function CreateCourse() {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [courseId, setCourseId] = useState(0)
   const [flagBotton, setFlagBotton] = useState(false);
+  const [flagFinally, setFlagFinally] = useState(false)
   const [errors, setErrors] = useState({
     name: "",
     category: [],
@@ -36,7 +37,7 @@ export default function CreateCourse() {
 
   const renderModules = () => {
     return Array.from({ length: modules }, (_, index) => (
-      <FormCourse key={index} modules={modules} courseId={courseId} setModules={setModules}/>
+      <FormCourse key={index} modules={modules} courseId={courseId} setModules={setModules} setFlagFinally={setFlagFinally}/>
     ));
   };
 
@@ -75,6 +76,11 @@ export default function CreateCourse() {
       errores.price = "Solo permite numeros";
     } else {
       errores.price = "";
+    }
+    if(!file){
+      errores.images = "Debes cargar una imagen";
+    } else {
+      errores.images = "";
     }
     if (form.category.length === 0) {
       errores.category = "Seleccione una categoría";
@@ -121,6 +127,28 @@ export default function CreateCourse() {
     setFlagBotton(true)
     alert("Creado Correctamente")
   }
+  const clearPage = () => {
+    setFlagBotton(false)
+    setModules(0)
+    setFile(null)
+    setForm({
+      name: "",
+      category: [],
+      duration: "",
+      description: "",
+      images: "",
+      price: "",
+    })
+    setErrors({
+      name: "",
+      category: [],
+      duration: "",
+      description: "",
+      images: "",
+      price: "",
+    })
+    setFlagFinally(false)
+  }
   return (
     <div className="p-4">
       <h1 className="text-4xl text-center">DATOS DEL CURSO</h1>
@@ -135,7 +163,7 @@ export default function CreateCourse() {
             name="name"
           />
           <div>
-            {errors.name && <span>{errors.name}</span>}
+            {errors.name && <span className="text-red-500 text-xs mt-1">{errors.name}</span>}
           </div>
           <label className="block mb-2 font-bold">Categoría:</label>
           <select
@@ -152,7 +180,7 @@ export default function CreateCourse() {
             ))}
           </select>
           <div>
-            {errors.category && <span>{errors.category}</span>}
+            {errors.category && <span className="text-red-500 text-xs mt-1">{errors.category}</span>}
           </div>
           <label className="block mb-2 font-bold">Duración:</label>
           <input
@@ -163,7 +191,7 @@ export default function CreateCourse() {
             name="duration"
           />
           <div>
-            {errors.duration && <span>{errors.duration}</span>}
+            {errors.duration && <span className="text-red-500 text-xs mt-1">{errors.duration}</span>}
           </div>
         </div>
         <div className="flex flex-col pt-10 ml-20">
@@ -176,7 +204,7 @@ export default function CreateCourse() {
             name="description"
           />
           <div>
-            {errors.description && <span>{errors.description}</span>}
+            {errors.description && <span className="text-red-500 text-xs mt-1">{errors.description}</span>}
           </div>
           <label className="block mb-2 font-bold">Imagen:</label>
           <input
@@ -185,8 +213,9 @@ export default function CreateCourse() {
             onChange={(e) => { setFile(e.target.files[0])}}
             name="images"
           />
+            {/* {file === null ?  <span className="text-red-500 text-xs mt-1">Debes poner una imagen</span> : null} */}
           <div>
-            {errors.image && <span>{errors.image}</span>}
+            {errors.images && <span className="text-red-500 text-xs mt-1">{errors.images}</span>}
           </div>
           <label className="block mb-2 font-bold">Precio:</label>
           <input
@@ -197,7 +226,7 @@ export default function CreateCourse() {
             name="price"
           />
           <div>
-            {errors.price && <span>{errors.price}</span>}
+            {errors.price && <span className="text-red-500 text-xs mt-1">{errors.price}</span>}
           </div>
         </div>
       </form>
@@ -222,9 +251,21 @@ export default function CreateCourse() {
           null
         }
       </div>
+      
         <div className="flex flex-col justify-evenly">
           {renderModules()}
         </div>
+      <div>
+        {
+          flagFinally ? 
+          <button 
+            onClick={clearPage}
+            className="px-4 py-2 text-white bg-green-500 rounded hover:bg-green-600"
+          >Finalizar Creacion</button>
+          :
+          null
+        }
+      </div>
       </div>
   );
 }

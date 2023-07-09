@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import CreateLesson from "../LessonCreate";
 import api from "../../../services/api"
 
-export default function FormCourse({ courseId, setModules, modules }) {
+export default function FormCourse({ courseId, setModules, modules, setFlagFinally }) {
   const dispatch = useDispatch();
   const [lesson, setLesson] = useState(0);
   const [moduleId, setModuleId] = useState(0)
@@ -19,7 +19,7 @@ export default function FormCourse({ courseId, setModules, modules }) {
   });
   const renderLesson = () => {
     return Array.from({ length: lesson }, (_, index) => (
-      <CreateLesson key={index} moduleId={moduleId} lesson={lesson} setLesson={setLesson} />
+      <CreateLesson key={index} moduleId={moduleId} lesson={lesson} setLesson={setLesson} setFlagFinally={setFlagFinally} />
     ));
   };
 
@@ -90,7 +90,7 @@ export default function FormCourse({ courseId, setModules, modules }) {
             name="name"
           />
           <div>
-            {errors.name && <span>{errors.name}</span>}
+            {errors.name && <span className="text-red-500 text-xs mt-1">{errors.name}</span>}
           </div>
           <label className="block mb-2 font-bold">Descripcion:</label>
           <textarea
@@ -100,7 +100,7 @@ export default function FormCourse({ courseId, setModules, modules }) {
             name="description"
           ></textarea>
           <div>
-            {errors.description && <span>{errors.description}</span>}
+            {errors.description && <span className="text-red-500 text-xs mt-1">{errors.description}</span>}
           </div>
         </div>
       </div>

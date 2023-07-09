@@ -3,11 +3,11 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import api from "../../../services/api";
 import { uploadFile } from "../../../firebase/config";
-export default function CreateLesson({moduleId, lesson, setLesson}) {
+export default function CreateLesson({moduleId, lesson, setLesson, setFlagFinally}) {
   const dispatch = useDispatch();
   const [resource, setResource] = useState(null)
   const [lessonId, setLessonId] = useState(0)
-
+  const [flagButton, setFlagButton] = useState(true)
   const [errors, setErrors] = useState({
     title: "",
     content: "",
@@ -64,7 +64,9 @@ export default function CreateLesson({moduleId, lesson, setLesson}) {
         body,
         },
       });
+      setFlagButton(false)
       setLessonId(lessonCreate.data.id);
+      setFlagFinally(true)
       alert("Leccion creada");
     }
 
@@ -76,7 +78,7 @@ export default function CreateLesson({moduleId, lesson, setLesson}) {
         <div className="flex flex-col pt-10">
           <label className="block mb-2 font-bold">Titulo:</label>
           <div>
-            {errors.title && <span>{errors.title}</span>}
+            {errors.title && <span className="text-red-500 text-xs mt-1">{errors.title}</span>}
           </div>
           <input
             type="text"
@@ -88,7 +90,7 @@ export default function CreateLesson({moduleId, lesson, setLesson}) {
 
           <label className="block mb-2 font-bold">Contenido:</label>
           <div>
-            {errors.content && <span>{errors.content}</span>}
+            {errors.content && <span className="text-red-500 text-xs mt-1">{errors.content}</span>}
           </div>
           <textarea
             className="w-full p-2 mb-4 border border-gray-300 rounded resize-none"
@@ -106,9 +108,12 @@ export default function CreateLesson({moduleId, lesson, setLesson}) {
         </div>
         
       </form>
-      <div className="flex justify-center">
+      {flagButton ?
+        <div className="flex justify-center">
           <button className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600" onClick={(e)=> submitHandler(e)}>crear Leccion</button>
         </div>
+        :null
+      }
     </div>
   );
 }
