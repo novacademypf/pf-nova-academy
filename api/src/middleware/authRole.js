@@ -1,13 +1,18 @@
 const { verifyToken } = require("../helpers/generateToken");
-const { User } = require("../db");
+const { Profile } = require("../db");
 const verificarRole = (role) => async (req, res, next) => {
   try {
-    const token = req.headers.authorization.split(" ").pop();
+    console.log("token header auto role", req.body.headers.Authorization)
+    const token = req.body.headers.Authorization.split(" ").pop();
+    
     const tokenData = await verifyToken(token);
-    const userData = await User.findByPk(tokenData.idUser);
+    
+    const userData = await Profile.findByPk(tokenData.idUser);
+    console.log("verifi toke", userData)
     if (userData && [role].includes(userData.role)) next();
     else throw Error("User not authorized");
   } catch (error) {
+    console.log("error verify rol,")
     console.error("error", error);
     res.status(401).json({ error: error.message });
   }

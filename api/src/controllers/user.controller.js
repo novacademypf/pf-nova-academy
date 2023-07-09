@@ -31,7 +31,6 @@ const createUser = async (req, res) => {
       password: await encrypt(password),
       role,
     });
-    
     const newPerfil = await Profile.create({
       userId: user.userId, // ID del usuario se guarda en la columna 'userId' de la tabla 'Perfil'
       name: user.name,

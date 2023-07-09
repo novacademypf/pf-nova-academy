@@ -5,26 +5,15 @@ const { cursos, category } = require("../constants/data");
 
 const postCreateCourseForSale = async (req, res) => {
   try {
-    const { name, category, duration, description, images, price } = req.body;
+    console.log("req body courseForSale controlelr",req.body.headers)
+    const { name, category, duration, description, images, price } = req.body.headers.form;
+    console.log("gettoken", getUserToken(req))
     const user = await getUserToken(req);
-
-    console.log("user trae", user.idUser)
-    console.log("profile.userid trae", Profile.userId)
-    if (!name) {
-      return res.status(404).json({ error: "Name missing" });
+    console.log("usuario",user);
+    if (!name || !category || !duration || !description || !images || !price ) {
+      return res.status(404).json({ error: "Data missing" });
     }
-    if (!category) {
-      return res.status(404).json({ error: "Category missing" });
-    }
-    if (!duration) {
-      return res.status(404).json({ error: "Duration missing" });
-    }
-    if (!images) {
-      return res.status(404).json({ error: "Images missing" });
-    }
-    if (!price) {
-      return res.status(404).json({ error: "Price missing" });
-    }
+    console.log(name, category, duration, description, images, price)
     const newCourse = await CourseForSale.create({
       name,
       category,
@@ -34,8 +23,11 @@ const postCreateCourseForSale = async (req, res) => {
       price,
       idProfile: user.idUser,
     });
+    console.log("newCourse", newCourse)
     res.json(newCourse);
-  } catch (error) {
+  } 
+  catch (error) {
+    console.log("error de post courseForSale")
     res.status(500).json({ error: error.message });
   }
 };
@@ -43,24 +35,34 @@ const postCreateCourseForSale = async (req, res) => {
 const getCourseForSale = async (req, res) => {
   try {
     const { page, limit } = req.query;
-    console.log({ page, limit })
-    const offset = (page - 1) * limit;
+    if (page && limit){const offset = (page - 1) * limit;
+      const { count, rows } = await CourseForSale.findAndCountAll({
+        offset,
+        limit,
+        include: {
+          model: Profile,
+          attributes: { exclude: ["photo"] },
+        },
+      });
+      res.send({ courseCount: count, courseAll: rows })}
+   else{
     const { count, rows } = await CourseForSale.findAndCountAll({
-      offset,
-      limit,
+      
       include: {
         model: Profile,
         attributes: { exclude: ["photo"] },
       },
     });
-    res.send({ courseCount: count, courseAll: rows });
+    res.send({ courseCount: count, courseAll: rows })
+   } 
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 const getFilterCourseForSale = async (req, res) => {
   try {
-    const { categories, priceMin, priceMax } = req.query;
+   
+    const { categories, priceMin, priceMax,page,limit } = req.query;
     if (categories && priceMin && priceMax) {
       console.log('estoy aca')
       const { count, rows } = await CourseForSale.findAndCountAll({
@@ -82,7 +84,10 @@ const getFilterCourseForSale = async (req, res) => {
     }
     if (categories) {
       console.log('estoy aca')
+      const offset = (page - 1) * limit;
       const { count, rows } = await CourseForSale.findAndCountAll({
+        offset,
+        limit,
         where: {
           category: {
             [Op.contains]: categories
@@ -93,7 +98,6 @@ const getFilterCourseForSale = async (req, res) => {
           attributes: { exclude: ["photo"] },
         },
       });
-
       return res.json({ courseCount: count, courseAll: rows });
     }
   } catch (error) {

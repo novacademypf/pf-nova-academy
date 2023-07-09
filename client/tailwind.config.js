@@ -7,11 +7,7 @@ export default {
     "node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {
-      gridTemplateRows: {
-        fit: "repeat(auto-fit, minmax(250px, 1fr))",
-      },
-    },
-    plugins: [flowbitePlugin],
+    extend: {},
   },
+  plugins: [flowbitePlugin],
 };
