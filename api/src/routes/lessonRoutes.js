@@ -15,8 +15,6 @@ lessonRoutes.get("/", getLessons)
 lessonRoutes.get("/:lessonId", getLessonById)
 lessonRoutes.post(
     "/createLesson",
-    VerifyAuthorization,
-    verificarRole("user"), 
     createLesson
     )
 lessonRoutes.put(
@@ -27,8 +25,6 @@ lessonRoutes.put(
     )
 lessonRoutes.delete(
     "/deleteLesson/:lessonId",
-    VerifyAuthorization,
-    verificarRole("user"), 
     deleteLessonById
     )
 

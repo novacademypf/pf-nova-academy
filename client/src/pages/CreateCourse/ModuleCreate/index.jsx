@@ -3,11 +3,11 @@ import { useDispatch } from "react-redux";
 import CreateLesson from "../LessonCreate";
 import api from "../../../services/api"
 
-export default function FormCourse({courseId}) {
+export default function FormCourse({ courseId, setModules, modules }) {
   const dispatch = useDispatch();
   const [lesson, setLesson] = useState(0);
   const [moduleId, setModuleId] = useState(0)
-
+  const [flagBotton, setFlagBotton] = useState(false)
   const [errors, setErrors] = useState({
     name: "",
     description: "",
@@ -15,44 +15,24 @@ export default function FormCourse({courseId}) {
   const [form, setForm] = useState({
     name: "",
     description: "",
-    courseId:courseId
+    courseId: courseId
   });
   const renderLesson = () => {
     return Array.from({ length: lesson }, (_, index) => (
-      <CreateLesson key={index} moduleId={moduleId} />
+      <CreateLesson key={index} moduleId={moduleId} lesson={lesson} setLesson={setLesson} />
     ));
   };
 
-  const addLesson = async (event) => {    
+  const addLesson = async (event) => {
     event.preventDefault();
-    if(!form.name){
-      return alert("Ingrese Nombre");
-    } else if(!form.description){
-      return alert("Ingrese Descripcion");
-    } 
-    const body = {
-      ...form,
-    }
-    console.log("body",body)
-const moduleCreate = await api.post("/module/createModule",
-{
-  headers: {
-    'Authorization': localStorage.getItem("token"),
-    body,
-  },
-}
-);
-    alert("Modulo creado, Agrega leccion")
-    console.log("course id", moduleCreate.data.id)
-    setModuleId(moduleCreate.data.id)
     setLesson(lesson + 1);
   };
 
-  const deleteLesson = () => {
-    if (lesson === 0) return;
-    setLesson(lesson - 1);
+  const deleteModule = () => {
+    api.delete(`/module/deleteModule/${moduleId}`)
+    if (modules === 0) return;
+    setModules(modules - 1);
   };
-
   const changeHandler = (event) => {
     const property = event.target.name;
     const value = event.target.value;
@@ -60,19 +40,41 @@ const moduleCreate = await api.post("/module/createModule",
     setForm(updatedForm);
     setErrors(validate(updatedForm));
   };
-  const validate = (form)=>{
+  const validate = (form) => {
     let errores = {};
-    if(!form.name){
+    if (!form.name) {
       errores.name = "Ingrese Nombre";
     } else {
       errores.name = "";
     }
-    if(!form.description){
+    if (!form.description) {
       errores.description = "Ingrese Descripcion";
     } else {
       errores.description = "";
     }
     return errores;
+  }
+  const submitHandler = async (event) => {
+    event.preventDefault();
+    if (!form.name) {
+      return alert("Ingrese Nombre");
+    } else if (!form.description) {
+      return alert("Ingrese Descripcion");
+    }
+    const body = {
+      ...form,
+    }
+    const moduleCreate = await api.post("/module/createModule",
+      {
+        headers: {
+          'Authorization': localStorage.getItem("token"),
+          body,
+        },
+      });
+    
+    setFlagBotton(true)
+    setModuleId(moduleCreate.data.id);
+    alert("Modulo creado, Agrega leccion")
   }
   return (
     <div className="mx-7">
@@ -96,7 +98,6 @@ const moduleCreate = await api.post("/module/createModule",
             value={form.description}
             onChange={changeHandler}
             name="description"
-            // onChange={(e) => setDescription(e.target.value)}
           ></textarea>
           <div>
             {errors.description && <span>{errors.description}</span>}
@@ -104,21 +105,27 @@ const moduleCreate = await api.post("/module/createModule",
         </div>
       </div>
       <div className="flex justify-center">
-        <button
+      {!flagBotton ?
+          <button
+            className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+            onClick={submitHandler}
+          >
+            Crear Modulo
+          </button> : null}
+          {flagBotton ?
+          <button
           className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
           onClick={addLesson}
         >
           Agregar Leccion
-        </button>
-
-        <button
-          className="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600"
-          onClick={deleteLesson}
-        >
-          Eliminar Leccion
-        </button>
+        </button>:
+          null
+        }
       </div>
-
+      <button className="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600"
+        onClick={deleteModule}>
+        Eliminar Modulo
+      </button>
       <div className="flex flex-wrap justify-evenly">{renderLesson()}</div>
     </div>
   );
