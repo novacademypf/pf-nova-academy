@@ -35,7 +35,7 @@ export default function CreateCourse() {
 
   const renderModules = () => {
     return Array.from({ length: modules }, (_, index) => (
-      <FormCourse key={index} modules={modules} />
+      <FormCourse key={index} modules={modules} courseId={courseId} />
     ));
   };
 
@@ -80,11 +80,6 @@ const coursecreate = await api.post("/courseForSale/createCourse",
   },
 }
 );
-const ida= coursecreate.data.id
-console.log("course id", ida)
-
-setCourseId(ida)
-console.log("course id", courseId)
 alert("Curso creado")
 setForm({
 name: "",
@@ -102,9 +97,11 @@ description: "",
 images: "",
 price: "",
 });
-
+setCourseId(coursecreate.data.id)
 setModules(modules + 1);
+console.log(courseId)
 };
+console.log(courseId)
 
   const deleteModule = () => {
     if (modules === 0) return;
