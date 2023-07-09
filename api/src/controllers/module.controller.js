@@ -2,6 +2,9 @@ const { Module , CourseForSale  } = require("../db");
 
 const createModule = async (req, res) => {
   try {
+    console.log(
+      "module.controlle, body", req.body
+    )
     const { name, description, order, courseId } = req.body;
     const courseForSale = await CourseForSale.findByPk(courseId);
     if (!courseForSale) {
@@ -13,14 +16,13 @@ const createModule = async (req, res) => {
     if(!description){
       return res.status(404).json({ error: "Description missing" });
     }
-    if(!order){
-      return res.status(404).json({ error: "Order missing" });
-    }
+    // if(!order){
+    //   return res.status(404).json({ error: "Order missing" });
+    // }
     
     const module = await Module.create({ 
       name, 
       description, 
-      order, 
       idCourseForSale: courseId 
     });
     res.json(module);

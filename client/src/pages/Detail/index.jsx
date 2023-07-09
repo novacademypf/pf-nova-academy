@@ -37,7 +37,7 @@ const Detail = () => {
       <div>
         <img
           className="object-cover w-full h-48"
-          src="https://picsum.photos/800/600?random=1"
+          src={course.images}
           alt={course.name}
         />
       </div>

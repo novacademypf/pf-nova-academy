@@ -6,7 +6,7 @@ const { cursos, category } = require("../constants/data");
 const postCreateCourseForSale = async (req, res) => {
   try {
     console.log("req body courseForSale controlelr",req.body.headers)
-    const { name, category, duration, description, images, price } = req.body.headers.form;
+    const { name, category, duration, description, images, price } = req.body.headers.body;
     console.log("gettoken", getUserToken(req))
     const user = await getUserToken(req);
     console.log("usuario",user);

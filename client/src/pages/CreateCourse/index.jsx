@@ -11,6 +11,7 @@ export default function CreateCourse() {
   const [ file, setFile ] = useState(null)
   const [modules, setModules] = useState(0);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [courseId, setCourseId] = useState(0)
   const [errors, setErrors] = useState({
     name: "",
     category: [],
@@ -27,7 +28,6 @@ export default function CreateCourse() {
     images: "",
     price: "",
   });
-console.log("categoryList", categoryList)
 
   useEffect(() => {
     dispatch(getAllCategories());
@@ -39,39 +39,40 @@ console.log("categoryList", categoryList)
     ));
   };
 
-  const handleUpdate = async(e) => {
-    e.preventDefault()
-    try {
-      const url = await uploadFile(file)
-      console.log(url)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  // const handleUpdate = async(e) => {
+  //   e.preventDefault()
+  //   try {
+  //     const url = await uploadFile(file)
+  //     console.log(url)
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
   const addModule = async (event) => {
     event.preventDefault();
-    // if (!form.name) {
-    //   return alert("Ingrese Nombre")
-    // } else if (!form.description) {
-    //   return alert("Ingrese Descripcion")
-    // } else if (!form.duration) {
-    //   return alert("Ingrese Duracion")
-    // // } else if (!form.images) {
-    // //   return alert("Ingrese Imagen")
-    // } else if (!form.price) {
-    //   return alert("Ingrese Precio")
-    // } else if (!form.category) {
-    //   return alert("Selecione Categoria")
-    // } else if (!form.price.match(/^[0-9]+$/)) {
-    //   return alert("Precio solo permite numeros");
-    // }
+    if (!form.name) {
+      return alert("Ingrese Nombre")
+    } else if (!form.description) {
+      return alert("Ingrese Descripcion")
+    } else if (!form.duration) {
+      return alert("Ingrese Duracion")
+    // } else if (!form.images) {
+    //   return alert("Ingrese Imagen")
+    } else if (!form.price) {
+      return alert("Ingrese Precio")
+    } else if (!form.category) {
+      return alert("Selecione Categoria")
+    } else if (!form.price.match(/^[0-9]+$/)) {
+      return alert("Precio solo permite numeros");
+    }
     const body = {
       ...form,
       images: await uploadFile(file)
     }
     console.log(body)
-await api.post("/courseForSale/createCourse",
+    
+const coursecreate = await api.post("/courseForSale/createCourse",
 {
   headers: {
     'Authorization': localStorage.getItem("token"),
@@ -79,6 +80,11 @@ await api.post("/courseForSale/createCourse",
   },
 }
 );
+const ida= coursecreate.data.id
+console.log("course id", ida)
+
+setCourseId(ida)
+console.log("course id", courseId)
 alert("Curso creado")
 setForm({
 name: "",
@@ -96,7 +102,8 @@ description: "",
 images: "",
 price: "",
 });
-// setModules(modules + 1);
+
+setModules(modules + 1);
 };
 
   const deleteModule = () => {
@@ -239,7 +246,6 @@ price: "",
             onChange={(e)=> {setFile(e.target.files[0]), console.log(e.target.files[0])}}
             name="images"
           />
-          <button onClick={handleUpdate}>SUBIR IMAGEN</button>
           <div>
             {errors.image && <span>{errors.image}</span>}
           </div>
