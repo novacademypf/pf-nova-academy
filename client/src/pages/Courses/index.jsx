@@ -16,7 +16,7 @@ const dispatch = useDispatch()
   },[]) */
   
   return (  
-       <main className=" relative top-[5.5rem] flex ">
+       <main className="relative top-[5.5rem] flex ">
        <SectionFilter/>
        <SectionCursos/>
        </main> 

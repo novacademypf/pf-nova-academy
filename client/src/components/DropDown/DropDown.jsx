@@ -11,7 +11,7 @@ const Dropdown = ({
   name
 }) => {
   return (
-    <div className="relative">
+    <div className="bg-white relative">
       <label
         className={`${
           isLabel ? " text-xs text-gray-700 bg-white" : "text-sm"
