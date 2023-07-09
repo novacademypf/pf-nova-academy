@@ -4,7 +4,7 @@ import "./styles.css";
 /* eslint-disable */
 
 export const ShoppingCartAside = ({
-  toggle,
+  closeCart,
   cartItems,
   deleteItemfromAside,
 }) => {
@@ -15,7 +15,7 @@ export const ShoppingCartAside = ({
         <button
           className="hover:bg-slate-600"
           onClick={() => {
-            toggle();
+            closeCart();
           }}
         >
           <svg
@@ -66,12 +66,17 @@ export const ShoppingCartAside = ({
           </div>
         ))}
       </div>
-      <button
-        type="button"
-        className=" bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-4 mx-auto w-full"
-      >
-        <Link to="/checkout">Ir a Pagar</Link>
-      </button>
+      <Link to="/checkout">
+        <button
+          onClick={() => {
+            closeCart();
+          }}
+          type="button"
+          className=" bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-4 mx-auto w-full"
+        >
+          Ir a Pagar
+        </button>
+      </Link>
     </aside>
   );
 };

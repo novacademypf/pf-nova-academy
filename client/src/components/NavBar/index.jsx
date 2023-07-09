@@ -10,28 +10,35 @@ const NavBar = () => {
   const [cartIsOpen, setCartIsOpen] = useState(false);
   const courses = useSelector((state) => state).shoppingCartReducer.cart;
   const dispatch = useDispatch();
-  const location = useLocation();
-  let pathname = location.pathname;
+  const location = useLocation().pathname;
+  let checkRoute = location === "/checkout" ? false : true;
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-  const toggleCart = () => {
-    setCartIsOpen(!cartIsOpen);
+  const openCart = () => {
+    setCartIsOpen(true);
+  };
+  const closeCart = () => {
+    setCartIsOpen(false);
   };
 
   const deleteItemfromAside = (id) => {
     dispatch(delFromCart(id));
   };
   useEffect(() => {
-    courses.length > 0 && toggleCart();
-  }, [courses, pathname]);
+    if (!cartIsOpen) courses.length > 0 && openCart();
+    if (!checkRoute) closeCart();
+  }, [courses]);
 
-  const links = [{ to: "/courses", name: "Cursos" }];
-  const activeStyle = "font-bold";
+  const links = [
+    { to: "/courses", name: "Cursos" },
+    { to: "/create", name: "Crear curso" },
+  ];
+  const activeStyle = "font-bold mx-2";
 
   return (
-    <nav className="bg-[#00FFFF] h-[5.5em] top-0 z-40 fixed w-full">
+    <nav className="bg-[#00FFFF] h-[5.5em] top-0 z-40  sticky w-full">
       <div className=" max-w-screen-xl  h-auto flex flex-wrap items-center justify-between  p-4 mx-auto ">
         <div className="-mr-2  flex basis-1/3 md:hidden">
           <button onClick={toggleMenu}>
@@ -75,12 +82,14 @@ const NavBar = () => {
               isOpen ? "translate-x-0" : "-translate-x-full"
             } transition-transform duration-300 ease-in-out md:static md:w-auto md:p-0 md:translate-x-0`}
           >
-            <ul className="flex flex-col md:flex-row">
+            <ul className="flex flex-col md:flex-row ">
               {links.map((el) => (
                 <NavLink
                   key={el.name}
                   to={el.to}
-                  className={({ isActive }) => (isActive ? activeStyle : "")}
+                  className={({ isActive }) =>
+                    isActive ? activeStyle : "mx-2"
+                  }
                   onClick={toggleMenu}
                 >
                   {el.name}
@@ -89,7 +98,6 @@ const NavBar = () => {
             </ul>
           </nav>
         </div>
-      <NavLink to="/create">CREAR CURSO</NavLink>
         <div>
           <ul className="flex">
             <li>
@@ -116,7 +124,7 @@ const NavBar = () => {
             <li className="flex">
               <button
                 onClick={() => {
-                  toggleCart();
+                  cartIsOpen ? closeCart() : openCart();
                 }}
               >
                 <svg
@@ -141,7 +149,8 @@ const NavBar = () => {
       </div>
       {cartIsOpen && (
         <ShoppingCartAside
-          toggle={toggleCart}
+          openCart={openCart}
+          closeCart={closeCart}
           cartItems={courses}
           deleteItemfromAside={deleteItemfromAside}
         />
