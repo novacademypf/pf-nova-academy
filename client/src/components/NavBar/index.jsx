@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import logo from "../../assets/icons/logo.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { ShoppingCartAside } from "../ShoppingCartAside/ShoppingCartAside";
@@ -10,22 +10,25 @@ const NavBar = () => {
   const [cartIsOpen, setCartIsOpen] = useState(false);
   const courses = useSelector((state) => state).shoppingCartReducer.cart;
   const dispatch = useDispatch();
-  const location = useLocation();
-  let pathname = location.pathname;
-
+  //const location = useLocation();
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-  const toggleCart = () => {
-    setCartIsOpen(!cartIsOpen);
+  const openCart = () => {
+    setCartIsOpen(true);
+  };
+  const closeCart = () => {
+    setCartIsOpen(false);
   };
 
   const deleteItemfromAside = (id) => {
     dispatch(delFromCart(id));
   };
   useEffect(() => {
-    courses.length > 0 && toggleCart();
-  }, [courses, pathname]);
+    if (cartIsOpen) {
+      courses.length > 0 && setCartIsOpen(true);
+    }
+  }, [courses]);
 
   const links = [
     { to: "/courses", name: "Cursos" },
@@ -120,7 +123,7 @@ const NavBar = () => {
             <li className="flex">
               <button
                 onClick={() => {
-                  toggleCart();
+                  openCart();
                 }}
               >
                 <svg
@@ -145,7 +148,8 @@ const NavBar = () => {
       </div>
       {cartIsOpen && (
         <ShoppingCartAside
-          toggle={toggleCart}
+          openCart={openCart}
+          closeCart={closeCart}
           cartItems={courses}
           deleteItemfromAside={deleteItemfromAside}
         />
