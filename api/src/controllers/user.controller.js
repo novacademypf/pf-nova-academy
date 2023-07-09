@@ -43,7 +43,13 @@ const createUser = async (req, res) => {
       from: `"Nova Academy" <${NODEMAILER_EMAIL}>`,
       to: user.email, 
       subject: "Nova Academy", 
-      html: "<b>Hello world?</b>", 
+      html: `
+    <body>
+      <h1>Nova Academy</h1>
+      <h2>Bienvenido ${user.name} a nuestra plataforma de Cursos</h2>
+      <p>Felicitaciones estas registrado. En el siguiente link puedes iniciar sesion.</p>
+      <a href="http://127.0.0.1:5173/login">Iniciar Sesion</a>
+    </body>`, 
     });
     res.send('user created successfully');
   } catch (error) {
