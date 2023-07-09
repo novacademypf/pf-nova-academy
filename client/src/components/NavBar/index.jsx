@@ -27,8 +27,11 @@ const NavBar = () => {
     courses.length > 0 && toggleCart();
   }, [courses, pathname]);
 
-  const links = [{ to: "/courses", name: "Cursos" }];
-  const activeStyle = "font-bold";
+  const links = [
+    { to: "/courses", name: "Cursos" },
+    { to: "/create", name: "Crear curso" },
+  ];
+  const activeStyle = "font-bold mx-2";
 
   return (
     <nav className="bg-[#00FFFF] h-[5.5em] top-0 z-40 fixed w-full">
@@ -75,12 +78,14 @@ const NavBar = () => {
               isOpen ? "translate-x-0" : "-translate-x-full"
             } transition-transform duration-300 ease-in-out md:static md:w-auto md:p-0 md:translate-x-0`}
           >
-            <ul className="flex flex-col md:flex-row">
+            <ul className="flex flex-col md:flex-row ">
               {links.map((el) => (
                 <NavLink
                   key={el.name}
                   to={el.to}
-                  className={({ isActive }) => (isActive ? activeStyle : "")}
+                  className={({ isActive }) =>
+                    isActive ? activeStyle : "mx-2"
+                  }
                   onClick={toggleMenu}
                 >
                   {el.name}
@@ -89,7 +94,6 @@ const NavBar = () => {
             </ul>
           </nav>
         </div>
-      <NavLink to="/create">CREAR CURSO</NavLink>
         <div>
           <ul className="flex">
             <li>

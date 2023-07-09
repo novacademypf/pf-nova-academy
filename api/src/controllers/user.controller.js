@@ -1,13 +1,13 @@
 const { User,Profile,UserGoogle } = require("../db");
 const { createtoken } = require("../helpers/generateToken");
 const { compare, encrypt } = require("../helpers/handleBcrypt");
-
-
+const nodemailer = require("nodemailer")
+const transporter = require("../helpers/nodemailer.js")
+const { NODEMAILER_EMAIL } = process.env;
 const createUser = async (req, res) => {
   console.log('req createUser ',req.body)
   try {
     const { name, email, password, role } = req.body;
-    console.log(role)
     const searchedUserGoogle  = await UserGoogle.findOne({where: {email: email}})
     const searchedUser = await User.findOne({where: {email: email}})
     if(searchedUserGoogle){
@@ -32,7 +32,6 @@ const createUser = async (req, res) => {
       password: await encrypt(password),
       role,
     });
-    
     const newPerfil = await Profile.create({
       userId: user.userId, // ID del usuario se guarda en la columna 'userId' de la tabla 'Perfil'
       name: user.name,
@@ -40,7 +39,18 @@ const createUser = async (req, res) => {
       role:user.role
     });
     user.setProfile(newPerfil);
-
+    const info = await transporter.sendMail({ 
+      from: `"Nova Academy" <${NODEMAILER_EMAIL}>`,
+      to: user.email, 
+      subject: "Nova Academy", 
+      html: `
+    <body>
+      <h1>Nova Academy</h1>
+      <h2>Bienvenido ${user.name} a nuestra plataforma de Cursos</h2>
+      <p>Felicitaciones estas registrado. En el siguiente link puedes iniciar sesion.</p>
+      <a href="http://127.0.0.1:5173/login">Iniciar Sesion</a>
+    </body>`, 
+    });
     res.send('user created successfully');
   } catch (error) {
     console.error(error);
