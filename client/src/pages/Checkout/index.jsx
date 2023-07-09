@@ -1,15 +1,11 @@
-import { useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import Layout from "../../Layout";
 import { clearCart } from "../../redux/actions/shoppingCartActions";
 import CartItem from "../../components/CartItem/CartItem";
-import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 
 const Checkout = () => {
   const coursesCart = useSelector((state) => state).shoppingCartReducer.cart;
-  const [preferenceId, setPreferenceId] = useState(null);
-  initMercadoPago("APP_USR-113b83d2-4dd2-49cc-9bd4-7ba0212b67b4");
 
   const dispatch = useDispatch();
   let totalPrice = coursesCart.reduce((acumulador, el) => {
@@ -34,15 +30,11 @@ const Checkout = () => {
     await axios
       .post("http://localhost:3001/mercadopago", products)
       .then(({ data }) => {
-        /* console.log(data);
-        window.location.href = data.response.body.init_point; */
-        const { id } = data.response.body;
-        console.log(id);
-        setPreferenceId(id);
+        console.log(data);
+        window.location.href = data.response.body.init_point;
       })
       .catch((err) => console.log(err));
   };
-  console.log(preferenceId);
 
   return (
     <Layout>
@@ -66,10 +58,11 @@ const Checkout = () => {
           Pagar
         </button>
       </div>
-      {preferenceId && <Wallet initialization={{ preferenceId }} />}
-      {coursesCart.map((el) => (
-        <CartItem key={el.id} dataCard={el} />
-      ))}
+      <div className="border  rounded-lg ">
+        {coursesCart.map((el) => (
+          <CartItem key={el.id} dataCard={el} />
+        ))}
+      </div>
     </Layout>
   );
 };

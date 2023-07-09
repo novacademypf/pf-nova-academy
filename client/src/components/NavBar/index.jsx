@@ -10,7 +10,9 @@ const NavBar = () => {
   const [cartIsOpen, setCartIsOpen] = useState(false);
   const courses = useSelector((state) => state).shoppingCartReducer.cart;
   const dispatch = useDispatch();
-  const location = useLocation();
+  const location = useLocation().pathname;
+  let checkRoute = location === "/checkout" ? false : true;
+
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -26,7 +28,7 @@ const NavBar = () => {
   };
   useEffect(() => {
     if (!cartIsOpen) courses.length > 0 && openCart();
-    //if (location.pathname === "/checkout") closeCart();
+    if (!checkRoute) closeCart();
   }, [courses]);
 
   const links = [
@@ -36,7 +38,7 @@ const NavBar = () => {
   const activeStyle = "font-bold mx-2";
 
   return (
-    <nav className="bg-[#00FFFF] h-[5.5em] top-0 z-40 fixed w-full">
+    <nav className="bg-[#00FFFF] h-[5.5em] top-0 z-40  sticky w-full">
       <div className=" max-w-screen-xl  h-auto flex flex-wrap items-center justify-between  p-4 mx-auto ">
         <div className="-mr-2  flex basis-1/3 md:hidden">
           <button onClick={toggleMenu}>
