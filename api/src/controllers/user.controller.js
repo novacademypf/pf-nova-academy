@@ -40,14 +40,15 @@ const createUser = async (req, res) => {
     user.setProfile(newPerfil);
     console.log(`"Nova Academy" <${NODEMAILER_EMAIL}>`, NODEMAILER_EMAIL)
     console.log("trasporter", user.email)
-   
-    const mensaje={
-      from: `"Nova Academy" <${NODEMAILER_EMAIL}>`, // sender address
-      to: user.email, // list of receivers
-      subject: "Nova Academy", // Subject line
-      html: "<b>Hello world?</b>", // html body
-    } 
-    console.log("trasporter", mensaje)
+    const mensaje= user.email;
+    //  { 
+      
+      // from: `"Nova Academy" <${NODEMAILER_EMAIL}>`, // sender address
+      // to: user.email, // list of receivers
+      // subject: "Nova Academy", // Subject line
+      // html: "<b>Hello world?</b>", // html body
+    // };
+    console.log("trasporter", mensaje);
     const info = await transporter.sendMail(mensaje);
 
     console.log("trasporter", info)
