@@ -15,9 +15,6 @@ module.exports = (sequelize) => {
       description: {
         type: DataTypes.TEXT,
       },
-      order: {
-        type: DataTypes.INTEGER,
-      },
     },
     {
  

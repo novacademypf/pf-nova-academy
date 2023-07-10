@@ -1,13 +1,13 @@
 const { User,Profile,UserGoogle } = require("../db");
 const { createtoken } = require("../helpers/generateToken");
 const { compare, encrypt } = require("../helpers/handleBcrypt");
-
-
+const nodemailer = require("nodemailer")
+const transporter = require("../helpers/nodemailer.js")
+const { NODEMAILER_EMAIL } = process.env;
 const createUser = async (req, res) => {
-  console.log(req.body)
+  console.log('req createUser ',req.body)
   try {
     const { name, email, password, role } = req.body;
-    console.log(role)
     const searchedUserGoogle  = await UserGoogle.findOne({where: {email: email}})
     const searchedUser = await User.findOne({where: {email: email}})
     if(searchedUserGoogle){
@@ -20,16 +20,36 @@ const createUser = async (req, res) => {
       error.status=409
       throw error
     }
+    
+    const existingUser = await User.findOne({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({ error: "El correo electrónico ya está registrado" });
+    }
+
     const user = await User.create({
       name,
       email,
       password: await encrypt(password),
       role,
     });
-    
     const newPerfil = await Profile.create({
       userId: user.userId, // ID del usuario se guarda en la columna 'userId' de la tabla 'Perfil'
       name: user.name,
+      email:user.email,
+      role:user.role
+    });
+    user.setProfile(newPerfil);
+    const info = await transporter.sendMail({ 
+      from: `"Nova Academy" <${NODEMAILER_EMAIL}>`,
+      to: user.email, 
+      subject: "Nova Academy", 
+      html: `
+    <body>
+      <h1>Nova Academy</h1>
+      <h2>Bienvenido ${user.name} a nuestra plataforma de Cursos</h2>
+      <p>Felicitaciones estas registrado. En el siguiente link puedes iniciar sesion.</p>
+      <a href="http://127.0.0.1:5173/login">Iniciar Sesion</a>
+    </body>`, 
     });
     res.send('user created successfully');
   } catch (error) {
@@ -44,13 +64,15 @@ const getLoginUser = async (req, res) => {
   try {
     console.log('-->',email)
     const user = await User.findOne({ where: { email: email } }); // Se busca en la base de datos un usuario con el correo electrónico proporcionado
-    console.log(user)
+    const profile= await Profile.findOne({where:{email:email}})
+    console.log("login profile",profile)
+    console.log("login user",user)
     if (!user){
       const error = new Error("user not found");
       error.status = 404;
       throw error;} // Si no se encuentra ningún usuario, se lanza un error
     const checkPassword = await compare(password, user.password); // Se compara la contraseña proporcionada con la contraseña almacenada en la base de datos
-    const tokenSession = await createtoken(user); // Si la contraseña coincide, se crea un token de sesión
+    const tokenSession = await createtoken(profile); // Si la contraseña coincide, se crea un token de sesión
     if (checkPassword)
       res
         .status(200)

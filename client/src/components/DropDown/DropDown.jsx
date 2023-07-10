@@ -8,30 +8,36 @@ const Dropdown = ({
   handleOptionSelect,
   data,
   getData,
-  name
+  name,
+  bgColor="bg-white",
 }) => {
   return (
-    <div className="bg-white relative">
+    <div className= {`relative  ${bgColor} `}>
       <label
         className={`${
-          isLabel ? " text-xs text-gray-700 bg-white" : "text-sm"
-        } absolute transition-all duration-300 pointer-events-none left-2 ${
+          isLabel ? " text-base text-gray-700 bg-white border-gray-300 rounded leading-tight  " : "text-sm "
+        } absolute transition-all duration-300 pointer-events-none left-2  ${
            isLabel ? "top-[-9px]" : "top-2"
-        }`}
+        } `}
+        style={{ height: "calc(100% - 2px)" }}
+        
       >
+        {/*block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-3 
+      pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-base*/}
+
         {  labelValue}      
       </label>
       <div
         className={`${
-          isOpen ? "border-blue-500" : "border-gray-300"
-        } border rounded-md p-2 flex items-center justify-between cursor-pointer`}
+          isOpen ? "border-white-200" : "border-white-300"
+        }rounded-md p-3 flex items-center justify-between cursor-pointer`}
         onClick={()=>{ toggleDropdown(),getData()}}
        
       >
-        <div className="text-gray-700">{isLabel && selectedOption}</div>
+        <div className="text-gray-700 ">{isLabel && selectedOption}</div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className={`h-5 w-5 transition-transform duration-300 ${
+          className={`h-6 w-6 fill-current transition-transform duration-300 ${
             isOpen ? "transform rotate-180" : ""
           }`}
           viewBox="0 0 20 20"
