@@ -126,7 +126,7 @@ const SectionFilter = () => {
         <option value="Z-a">Z - A</option>
       </select>
       <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-        <svg className="fill-current h-4 w-4" viewBox="0 0 20 20 transform rotate-180">
+        <svg className="fill-current h-4 w-4">
           <path d="M10 12l-6-6 1.5-1.5L10 9l4.5-4.5L16 6l-6 6z" />
         </svg>
       </div>
