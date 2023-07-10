@@ -51,13 +51,13 @@ const userReducer = (state = initialState, action) => {
         emailError: action.payload,
       };
 
-      case GET_USERS:
+      case 'GET_USERS':
       return {
         ...state,
         users: action.payload,
       };
 
-    case DELETE_USER:
+    case 'DELETE_USER':
       const updatedUsers = state.users.filter((user) => user.id !== action.payload);
       return {
         ...state,
