@@ -60,10 +60,12 @@ const SectionCursos = () => {
           renderOnZeroPageCount={null}
         />
       </div>
+
+      <div className="sticky top-[3.5em] overflow-y-auto h-[calc(100vh-5.5em)]">
       <div className="w-full relative top-[3.5em]">
         <CourseCards courses={paginatedCourses} />
       </div>
-      
+      </div>
     </section>
   );
 };
