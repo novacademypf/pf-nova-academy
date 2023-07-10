@@ -45,7 +45,7 @@ const SectionCursos = () => {
           marginPagesDisplayed={2}
           onPageChange={handlePageChange}
           containerClassName={
-            "flex bg-white drop-shadow-lg rounded-[1em] px-4 py-2 jusify-center items-center gap-2"
+            "flex bg-purple-300 drop-shadow-lg rounded-[1em] px-4 py-2 jusify-center items-center gap-2"
           }
           pageClassName={
             "w-[1.5em] h-[1.5em]  rounded-[50%] flex items-center justify-center"
