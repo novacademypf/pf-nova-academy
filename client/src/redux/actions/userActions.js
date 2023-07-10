@@ -50,7 +50,8 @@ export const checkEmailExistence = (email) => {
 export const getUsers = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get('http://localhost:3001/login/');
+      const response = await axios.get('http://localhost:3001/user/');
+      console.log(response);
       dispatch({
         type: GET_USERS,
         payload: response.data,
@@ -64,7 +65,7 @@ export const getUsers = () => {
 export const deleteUser = (userId) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`http://localhost:3001/user/${userId}`);
+      await axios.delete(`http://localhost:3001/user/deleteUser/${userId}`);
       dispatch({
         type: DELETE_USER,
         payload: userId,

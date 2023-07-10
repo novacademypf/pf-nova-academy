@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import CreateLesson from "../LessonCreate";
-import axios from "axios";
+import api from "../../../services/api"
 
-export default function FormCourse() {
+export default function FormCourse({ courseId, setModules, modules, setFlagFinally }) {
   const dispatch = useDispatch();
   const [lesson, setLesson] = useState(0);
+  const [moduleId, setModuleId] = useState(0)
+  const [flagBotton, setFlagBotton] = useState(false)
   const [errors, setErrors] = useState({
     name: "",
     description: "",
@@ -13,34 +15,24 @@ export default function FormCourse() {
   const [form, setForm] = useState({
     name: "",
     description: "",
+    courseId: courseId
   });
   const renderLesson = () => {
     return Array.from({ length: lesson }, (_, index) => (
-      <CreateLesson key={index} />
+      <CreateLesson key={index} moduleId={moduleId} lesson={lesson} setLesson={setLesson} setFlagFinally={setFlagFinally} />
     ));
   };
 
-  const addLesson = async (event) => {    
+  const addLesson = async (event) => {
     event.preventDefault();
-    if(!form.name){
-      return alert("Ingrese Nombre");
-    } else if(!form.description){
-      return alert("Ingrese Descripcion");
-    } 
-    // await axios.post("http://localhost:3001/module/createModule", form, {
-    //   headers:{
-    //     Authorization:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzZXIiOjEsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjg4MjUyMzU2LCJleHAiOjE2ODgyNTk1NTZ9.8XJ0SexydPrtqZ7YUVM76wLSd9Bgiyj9IAUggS75qKw",
-    //   },
-    // });
-    alert("Modulo creado, Agrega leccion")
     setLesson(lesson + 1);
   };
 
-  const deleteLesson = () => {
-    if (lesson === 0) return;
-    setLesson(lesson - 1);
+  const deleteModule = () => {
+    api.delete(`/module/deleteModule/${moduleId}`)
+    if (modules === 0) return;
+    setModules(modules - 1);
   };
-
   const changeHandler = (event) => {
     const property = event.target.name;
     const value = event.target.value;
@@ -48,19 +40,41 @@ export default function FormCourse() {
     setForm(updatedForm);
     setErrors(validate(updatedForm));
   };
-  const validate = (form)=>{
+  const validate = (form) => {
     let errores = {};
-    if(!form.name){
+    if (!form.name) {
       errores.name = "Ingrese Nombre";
     } else {
       errores.name = "";
     }
-    if(!form.description){
+    if (!form.description) {
       errores.description = "Ingrese Descripcion";
     } else {
       errores.description = "";
     }
     return errores;
+  }
+  const submitHandler = async (event) => {
+    event.preventDefault();
+    if (!form.name) {
+      return alert("Ingrese Nombre");
+    } else if (!form.description) {
+      return alert("Ingrese Descripcion");
+    }
+    const body = {
+      ...form,
+    }
+    const moduleCreate = await api.post("/module/createModule",
+      {
+        headers: {
+          'Authorization': localStorage.getItem("token"),
+          body,
+        },
+      });
+    
+    setFlagBotton(true)
+    setModuleId(moduleCreate.data.id);
+    alert("Modulo creado, Agrega leccion")
   }
   return (
     <div className="mx-7">
@@ -76,7 +90,7 @@ export default function FormCourse() {
             name="name"
           />
           <div>
-            {errors.name && <span>{errors.name}</span>}
+            {errors.name && <span className="text-red-500 text-xs mt-1">{errors.name}</span>}
           </div>
           <label className="block mb-2 font-bold">Descripcion:</label>
           <textarea
@@ -84,29 +98,34 @@ export default function FormCourse() {
             value={form.description}
             onChange={changeHandler}
             name="description"
-            // onChange={(e) => setDescription(e.target.value)}
           ></textarea>
           <div>
-            {errors.description && <span>{errors.description}</span>}
+            {errors.description && <span className="text-red-500 text-xs mt-1">{errors.description}</span>}
           </div>
         </div>
       </div>
       <div className="flex justify-center">
-        <button
+      {!flagBotton ?
+          <button
+            className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+            onClick={submitHandler}
+          >
+            Crear Modulo
+          </button> : null}
+          {flagBotton ?
+          <button
           className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
           onClick={addLesson}
         >
           Agregar Leccion
-        </button>
-
-        <button
-          className="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600"
-          onClick={deleteLesson}
-        >
-          Eliminar Leccion
-        </button>
+        </button>:
+          null
+        }
       </div>
-
+      <button className="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600"
+        onClick={deleteModule}>
+        Eliminar Modulo
+      </button>
       <div className="flex flex-wrap justify-evenly">{renderLesson()}</div>
     </div>
   );
