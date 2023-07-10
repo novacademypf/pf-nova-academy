@@ -36,7 +36,7 @@ const SectionCursos = () => {
   return (
     <section className="min-w-[calc(100%-15em)] left-[15em] absolute">
       {/* Aca va la paginación */}
-      <div className="bg-purple-500 w-[calc(100%-15em)]  left-[15em] bg-white h-14 fixed z-30  flex justify-center items-center gap-2 ">
+      <div className="bg-purple-500 w-[calc(100%-15em)]  left-[15em] bg-white h-14 fixed z-30  flex justify-center items-center gap-2  ">
         <ReactPaginate
           previousLabel={"<"}
           nextLabel={">"}
@@ -60,8 +60,10 @@ const SectionCursos = () => {
           renderOnZeroPageCount={null}
         />
       </div>
+      <div className="sticky top-[3.5em] overflow-y-auto h-[calc(100vh-5.5em)]">
       <div className="w-full relative top-[3.5em]">
         <CourseCards courses={paginatedCourses} />
+      </div>
       </div>
       
     </section>
