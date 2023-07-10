@@ -86,13 +86,7 @@ const SectionFilter = () => {
   }
 
   return (
-    <section className=" bg-purple-300 w-[15em] min-w-[15em] py-[2em] px-[1em]  fixed  z-50 left-[0] h-[calc(100vh-5.5em)] right-0 flex-col  overflow-auto justify-center">
-      <h2 className="mb-5">Filtra Por Categoria:</h2>
-      <Dropdown
-        //labelValue={"Filtrar Categorias:"}
-        isLabel={"Filtrar Categorias"}
-      />
-      <section className=" bg-purple-300 w-[15em] min-w-[15em] py-[2em] px-[1em]  fixed  z-50 left-[0] h-[calc(100vh-5.5em)] right-0 flex-col  overflow-auto justify-center"></section>
+      <section className=" bg-purple-300 w-[15em] min-w-[15em] py-[2em] px-[1em]  fixed  z-50 left-[0] h-[calc(100vh-5.5em)] right-0 flex-col  overflow-auto justify-center">
       <h2 className="mb-5">Filtra Por Categoria:</h2>
       <Dropdown
         islabel={"Filtrar Categorias"}
@@ -126,7 +120,7 @@ const SectionFilter = () => {
         <option value="Z-a">Z - A</option>
       </select>
       <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-        <svg className="fill-current h-4 w-4" viewBox="0 0 20 20 transform rotate-180">
+        <svg className="fill-current h-4 w-4">
           <path d="M10 12l-6-6 1.5-1.5L10 9l4.5-4.5L16 6l-6 6z" />
         </svg>
       </div>

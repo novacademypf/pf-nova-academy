@@ -5,7 +5,7 @@ import SectionFilter from "./SectionFilter";
 const Courses = () => {
   
   return (  
-       <main className="relative top-[5.5rem] flex ">
+       <main className="relative top-[0 rem] flex ">
        <SectionFilter/>
        <SectionCursos/>
        </main> 
