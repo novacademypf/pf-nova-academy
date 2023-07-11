@@ -9,6 +9,11 @@ import Swal from "sweetalert2";
 const UserList = ({ users }) => {
   const dispatch = useDispatch();
   const [deletedUserIds, setDeletedUserIds] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const usersPerPage = 5;
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
 
   useEffect(() => {
     // Realiza cualquier acción necesaria después de eliminar un usuario
@@ -20,8 +25,6 @@ const UserList = ({ users }) => {
     dispatch(deleteUser(userId));
     setDeletedUserIds([...deletedUserIds, userId]);
   };
-
-
 
 
   const showAlert = () => {
@@ -44,14 +47,29 @@ const UserList = ({ users }) => {
 
   const deleteUserWithAlert = async (userId) => {
     try {
-      await handleDeleteUser(userId);
+      handleDeleteUser(userId);
       showAlert();
     } catch (error) {
       showErrorAlert(error);
     }
   };
 
-  if(users === 0) {
+  const totalPages = Math.ceil(users.length / usersPerPage);
+
+
+  const handlePrevPage = () => {
+   if (currentPage > 1) {
+     setCurrentPage(currentPage - 1);
+   }
+  };
+
+  const handleNextPage = () => {
+   if (currentPage < totalPages) {
+     setCurrentPage(currentPage + 1);
+   }
+  };
+
+  if(currentUsers === 0) {
     return <h2>No existen usuarios registrados por el momento</h2>
   }
 
@@ -63,7 +81,7 @@ const UserList = ({ users }) => {
                         <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-normal text-gray-800">Usuarios Activos</p>
                     </div>
                 </div>
-                {users.map((user) => {
+                {currentUsers.map((user) => {
                   if (deletedUserIds.includes(user.userId)) {
                     return null; // Omitir el renderizado del usuario eliminado
                   }
@@ -105,10 +123,21 @@ const UserList = ({ users }) => {
                             
                         </table>
                         
+                        
                     </div>
                     
+                    
                 </div>
+                
                  )})}
+                 <div className="flex items-center justify-center">
+                  <button className="mt-4 bg-blue-600 hover:underline px-4 py-2 text-white uppercase rounded text-xs tracking-wider"
+                  onClick={handlePrevPage}>Anterior</button>
+                  <p className="mx-4">Página {currentPage} de {totalPages}</p>
+                  <button className="mt-4 bg-blue-600 hover:underline px-4 py-2 text-white uppercase rounded text-xs tracking-wider"
+                  onClick={handleNextPage}>Siguiente</button>
+                  </div>
+
             </div>
            
         </>
