@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import CreateLesson from "../LessonCreate";
 import api from "../../../services/api"
+import Swal from "sweetalert2";
 
 export default function FormCourse({ courseId, setModules, modules, setFlagFinally }) {
   const dispatch = useDispatch();
@@ -57,9 +58,19 @@ export default function FormCourse({ courseId, setModules, modules, setFlagFinal
   const submitHandler = async (event) => {
     event.preventDefault();
     if (!form.name) {
-      return alert("Ingrese Nombre");
+      // return alert("Ingrese Nombre");
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Ingrese Nombre",
+      });
     } else if (!form.description) {
-      return alert("Ingrese Descripcion");
+      // return alert("Ingrese Descripcion");
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Ingrese Descripcion",
+      });
     }
     const body = {
       ...form,
@@ -74,7 +85,11 @@ export default function FormCourse({ courseId, setModules, modules, setFlagFinal
     
     setFlagBotton(true)
     setModuleId(moduleCreate.data.id);
-    alert("Modulo creado, Agrega leccion")
+    // alert("Modulo creado, Agrega leccion")
+    Swal.fire({
+      icon: "success",
+      title: "Modulo creado, Agrega leccion",
+    });
   }
   return (
     <div className="mx-7">

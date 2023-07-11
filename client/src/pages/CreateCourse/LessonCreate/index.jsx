@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import api from "../../../services/api";
 import { uploadFile } from "../../../firebase/config";
+import Swal from "sweetalert2";
+
 export default function CreateLesson({moduleId, lesson, setLesson, setFlagFinally}) {
   const dispatch = useDispatch();
   const [resource, setResource] = useState(null)
@@ -49,9 +51,19 @@ export default function CreateLesson({moduleId, lesson, setLesson, setFlagFinall
   const submitHandler = async (event)=>{
     event.preventDefault();
     if(!form.title){
-      return alert("Ingrese Titulo");
+      // return alert("Ingrese Titulo");
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Ingrese Titulo",
+      });
     } else if(!form.content){
-      return alert("Ingrese Contenido");
+      // return alert("Ingrese Contenido");
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Ingrese Contenido",
+      });
     } 
     const body = {
       ...form,
@@ -67,7 +79,10 @@ export default function CreateLesson({moduleId, lesson, setLesson, setFlagFinall
       setFlagButton(false)
       setLessonId(lessonCreate.data.id);
       setFlagFinally(true)
-      alert("Leccion creada");
+      Swal.fire({
+        icon: "success",
+        title: "Leccion creada",
+      });
     }
 
 
@@ -104,16 +119,21 @@ export default function CreateLesson({moduleId, lesson, setLesson, setFlagFinall
             type="file"
             className="w-96 p-2 mb-4 border border-gray-300 rounded"
             onChange={(e) => setResource(e.target.files[0])}
+            disabled={ !flagButton }
           />
         </div>
         
       </form>
-      {flagButton ?
+      <div className="flex justify-center">
+        {flagButton ?
         <div className="flex justify-center">
-          <button className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600" onClick={(e)=> submitHandler(e)}>crear Leccion</button>
+          <button className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600" onClick={(e)=> submitHandler(e)}>Crear Leccion</button>
         </div>
         :null
       }
+      
+      <button className="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600" onClick={(e)=> deleteLesson(e)}>Eliminar Leccion</button>
+      </div>
     </div>
   );
 }

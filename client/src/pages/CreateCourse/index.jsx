@@ -5,6 +5,8 @@ import FormCourse from "./ModuleCreate";
 import api from "../../services/api.js"
 import { uploadFile } from "../../firebase/config";
 import { useGoogleAuth } from "../../hooks/useGoogleAuth.jsx";
+import Swal from "sweetalert2";
+
 export default function CreateCourse() {
   const dispatch = useDispatch();
   const categoryList = useSelector((state) => state.getAllCategories.categories);
@@ -77,15 +79,16 @@ export default function CreateCourse() {
     } else {
       errores.price = "";
     }
-    if(!file){
-      errores.images = "Debes cargar una imagen";
-    } else {
+    if(file !== null){
       errores.images = "";
-    }
-    if (form.category.length === 0) {
-      errores.category = "Seleccione una categoría";
+      
     } else {
+      errores.images = "Debes cargar una imagen";
+    }
+    if (form.category.length > 0) {
       errores.category = "";
+    } else {
+      errores.category = "Seleccione una categoría";
     }
     return errores;
   };
@@ -95,21 +98,53 @@ export default function CreateCourse() {
     const selectedCategoryIds = selectedOptions.map((option) => option.value);
     setSelectedCategories(selectedCategoryIds);
     setForm({ ...form, category: selectedCategoryIds });
+    setErrors(validate({ ...form, category: selectedCategoryIds}));
+
   };
   const submitHandler = async (event) => {
     event.preventDefault();
     if (!form.name) {
-      return alert("Ingrese Nombre")
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Ingrese Nombre",
+      });
     } else if (!form.description) {
-      return alert("Ingrese Descripcion")
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Ingrese Descripcion",
+      });
     } else if (!form.duration) {
-      return alert("Ingrese Duracion")
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Ingrese Duracion",
+      });
     } else if (!form.price) {
-      return alert("Ingrese Precio")
-    } else if (!form.category) {
-      return alert("Selecione Categoria")
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Ingrese Precio",
+      });
+    } else if (form.category.length === 0) {
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Selecione Categoria",
+      });
     } else if (!form.price.match(/^[0-9]+$/)) {
-      return alert("Precio solo permite numeros");
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Precio solo permite numeros",
+      });
+    } else if(file === null){
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Ingrese una Imagen",
+      });
     }
     const body = {
       ...form,
@@ -125,7 +160,18 @@ export default function CreateCourse() {
     );
     setCourseId(coursecreate.data.id)
     setFlagBotton(true)
-    alert("Creado Correctamente")
+    Swal.fire({
+      icon: "success",
+      title: "Creado Correctamente",
+    });
+    setErrors({
+      name: "",
+      category: [],
+      duration: "",
+      description: "",
+      images: "",
+      price: "",
+    })
   }
   const clearPage = () => {
     setFlagBotton(false)
@@ -161,6 +207,7 @@ export default function CreateCourse() {
             value={form.name}
             onChange={changeHandler}
             name="name"
+            required
           />
           <div>
             {errors.name && <span className="text-red-500 text-xs mt-1">{errors.name}</span>}
@@ -189,6 +236,7 @@ export default function CreateCourse() {
             value={form.duration}
             onChange={changeHandler}
             name="duration"
+            required
           />
           <div>
             {errors.duration && <span className="text-red-500 text-xs mt-1">{errors.duration}</span>}
@@ -202,6 +250,7 @@ export default function CreateCourse() {
             value={form.description}
             onChange={changeHandler}
             name="description"
+            required
           />
           <div>
             {errors.description && <span className="text-red-500 text-xs mt-1">{errors.description}</span>}
@@ -212,8 +261,8 @@ export default function CreateCourse() {
             className="w-96 p-2 mb-4 border border-gray-300 rounded"
             onChange={(e) => { setFile(e.target.files[0])}}
             name="images"
+            required
           />
-            {/* {file === null ?  <span className="text-red-500 text-xs mt-1">Debes poner una imagen</span> : null} */}
           <div>
             {errors.images && <span className="text-red-500 text-xs mt-1">{errors.images}</span>}
           </div>
@@ -224,6 +273,7 @@ export default function CreateCourse() {
             value={form.price}
             onChange={changeHandler}
             name="price"
+            required
           />
           <div>
             {errors.price && <span className="text-red-500 text-xs mt-1">{errors.price}</span>}
