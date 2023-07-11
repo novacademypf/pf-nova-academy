@@ -18,7 +18,6 @@ import Detail from "./pages/Detail";
 import AdminHome from "./pages/AdminHome/AdminHome";
 import CreateCourse from "./pages/CreateCourse";
 import { SearchCourse } from "./pages/SearchCourse/SearchCourse";
-import { Avatar } from "flowbite-react";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -42,7 +41,6 @@ const App = () => {
       { path: "/create", element: <CreateCourse /> },
       { path: "/search", element: <SearchCourse /> },
       { path: "/*", element: <NotFound /> },
-      { path: "/login", element: <Avatar /> },
     ]);
 
     return routes;
