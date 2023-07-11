@@ -26,9 +26,7 @@ moduleRoutes.put(
     updateModuleById
     )
 moduleRoutes.delete(
-    "/deleteModule/:moduleId",
-    VerifyAuthorization,
-    verificarRole("user"), 
+    "/deleteModule/:moduleId", 
     deleteModuleById
     )
 

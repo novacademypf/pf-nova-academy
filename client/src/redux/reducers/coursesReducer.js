@@ -27,6 +27,16 @@ export default function coursesReducer(state = initialState, action) {
         courses: updatedCourses,
       };
 
+    case GET_ALL_COURSES:
+
+     return {
+      ...state,
+      courses: action.payload,
+
+     }
+
+      
+
       
 
     default:

@@ -15,9 +15,11 @@ module.exports = (sequelize) => {
       content: {
         type: DataTypes.TEXT,
       },
+      resource:{
+        type: DataTypes.STRING,
+      }
     },
     {
-     
       timestamps: false,
     }
   );
