@@ -1,14 +1,13 @@
-import React, { useEffect, useState  } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 import { Navigate } from "react-router-dom";
-import Swal from "sweetalert2";
-
 import {
   signUpSuccess,
   signUpFailure,
   checkEmailExistence,
 } from "../../redux/actions/userActions";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = ({
   checkEmailExistence,
@@ -21,10 +20,7 @@ const SignUp = ({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [navigateToHome, setNavigateToHome] = useState(false);
-
-  
-
+  const navigate = useNavigate();
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -57,24 +53,27 @@ const SignUp = ({
     }
 
     try {
-      const response = await axios.post('http://localhost:3001/user/singup', {
+      const response = await axios.post(
+        "http://localhost:3001/user/singup",
+        {
+          name,
+          email,
+          password,
+        },
+        { headers: { "Content-Type": "application/json" } }
+      );
 
-        name,
-        email,
-        password,
-
-        
-      },{ headers:{ 'Content-Type': 'application/json' }
-
-      });
-
-      console.log("submit exitoso");
       Swal.fire({
         icon: "success",
         title: "Registro completo",
         text: "Creaste tu cuenta ahora puedes ingresar",
-        backdrop: 'static',
+        confirmButtonText: "OK",
+        backdrop: "static",
         allowOutsideClick: false,
+      }).then((res) => {
+        if (res.isConfirmed) {
+          navigate("/home");
+        }
       });
 
       const user = response.data;
