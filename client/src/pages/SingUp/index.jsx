@@ -1,6 +1,6 @@
 import axios from "axios";
+import { useState } from "react";
 import { connect } from "react-redux";
-import { Navigate } from "react-router-dom";
 import {
   signUpSuccess,
   signUpFailure,
@@ -13,7 +13,7 @@ const SignUp = ({
   checkEmailExistence,
   signUpSuccess,
   signUpFailure,
-  isCheckingEmail,  
+  isCheckingEmail,
   emailError,
 }) => {
   const [name, setName] = useState("");
@@ -82,7 +82,6 @@ const SignUp = ({
       setEmail("");
       setPassword("");
       setPasswordError("");
-      setNavigateToHome(true);
     } catch (error) {
       console.log(error);
       Swal.fire({
@@ -95,12 +94,6 @@ const SignUp = ({
       console.error("Error al registrar", error);
     }
   };
-
-  useEffect(() => {
-    if (navigateToHome) {
-      navigate("/home");
-    }
-  }, [navigateToHome]);
 
   return (
     <section className="h-screen flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0">
