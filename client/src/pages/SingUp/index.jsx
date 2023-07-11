@@ -7,13 +7,13 @@ import {
   signUpFailure,
   checkEmailExistence,
 } from "../../redux/actions/userActions";
-import Swal from "sweetalert2";
+
 
 const SignUp = ({
   checkEmailExistence,
   signUpSuccess,
   signUpFailure,
-  isCheckingEmail,
+  isCheckingEmail,  
   emailError,
 }) => {
   const [name, setName] = useState("");

@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import CourseCardsAdmin from '../../components/CourseCardsAdmin/CourseCardsAdmin';
 import UserList from '../../components/UserList/UserList';
 import { getUsers } from '../../redux/actions/userActions';
-
+import Swal from "sweetalert2";
+ 
 
 function AdminHome() {
   const dispatch = useDispatch();
