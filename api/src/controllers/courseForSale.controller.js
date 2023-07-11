@@ -5,7 +5,6 @@ const { cursos, category } = require("../constants/data");
 
 const postCreateCourseForSale = async (req, res) => {
   try {
-    
     const { name, category, duration, description, images, price } = req.body.headers.body;
     const user = await getUserToken(req);
     if (!name || !category || !duration || !description || !images || !price ) {
