@@ -5,6 +5,7 @@ import { clearCart } from "../../redux/actions/shoppingCartActions";
 import CartItem from "../../components/CartItem/CartItem";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Checkout = () => {
   const coursesCart = useSelector((state) => state).shoppingCartReducer.cart;
@@ -33,10 +34,10 @@ const Checkout = () => {
   });
 
   const handlePayment = async (products) => {
+    Swal.showLoading();
     await axios
       .post("http://localhost:3001/mercadopago", products)
       .then(({ data }) => {
-        console.log(data);
         window.location.href = data.response.body.init_point;
       })
       .catch((err) => console.log(err));
