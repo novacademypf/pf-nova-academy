@@ -3,15 +3,21 @@ import { useDispatch, useSelector } from "react-redux";
 import Layout from "../../Layout";
 import { clearCart } from "../../redux/actions/shoppingCartActions";
 import CartItem from "../../components/CartItem/CartItem";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
   const coursesCart = useSelector((state) => state).shoppingCartReducer.cart;
-
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   let totalPrice = coursesCart.reduce((acumulador, el) => {
     const subtotal = el.quantity * el.price;
     return acumulador + subtotal;
   }, 0);
+
+  useEffect(() => {
+    coursesCart.length <= 0 ? navigate("/courses") : "";
+  }, [coursesCart]);
 
   let dataToPayment = coursesCart.map((el) => {
     return {
