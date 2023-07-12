@@ -1,29 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteCourse } from "../../redux/actions/coursesActions";
-import Swal from "sweetalert2";
+import { deleteCourse } from '../../redux/actions/coursesActions';
+import Swal from 'sweetalert2';
 
-const CourseCardsAdmin = ({ courses }) => {
+const CoursesList = ({ courses }) => {
   const dispatch = useDispatch();
   const [deletedCourseIds, setDeletedCourseIds] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const coursesPerPage = 5;
   const indexOfLastCourse = currentPage * coursesPerPage;
   const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
-  const response = Object.values(courses);
-  console.log (response);
-  const currentCourses = response.slice(indexOfFirstCourse, indexOfLastCourse);
-
+  const currentCourses = courses.courseAll.slice(
+    indexOfFirstCourse,
+    indexOfLastCourse
+  );
 
   useEffect(() => {
     // Realiza cualquier acción necesaria después de eliminar un curso
     // Puede ser actualizar la lista de cursos o cualquier otra acción
   }, [deletedCourseIds]);
 
-  const handleDeleteCourse = (id) => {
-    console.log(id);
-    dispatch(deleteCourse(id));
-    setDeletedCourseIds([...deletedCourseIds, id]);
+  const handleDeleteCourse = (courseId) => {
+    console.log(courseId);
+    dispatch(deleteCourse(courseId));
+    setDeletedCourseIds([...deletedCourseIds, courseId]);
   };
 
   const showAlert = () => {
@@ -31,7 +31,7 @@ const CourseCardsAdmin = ({ courses }) => {
       title: 'Éxito',
       text: 'Curso eliminado correctamente',
       icon: 'success',
-      confirmButtonText: 'Aceptar'
+      confirmButtonText: 'Aceptar',
     });
   };
 
@@ -40,20 +40,20 @@ const CourseCardsAdmin = ({ courses }) => {
       title: 'Error',
       text: error.message,
       icon: 'error',
-      confirmButtonText: 'Aceptar'
+      confirmButtonText: 'Aceptar',
     });
   };
 
-  const deleteCourseWithAlert = async (id) => {
+  const deleteCourseWithAlert = async (courseId) => {
     try {
-      handleDeleteCourse(id);
+      handleDeleteCourse(courseId);
       showAlert();
     } catch (error) {
       showErrorAlert(error);
     }
   };
 
-  const totalPages = Math.ceil(courses.length / coursesPerPage);
+  const totalPages = Math.ceil(courses.courseAll.length / coursesPerPage);
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
@@ -77,7 +77,7 @@ const CourseCardsAdmin = ({ courses }) => {
         <div className="px-4 md:px-10 py-4 md:py-7">
           <div className="sm:flex items-center justify-between">
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-normal text-gray-800">
-              Cursos Activos ({courses.length})
+              Cursos Activos ({courses.courseCount})
             </p>
           </div>
         </div>
@@ -94,11 +94,13 @@ const CourseCardsAdmin = ({ courses }) => {
                       <td className="w-1/2">
                         <div className="flex items-center">
                           <div className="w-10 h-10 bg-gray-700 rounded-sm flex items-center justify-center">
-                            <img
-                              className="hidden xl:block w-full"
-                              src="ruta-a-la-imagen-del-curso"
-                              alt="avatar"
-                            />
+                            {course.imageUrl && (
+                              <img
+                                className="hidden xl:block w-full"
+                                src={course.imageUrl}
+                                alt="avatar"
+                              />
+                            )}
                           </div>
                           <div className="pl-2">
                             <h2 className="text-sm font-medium leading-none text-gray-800">
@@ -110,6 +112,7 @@ const CourseCardsAdmin = ({ courses }) => {
                       <td className="pl-16">
                         <p>{course.description}</p>
                       </td>
+
                       <td>
                         <button
                           className="mt-4 bg-blue-600 hover:underline px-4 py-2 text-white uppercase rounded text-xs tracking-wider"
@@ -147,4 +150,4 @@ const CourseCardsAdmin = ({ courses }) => {
   );
 };
 
-export default CourseCardsAdmin;
+export default CoursesList;
