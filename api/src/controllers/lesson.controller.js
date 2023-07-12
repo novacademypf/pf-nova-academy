@@ -2,21 +2,19 @@ const { Lesson, Module } = require("../db");
 
 const createLesson = async (req, res) => {
   try {
-    const { title, content, moduleId} = req.body;
-    const module = await Module.findByPk(moduleId);
+    const { title, content, resource,  idModule} = req.body.headers.body;
+    const module = await Module.findByPk(idModule);
     if (!module) {
       return res.status(404).json({ error: "Module not found" });
     }
-    if(!title){
-      return res.status(404).json({ error: "Title missing" });
-    }
-    if(!content){
-      return res.status(404).json({ error: "Content missing" });
+    if(!title || !content){
+      return res.status(404).json({ error: "Data is missing" });
     }
     const lesson = await Lesson.create({ 
       title, 
       content, 
-      idModule:moduleId
+      resource,
+      idModule:idModule
     });
     res.json(lesson);
   } catch (error) {
@@ -52,12 +50,12 @@ const getLessonById = async (req, res) => {
 const updateLessonById = async (req, res) => {
   try {
     const { lessonId } = req.params;
-    const { title, content } = req.body;
+    const { title, content, resource } = req.body;
     const lesson = await Lesson.findByPk(lessonId);
     if (!lesson) {
       return res.status(404).json({ error: "Lesson not found" });
     }
-    await lesson.update({ title, content });
+    await lesson.update({ title, content, resource });
     res.json(lesson);
   } catch (error) {
     console.error(error);

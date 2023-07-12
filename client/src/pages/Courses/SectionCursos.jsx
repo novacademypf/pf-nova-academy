@@ -13,7 +13,7 @@ const SectionCursos = () => {
   );
 
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 10; // Cantidad de elementos por página
+  const itemsPerPage = 8; // Cantidad de elementos por página
   const totalCourses = isFiltered
     ? cursosFiltrados?.courseAll
     : cursos?.courseAll; // Array de cursos total
@@ -26,7 +26,7 @@ const SectionCursos = () => {
     
     setCurrentPage(selected);
   };
-
+  
   useEffect(() => {
     // Actualizar la página actual cuando cambie el filtro
     setCurrentPage(0);
@@ -34,9 +34,9 @@ const SectionCursos = () => {
 
   const pageCount = Math.ceil((totalCourses?.length || 0) / itemsPerPage); // Número total de páginas
   return (
-    <section className="min-w-[calc(100%-15em)] left-[15em] relative">
+    <section className="min-w-[calc(100%-15em)] left-[15em] absolute">
       {/* Aca va la paginación */}
-      <div className="w-[calc(100%-15em)]  left-[15em] bg-white h-14 fixed z-30  flex justify-center items-center gap-2 ">
+      <div className="bg-purple-500 w-[calc(100%-15em)]  left-[15em] bg-white h-14 fixed z-30  flex justify-center items-center gap-2  ">
         <ReactPaginate
           previousLabel={"<"}
           nextLabel={">"}
@@ -45,7 +45,7 @@ const SectionCursos = () => {
           marginPagesDisplayed={2}
           onPageChange={handlePageChange}
           containerClassName={
-            "flex bg-white drop-shadow-lg rounded-[1em] px-4 py-2 jusify-center items-center gap-2"
+            "flex bg-purple-300 drop-shadow-lg rounded-[1em] px-4 py-2 jusify-center items-center gap-2"
           }
           pageClassName={
             "w-[1.5em] h-[1.5em]  rounded-[50%] flex items-center justify-center"
@@ -60,11 +60,12 @@ const SectionCursos = () => {
           renderOnZeroPageCount={null}
         />
       </div>
-
+      <div className="sticky top-[3.5em] overflow-y-auto h-[calc(100vh-5.5em)]">
       <div className="w-full relative top-[3.5em]">
         <CourseCards courses={paginatedCourses} />
       </div>
-      
+      </div>
+
     </section>
   );
 };
