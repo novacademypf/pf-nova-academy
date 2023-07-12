@@ -1,6 +1,7 @@
 import { GET_ALL_COURSES, DELETE_COURSE, SAVE_COURSE} from "../action-type/action-types";
 
 const initialState = {
+  arrayCourses:[],
   courses: [],
   isFilter:false
 };
@@ -18,8 +19,8 @@ export default function coursesReducer(state = initialState, action) {
 
     case DELETE_COURSE:
       // Filtrar el curso a borrar según el ID
-      const updatedCourses = state.courses.filter(
-        (course) => course.id !== action.payload
+      const updatedCourses = state.arrayCourses.filter(
+        (arrayCourses) => arrayCourses.id !== action.payload
       );
 
       return {
