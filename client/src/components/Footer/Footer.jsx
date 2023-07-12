@@ -12,7 +12,7 @@ const Footer = () => {
             </Link>
           </li>
           <li>
-            <Link href="#" className="py-1 hover:underline">
+            <Link to="/contact" className="py-1 hover:underline">
               Contacto
             </Link>
           </li>
