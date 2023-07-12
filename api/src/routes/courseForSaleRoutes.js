@@ -33,8 +33,6 @@ courseForsaleRouter.put(
 
 courseForsaleRouter.delete(
   "/deleteCourse/:courseId",
-  VerifyAuthorization,
-  verificarRole("user"),
   deleteCourseForSale
 );
 

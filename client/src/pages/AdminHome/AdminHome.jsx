@@ -13,29 +13,8 @@ function AdminHome() {
   const courses = useSelector((state) => state).coursesReducer.courses;
   console.log(courses);
 
-  // Acceder al array en la posición 1 si existe
-if (Array.isArray(courses) && courses.length >= 2) {
-    const array = courses[0];
-    console.log(array); // Imprimir el array en la posición 1
-  } else {
-    console.log('El objeto courses no tiene la estructura esperada');
-  }
-
-  const arrayCourses = courses[0];
-  console.log(arrayCourses);
-
-   const users = useSelector((state) => state.userReducer.users);
-
-   const coursesAll = useSelector((state) => state).coursesReducer.courses.courseAll; // <--  Ali este es el array con la info de los cursos
-
-
-  console.log(users);
-  console.log(courses);
-  console.log(typeof courses);
-  console.log(typeof coursesAll);
-
-
-
+  const users = useSelector((state) => state.userReducer.users);
+  const coursesAll = useSelector((state) => state).coursesReducer.courses.courseAll; // <--  Ali este es el array con la info de los cursos
   
 
   useEffect(() => {
