@@ -1,10 +1,17 @@
-const { Module } = require("../db");
+const { Module , CourseForSale  } = require("../db");
 
 const createModule = async (req, res) => {
   try {
-    const { name, description, order, courseId} = req.body;
-    console.log(courseId)
-    const module = await Module.create({ name, description, order, courseId});
+    const { name, description, courseId } = req.body.headers.body;
+    const courseForSale = await CourseForSale.findByPk(courseId);
+    if (!courseForSale || !name || !description) {
+      return res.status(404).json({ error: "Data missing" });
+    }
+    const module = await Module.create({ 
+      name, 
+      description, 
+      idCourseForSale: courseId 
+    });
     res.json(module);
   } catch (error) {
     console.error(error);

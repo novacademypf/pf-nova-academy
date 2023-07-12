@@ -1,15 +1,12 @@
-import { useSelector } from "react-redux";
-import Layout from "../../Layout";
-import CourseCards from "../../components/CourseCards/CourseCards";
-//eslint-disable-next-line
+import SectionCursos from "./SectionCursos";
+import SectionFilter from "./SectionFilter";
 
 const Courses = () => {
-  const courses = useSelector((state) => state).coursesReducer.courses;
-
   return (
-    <Layout>
-      <CourseCards courses={courses} />
-    </Layout>
+    <main className="relative top-[0 rem] flex ">
+      <SectionFilter />
+      <SectionCursos />
+    </main>
   );
 };
 

@@ -13,6 +13,7 @@ const userRoutes = require("./userRoutes.js");
 const profileRoutes = require("./profileRoutes.js");
 const courseForsaleRouter = require("./courseForSaleRoutes.js");
 const mercadoPagoRoutes = require("./mercadoPagoRoutes.js");
+const googleRoutes = require("./googleRoutes.js");
 const router = Router();
 router.use("/courseForSale", courseForsaleRouter);
 router.use("/profile", profileRoutes);
@@ -27,5 +28,5 @@ router.use("/progresslesson", progressLessonRoutes);
 router.use("/resource", resourceRoutes);
 router.use("/review", reviewRoutes);
 router.use("/user", userRoutes);
-
+router.use("/google", googleRoutes);
 module.exports = router;

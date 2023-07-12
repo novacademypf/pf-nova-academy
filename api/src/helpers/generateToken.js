@@ -5,8 +5,11 @@ const { JWT_SECRET } = process.env;
 const createtoken = async (user) => {
   return jwt.sign(
     {
-      idUser: user.userId,
+      
+      idUser: user.profileId,
       role: user.role,
+      email:user.email
+      
     },
     JWT_SECRET,
     { expiresIn: "2h" }
