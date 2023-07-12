@@ -21,7 +21,7 @@ const Carrousel = () => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const INTERVAL_TIME = 3000; // Intervalo de tiempo en milisegundos
+  const INTERVAL_TIME = 4000; // Intervalo de tiempo en milisegundos
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((currentIndex + 1) % images.length);
