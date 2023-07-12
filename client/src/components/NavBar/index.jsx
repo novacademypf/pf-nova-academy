@@ -31,7 +31,19 @@ const NavBar = () => {
   const deleteItemfromAside = (id) => {
     dispatch(delFromCart(id));
   };
+
+  const handleLocalStorage = (data) => {
+    let cartStorage = JSON.parse(localStorage.getItem("shoppingCart")) || [];
+    if (cartStorage.length > 0 && !data.length) {
+      cartStorage.forEach((el) => {
+        dispatch(addToCart(el));
+      });
+    }
+    localStorage.removeItem("shoppingCart");
+    localStorage.setItem("shoppingCart", JSON.stringify(data));
+  };
   useEffect(() => {
+    handleLocalStorage(courses);
     if (!cartIsOpen) courses.length > 0 && openCart();
     if (!checkRoute) closeCart();
   }, [courses]);
