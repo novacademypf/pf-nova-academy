@@ -150,8 +150,7 @@ const SignUp = ({
             </div>
 
             <button
-              className="mt-4 bg-blue-600 hover:underline px-4 py-2 text-white uppercase rounded text-xs tracking-wider"
-              type="submit"
+className=" bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"              type="submit"
             >
               Registrarse
             </button>

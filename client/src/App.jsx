@@ -13,6 +13,9 @@ import SingUp from "./pages/SingUp";
 import Home from "./pages/Home";
 import NavBar from "./components/NavBar";
 import Detail from "./pages/Detail";
+import About from './pages/About';
+import ContactForm from "./pages/ContactForm/ContactForm";
+
 
 /* import { SearchCourse } from "./pages/SearchCourse/SearchCourse"; */
 import AdminHome from "./pages/AdminHome/AdminHome";
@@ -40,6 +43,8 @@ const App = () => {
       { path: "/detail/:courseId", element: <Detail /> },
       { path: "/create", element: <CreateCourse /> },
       { path: "/search", element: <SearchCourse /> },
+      { path: "/about", element: <About /> },
+      { path: "/contact", element: <ContactForm /> },
       { path: "/*", element: <NotFound /> },
     ]);
 

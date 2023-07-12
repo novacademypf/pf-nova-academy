@@ -3,21 +3,51 @@ import { useSelector, useDispatch } from "react-redux";
 import CourseCardsAdmin from '../../components/CourseCardsAdmin/CourseCardsAdmin';
 import UserList from '../../components/UserList/UserList';
 import { getUsers } from '../../redux/actions/userActions';
+import { getCoursesTotal } from '../../redux/actions/coursesActions';
+import CoursesList from '../../components/CoursesList/CoursesList';
+
 
 
 function AdminHome() {
   const dispatch = useDispatch();
 
   const courses = useSelector((state) => state).coursesReducer.courses;
-  const users = useSelector((state) => state.userReducer.users);
+  console.log(courses);
+
+  // Acceder al array en la posición 1 si existe
+if (Array.isArray(courses) && courses.length >= 2) {
+    const array = courses[1];
+    console.log(array); // Imprimir el array en la posición 1
+  } else {
+    console.log('El objeto courses no tiene la estructura esperada');
+  }
+
+  const arrayCourses = courses[0];
+  console.log(arrayCourses);
+
+   const users = useSelector((state) => state.userReducer.users);
+
+   const coursesAll = useSelector((state) => state).coursesReducer.courses.courseAll; // <--  Ali este es el array con la info de los cursos
+
 
   console.log(users);
- console.log(courses);
+  console.log(courses);
+  console.log(typeof courses);
+  console.log(typeof coursesAll);
+
+
+
   
 
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
+  
+  useEffect(() => {
+    dispatch(getCoursesTotal());
+  }, [dispatch]);
+
+
 
   return (
     <div className="pb-16">
