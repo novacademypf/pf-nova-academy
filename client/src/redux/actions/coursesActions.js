@@ -1,5 +1,5 @@
 import axios from "axios";
-import {SAVE_COURSE } from "../action-type/action-types";
+import {SAVE_COURSE,GET_ALL_COURSES } from "../action-type/action-types";
 
 import { getCategoryFilters, getCourseForSale } from "../../services/courseForSaleRequest";
 
@@ -18,6 +18,22 @@ export const getAllCourses = () => {
   };
 };
 
+
+export const getCoursesTotal = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get('http://localhost:3001/courseForSale?page=1&limit=10');
+      console.log(response);
+      dispatch({
+        type: GET_ALL_COURSES,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
 export const deleteCourse = (courseId) => {
   return {
     type: 'DELETE_COURSE',
@@ -32,5 +48,12 @@ export const saveCourse=(course,isFilter)=>{
     type:SAVE_COURSE,
     payload:course,
     isFilter:isFilter
+  }
+}
+
+export const totalCourse=(course)=>{
+  return {
+    type:GET_ALL_COURSES,
+    payload:course,
   }
 }

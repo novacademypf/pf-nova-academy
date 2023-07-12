@@ -10,6 +10,7 @@ export const ShoppingCartAside = ({
   deleteItemfromAside,
 }) => {
   const [isDisabled, setIsDisabled] = useState(false);
+
   useEffect(() => {
     cartItems.length <= 0 ? setIsDisabled(true) : setIsDisabled(false);
   }, [cartItems]);

@@ -3,7 +3,10 @@ import { NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/icons/logo.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { ShoppingCartAside } from "../ShoppingCartAside/ShoppingCartAside";
-import { delFromCart } from "../../redux/actions/shoppingCartActions";
+import {
+  addToCart,
+  delFromCart,
+} from "../../redux/actions/shoppingCartActions";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,87 +31,17 @@ const NavBar = () => {
   const deleteItemfromAside = (id) => {
     dispatch(delFromCart(id));
   };
-
   useEffect(() => {
-    const updateAvatar = () => {
-      const avatarEl = document.querySelector(".rounded-full");
-      if (avatarEl) {
-        const initialsEl = avatarEl.querySelector("span");
-        const loginStatusEl = document.querySelector("#login-status");
-        const editProfileButtonEl = document.querySelector(
-          "#edit-profile-button"
-        );
-
-        const isLoggedIn = localStorage.getItem("isLoggedIn");
-        const firstName = localStorage.getItem("firstName");
-        const lastName = localStorage.getItem("lastName");
-        const imageUrl = localStorage.getItem("imageUrl");
-
-        if (loginStatusEl) {
-          if (isLoggedIn) {
-            loginStatusEl.textContent = `Bienvenido, ${firstName} ${lastName}`;
-          } else {
-            loginStatusEl.textContent = "Iniciar sesión";
-          }
-        }
-
-        if (isLoggedIn) {
-          if (imageUrl) {
-            initialsEl.style.display = "none";
-            const avatarImgEl = avatarEl.querySelector("img");
-            if (avatarImgEl) {
-              avatarImgEl.src = imageUrl;
-              avatarImgEl.style.display = "block";
-            }
-          } else {
-            const initials = `${firstName.charAt(0)}${lastName.charAt(0)}`;
-            if (initialsEl) {
-              initialsEl.textContent = initials.toUpperCase();
-            }
-          }
-
-          avatarEl.style.display = "block";
-          if (editProfileButtonEl) {
-            editProfileButtonEl.classList.remove("hidden");
-          }
-        } else {
-          if (initialsEl) {
-            initialsEl.style.display = "none";
-          }
-          const avatarImgEl = avatarEl.querySelector("img");
-          if (avatarImgEl) {
-            avatarImgEl.style.display = "none";
-          }
-          const initials = "GT";
-          if (initialsEl) {
-            initialsEl.textContent = initials;
-          }
-
-          avatarEl.style.display = "none";
-          if (editProfileButtonEl) {
-            editProfileButtonEl.classList.add("hidden");
-          }
-        }
-      }
-    };
-
-    updateAvatar();
-  }, []);
-
-  useEffect(() => {
-    if (!cartIsOpen && courses.length > 0) {
-      openCart();
-    } else if (cartIsOpen && courses.length === 0) {
-      closeCart();
-    }
-  }, [cartIsOpen, courses]);
+    if (!cartIsOpen) courses.length > 0 && openCart();
+    if (!checkRoute) closeCart();
+  }, [courses]);
 
   const links = [
     { to: "/courses", name: "Cursos" },
     { to: "/create", name: "Crear curso" },
   ];
   const activeStyle = "font-bold mx-2";
-
+  console.log(courses);
   return (
     <nav className="bg-[#00FFFF] h-[5.5em] top-0 z-40 sticky w-full">
       <div className="max-w-screen-xl h-auto flex flex-wrap items-center justify-between p-4 mx-auto">

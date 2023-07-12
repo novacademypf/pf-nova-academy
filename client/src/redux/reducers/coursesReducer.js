@@ -35,9 +35,6 @@ export default function coursesReducer(state = initialState, action) {
 
      }
 
-      
-
-      
 
     default:
       return state;
