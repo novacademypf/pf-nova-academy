@@ -87,10 +87,10 @@ export default function CreateLesson({moduleId, lesson, setLesson, setFlagFinall
 
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl text-center">DATOS DE LA LECCION</h1>
-      <form className="flex flex-row justify-center bg-indigo-500">
-        <div className="flex flex-col pt-10">
+    <div className="m-7 px-6 bg-slate-50 rounded-lg">
+      <h1 className="text-2xl text-center my-4">DATOS DE LA LECCION</h1>
+      <form className="flex flex-row justify-center bg-white rounded-lg p-4 shadow-md">
+        <div className="flex flex-col pt-5">
           <label className="block mb-2 font-bold">Titulo:</label>
           <div>
             {errors.title && <span className="text-red-500 text-xs mt-1">{errors.title}</span>}
@@ -127,12 +127,12 @@ export default function CreateLesson({moduleId, lesson, setLesson, setFlagFinall
       <div className="flex justify-center">
         {flagButton ?
         <div className="flex justify-center">
-          <button className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600" onClick={(e)=> submitHandler(e)}>Crear Leccion</button>
+          <button className="px-4 m-4 py-2 bg-cyan-300 rounded hover:bg-cyan-100" onClick={(e)=> submitHandler(e)}>Crear Leccion</button>
         </div>
         :null
       }
       
-      <button className="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600" onClick={(e)=> deleteLesson(e)}>Eliminar Leccion</button>
+      <button className="px-4 m-4 py-2 text-white bg-red-700 rounded hover:bg-red-400" onClick={(e)=> deleteLesson(e)}>Eliminar Leccion</button>
       </div>
     </div>
   );
