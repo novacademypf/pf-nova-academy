@@ -5,8 +5,9 @@ const { cursos, category } = require("../constants/data");
 
 const postCreateCourseForSale = async (req, res) => {
   try {
-    const { name, category, duration, description, images, price } = req.body.headers.body;
+    const { name, category, duration, description, images, price } = req.body;
     const user = await getUserToken(req);
+
     if (!name || !category || !duration || !description || !images || !price ) {
       return res.status(404).json({ error: "Data missing" });
     }
@@ -37,7 +38,10 @@ const getCourseForSale = async (req, res) => {
           model: Profile,
           attributes: { exclude: ["photo"] },
         },
+        
       });
+      console.log(count)
+      console.log(rows)
       res.send({ courseCount: count, courseAll: rows })}
    else{
     const { count, rows } = await CourseForSale.findAndCountAll({
