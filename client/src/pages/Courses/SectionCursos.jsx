@@ -36,7 +36,7 @@ const SectionCursos = () => {
   return (
     <section className="min-w-[calc(100%-15em)] left-[15em] absolute">
       {/* Aca va la paginación */}
-      <div className="bg-purple-500 w-[calc(100%-15em)]  left-[15em] bg-white h-14 fixed z-30  flex justify-center items-center gap-2 ">
+      <div className="bg-purple-500 w-[calc(100%-15em)]  left-[15em] bg-white h-14 fixed z-30  flex justify-center items-center gap-2  ">
         <ReactPaginate
           previousLabel={"<"}
           nextLabel={">"}
