@@ -13,6 +13,8 @@ import {
   setOptionFilters,
 } from "../../redux/actions/filterActions";
 import { getAllCourses } from "../../redux/actions/coursesActions";
+import SearchBar from "../../components/SearchBar/SearchBar";
+import Prueba from "../../components/SearchBar/prueba";
 
 const SectionFilter = () => {
   const dispatch = useDispatch();
@@ -87,6 +89,7 @@ const SectionFilter = () => {
 
   return (
     <section className=" bg-purple-300 w-[15em] min-w-[15em] py-[2em] px-[1em]  fixed  z-50 left-[0] h-[calc(100vh-5.5em)] right-0 flex-col  overflow-auto justify-center">
+    <Prueba/>
     <h2 className="mb-5">Filtra Por Categoria:</h2>
     <SearchBa/>
     <Dropdown
