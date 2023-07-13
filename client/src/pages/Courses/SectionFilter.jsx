@@ -87,6 +87,8 @@ const SectionFilter = () => {
     dispatch(setOptionFilters({ [name]: value }));
   }
 
+  
+
   return (
       <section className=" bg-purple-300 w-[15em] min-w-[15em] py-[2em] px-[1em]  fixed  z-50 left-[0] h-[calc(100vh-5.5em)] right-0 flex-col  overflow-auto justify-center">
       <h2 className="mb-5">Filtra Por Categoria:</h2>
@@ -101,7 +103,9 @@ const SectionFilter = () => {
         getData={getData}
         handleOptionSelect={handleOptionSelect}
         name={"category"}
-      />
+  />
+
+
       {/* <button
         className="focus:outline-none mt-1 text-white bg-violet-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
         onClick={handleDeleteFilters}
