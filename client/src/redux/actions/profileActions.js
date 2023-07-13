@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_PROFILE , GET_COURSE_BY_PROFILE} from '../action-type/action-types';
+import { GET_PROFILE, GET_COURSE_BY_PROFILE, LOGOUT } from '../action-type/action-types';
 
 export const getProfile = () => {
     return async (dispatch) => {
@@ -17,8 +17,8 @@ export const getProfile = () => {
     };
 };
 
-export const getCoursesByProfileId = () =>{
-    return async(dispatch) => {
+export const getCoursesByProfileId = () => {
+    return async (dispatch) => {
         try {
             const token = localStorage.getItem('token');
             console.log("token account", token)
@@ -33,7 +33,13 @@ export const getCoursesByProfileId = () =>{
             dispatch({ type: GET_COURSE_BY_PROFILE, payload: response.data });
         } catch (error) {
             console.error('Error al obtener el courso del perfil del usuario:', error);
-            
+
         }
     }
-} 
+}
+export const logout = () => {
+    return (dispatch) => {
+        localStorage.removeItem("token");
+        dispatch({ type: LOGOUT });
+    };
+};
