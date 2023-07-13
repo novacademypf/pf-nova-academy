@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/icons/logo.svg";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +11,7 @@ import {
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [cartIsOpen, setCartIsOpen] = useState(false);
-  const courses = useSelector((state) => state).shoppingCartReducer.cart;
+  const courses = useSelector((state) => state.shoppingCartReducer.cart);
   const dispatch = useDispatch();
   const location = useLocation().pathname;
   let checkRoute = location === "/checkout" ? false : true;
@@ -19,9 +19,11 @@ const NavBar = () => {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
   const openCart = () => {
     setCartIsOpen(true);
   };
+
   const closeCart = () => {
     setCartIsOpen(false);
   };
@@ -53,9 +55,9 @@ const NavBar = () => {
   const activeStyle = "font-bold mx-2";
   console.log(courses);
   return (
-    <nav className="bg-[#00FFFF] h-[5.5em] top-0 z-40  sticky w-full">
-      <div className=" max-w-screen-xl  h-auto flex flex-wrap items-center justify-between  p-4 mx-auto ">
-        <div className="-mr-2  flex basis-1/3 md:hidden">
+    <nav className="bg-[#00FFFF] h-[5.5em] top-0 z-40 sticky w-full">
+      <div className="max-w-screen-xl h-auto flex flex-wrap items-center justify-between p-4 mx-auto">
+        <div className="-mr-2 flex basis-1/3 md:hidden">
           <button onClick={toggleMenu}>
             <svg
               className={`h-6 w-6 ${isOpen ? "hidden" : "block"}`}
@@ -93,11 +95,11 @@ const NavBar = () => {
         </NavLink>
         <div>
           <nav
-            className={`bg-primary-purple basis-1/3 fixed z-10 top-16 left-0 p-4 w-1/2  transform ${
+            className={`bg-primary-purple basis-1/3 fixed z-10 top-16 left-0 p-4 w-1/2 transform ${
               isOpen ? "translate-x-0" : "-translate-x-full"
             } transition-transform duration-300 ease-in-out md:static md:w-auto md:p-0 md:translate-x-0`}
           >
-            <ul className="flex flex-col md:flex-row ">
+            <ul className="flex flex-col md:flex-row">
               {links.map((el) => (
                 <NavLink
                   key={el.name}
@@ -113,28 +115,31 @@ const NavBar = () => {
             </ul>
           </nav>
         </div>
+
         <div>
           <ul className="flex">
             <li>
-              <NavLink to="/login">Iniciar Sesion</NavLink>
+              <NavLink to="/register">
+                <button
+                  type="button"
+                  className="bg-purple-500 hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                >
+                  Crear Cuenta
+                </button>
+              </NavLink>{" "}
             </li>
             <li>
-              <NavLink to="/account">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6"
+              <NavLink to="/login" id="login-status">
+                <button
+                  type="button"
+                  className="bg-purple-500 hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-                  />
-                </svg>
+                  Iniciar Sesion
+                </button>
               </NavLink>
+            </li>
+            <li>
+              <NavLink to="/account"></NavLink>
             </li>
             <li className="flex">
               <button
@@ -162,6 +167,7 @@ const NavBar = () => {
           </ul>
         </div>
       </div>
+
       {cartIsOpen && (
         <ShoppingCartAside
           openCart={openCart}
