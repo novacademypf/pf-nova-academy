@@ -9,7 +9,7 @@ import {setOptionsFiltersReducer}from "./filtersReducer.js"
 import sortByNameReducer from "./sortByNameReducer.js";
 import filterByPriceRed from "./filterByPrice.js";
 import { filterReducer } from "./filtersReducer.js";
-
+import profileReducer from "./profileReducer.js";
 
 const reducer = combineReducers({
   categoriesReducer: categoriesReducer,
@@ -20,9 +20,8 @@ const reducer = combineReducers({
   filterByCategoryRed:filterByCategoryRed,
   setOptionsFiltersReducer ,
   sortByNameReducer: sortByNameReducer,
-  filterReducer
-  
-   
+  filterReducer,
+  profileReducer,
 });
 
 export default reducer;
