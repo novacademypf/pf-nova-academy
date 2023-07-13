@@ -1,0 +1,14 @@
+import { FILTER_BY_NAME } from "../action-type/action-types"
+
+function filterByName(state = usuarios, action) {
+  switch (action.type) {
+    case 'FILTER_BY_NAME':
+      const nombre = action.payload.nombre;
+      const usuariosFiltrados = state.filter(usuario =>
+        usuario.nombre.toLowerCase().includes(nombre.toLowerCase())
+      );
+      return usuariosFiltrados;
+    default:
+      return state;
+  }
+}
