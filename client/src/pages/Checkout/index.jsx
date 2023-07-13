@@ -24,7 +24,7 @@ const Checkout = () => {
     return {
       id: el.id,
       title: el.name,
-      currency_id: "COP",
+      currency_id: "ARS",
       picture_url: el.images[0],
       description: el.description,
       category_id: el.category[0],

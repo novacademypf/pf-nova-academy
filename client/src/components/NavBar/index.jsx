@@ -3,10 +3,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/icons/logo.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { ShoppingCartAside } from "../ShoppingCartAside/ShoppingCartAside";
-import {
-  addToCart,
-  delFromCart,
-} from "../../redux/actions/shoppingCartActions";
+import { delFromCart } from "../../redux/actions/shoppingCartActions";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,16 +27,18 @@ const NavBar = () => {
     dispatch(delFromCart(id));
   };
 
+  let cartStorage = JSON.parse(localStorage.getItem("shoppingCart")) || [];
   const handleLocalStorage = (data) => {
-    let cartStorage = JSON.parse(localStorage.getItem("shoppingCart")) || [];
-    if (cartStorage.length > 0 && !data.length) {
+    /* if (cartStorage.length > 0 && !data.length) {
       cartStorage.forEach((el) => {
         dispatch(addToCart(el));
       });
-    }
+    } */
+
     localStorage.removeItem("shoppingCart");
     localStorage.setItem("shoppingCart", JSON.stringify(data));
   };
+
   useEffect(() => {
     handleLocalStorage(courses);
     if (!cartIsOpen) courses.length > 0 && openCart();
@@ -51,7 +50,6 @@ const NavBar = () => {
     { to: "/create", name: "Crear curso" },
   ];
   const activeStyle = "font-bold mx-2";
-  console.log(courses);
   return (
     <nav className="bg-[#00FFFF] h-[5.5em] top-0 z-40  sticky w-full">
       <div className=" max-w-screen-xl  h-auto flex flex-wrap items-center justify-between  p-4 mx-auto ">
@@ -167,6 +165,7 @@ const NavBar = () => {
           openCart={openCart}
           closeCart={closeCart}
           cartItems={courses}
+          cartLocal={cartStorage}
           deleteItemfromAside={deleteItemfromAside}
         />
       )}
