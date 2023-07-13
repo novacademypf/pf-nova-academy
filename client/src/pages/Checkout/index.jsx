@@ -24,12 +24,12 @@ const Checkout = () => {
     return {
       id: el.id,
       title: el.name,
-      currency_id: "ARS",
+      currency_id: "COP",
       picture_url: el.images[0],
       description: el.description,
       category_id: el.category[0],
       quantity: el.quantity,
-      unit_price: el.price,
+      unit_price: el.price * 250,
     };
   });
 
