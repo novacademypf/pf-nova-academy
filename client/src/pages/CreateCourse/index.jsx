@@ -199,8 +199,8 @@ export default function CreateCourse() {
     setFlagFinally(false);
   };
   return (
-    <div className="container mx-auto px-20 bg-slate-300 rounded-lg">
-      <h1 className="text-4xl text-center my-5 p-5">DATOS DEL CURSO</h1>
+    <div className="container mx-auto px-20 bg-cyan-100 rounded-lg">
+      <h1 className="text-4xl text-center my-5 p-5">INFORMACION DEL CURSO</h1>
       <form className="flex flex-row justify-center bg-white rounded-lg p-8 shadow-md">
         <div className="flex flex-col">
           <label className="block mb-2 font-bold ">Nombre:</label>
@@ -272,16 +272,17 @@ export default function CreateCourse() {
               </span>
             )}
           </div>
-          <label className="block mb-2 font-bold ">Imagen:</label>
+          <label className="block mb-2 font-bold  ">Imagen:</label>
           <input
             type="file"
-            className="w-96 p-2 mb-4 border border-gray-300 rounded"
+            className="w-96 p-2 mb-4 border border-gray-200 rounded"
             onChange={(e) => {
               setFile(e.target.files[0]);
             }}
             name="images"
             required
           />
+          
           <div>
             {errors.images && (
               <span className="text-red-500 text-xs mt-1">{errors.images}</span>
@@ -306,7 +307,7 @@ export default function CreateCourse() {
       <div className="flex justify-center mt-4">
         {!flagBotton ? (
           <button
-            className="px-4 py-2 bg-cyan-300 rounded hover:bg-cyan-100"
+            className="px-4 py-2 bg-purple-600 rounded hover:bg-purple-500"
             onClick={submitHandler}
           >
             Crear Curso
