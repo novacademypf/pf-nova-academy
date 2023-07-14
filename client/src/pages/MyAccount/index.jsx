@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Layout from '../../Layout';
 import { getProfile, getCoursesByProfileId } from '../../redux/actions/profileActions';
+import { Link } from "react-router-dom";
 
 const MyAccount = () => {
   const dispatch = useDispatch();
@@ -30,10 +31,27 @@ const MyAccount = () => {
         </div>
         <div className="col-span-4 border-2 borde-red w-[60.3em] min-w-[15em] py-[4.7em] px-[2em] fixed z-50 right-0 top-[7.4em] text-lg font-bold">
           {courseByProfile.map((e)=>{
-            return ( <div key={e.id}>
-              <h2>{e.name}</h2>
-              {/* <img src={e.images} alt={e.name} /> */}
-            </div>
+            return (
+              <div key={e.id} className="relative w-full max-w-sm shadow bg-gray-400 rounded-md p-3">
+                <figure className=" relative  h-auto w-full">
+                  <span className="absolute bottom-0 left-0 bg-[#FFFFFF60] rounded-lg text-black text-xs m-2 px-3 py-0.5 ">
+                    {e.category[0]}
+                  </span>
+                  <Link to={`/detail/${e.id}`}>
+                    <img
+                      src={e.images}
+                      alt={e.name}
+                      className="w-full rounded-lg object-cover "
+                    />
+                  </Link>
+                </figure>
+                <div className="flex flex-col justify-between mb-2">
+                  <span className="text-md font-bold">{e.name}</span>
+                </div>
+                <div>
+                  <span className="text-lg font-medium">${e.price}</span>
+                </div>
+              </div>
             )
           })}
         </div>
@@ -49,35 +67,3 @@ const MyAccount = () => {
 };
 
 export default MyAccount;
-
-// const MyAccount = () => {
-//   return (
-//     <div className="grid grid-cols-4 gap-4">
-//   <div className="col-start-3 col-span-1 bg-purple-300 w-[15em] min-w-[15em] py-[2em] px-[1em] fixed z-50 left-0 h-[calc(100vh-5.5em)] flex flex-col justify-center">
-//     <div className="flex justify-center">
-//       <img className="w-[10em] h-[10em] mb-3 rounded-lg border-2 border-black" src="ruta-de-la-imagen" alt="Imagen de perfil" />
-//     </div>
-//     <div className="text-center">
-//       <h2 className="text-lg font-bold">Nombre del Usuario</h2>
-//       <p className="text-sm">Correo Electrónico</p>
-//     </div>
-//   </div>
-//   <div className="col-span-4 bg-blue-300 w-[60.3em] min-w-[15em] py-[0.5em] px-[2em] fixed z-50 right-0 top-[4.9em] text-lg font-bold">
-//     Cursos Creados
-//   </div>
-//   <div className="col-span-4 border-2 borde-red w-[60.3em] min-w-[15em] py-[4.7em] px-[2em] fixed z-50 right-0 top-[7.4em] text-lg font-bold">
-//     cursos
-//   </div>
-//   <div className="col-span-4 bg-blue-300 w-[60.3em] min-w-[15em] py-[0.5em] px-[2em] fixed z-50 bottom-60 right-0 text-lg font-bold">
-//     Cursos Comprados
-//   </div>
-//   <div className="col-span-4 w-[60.3em] min-w-[15em] py-[4.7em] px-[2em] fixed z-50 bottom-10 right-0 text-lg font-bold border-2 borde-red">
-//     curses
-//   </div>
-// </div>
-
-
-//   )
-// };
-
-// export default MyAccount;
