@@ -50,7 +50,8 @@ const CoursesList = ({ courses }) => {
       handleDeleteCourse(courseId);
       showAlert();
     } catch (error) {
-      showErrorAlert(error);
+      showErrorAlert(error)
+      console.log(error);
     }
   };
 
@@ -98,14 +99,17 @@ const CoursesList = ({ courses }) => {
                     <td className="pl-16">
                       <p>{course.description}</p>
                     </td>
+                    <td className="pl-16">
+                      <p>{course.id}</p>
+                    </td>
 
                     <td>
-                      <button
-                        className="mt-4 bg-blue-600 hover:underline px-4 py-2 text-white uppercase rounded text-xs tracking-wider"
-                        onClick={() => deleteCourseWithAlert(arrayCourses.id)}
-                      >
-                        Eliminar
-                      </button>
+                    <button
+  className="mt-4 bg-blue-600 hover:underline px-4 py-2 text-white uppercase rounded text-xs tracking-wider"
+  onClick={() => deleteCourseWithAlert(course.id)} // Cambio realizado aquí
+>
+  Eliminar
+</button>
                     </td>
                   </tr>
                 </tbody>

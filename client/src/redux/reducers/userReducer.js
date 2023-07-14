@@ -10,7 +10,7 @@ import { SIGN_UP_SUCCESS,
 const initialState = {
   user: null,
   error: null,
-  isCheckingEmail: false,
+  checkEmailExistence: false,
   emailError: '',
   users: [],
 };
@@ -30,24 +30,24 @@ const userReducer = (state = initialState, action) => {
         error: action.payload,
       };
 
-      case 'CHECK_EMAIL_EXISTENCE':
+      case CHECK_EMAIL_EXISTENCE:
       return {
         ...state,
-        isCheckingEmail: true,
+        checkEmailExistence: true,
         emailError: '',
       };
 
-    case 'CHECK_EMAIL_EXISTENCE_SUCCESS':
+    case CHECK_EMAIL_EXISTENCE_SUCCESS:
       return {
         ...state,
-        isCheckingEmail: false,
+        checkEmailExistence: false,
         emailError: '',
       };
 
-    case 'CHECK_EMAIL_EXISTENCE_FAILURE':
+    case CHECK_EMAIL_EXISTENCE_FAILURE:
       return {
         ...state,
-        isCheckingEmail: false,
+        checkEmailExistence: false,
         emailError: action.payload,
       };
 
