@@ -1,4 +1,3 @@
-import React from "react";
 import axios from "axios";
 import { useState } from "react";
 import { connect } from "react-redux";
@@ -8,6 +7,7 @@ import {
   checkEmailExistence,
 } from "../../redux/actions/userActions";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = ({
   checkEmailExistence,
@@ -20,6 +20,7 @@ const SignUp = ({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const navigate = useNavigate();
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -52,25 +53,27 @@ const SignUp = ({
     }
 
     try {
-      const response = await axios.post('http://localhost:3001/user/singup', {
+      const response = await axios.post(
+        "http://localhost:3001/user/singup",
+        {
+          name,
+          email,
+          password,
+        },
+        { headers: { "Content-Type": "application/json" } }
+      );
 
-        name,
-        email,
-        password,
-
-        
-      },{ headers:{ 'Content-Type': 'application/json' }
-
-      });
-
-      console.log("submit exitoso");
       Swal.fire({
         icon: "success",
         title: "Registro completo",
         text: "Creaste tu cuenta ahora puedes ingresar",
-        footer: '<a href="http://localhost:5173/home">Vamos a tu cuenta</a>',
-        backdrop: 'static',
+        confirmButtonText: "OK",
+        backdrop: "static",
         allowOutsideClick: false,
+      }).then((res) => {
+        if (res.isConfirmed) {
+          navigate("/home");
+        }
       });
 
       const user = response.data;
@@ -147,8 +150,7 @@ const SignUp = ({
             </div>
 
             <button
-              className="mt-4 bg-blue-600 hover:underline px-4 py-2 text-white uppercase rounded text-xs tracking-wider"
-              type="submit"
+className=" bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"              type="submit"
             >
               Registrarse
             </button>

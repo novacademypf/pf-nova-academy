@@ -1,8 +1,7 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Input } from "./inputForm";
 import { useForm } from "../../hooks/useForm";
 import ModalErrorForm from "./ModalErrorForm";
-import { Checkbox } from "flowbite-react";
 
 const objForm = { email: "", password: "", isCheked: false };
 export const FormSingIn = () => {
@@ -58,8 +57,7 @@ export const FormSingIn = () => {
 
       <div className="flex  ">
         <button
-          className="bg-blue-500 w-full hover:bg-blue-700 text-white font-bold p-2 rounded-lg focus:outline-none focus:shadow-outline"
-          onClick={handleOnSubmit}
+className=" bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"          onClick={handleOnSubmit}
         >
           Iniciar sesión
         </button>
@@ -67,16 +65,23 @@ export const FormSingIn = () => {
 
       <p className=" text-sm font-semibold">
         ¿No tienes una cuenta?
-        <NavLink
+        <Link
           className={
-            "text-blue-500 font-bold transition duration-150 ease-in-out hover:text-blue-700 focus:text-blue-500 active:text-danger-700"
+            "text-blue-500 font-bold transition duration-150 ease-in-out hover:text-blue-700 focus:text-blue-500 active:text-danger-700 mx-2"
           }
+          to="/register"
         >
-         {' '}Registrarse
-        </NavLink>
+          Registrarse
+        </Link>
       </p>
       {showModal && (
-        <ModalErrorForm showModal={showModal} text={"No se encontraron credenciales. ¿Te gustaría crear una cuenta?"} setShowModal={setShowModal} />
+        <ModalErrorForm
+          showModal={showModal}
+          text={
+            "No se encontraron credenciales. ¿Te gustaría crear una cuenta?"
+          }
+          setShowModal={setShowModal}
+        />
       )}
     </form>
   );

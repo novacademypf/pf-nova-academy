@@ -96,7 +96,7 @@ const WhoAre = () => {
             </div>
             <div className="miembro hover:shadow-lg flex flex-col items-center">
               <img
-                src="https://pps.whatsapp.net/v/t61.24694-24/74945146_490508431595552_8865143856433536126_n.jpg?ccb=11-4&oh=01_AdRb-LmWbl7_uYR9zOK-zCdwBmXf9a3GxfpUSDDcmhuBlg&oe=64AD852A"
+                src="https://media.licdn.com/dms/image/C4E03AQEMFd3zUrXiTA/profile-displayphoto-shrink_200_200/0/1655995078898?e=1694649600&v=beta&t=KfP9umAY6fSJUsavg7o957PFgzhah7lOmONWnZOlY3s"
                 alt="Foto del miembro 3"
                 className="w-32 h-32 rounded-full object-cover"
               />
@@ -182,7 +182,7 @@ const WhoAre = () => {
             </div>
             <div className="miembro hover:shadow-lg flex flex-col items-center">
               <img
-                src="https://pps.whatsapp.net/v/t61.24694-24/321157300_568995171816710_2159045412951996399_n.jpg?ccb=11-4&oh=01_AdRPwXEfLXmyJlRAuk2LsUYZr70VVgwVXwJNFMVpAB7Dfw&oe=64AD7C90"
+                src="https://media.licdn.com/dms/image/C4D03AQHHP5NHhGCZrQ/profile-displayphoto-shrink_200_200/0/1606765983394?e=1694649600&v=beta&t=QKiQ6bnMBjh67yxc_CtbDjqcqhinyvzAUbkxe0baSZA"
                 alt="Foto del miembro 5"
                 className="w-32 h-32 rounded-full object-cover"
               />
@@ -225,7 +225,7 @@ const WhoAre = () => {
             </div>
             <div className="miembro hover:shadow-lg flex flex-col items-center">
               <img
-                src="https://pps.whatsapp.net/v/t61.24694-24/321237951_604344294802806_6584990803662134251_n.jpg?ccb=11-4&oh=01_AdS-Y1M6gjF26VqPVDf5qstKdBd8pIp6nWyfsQYMI8SYyA&oe=64ADBBCF"
+                src="https://media.licdn.com/dms/image/D5603AQEqBpxE8OfwGQ/profile-displayphoto-shrink_200_200/0/1680732770138?e=1694649600&v=beta&t=krsYZGXi0K9KLio78Zt3I4anf2YDzDkGe76phLlkdS4"
                 alt="Foto del miembro 6"
                 className="w-32 h-32 rounded-full object-cover"
               />
@@ -268,7 +268,7 @@ const WhoAre = () => {
             </div>
             <div className="miembro hover:shadow-lg flex flex-col items-center">
               <img
-                src="https://pps.whatsapp.net/v/t61.24694-24/322319009_511284210942358_5074066316858647098_n.jpg?ccb=11-4&oh=01_AdSlLCLZYDwEA_Zr9gGsd0Tesu66-rOqAv8DvU8hoqQh0g&oe=64ADD0EC"
+                src="https://media.licdn.com/dms/image/D4E35AQFGO0qpXy9xAA/profile-framedphoto-shrink_200_200/0/1658107398617?e=1689742800&v=beta&t=eLbPM4IN6J4H7z6rUM9vSRk2L7jArVyYm9I2BUbyvY4"
                 alt="Foto del miembro 7"
                 className="w-32 h-32 rounded-full object-cover"
               />

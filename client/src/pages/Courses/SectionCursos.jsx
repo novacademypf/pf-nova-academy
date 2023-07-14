@@ -65,7 +65,7 @@ const SectionCursos = () => {
         <CourseCards courses={paginatedCourses} />
       </div>
       </div>
-      
+
     </section>
   );
 };

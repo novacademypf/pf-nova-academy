@@ -1,4 +1,3 @@
-import React from "react";
 import SectionCursos from "./SectionCursos";
 import SectionFilter from "./SectionFilter";
 

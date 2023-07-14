@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "./styles.css";
+import { useEffect, useState } from "react";
 
 /* eslint-disable */
 
@@ -8,6 +9,12 @@ export const ShoppingCartAside = ({
   cartItems,
   deleteItemfromAside,
 }) => {
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  useEffect(() => {
+    cartItems.length <= 0 ? setIsDisabled(true) : setIsDisabled(false);
+  }, [cartItems]);
+
   return (
     <aside className=" shopping-aside flex flex-col fixed right-0 bg-white  border-2 rounded  z-20 p-6">
       <section className="flex items-center  justify-between">
@@ -72,7 +79,12 @@ export const ShoppingCartAside = ({
             closeCart();
           }}
           type="button"
-          className=" bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-4 mx-auto w-full"
+          disabled={isDisabled}
+          className={`  ${
+            isDisabled
+              ? "bg-gray-200 text-gray-500"
+              : "bg-[#00FFFF] hover:bg-cyan-200"
+          }  focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-4 mx-auto w-full`}
         >
           Ir a Pagar
         </button>

@@ -1,19 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import CourseCardsAdmin from '../../components/CourseCardsAdmin/CourseCardsAdmin';
 import UserList from '../../components/UserList/UserList';
 import { getUsers } from '../../redux/actions/userActions';
+import { getCoursesTotal } from '../../redux/actions/coursesActions';
+import CoursesList from '../../components/CoursesList/CoursesList';
+
 
 
 function AdminHome() {
   const dispatch = useDispatch();
 
   const courses = useSelector((state) => state).coursesReducer.courses;
+  console.log(courses);
+
   const users = useSelector((state) => state.userReducer.users);
+  const coursesAll = useSelector((state) => state).coursesReducer.courses.courseAll; // <--  Ali este es el array con la info de los cursos
+  
 
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
+  
+  useEffect(() => {
+    dispatch(getCoursesTotal());
+  }, [dispatch]);
+
 
 
   return (
@@ -29,7 +40,7 @@ function AdminHome() {
                 </div>
             </div>
             <div className="-mt-16 sm:-mt-48 lg:-mt-32 xl:-mt-40 2xl:container 2xl:mx-auto flex justify-center items-center space-y-4 px-4 md:px-6 2xl:px-0 mb-16">
-            <CourseCardsAdmin courses={courses} />
+            <CoursesList courses={courses} />
                 
             </div>
 
@@ -45,7 +56,7 @@ function AdminHome() {
                 </div>
             </div>
             <div className="-mt-16 sm:-mt-48 lg:-mt-32 xl:-mt-40 2xl:container 2xl:mx-auto flex justify-center items-center space-y-4 px-4 md:px-6 2xl:px-0 mb-16">
-           { /*<CourseCardsAdmin courses={courses} />*/}
+            
            <UserList users={users} />
                 
             </div>
