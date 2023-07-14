@@ -15,6 +15,7 @@ import {
 import { getAllCourses } from "../../redux/actions/coursesActions";
 
 import Prueba from "../../components/SearchBar/prueba";
+import { Searchbar } from "./componentsFilters/Searchbar";
 
 const SectionFilter = () => {
   const dispatch = useDispatch();

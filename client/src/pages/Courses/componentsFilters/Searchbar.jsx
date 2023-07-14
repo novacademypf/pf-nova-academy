@@ -1,10 +1,8 @@
 import { useState } from "react";
+import { useSearchbar } from "../../../hooks/useSearchbar";
 export const Searchbar = () => {
-    const [value,setValue]=useState('')
-    const handleOnChange=(e)=>{
-       const valueInput = e.target.value
-        setValue(valueInput) 
-    }
+    const {handleOnChange,value}=useSearchbar('novacadamey')
+
   return (
     <div className="mb-3">
       <div className="relative mb-4 flex w-full flex-wrap items-stretch">
