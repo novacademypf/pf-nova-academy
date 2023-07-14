@@ -108,9 +108,34 @@ const NavBar = () => {
           </button>
         </div>
 
-        <NavLink to="/home">
-          <img src={logo} alt="logo" className="w-24 h-auto basis-1/3" />
-        </NavLink>
+        <div className="flex justify-start ">
+
+          <NavLink to="/home">
+            <img src={logo} alt="logo" className="w-24 h-auto basis-1/3" />
+          </NavLink>
+
+          {userProfile && (
+            <li className="flex justify-center items-center">
+              <NavLink to="/account">
+                {userProfile.photo ? (
+                  <img
+                    src={userProfile.photo}
+                    alt={userProfile.name}
+                    className="w-8 h-8 rounded-full mr-2"
+                  />
+                ) : (
+                  <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center mr-2">
+                    <span className="text-sm text-gray-500">
+                      {userProfile.name.substr(0, 2)}
+                    </span>
+                  </div>
+                )}
+              </NavLink>
+                <span className="text-sm">{userProfile.name}</span>
+            </li>
+          )}
+        </div>
+
         <div>
           <nav
             className={`bg-primary-purple basis-1/3 fixed z-10 top-16 left-0 p-4 w-1/2 transform ${
@@ -158,27 +183,7 @@ const NavBar = () => {
                   </button>
                 </NavLink>
               ) : (
-                <>
-                  {userProfile && (
-                    <li className="relative flex items-center">
-                      <NavLink to="/account">
-                        {userProfile.photo ? (
-                          <img
-                            src={userProfile.photo}
-                            alt={userProfile.name}
-                            className="w-8 h-8 rounded-full mr-2"
-                          />
-                        ) : (
-                          <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center mr-2">
-                            <span className="text-sm text-gray-500">
-                              {userProfile.name.substr(0, 2)}
-                            </span>
-                          </div>
-                        )}
-                        <span className="text-sm">{userProfile.name}</span>
-                      </NavLink>
-                    </li>
-                  )}
+                <div className="flex flex-row">
                   {loggedIn && (
                     <li>
                       <NavLink to="/create">
@@ -200,7 +205,7 @@ const NavBar = () => {
                       Cerrar Sesión
                     </button>
                   </li>
-                </>
+                </div>
               )}
             </li>
             <li className="flex">
