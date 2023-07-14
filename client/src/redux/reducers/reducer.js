@@ -5,10 +5,9 @@ import userReducer from "./userReducer.js";
 import filterByCategoryRed from "./filterByCategoryReducer.js";
 import getAllCategories from "./allCategoriesReducer.js"
 import categoriesReducer from "./categoryReducer.js"
-import {setOptionsFiltersReducer}from "./filtersReducer.js"
 import sortByNameReducer from "./sortByNameReducer.js";
-import filterByPriceRed from "./filterByPrice.js";
-import { filterReducer } from "./filtersReducer.js";
+import {setMenuOptionsReducer,saveDataFilterReducer} from './filtersReducer.js'
+
 
 
 const reducer = combineReducers({
@@ -18,9 +17,10 @@ const reducer = combineReducers({
   userReducer: userReducer,
   getAllCategories: getAllCategories,
   filterByCategoryRed:filterByCategoryRed,
-  setOptionsFiltersReducer ,
+  setMenuOptionsReducer,
+  saveDataFilterReducer,
   sortByNameReducer: sortByNameReducer,
-  filterReducer
+
   
    
 });

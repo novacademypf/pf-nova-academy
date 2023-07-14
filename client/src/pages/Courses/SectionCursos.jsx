@@ -6,33 +6,29 @@ import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 
 const SectionCursos = () => {
-  const { cursosFiltrados, filters, isFiltered, cursos } = useSelector(
+  const {dataFilter} = useSelector((state) => state.saveDataFilterReducer)
+  const { courseAll,courseCount } = useSelector(
     (state) => {
-      return state.filterReducer;
+      return state.coursesReducer.courses;
     }
   );
 
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 8; // Cantidad de elementos por página
-  const totalCourses = isFiltered
-    ? cursosFiltrados?.courseAll
-    : cursos?.courseAll; // Array de cursos total
+  
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const paginatedCourses =
-    totalCourses && totalCourses.slice(startIndex, endIndex); // Array de cursos paginados
+    courseAll&&courseAll.slice(startIndex, endIndex); // Array de cursos paginados
 
   const handlePageChange = ({ selected }) => {
     
     setCurrentPage(selected);
   };
   
-  useEffect(() => {
-    // Actualizar la página actual cuando cambie el filtro
-    setCurrentPage(0);
-  }, [isFiltered]);
+  
 
-  const pageCount = Math.ceil((totalCourses?.length || 0) / itemsPerPage); // Número total de páginas
+  const pageCount = Math.ceil((courseCount || 0) / itemsPerPage); // Número total de páginas
   return (
     <section className="min-w-[calc(100%-15em)] left-[15em] absolute">
       {/* Aca va la paginación */}
@@ -62,7 +58,7 @@ const SectionCursos = () => {
       </div>
       <div className="sticky top-[3.5em] overflow-y-auto h-[calc(100vh-5.5em)]">
       <div className="w-full relative top-[3.5em]">
-        <CourseCards courses={paginatedCourses} />
+        <CourseCards courses={dataFilter} />
       </div>
       </div>
 

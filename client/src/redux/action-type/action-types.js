@@ -32,8 +32,9 @@ export const APPLY_FILTER='APPLY_FILTER'
 export const SET_OPTION_FILTERS='SET_OPTION_FILTERS'
 export const GET_COURSE_FILTER_DEFAULT= 'GET_COURSE_FILTER_DEFAULT'
 export const DELETE_FILTERS= 'DELETE_FILTERS'
-
-
+/* ----------------------------new filtros--------------------- */
+export const SET_MENU_OPTIONS ='SET_MENU_OPTIONS'
+export const SAVE_DATA_FILTER = 'SAVE_DATA_FILTER'
 //CATEGORIAS
 export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES'
 
