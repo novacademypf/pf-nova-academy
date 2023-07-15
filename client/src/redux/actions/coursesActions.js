@@ -37,7 +37,7 @@ export const getCoursesTotal = () => {
 export const deleteCourse = (courseId) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`http://localhost:3001/courseForSale/${courseId}`);
+      await axios.delete(`http://localhost:3001/courseForSale/deleteCourse/${courseId}`);
       dispatch({
         type: DELETE_COURSE,
         payload: courseId,
