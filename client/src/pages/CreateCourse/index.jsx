@@ -273,7 +273,7 @@ export default function CreateCourse() {
             )}
           </div>
           <label className="block mb-2 font-bold  ">Imagen:</label>
-          <input
+          {/*<input
             type="file"
             className="w-96 p-2 mb-4 border border-gray-200 rounded"
             onChange={(e) => {
@@ -281,8 +281,12 @@ export default function CreateCourse() {
             }}
             name="images"
             required
-          />
+          />*/}
+
           
+
+          
+
           <div>
             {errors.images && (
               <span className="text-red-500 text-xs mt-1">{errors.images}</span>
