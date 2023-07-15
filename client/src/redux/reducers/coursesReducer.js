@@ -31,8 +31,6 @@ export default function coursesReducer(state = initialState, action) {
     },
   };
 
-
-
     case GET_ALL_COURSES:
 
      return {

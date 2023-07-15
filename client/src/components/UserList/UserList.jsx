@@ -111,8 +111,8 @@ const UserList = ({ users }) => {
 
                                     <td>
                                     <button 
-                                      className="mt-4 bg-blue-600 hover:underline px-4 py-2 text-white uppercase rounded text-xs tracking-wider"
-                                        onClick={() => deleteUserWithAlert(user.userId)}>Eliminar
+                                    className=" bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"              
+                                    onClick={() => deleteUserWithAlert(user.userId)}>Eliminar
                                              
                                     </button>
                                     </td>
@@ -131,10 +131,12 @@ const UserList = ({ users }) => {
                 
                  )})}
                  <div className="flex items-center justify-center">
-                  <button className="mt-4 bg-blue-600 hover:underline px-4 py-2 text-white uppercase rounded text-xs tracking-wider"
+                  <button className=" bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"              
+
                   onClick={handlePrevPage}>Anterior</button>
                   <p className="mx-4">Página {currentPage} de {totalPages}</p>
-                  <button className="mt-4 bg-blue-600 hover:underline px-4 py-2 text-white uppercase rounded text-xs tracking-wider"
+                  <button className=" bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"              
+
                   onClick={handleNextPage}>Siguiente</button>
                   </div>
 
