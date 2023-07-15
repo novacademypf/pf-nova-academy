@@ -1,7 +1,16 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  sequelize.define("order", {
+  sequelize.define("Order", {
+    idOrder: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    items: {
+      type: DataTypes.ARRAY(DataTypes.JSON),
+      allowNull: false,
+    },
     status: {
       type: DataTypes.ENUM("created", "processing", "cancelled", "completed"),
       allowNull: false,
