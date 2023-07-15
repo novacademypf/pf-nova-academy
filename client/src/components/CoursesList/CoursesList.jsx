@@ -4,23 +4,16 @@ import { deleteCourse } from '../../redux/actions/coursesActions';
 import Swal from 'sweetalert2';
 
 const CoursesList = ({ courses }) => {
-  console.log('Estamos en el curseslist');
-  console.log(courses);
-
-  console.log('Vamos a intentar acceder al array');
-
   const arrayCourses = courses.courseAll;
   const courseCount = courses.courseCount;
-  console.log(arrayCourses);
-  console.log(courseCount);
-
-
 
   const dispatch = useDispatch();
   const [deletedCourseIds, setDeletedCourseIds] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const perPage = 5; // Número de cursos por página
+  const totalpag = courseCount / perPage; // numero de paginas totales
 
   const handleDeleteCourse = (courseId) => {
-    console.log(courseId);
     dispatch(deleteCourse(courseId));
     setDeletedCourseIds([...deletedCourseIds, courseId]);
   };
@@ -43,8 +36,6 @@ const CoursesList = ({ courses }) => {
     });
   };
 
-
-
   const deleteCourseWithAlert = async (courseId) => {
     try {
       handleDeleteCourse(courseId);
@@ -54,7 +45,25 @@ const CoursesList = ({ courses }) => {
     }
   };
 
-  if (courses.length === 0) {
+  const totalPageCount = Math.ceil(courseCount / perPage);
+
+  const indexOfLastCourse = currentPage * perPage;
+  const indexOfFirstCourse = indexOfLastCourse - perPage;
+  const currentCourses = arrayCourses ? arrayCourses.slice(indexOfFirstCourse, indexOfLastCourse) : [];
+
+  const goToPreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const goToNextPage = () => {
+    if (currentPage < totalPageCount) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  if (courseCount === 0) {
     return <h2>No existen cursos registrados por el momento</h2>;
   }
 
@@ -67,7 +76,7 @@ const CoursesList = ({ courses }) => {
           </p>
         </div>
       </div>
-      {arrayCourses.map((course) => {
+      {currentCourses.map((course) => {
         if (deletedCourseIds.includes(course.id)) {
           return null; // Omitir el renderizado del curso eliminado
         }
@@ -101,8 +110,7 @@ const CoursesList = ({ courses }) => {
 
                     <td>
                       <button
-                        className="mt-4 bg-blue-600 hover:underline px-4 py-2 text-white uppercase rounded text-xs tracking-wider"
-                        onClick={() => deleteCourseWithAlert(arrayCourses.id)}
+                      className=" bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"                        onClick={() => deleteCourseWithAlert(course.id)}
                       >
                         Eliminar
                       </button>
@@ -114,6 +122,13 @@ const CoursesList = ({ courses }) => {
           </div>
         );
       })}
+      <div className='flex items-center justify-center'>
+        <button className=" bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"              
+        onClick={goToPreviousPage}>Anterior</button>
+        <p className="mx-4"> Página {currentPage} de {totalpag}</p>
+        <button className=" bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" 
+        onClick={goToNextPage}>Siguiente</button>
+      </div>
     </div>
   );
 };
