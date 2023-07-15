@@ -104,10 +104,10 @@ const CoursesList = ({ courses }) => {
                     <td className="w-1/2">
                       <div className="flex items-center">
                         <div className="w-10 h-10 bg-gray-700 rounded-sm flex items-center justify-center">
-                          {course.imageUrl && (
+                          {course.images && (
                             <img
                               className="hidden xl:block w-full"
-                              src={course.imageUrl}
+                              src={course.images}
                               alt="avatar"
                             />
                           )}
@@ -120,7 +120,14 @@ const CoursesList = ({ courses }) => {
                       </div>
                     </td>
                     <td className="pl-16">
-                      <p>{course.description}</p>
+                      <p>{course.category}</p>
+                    </td>
+                    <td className="pl-16">
+                      <p>${course.price}</p>
+                    </td>
+                  
+                    <td className="pl-16">
+                      <p>Creado el {course. createdAt}</p>
                     </td>
                     <td>
                       <button

@@ -19,17 +19,15 @@ export default function coursesReducer(state = initialState, action) {
 
     case DELETE_COURSE:
   // Filtrar el curso a borrar según el ID
-  const updatedCourseAll = state.courses.courseAll.filter(
+  const updatedCourseAll = state.arrayCourses.filter(
     (course) => course.id !== action.payload
   );
 
   return {
     ...state,
-    courses: {
-      ...state.courses,
-      courseAll: updatedCourseAll,
-    },
+    arrayCourses: updatedCourseAll,
   };
+
 
     case GET_ALL_COURSES:
 
