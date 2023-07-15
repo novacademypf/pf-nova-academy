@@ -11,11 +11,26 @@ const CoursesList = ({ courses }) => {
   const [deletedCourseIds, setDeletedCourseIds] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const perPage = 5; // Número de cursos por página
-  const totalpag = courseCount / perPage; // numero de paginas totales
+  const totalpag = Math.ceil(courseCount / perPage); // número de páginas totales
 
   const handleDeleteCourse = (courseId) => {
     dispatch(deleteCourse(courseId));
     setDeletedCourseIds([...deletedCourseIds, courseId]);
+  };
+
+  const showConfirmationAlert = (courseId, courseName) => {
+    Swal.fire({
+      title: 'Confirmación',
+      text: `¿Está seguro que desea eliminar el curso ${courseName}?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteCourseWithAlert(courseId);
+      }
+    });
   };
 
   const showAlert = () => {
@@ -107,10 +122,10 @@ const CoursesList = ({ courses }) => {
                     <td className="pl-16">
                       <p>{course.description}</p>
                     </td>
-
                     <td>
                       <button
-                      className=" bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"                        onClick={() => deleteCourseWithAlert(course.id)}
+                        className="bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                        onClick={() => showConfirmationAlert(course.id, course.name)}
                       >
                         Eliminar
                       </button>
@@ -122,12 +137,20 @@ const CoursesList = ({ courses }) => {
           </div>
         );
       })}
-      <div className='flex items-center justify-center'>
-        <button className=" bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"              
-        onClick={goToPreviousPage}>Anterior</button>
-        <p className="mx-4"> Página {currentPage} de {totalpag}</p>
-        <button className=" bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" 
-        onClick={goToNextPage}>Siguiente</button>
+      <div className="flex items-center justify-center">
+        <button
+          className="bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+          onClick={goToPreviousPage}
+        >
+          Anterior
+        </button>
+        <p className="mx-4">Página {currentPage} de {totalpag}</p>
+        <button
+          className="bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+          onClick={goToNextPage}
+        >
+          Siguiente
+        </button>
       </div>
     </div>
   );
