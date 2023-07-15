@@ -1,5 +1,5 @@
 import axios from "axios";
-import {SAVE_COURSE,GET_ALL_COURSES } from "../action-type/action-types";
+import {SAVE_COURSE,GET_ALL_COURSES, DELETE_COURSE } from "../action-type/action-types";
 
 import { getCategoryFilters, getCourseForSale } from "../../services/courseForSaleRequest";
 
@@ -36,7 +36,7 @@ export const getCoursesTotal = () => {
 
 export const deleteCourse = (courseId) => {
   return {
-    type: 'DELETE_COURSE',
+    type: DELETE_COURSE, // Cambio realizado aquí
     payload: courseId,
   };
 };
