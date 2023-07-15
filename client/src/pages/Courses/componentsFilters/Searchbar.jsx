@@ -10,7 +10,7 @@ export const Searchbar = () => {
         <img src={lupa} alt="lupa" className="w-5" />
         <input type="text" placeholder="buscar..." name="searchBar" onChange={handleOnChange} value={valueInput} className="w-full border-none focus:ring-0" />
       </div>
-      <div
+      {/* <div
         className={`bg-white rounded max-h-56 overflow-auto ${
           dataFilter && dataFilter.length > 0 ? 'border-[#7D5FFF] border-[1px]' : ''
         }`}
@@ -19,7 +19,7 @@ export const Searchbar = () => {
           dataFilter.map((item) => {
             return <p key={item.id}>{item.name}</p>;
           })}
-      </div>
+      </div> */}
     </>
   );
 };

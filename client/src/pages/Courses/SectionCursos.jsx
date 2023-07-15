@@ -4,29 +4,31 @@ import CourseCards from "../../components/CourseCards/CourseCards";
 import { saveCourse } from "../../redux/actions/coursesActions";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
+import { saveDataFilter, setMenuOptions } from "../../redux/actions/filterActions";
+import { filters } from "../../helpers/filters";
 
 const SectionCursos = () => {
-  const {dataFilter} = useSelector((state) => state.saveDataFilterReducer)
-  const { courseAll,courseCount } = useSelector(
+  const { dataFilter } = useSelector((state) => state.saveDataFilterReducer);
+  const { courseAll, courseCount, maxPrice, minPrice } = useSelector(
     (state) => {
       return state.coursesReducer.courses;
     }
   );
+  const options = useSelector((state) => state.setMenuOptionsReducer)
+  const dispatch = useDispatch();
+  console.log({ minPrice, maxPrice });
+
 
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 8; // Cantidad de elementos por página
-  
+
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const paginatedCourses =
-    courseAll&&courseAll.slice(startIndex, endIndex); // Array de cursos paginados
+  const paginatedCourses = courseAll && courseAll.slice(startIndex, endIndex); // Array de cursos paginados
 
   const handlePageChange = ({ selected }) => {
-    
     setCurrentPage(selected);
   };
-  
-  
 
   const pageCount = Math.ceil((courseCount || 0) / itemsPerPage); // Número total de páginas
   return (
@@ -57,11 +59,10 @@ const SectionCursos = () => {
         />
       </div>
       <div className="sticky top-[3.5em] overflow-y-auto h-[calc(100vh-5.5em)]">
-      <div className="w-full relative top-[3.5em]">
-        <CourseCards courses={dataFilter} />
+        <div className="w-full relative top-[3.5em]">
+          <CourseCards courses={dataFilter&& dataFilter} />
+        </div>
       </div>
-      </div>
-
     </section>
   );
 };

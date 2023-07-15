@@ -1,7 +1,20 @@
+import { useDispatch, useSelector } from "react-redux";
 import SectionCursos from "./SectionCursos";
 import SectionFilter from "./SectionFilter";
+import { filters } from "../../helpers/filters";
+import { saveDataFilter } from "../../redux/actions/filterActions";
+import { useEffect } from "react";
 
 const Courses = () => {
+  const { courseAll, courseCount, maxPrice, minPrice } = useSelector(
+    (state) => {
+      return state.coursesReducer.courses;
+    }
+  );
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(saveDataFilter(filters("", courseAll)));
+  }, [courseAll]);
   return (
     <main className="relative top-[0 rem] flex ">
       <SectionFilter />
