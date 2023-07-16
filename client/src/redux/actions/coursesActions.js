@@ -35,9 +35,16 @@ export const getCoursesTotal = () => {
 };
 
 export const deleteCourse = (courseId) => {
-  return {
-    type: DELETE_COURSE, // Cambio realizado aquí
-    payload: courseId,
+  return async (dispatch) => {
+    try {
+      await axios.delete(`http://localhost:3001/courseForSale/deleteCourse/${courseId}`);
+      dispatch({
+        type: DELETE_COURSE,
+        payload: courseId,
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 };
 

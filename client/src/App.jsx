@@ -13,7 +13,7 @@ import SingUp from "./pages/SingUp";
 import Home from "./pages/Home";
 import NavBar from "./components/NavBar";
 import Detail from "./pages/Detail";
-import About from './pages/About';
+import About from "./pages/About";
 import ContactForm from "./pages/ContactForm/ContactForm";
 import CoursesCreated from "./pages/MyAccount/CoursesCreated";
 
@@ -22,12 +22,15 @@ import CoursesCreated from "./pages/MyAccount/CoursesCreated";
 import AdminHome from "./pages/AdminHome/AdminHome";
 import CreateCourse from "./pages/CreateCourse";
 import { SearchCourse } from "./pages/SearchCourse/SearchCourse";
+import PaymentResponse from "./pages/PaymentResponse/PaymentResponse";
+import { getProfile } from "./redux/actions/profileActions";
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllCourses());
+    dispatch(getProfile());
   }, []);
 
   const AppRouter = () => {

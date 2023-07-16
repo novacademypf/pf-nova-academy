@@ -4,18 +4,34 @@ import { deleteCourse } from '../../redux/actions/coursesActions';
 import Swal from 'sweetalert2';
 
 const CoursesList = ({ courses }) => {
-  const arrayCourses = courses.courseAll;
-  const courseCount = courses.courseCount;
+  const arrayCourses = courses?.courseAll || [];
+  const courseCount = courses?.courseCount || 0;
 
   const dispatch = useDispatch();
   const [deletedCourseIds, setDeletedCourseIds] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const perPage = 5; // Número de cursos por página
-  const totalpag = courseCount / perPage; // numero de paginas totales
+  const totalpag = Math.ceil(courseCount / perPage); // número de páginas totales
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleDeleteCourse = (courseId) => {
     dispatch(deleteCourse(courseId));
     setDeletedCourseIds([...deletedCourseIds, courseId]);
+  };
+
+  const showConfirmationAlert = (courseId, courseName) => {
+    Swal.fire({
+      title: 'Confirmación',
+      text: `¿Está seguro que desea eliminar el curso ${courseName}?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteCourseWithAlert(courseId);
+      }
+    });
   };
 
   const showAlert = () => {
@@ -47,9 +63,13 @@ const CoursesList = ({ courses }) => {
 
   const totalPageCount = Math.ceil(courseCount / perPage);
 
+  
+
   const indexOfLastCourse = currentPage * perPage;
   const indexOfFirstCourse = indexOfLastCourse - perPage;
-  const currentCourses = arrayCourses ? arrayCourses.slice(indexOfFirstCourse, indexOfLastCourse) : [];
+  const currentCourses = arrayCourses
+    .filter((course) => course.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    .slice(indexOfFirstCourse, indexOfLastCourse);
 
   const goToPreviousPage = () => {
     if (currentPage > 1) {
@@ -76,6 +96,13 @@ const CoursesList = ({ courses }) => {
           </p>
         </div>
       </div>
+      <input
+        className="bg-gray-50 border border-[#00FFFF] text-gray-900 text-sm rounded-lg focus:ring-[#00FFFF] focus:shadow-lg focus:shadow-[#00FFFF]/50 block w-300 pl-10 p-2.5 "
+        type="text"
+        placeholder="Buscar curso..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
       {currentCourses.map((course) => {
         if (deletedCourseIds.includes(course.id)) {
           return null; // Omitir el renderizado del curso eliminado
@@ -89,10 +116,10 @@ const CoursesList = ({ courses }) => {
                     <td className="w-1/2">
                       <div className="flex items-center">
                         <div className="w-10 h-10 bg-gray-700 rounded-sm flex items-center justify-center">
-                          {course.imageUrl && (
+                          {course.images && (
                             <img
                               className="hidden xl:block w-full"
-                              src={course.imageUrl}
+                              src={course.images}
                               alt="avatar"
                             />
                           )}
@@ -105,12 +132,19 @@ const CoursesList = ({ courses }) => {
                       </div>
                     </td>
                     <td className="pl-16">
-                      <p>{course.description}</p>
+                      <p>{course.category}</p>
                     </td>
-
+                    <td className="pl-16">
+                      <p>${course.price}</p>
+                    </td>
+                  
+                    <td className="pl-16">
+                      <p>Creado el {course.createdAt}</p>
+                    </td>
                     <td>
                       <button
-                      className=" bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"                        onClick={() => deleteCourseWithAlert(course.id)}
+                        className="bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                        onClick={() => showConfirmationAlert(course.id, course.name)}
                       >
                         Eliminar
                       </button>
@@ -122,12 +156,20 @@ const CoursesList = ({ courses }) => {
           </div>
         );
       })}
-      <div className='flex items-center justify-center'>
-        <button className=" bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"              
-        onClick={goToPreviousPage}>Anterior</button>
-        <p className="mx-4"> Página {currentPage} de {totalpag}</p>
-        <button className=" bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" 
-        onClick={goToNextPage}>Siguiente</button>
+      <div className="flex items-center justify-center">
+        <button
+          className="bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+          onClick={goToPreviousPage}
+        >
+          Anterior
+        </button>
+        <p className="mx-4">Página {currentPage} de {totalpag}</p>
+        <button
+          className="bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+          onClick={goToNextPage}
+        >
+          Siguiente
+        </button>
       </div>
     </div>
   );
