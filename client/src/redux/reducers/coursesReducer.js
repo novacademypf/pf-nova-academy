@@ -21,7 +21,8 @@ export default function coursesReducer(state = initialState, action) {
   // Filtrar el curso a borrar según el ID
   const updatedCourseAll = state.arrayCourses.filter(
     (course) => course.id !== action.payload
-  );
+
+    );
 
   return {
     ...state,
