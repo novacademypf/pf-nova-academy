@@ -21,12 +21,14 @@ import AdminHome from "./pages/AdminHome/AdminHome";
 import CreateCourse from "./pages/CreateCourse";
 import { SearchCourse } from "./pages/SearchCourse/SearchCourse";
 import PaymentResponse from "./pages/PaymentResponse/PaymentResponse";
+import { getProfile } from "./redux/actions/profileActions";
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllCourses());
+    dispatch(getProfile());
   }, []);
 
   const AppRouter = () => {
