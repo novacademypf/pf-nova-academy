@@ -109,8 +109,6 @@ const NavBar = () => {
           </button>
         </div>
 
-        <div className="flex justify-start ">
-
         <NavLink to="/">
           <img src={logo} alt="logo" className="w-24 h-auto basis-1/3" />
         </NavLink>
