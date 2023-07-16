@@ -86,7 +86,6 @@ const MyAccount = () => {
                 Cursos Comprados
               </h5>
             </div>
-            <li className="py-3 sm:py-4">
               <div className="flex items-center space-x-4">
                 <div className="shrink-0">
                   <img
@@ -111,7 +110,6 @@ const MyAccount = () => {
                   $320
                 </div>
               </div>
-            </li>
           </div>
         </Card>
       </div>

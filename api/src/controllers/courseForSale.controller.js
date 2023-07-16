@@ -1,4 +1,4 @@
-const { CourseForSale, Profile, User } = require("../db");
+const { CourseForSale, Profile, Module, Lesson } = require("../db");
 const getUserToken = require("../helpers/getUsertoken");
 const { Op } = require('sequelize');
 const { cursos, category } = require("../constants/data");
@@ -145,7 +145,20 @@ const deleteCourseForSale = async (req, res) => {
 const getCourseForSaleById = async (req, res) => {
   try {
     const { courseId } = req.params;
-    const course = await CourseForSale.findByPk(courseId);
+    const course = await CourseForSale.findByPk(courseId, {
+      include: [
+        {
+          model: Module,
+          attributes: ["id", "name", "description"],
+          include: [
+            {
+              model: Lesson,
+              attributes: ["id", "title", "content", "resource"],
+            },
+          ],
+        },
+      ],
+    });
     if (!course) {
       return res.status(404).json({ error: "Course not found" });
     }
@@ -155,6 +168,7 @@ const getCourseForSaleById = async (req, res) => {
     res.status(500).json({ error: "Error retrieving course" });
   }
 };
+
 const searchCoursesByName = async (req, res) => {
   try {
     const { name } = req.query;
