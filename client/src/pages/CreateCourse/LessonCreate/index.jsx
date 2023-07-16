@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import api from "../../../services/api";
 import { uploadFile } from "../../../firebase/config";
 import Swal from "sweetalert2";
-
-export default function CreateLesson({moduleId, lesson, setLesson, setFlagFinally}) {
+import { getCourseForSaleById } from "../../../redux/actions/coursesActions";
+import { useParams } from "react-router-dom";
+export default function CreateLesson({moduleId, lesson, setLesson, setFlagFinally, lessons}) {
   const dispatch = useDispatch();
+  const {id} = useParams()
   const [resource, setResource] = useState(null)
   const [lessonId, setLessonId] = useState(0)
   const [flagButton, setFlagButton] = useState(true)
@@ -28,12 +30,32 @@ export default function CreateLesson({moduleId, lesson, setLesson, setFlagFinall
     setForm(updatedForm);
     setErrors(validate(updatedForm));
   };
+  useEffect(() => {
+    if (lessons !== undefined) {
+      const {
+        title,
+        content,
+      } = lessons;
+
+      if (title && content) {
+        setForm({
+          title:title,
+          content: content,
+        });
+      }
+    }
+  }, [lessons]);
   const validate = (form)=>{
     let errores = {};
     if(!form.title){
       errores.title = "Ingrese Titulo";
     } else {
       errores.title = "";
+    }
+    if(resource && resource.type && !resource.type.endsWith("pdf")){
+      errores.resource = "Debe ser PDF";
+    } else {
+      errores.resource = "";
     }
     if(!form.content){
       errores.content = "Ingrese Contenido";
@@ -50,7 +72,13 @@ export default function CreateLesson({moduleId, lesson, setLesson, setFlagFinall
 
   const submitHandler = async (event)=>{
     event.preventDefault();
-    if(!form.title){
+    if(resource && resource.type && !resource.type.endsWith("pdf")){
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Debe ser PDF",
+      });
+    } else if(!form.title){
       // return alert("Ingrese Titulo");
       return Swal.fire({
         icon: "error",
@@ -69,7 +97,21 @@ export default function CreateLesson({moduleId, lesson, setLesson, setFlagFinall
       ...form,
       resource: await uploadFile(resource)
     }
-    const lessonCreate = await api.post("/lesson/createLesson", body,
+    if(location.pathname.startsWith("/courses-created")){
+      console.log(body)
+      await api.put(`/lesson/updateLesson/${lessons?.id}`, body,
+    {
+      headers: {
+        'Authorization': localStorage.getItem("token"),
+        },
+      });
+      dispatch(getCourseForSaleById(id))
+      Swal.fire({
+        icon: "success",
+        title: "Leccion creada",
+      });
+    }else{
+      const lessonCreate = await api.post("/lesson/createLesson", body,
     {
       headers: {
         'Authorization': localStorage.getItem("token"),
@@ -83,6 +125,8 @@ export default function CreateLesson({moduleId, lesson, setLesson, setFlagFinall
         title: "Leccion creada",
       });
     }
+    }
+    
 
 
   return (
@@ -124,10 +168,17 @@ export default function CreateLesson({moduleId, lesson, setLesson, setFlagFinall
         
       </form>
       <div className="flex justify-center">
-        {flagButton ?
-        <div className="flex justify-center">
-          <button className="px-4 m-4 py-2 bg-cyan-300 rounded hover:bg-cyan-100" onClick={(e)=> submitHandler(e)}>Crear Leccion</button>
-        </div>
+        {flagButton ? (
+          location.pathname.startsWith("/courses-created") ? (
+            <div className="flex justify-center">
+            <button className="px-4 m-4 py-2 bg-amber-300 rounded hover:bg-amber-100" onClick={(e)=> submitHandler(e)}>Actualizar Leccion</button>
+          </div>
+          ) : (
+            <div className="flex justify-center">
+            <button className="px-4 m-4 py-2 bg-cyan-300 rounded hover:bg-cyan-100" onClick={(e)=> submitHandler(e)}>Crear Leccion</button>
+          </div>
+          )
+        )
         :null
       }
       

@@ -5,19 +5,21 @@ import api from "../../../services/api";
 import Swal from "sweetalert2";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-
+import { useParams } from "react-router-dom";
+import { getCourseForSaleById } from "../../../redux/actions/coursesActions";
 export default function FormCourse({
   courseId,
   setModules,
   modules,
   setFlagFinally,
-  moduleUpdate
+  module
 }) {
   const dispatch = useDispatch();
   const [lesson, setLesson] = useState(0);
   const [moduleId, setModuleId] = useState(0);
   const [flagBotton, setFlagBotton] = useState(false);
   const location = useLocation()
+  const {id} = useParams()
   const [errors, setErrors] = useState({
     name: "",
     description: "",
@@ -28,21 +30,21 @@ export default function FormCourse({
     courseId: courseId,
   });
 
-  // useEffect(() => {
-  //   if (moduleUpdate !== undefined) {
-  //     const {
-  //       name,
-  //       description,
-  //     } = moduleUpdate;
+  useEffect(() => {
+    if (module !== undefined) {
+      const {
+        name,
+        description,
+      } = module;
 
-  //     if (name && description) {
-  //       setForm({
-  //         name: name,
-  //         description: description,
-  //       });
-  //     }
-  //   }
-  // }, [moduleUpdate]);
+      if (name && description) {
+        setForm({
+          name: name,
+          description: description,
+        });
+      }
+    }
+  }, [module]);
   
   const renderLesson = () => {
     return Array.from({ length: lesson }, (_, index) => (
@@ -110,15 +112,16 @@ export default function FormCourse({
 
     if(location.pathname.startsWith("/courses-created")){
       console.log(body)
-      // await api.put(`/module/updateModule/${moduleUpdate?.id}`, body, {
-      //   headers: {
-      //     Authorization: localStorage.getItem("token"),
-      //   },
-      // });
-      // Swal.fire({
-      //   icon: "success",
-      //   title: "Actualizado Correctamente",
-      // });
+      const response = await api.put(`/module/updateModule/${module?.id}`, body, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+      dispatch(getCourseForSaleById(id))
+      Swal.fire({
+        icon: "success",
+        title: "Actualizado Correctamente",
+      });
     } else {
       const moduleCreate = await api.post("/module/createModule", body, {
         headers: {

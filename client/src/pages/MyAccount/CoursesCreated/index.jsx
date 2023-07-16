@@ -1,37 +1,50 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { Card, Tabs, Badge, Accordion } from "flowbite-react";
 import { Button, Modal } from "flowbite-react";
 import ModalModule from "../Modal/Module";
-import CreateLesson from "../../CreateCourse/LessonCreate";
+import ModalLesson from "../Modal/Lesson";
 import CreateCourse from "../../CreateCourse";
-
+import api from "../../../services/api";
+import { useDispatch, useSelector } from "react-redux";
+import { getCourseForSaleById } from "../../../redux/actions/coursesActions";
 export default function CoursesCreated() {
   const { id } = useParams();
-  const [courseCreated, setCourseCreated] = useState({});
   const [openModalCourse, setOpenModalCourse] = useState(false);
   const [openModalModule, setOpenModalModule] = useState(false);
-  const [idModule, setIdModule] = useState(0);
-
-  const getCourseCreated = async () => {
-    const response = await axios.get(
-      `http://localhost:3001/courseForSale/${id}`
-    );
-    const courseCreated = response.data;
-    setCourseCreated(courseCreated);
-    return courseCreated;
-  };
-
+  const [openModalLesson, setOpenModalLesson] = useState(false);
+  const [module, setModule] = useState({});
+  const [lesson, setLesson] = useState({});
+  const courseCreated = useSelector((state)=> state.coursesReducer.courseById)
+  const dispatch = useDispatch()
+  const getModule = async (id)=>{
+      const response = await api.get(`/module/${id}`)
+      setModule(response.data)
+    }
+  const getLesson = async (id)=>{
+    const response = await api.get(`/lesson/${id}`)
+    setLesson(response.data)
+  }
   useEffect(() => {
-    getCourseCreated();
-  }, []);
+    dispatch(getCourseForSaleById(id))
+  }, [dispatch]);
 
   if (Object.keys(courseCreated).length === 0) {
     // Renderizar un indicador de carga mientras se obtiene la información del curso
     return <p>Cargando...</p>;
   }
 
+  const handleClickLesson = async (event)=>{
+    const id = event.target.value
+    getLesson(id)
+    setOpenModalLesson(true)
+  }
+  
+  const handleClickModule = async (event)=>{
+    const id = event.target.value
+    getModule(id)
+    setOpenModalModule(true)
+  }
   return (
     <div>
       <Card className="container mx-auto mt-10 relative">
@@ -78,7 +91,11 @@ export default function CoursesCreated() {
                       <Accordion.Panel>
                         <Accordion.Title>
                           {lesson.title}
-                          <button className="mx-10 text-sm bg-amber-200 rounded-full px-1">Editar</button>
+                          <button
+                          value={lesson.id}
+                          className="mx-10 text-sm bg-amber-200 rounded-full px-1"
+                          onClick={handleClickLesson}
+                          >Editar</button>
                         </Accordion.Title>
                         <Accordion.Content>
                           <p className="mb-2 text-gray-500 dark:text-gray-400">
@@ -89,14 +106,13 @@ export default function CoursesCreated() {
                     </Accordion>
                   );
                 })}
-                <Button
+                <button
+                  value={module.id}
                   className="w-full"
-                  onClick={() => {
-                    setIdModule(module.id), setOpenModalCourse(true);
-                  }}
+                  onClick={handleClickModule}
                 >
                   Editar Modulo
-                </Button>
+                </button>
               </Tabs.Item>
             );
           })}
@@ -120,8 +136,13 @@ export default function CoursesCreated() {
       <ModalModule
         openModalModule={openModalModule}
         setOpenModalModule={setOpenModalModule}
-        idModule={idModule}
+        module={module}
       />
+      <ModalLesson
+       openModalLesson={openModalLesson}
+       setOpenModalLesson={setOpenModalLesson}
+       lessons={lesson}
+      />  
     </div>
   );
 }

@@ -2,7 +2,7 @@
 export const GET_ALL_COURSES = "GET_ALL_COURSES";
 export const DELETE_COURSE = 'DELETE_COURSE';
 export const SAVE_COURSE='SAVE_COURSE';
-
+export const GET_COURSE_BY_ID = 'GET_COURSE_BY_ID';
 
 
 //SHOPPINGCART

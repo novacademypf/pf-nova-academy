@@ -6,9 +6,11 @@ import api from "../../services/api.js";
 import { uploadFile } from "../../firebase/config";
 import Swal from "sweetalert2";
 import { useLocation } from "react-router-dom";
-
+import { useParams } from "react-router-dom";
+import { getCourseForSaleById } from "../../redux/actions/coursesActions";
 export default function CreateCourse({ courseUpdate }) {
-  const dispatch = useDispatch();
+  const {id} = useParams()
+  const dispatch = useDispatch()
   const categoryList = useSelector(
     (state) => state.getAllCategories.categories
   );
@@ -115,6 +117,11 @@ export default function CreateCourse({ courseUpdate }) {
     } else {
       errores.images = "Debes cargar una imagen";
     }
+    if(file && file.type && !file.type.startsWith("image")){
+      errores.images="Solo permite imagenes"
+    } else{
+      errores.images = "";
+    }
     if (form.category.length > 0) {
       errores.category = "";
     } else {
@@ -133,7 +140,13 @@ export default function CreateCourse({ courseUpdate }) {
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    if (!form.name) {
+    if(file && file.type && !file.type.startsWith("image")){
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Debe ser una Imagen",
+      });
+    } else if (!form.name) {
       return Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -178,6 +191,7 @@ export default function CreateCourse({ courseUpdate }) {
         });
       }
     }
+    console.log("file createCourse: ", file)
     const body = file
       ? {
           ...form,
@@ -191,6 +205,7 @@ export default function CreateCourse({ courseUpdate }) {
           Authorization: localStorage.getItem("token"),
         },
       });
+      dispatch(getCourseForSaleById(id))
       Swal.fire({
         icon: "success",
         title: "Actualizado Correctamente",
