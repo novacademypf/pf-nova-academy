@@ -1,19 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import CreateLesson from "../LessonCreate";
 import api from "../../../services/api";
 import Swal from "sweetalert2";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 export default function FormCourse({
   courseId,
   setModules,
   modules,
   setFlagFinally,
+  moduleUpdate
 }) {
   const dispatch = useDispatch();
   const [lesson, setLesson] = useState(0);
   const [moduleId, setModuleId] = useState(0);
   const [flagBotton, setFlagBotton] = useState(false);
+  const location = useLocation()
   const [errors, setErrors] = useState({
     name: "",
     description: "",
@@ -23,6 +27,23 @@ export default function FormCourse({
     description: "",
     courseId: courseId,
   });
+
+  // useEffect(() => {
+  //   if (moduleUpdate !== undefined) {
+  //     const {
+  //       name,
+  //       description,
+  //     } = moduleUpdate;
+
+  //     if (name && description) {
+  //       setForm({
+  //         name: name,
+  //         description: description,
+  //       });
+  //     }
+  //   }
+  // }, [moduleUpdate]);
+  
   const renderLesson = () => {
     return Array.from({ length: lesson }, (_, index) => (
       <CreateLesson
@@ -86,20 +107,31 @@ export default function FormCourse({
     const body = {
       ...form,
     };
-    const moduleCreate = await api.post("/module/createModule", {
-      headers: {
-        Authorization: localStorage.getItem("token"),
-        body,
-      },
-    });
 
-    setFlagBotton(true);
-    setModuleId(moduleCreate.data.id);
-    // alert("Modulo creado, Agrega leccion")
-    Swal.fire({
-      icon: "success",
-      title: "Modulo creado, Agrega leccion",
-    });
+    if(location.pathname.startsWith("/courses-created")){
+      console.log(body)
+      // await api.put(`/module/updateModule/${moduleUpdate?.id}`, body, {
+      //   headers: {
+      //     Authorization: localStorage.getItem("token"),
+      //   },
+      // });
+      // Swal.fire({
+      //   icon: "success",
+      //   title: "Actualizado Correctamente",
+      // });
+    } else {
+      const moduleCreate = await api.post("/module/createModule", body, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+      setFlagBotton(true);
+      setModuleId(moduleCreate.data.id);
+      Swal.fire({
+        icon: "success",
+        title: "Modulo creado, Agrega leccion",
+      });
+    }
   };
   return (
     <div className="my-4 px-10 bg-slate-100 shadow-md rounded-lg container">
@@ -136,13 +168,22 @@ export default function FormCourse({
         </div>
       </div>
       <div className="flex justify-center">
-        {!flagBotton ? (
-          <button
-            className="px-4 m-4 py-2 bg-cyan-300 rounded hover:bg-cyan-100"
-            onClick={submitHandler}
-          >
-            Crear Modulo
-          </button>
+      {!flagBotton ? (
+          location.pathname.startsWith("/courses-created") ? (
+            <button
+              className="px-4 m-4 py-2 text-white bg-amber-300 rounded hover:bg-amber-100"
+              onClick={submitHandler}
+            >
+              Actualizar Modulo
+            </button>
+          ) : (
+            <button
+              className="px-4 m-4 py-2 bg-cyan-300 rounded hover:bg-cyan-100"
+              onClick={submitHandler}
+            >
+              Crear Modulo
+            </button>
+          )
         ) : null}
         {flagBotton ? (
           <button

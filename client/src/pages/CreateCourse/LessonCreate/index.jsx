@@ -69,11 +69,10 @@ export default function CreateLesson({moduleId, lesson, setLesson, setFlagFinall
       ...form,
       resource: await uploadFile(resource)
     }
-    const lessonCreate = await api.post("/lesson/createLesson",
+    const lessonCreate = await api.post("/lesson/createLesson", body,
     {
       headers: {
         'Authorization': localStorage.getItem("token"),
-        body,
         },
       });
       setFlagButton(false)
