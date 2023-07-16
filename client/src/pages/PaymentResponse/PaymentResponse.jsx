@@ -20,7 +20,7 @@ const PaymentResponse = () => {
       allowOutsideClick: false,
     }).then((res) => {
       if (res.isConfirmed) {
-        navigate("/home");
+        navigate("/account");
       }
     });
   };
