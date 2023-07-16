@@ -15,6 +15,8 @@ import NavBar from "./components/NavBar";
 import Detail from "./pages/Detail";
 import About from "./pages/About";
 import ContactForm from "./pages/ContactForm/ContactForm";
+import CoursesCreated from "./pages/MyAccount/CoursesCreated";
+
 
 /* import { SearchCourse } from "./pages/SearchCourse/SearchCourse"; */
 import AdminHome from "./pages/AdminHome/AdminHome";
@@ -47,7 +49,7 @@ const App = () => {
       { path: "/search", element: <SearchCourse /> },
       { path: "/about", element: <About /> },
       { path: "/contact", element: <ContactForm /> },
-      { path: "/paymentresponse", element: <PaymentResponse /> },
+      { path: "/courses-created/:id", element: <CoursesCreated /> },
       { path: "/*", element: <NotFound /> },
     ]);
 
