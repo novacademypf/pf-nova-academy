@@ -4,25 +4,39 @@ import { deleteCourse } from '../../redux/actions/coursesActions';
 import Swal from 'sweetalert2';
 
 const CoursesList = ({ courses }) => {
-  console.log('Estamos en el curseslist');
-  console.log(courses);
-
-  console.log('Vamos a intentar acceder al array');
-
   const arrayCourses = courses.courseAll;
   const courseCount = courses.courseCount;
-  console.log(arrayCourses);
-  console.log(courseCount);
-
-
 
   const dispatch = useDispatch();
   const [deletedCourseIds, setDeletedCourseIds] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const perPage = 5; // Número de cursos por página
+  const totalpag = Math.ceil(courseCount / perPage); // número de páginas totales
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleDeleteCourse = (courseId) => {
-    console.log(courseId);
     dispatch(deleteCourse(courseId));
     setDeletedCourseIds([...deletedCourseIds, courseId]);
+
+    // Eliminar el curso del estado de búsqueda si coincide
+    const updatedCourses = arrayCourses.filter((course) => course.id !== courseId);
+    setSearchTerm('');
+    setArrayCourses(updatedCourses);
+  };
+
+  const showConfirmationAlert = (courseId, courseName) => {
+    Swal.fire({
+      title: 'Confirmación',
+      text: `¿Está seguro que desea eliminar el curso ${courseName}?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteCourseWithAlert(courseId);
+      }
+    });
   };
 
   const showAlert = () => {
@@ -43,8 +57,6 @@ const CoursesList = ({ courses }) => {
     });
   };
 
-
-
   const deleteCourseWithAlert = async (courseId) => {
     try {
       handleDeleteCourse(courseId);
@@ -54,7 +66,27 @@ const CoursesList = ({ courses }) => {
     }
   };
 
-  if (courses.length === 0) {
+  const totalPageCount = Math.ceil(courseCount / perPage);
+
+  const indexOfLastCourse = currentPage * perPage;
+  const indexOfFirstCourse = indexOfLastCourse - perPage;
+  const currentCourses = arrayCourses
+    .filter((course) => course.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    .slice(indexOfFirstCourse, indexOfLastCourse);
+
+  const goToPreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const goToNextPage = () => {
+    if (currentPage < totalPageCount) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  if (courseCount === 0) {
     return <h2>No existen cursos registrados por el momento</h2>;
   }
 
@@ -67,7 +99,15 @@ const CoursesList = ({ courses }) => {
           </p>
         </div>
       </div>
-      {arrayCourses.map((course) => {
+      <input
+      className="bg-gray-50 border border-[#00FFFF] text-gray-900 text-sm rounded-lg focus:ring-[#00FFFF] focus:shadow-lg focus:shadow-[#00FFFF]/50 block w-300 pl-10 p-2.5 "
+
+        type="text"
+        placeholder="Buscar curso..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+      {currentCourses.map((course) => {
         if (deletedCourseIds.includes(course.id)) {
           return null; // Omitir el renderizado del curso eliminado
         }
@@ -80,29 +120,29 @@ const CoursesList = ({ courses }) => {
                     <td className="w-1/2">
                       <div className="flex items-center">
                         <div className="w-10 h-10 bg-gray-700 rounded-sm flex items-center justify-center">
-                          {course.imageUrl && (
-                            <img
-                              className="hidden xl:block w-full"
-                              src={course.imageUrl}
-                              alt="avatar"
-                            />
+                          {course.images && (
+                            <img className="hidden xl:block w-full" src={course.images} alt="avatar" />
                           )}
                         </div>
                         <div className="pl-2">
-                          <h2 className="text-sm font-medium leading-none text-gray-800">
-                            {course.name}
-                          </h2>
+                          <h2 className="text-sm font-medium leading-none text-gray-800">{course.name}</h2>
                         </div>
                       </div>
                     </td>
                     <td className="pl-16">
-                      <p>{course.description}</p>
+                      <p>{course.category}</p>
+                    </td>
+                    <td className="pl-16">
+                      <p>${course.price}</p>
                     </td>
 
+                    <td className="pl-16">
+                      <p>Creado el {course.createdAt}</p>
+                    </td>
                     <td>
                       <button
-                        className="mt-4 bg-blue-600 hover:underline px-4 py-2 text-white uppercase rounded text-xs tracking-wider"
-                        onClick={() => deleteCourseWithAlert(arrayCourses.id)}
+                        className="bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                        onClick={() => showConfirmationAlert(course.id, course.name)}
                       >
                         Eliminar
                       </button>
@@ -114,6 +154,23 @@ const CoursesList = ({ courses }) => {
           </div>
         );
       })}
+      <div className="flex items-center justify-center">
+        <button
+          className="bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+          onClick={goToPreviousPage}
+        >
+          Anterior
+        </button>
+        <p className="mx-4">
+          Página {currentPage} de {totalpag}
+        </p>
+        <button
+          className="bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+          onClick={goToNextPage}
+        >
+          Siguiente
+        </button>
+      </div>
     </div>
   );
 };

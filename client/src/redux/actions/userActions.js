@@ -71,6 +71,7 @@ export const deleteUser = (userId) => {
         payload: userId,
       });
     } catch (error) {
+      console.error('Curso no borrado');
       console.error(error);
     }
   };

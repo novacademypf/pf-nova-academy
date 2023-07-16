@@ -42,3 +42,8 @@ export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES'
 export const DELETE_USER='DELETE_USER';
 export const GET_USERS='GET_USERS';
 
+//Profile
+
+export const GET_PROFILE='GET_PROFILE' ;
+export const GET_COURSE_BY_PROFILE='GET_COURSE_BY_PROFILE';
+export const LOGOUT= 'LOGOUT';

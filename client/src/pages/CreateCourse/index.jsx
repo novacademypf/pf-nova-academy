@@ -156,10 +156,9 @@ export default function CreateCourse() {
       ...form,
       images: await uploadFile(file),
     };
-    const coursecreate = await api.post("/courseForSale/createCourse", {
+    const coursecreate = await api.post("/courseForSale/createCourse",body, {
       headers: {
         Authorization: localStorage.getItem("token"),
-        body,
       },
     });
     setCourseId(coursecreate.data.id);

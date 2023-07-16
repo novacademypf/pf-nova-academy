@@ -1,5 +1,5 @@
 import axios from "axios";
-import {SAVE_COURSE,GET_ALL_COURSES } from "../action-type/action-types";
+import {SAVE_COURSE,GET_ALL_COURSES, DELETE_COURSE } from "../action-type/action-types";
 
 import { getCategoryFilters, getCourseForSale } from "../../services/courseForSaleRequest";
 
@@ -35,9 +35,16 @@ export const getCoursesTotal = () => {
 };
 
 export const deleteCourse = (courseId) => {
-  return {
-    type: 'DELETE_COURSE',
-    payload: courseId,
+  return async (dispatch) => {
+    try {
+      await axios.delete(`http://localhost:3001/courseForSale/deleteCourse/${courseId}`);
+      dispatch({
+        type: DELETE_COURSE,
+        payload: courseId,
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 };
 

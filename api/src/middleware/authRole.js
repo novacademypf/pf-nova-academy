@@ -2,8 +2,8 @@ const { verifyToken } = require("../helpers/generateToken");
 const { Profile } = require("../db");
 const verificarRole = (role) => async (req, res, next) => {
   try {
-    console.log("token header auto role", req.body.headers.Authorization)
-    const token = req.body.headers.Authorization.split(" ").pop();
+    console.log("token header auto role", req.headers.authorization)
+    const token = req.headers.authorization.split(" ").pop();
     
     const tokenData = await verifyToken(token);
     
