@@ -10,6 +10,8 @@ import NavCart from "../NavCart/NavCart";
 import LandingButtons from "../LandingButtons/LandingButtons";
 /*eslint-disable*/
 const NavBar = () => {
+  const userProfile = useSelector((state) => state.profileReducer.userProfile);
+
   const [isOpen, setIsOpen] = useState(false);
   const [cartIsOpen, setCartIsOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -51,8 +53,7 @@ const NavBar = () => {
   const isUserLoggedIn = token !== null && token !== "";
 
   useEffect(() => {
-    dispatch(getProfile());
-
+    !userProfile && dispatch(getProfile());
     handleLocalStorage(courses);
     if (!cartIsOpen) courses.length > 0 && openCart();
     if (!checkRoute) closeCart();
@@ -71,7 +72,7 @@ const NavBar = () => {
     setLoggedIn(false);
     window.location.href = "/login";
   };
-
+  console.log("desde Nav -->", userProfile);
   return (
     <nav className="bg-[#00FFFF] h-[5.5em] top-0 z-40 sticky w-full">
       <div className="max-w-screen-xl h-auto flex flex-wrap items-center justify-between p-4 mx-auto">
@@ -136,7 +137,9 @@ const NavBar = () => {
           </nav>
         </div>
         <div className="flex ">
-          {isUserLoggedIn && <UserProfile handleLogout={handleLogout} />}
+          {userProfile && (
+            <UserProfile handleLogout={handleLogout} profile={userProfile} />
+          )}
           {!isUserLoggedIn && <LandingButtons />}
           <NavCart
             cartIsOpen={cartIsOpen}

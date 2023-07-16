@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
 
 /*eslint-disable */
-const UserProfile = ({ handleLogout }) => {
-  const userProfile = useSelector((state) => state.profileReducer.userProfile);
+const UserProfile = ({ handleLogout, profile }) => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation().pathname;
-  console.log(userProfile.photo);
+  const profilePhoto = "https://source.unsplash.com/random/800x600/?avatar=1";
+  console.log(profile);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -27,14 +26,12 @@ const UserProfile = ({ handleLogout }) => {
           handleToggle();
         }}
       >
-        <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center mr-2 object-cover">
-          {userProfile.photo ? (
-            <img src={userProfile.photo} alt="avatar" />
-          ) : (
-            <span className="text-sm text-gray-500">
-              {userProfile.name.substr(0, 2)}
-            </span>
-          )}
+        <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center mr-2 ">
+          <img
+            src={profilePhoto}
+            alt="avatar"
+            className=" h-full object-cover object-center rounded-full"
+          />
         </div>
       </button>
 
@@ -45,8 +42,8 @@ const UserProfile = ({ handleLogout }) => {
       >
         <NavLink to={"/account"}>
           <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
-            <div>{userProfile.name}</div>
-            <div class="font-medium truncate">{userProfile.email}</div>
+            <div>{profile.name}</div>
+            <div class="font-medium truncate">{profile.email}</div>
           </div>
         </NavLink>
         <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
