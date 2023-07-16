@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/icons/logo.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { ShoppingCartAside } from "../ShoppingCartAside/ShoppingCartAside";
-import {
-  addToCart,
-  delFromCart,
-} from "../../redux/actions/shoppingCartActions";
+import { delFromCart } from "../../redux/actions/shoppingCartActions";
 import { getProfile, logout } from "../../redux/actions/profileActions";
 
 const NavBar = () => {

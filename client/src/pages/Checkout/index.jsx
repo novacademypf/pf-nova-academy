@@ -29,7 +29,7 @@ const Checkout = () => {
       description: el.description,
       category_id: el.category[0],
       quantity: el.quantity,
-      unit_price: el.price * 250,
+      unit_price: 10000,
     };
   });
 

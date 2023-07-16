@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import Swal from "sweetalert2";
 import emailjs from "@emailjs/browser";
 
@@ -15,7 +15,7 @@ function ContactForm() {
         form.current,
         "LezlJegUkPK_3njsu"
       )
-      .then((response) => {
+      .then(() => {
         Swal.fire({
           title: "Éxito",
           text: "El correo se envió correctamente",

@@ -14,14 +14,11 @@ const createOrder = async (items) => {
       return { idCourse: el.id };
     });
     console.log(itemsOrder);
-    Order.create({
+    const order = await Order.create({
       items: itemsOrder,
       status: "created",
-    })
-      .then((orden) => {
-        console.log(orden);
-      })
-      .catch((err) => console.log(err));
+    });
+    return order.idOrder;
   } catch (err) {
     console.log(err);
   }
@@ -30,13 +27,15 @@ const createOrder = async (items) => {
 // Controlador para realizar un pago
 const createPayment = async (req, res) => {
   try {
-    const prod = req.body;
-    await createOrder(prod);
+    const coursesList = req.body;
+    const externalRef = await createOrder(coursesList);
+
     // Crear el objeto de preferencia de pago
     const preference = {
-      items: prod,
+      external_reference: `${externalRef}`,
+      items: coursesList,
       back_urls: {
-        success: "http://127.0.0.1:5173/success",
+        success: "http://localhost:3001/mercadopago/paymentresponse",
         failure: "http://127.0.0.1:5173/",
         pending: "http://127.0.0.1:5173/",
       },
@@ -44,15 +43,9 @@ const createPayment = async (req, res) => {
       binary_mode: true,
     };
 
-    // Crear la preferencia de pago
-    //const response = await mercadopago.preferences.create(preference);
-
     mercadopago.preferences
       .create(preference)
       .then((response) => res.status(200).json({ response }));
-
-    // Redireccionar al usuario a la página de pago de MercadoPago
-    //return res.redirect(response.body.init_point);
   } catch (error) {
     console.error("Error al crear el pago:", error);
     return res.status(500).json({ error: error.message });
@@ -60,65 +53,35 @@ const createPayment = async (req, res) => {
 };
 
 //Ruta que recibe la información del pago
-const successResponse = () => {
-  console.info("EN LA RUTA PAGOS ", req);
-  const payment_id = req.query.payment_id;
-  const payment_status = req.query.status;
-  const external_reference = req.query.external_reference;
-  const merchant_order_id = req.query.merchant_order_id;
-  console.log("EXTERNAL REFERENCE ", external_reference);
+const paymentResponse = async (req, res) => {
+  const { payment_id, status, external_reference, merchant_order_id } =
+    req.query;
+  let payment_status = status;
 
-  //Aquí edito el status de mi orden
-  Order.findByPk(external_reference)
-    .then((order) => {
-      order.payment_id = payment_id;
-      order.payment_status = payment_status;
-      order.merchant_order_id = merchant_order_id;
-      order.status = "completed";
-      console.info("Salvando order");
-      order
-        .save()
-        .then((_) => {
-          console.info("redirect success");
+  console.table({
+    payment_id,
+    payment_status,
+    external_reference,
+    merchant_order_id,
+  });
+  try {
+    const updateOrder = await Order.findByPk(external_reference);
+    updateOrder.payment_id = payment_id;
+    updateOrder.payment_status = payment_status;
+    updateOrder.merchant_order_id = merchant_order_id;
+    updateOrder.status = "completed";
+    updateOrder.save();
 
-          return res.redirect("http://localhost:3000");
-        })
-        .catch((err) => {
-          console.error("error al salvar", err);
-          return res.redirect(
-            `http://localhost:3000/?error=${err}&where=al+salvar`
-          );
-        });
-    })
-    .catch((err) => {
-      console.error("error al buscar", err);
-      return res.redirect(
-        `http://localhost:3000/?error=${err}&where=al+buscar`
-      );
-    });
+    if (payment_status !== "approved") throw new Error();
+
+    res.redirect("http://127.0.0.1:5173/paymentresponse?status=ok");
+  } catch (err) {
+    console.error(err);
+    res.redirect("http://127.0.0.1:5173/paymentresponse?status=error");
+  }
 };
-/*
-//proceso los datos del pago
-//redirijo de nuevo a react con mensaje de exito, falla o pendiente
-//Busco información de una orden de pago
-server.get("/pagos/:id", (req, res) => {
-  const mp = new mercadopago(ACCESS_TOKEN);
-  const id = req.params.id;
-  console.info("Buscando el id", id);
-  mp.get(`/v1/payments/search`, { status: "pending" }) //{"external_reference":id})
-    .then((resultado) => {
-      console.info("resultado", resultado);
-      res.json({ resultado: resultado });
-    })
-    .catch((err) => {
-      console.error("No se consulto:", err);
-      res.json({
-        error: err,
-      });
-    });
-});
-*/
+
 module.exports = {
   createPayment,
-  successResponse,
+  paymentResponse,
 };
