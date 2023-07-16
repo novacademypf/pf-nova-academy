@@ -2,7 +2,7 @@ const { Module , CourseForSale  } = require("../db");
 
 const createModule = async (req, res) => {
   try {
-    const { name, description, courseId } = req.body.headers.body;
+    const { name, description, courseId } = req.body;
     const courseForSale = await CourseForSale.findByPk(courseId);
     if (!courseForSale || !name || !description) {
       return res.status(404).json({ error: "Data missing" });
