@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/icons/logo.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { ShoppingCartAside } from "../ShoppingCartAside/ShoppingCartAside";
-import {
-  addToCart,
-  delFromCart,
-} from "../../redux/actions/shoppingCartActions";
+import { delFromCart } from "../../redux/actions/shoppingCartActions";
 import { getProfile, logout } from "../../redux/actions/profileActions";
 
 const NavBar = () => {
@@ -36,13 +33,14 @@ const NavBar = () => {
     dispatch(delFromCart(id));
   };
 
+  let cartStorage = JSON.parse(localStorage.getItem("shoppingCart")) || [];
   const handleLocalStorage = (data) => {
-    let cartStorage = JSON.parse(localStorage.getItem("shoppingCart")) || [];
-    if (cartStorage.length > 0 && !data.length) {
+    /* if (cartStorage.length > 0 && !data.length) {
       cartStorage.forEach((el) => {
         dispatch(addToCart(el));
       });
-    }
+    } */
+
     localStorage.removeItem("shoppingCart");
     localStorage.setItem("shoppingCart", JSON.stringify(data));
   };
@@ -235,6 +233,7 @@ const NavBar = () => {
           openCart={openCart}
           closeCart={closeCart}
           cartItems={courses}
+          cartLocal={cartStorage}
           deleteItemfromAside={deleteItemfromAside}
         />
       )}

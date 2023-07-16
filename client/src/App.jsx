@@ -13,14 +13,14 @@ import SingUp from "./pages/SingUp";
 import Home from "./pages/Home";
 import NavBar from "./components/NavBar";
 import Detail from "./pages/Detail";
-import About from './pages/About';
+import About from "./pages/About";
 import ContactForm from "./pages/ContactForm/ContactForm";
-
 
 /* import { SearchCourse } from "./pages/SearchCourse/SearchCourse"; */
 import AdminHome from "./pages/AdminHome/AdminHome";
 import CreateCourse from "./pages/CreateCourse";
 import { SearchCourse } from "./pages/SearchCourse/SearchCourse";
+import PaymentResponse from "./pages/PaymentResponse/PaymentResponse";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -45,6 +45,7 @@ const App = () => {
       { path: "/search", element: <SearchCourse /> },
       { path: "/about", element: <About /> },
       { path: "/contact", element: <ContactForm /> },
+      { path: "/paymentresponse", element: <PaymentResponse /> },
       { path: "/*", element: <NotFound /> },
     ]);
 
