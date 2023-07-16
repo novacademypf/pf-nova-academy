@@ -56,7 +56,6 @@ export default function CoursesCreated() {
           >
             Editar
           </Button>
-          {courseCreated.duration}
         </div>
         <div>
           <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -77,7 +76,10 @@ export default function CoursesCreated() {
                   return (
                     <Accordion key={lesson.id}>
                       <Accordion.Panel>
-                        <Accordion.Title>{lesson.title}</Accordion.Title>
+                        <Accordion.Title>
+                          {lesson.title}
+                          <button className="mx-10 text-sm bg-amber-200 rounded-full px-1">Editar</button>
+                        </Accordion.Title>
                         <Accordion.Content>
                           <p className="mb-2 text-gray-500 dark:text-gray-400">
                             {lesson.content}
@@ -88,8 +90,10 @@ export default function CoursesCreated() {
                   );
                 })}
                 <Button
-                  className="tabs__item__title"
-                  onClick={() => {setIdModule(module.id), setOpenModalCourse(true)}}
+                  className="w-full"
+                  onClick={() => {
+                    setIdModule(module.id), setOpenModalCourse(true);
+                  }}
                 >
                   Editar Modulo
                 </Button>
