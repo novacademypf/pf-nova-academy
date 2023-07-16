@@ -8,24 +8,35 @@ mercadopago.configure({
   access_token: YOUR_ACCESS_TOKEN,
 });
 
-const createOrder = (req, res) => {
+const createOrder = async (items) => {
   try {
-    res.send("creando orden");
-    const items = req.body;
+    const itemsOrder = items.map((el) => {
+      return { idCourse: el.id };
+    });
+    console.log(itemsOrder);
+    Order.create({
+      items: itemsOrder,
+      status: "created",
+    })
+      .then((orden) => {
+        console.log(orden);
+      })
+      .catch((err) => console.log(err));
   } catch (err) {
     console.log(err);
   }
 };
 
 // Controlador para realizar un pago
-/* const createPayment = async (req, res) => {
+const createPayment = async (req, res) => {
   try {
     const prod = req.body;
+    await createOrder(prod);
     // Crear el objeto de preferencia de pago
     const preference = {
       items: prod,
       back_urls: {
-        success: "http://127.0.0.1:5173/",
+        success: "http://127.0.0.1:5173/success",
         failure: "http://127.0.0.1:5173/",
         pending: "http://127.0.0.1:5173/",
       },
@@ -46,7 +57,7 @@ const createOrder = (req, res) => {
     console.error("Error al crear el pago:", error);
     return res.status(500).json({ error: error.message });
   }
-}; 
+};
 
 //Ruta que recibe la información del pago
 const successResponse = () => {
@@ -85,30 +96,29 @@ const successResponse = () => {
         `http://localhost:3000/?error=${err}&where=al+buscar`
       );
     });
-
-  //proceso los datos del pago
-  //redirijo de nuevo a react con mensaje de exito, falla o pendiente
-  //Busco información de una orden de pago
-  server.get("/pagos/:id", (req, res) => {
-    const mp = new mercadopago(ACCESS_TOKEN);
-    const id = req.params.id;
-    console.info("Buscando el id", id);
-    mp.get(`/v1/payments/search`, { status: "pending" }) //{"external_reference":id})
-      .then((resultado) => {
-        console.info("resultado", resultado);
-        res.json({ resultado: resultado });
-      })
-      .catch((err) => {
-        console.error("No se consulto:", err);
-        res.json({
-          error: err,
-        });
-      });
-  });
 };
+/*
+//proceso los datos del pago
+//redirijo de nuevo a react con mensaje de exito, falla o pendiente
+//Busco información de una orden de pago
+server.get("/pagos/:id", (req, res) => {
+  const mp = new mercadopago(ACCESS_TOKEN);
+  const id = req.params.id;
+  console.info("Buscando el id", id);
+  mp.get(`/v1/payments/search`, { status: "pending" }) //{"external_reference":id})
+    .then((resultado) => {
+      console.info("resultado", resultado);
+      res.json({ resultado: resultado });
+    })
+    .catch((err) => {
+      console.error("No se consulto:", err);
+      res.json({
+        error: err,
+      });
+    });
+});
 */
 module.exports = {
-  //createPayment,
-  //successResponse,
-  createOrder,
+  createPayment,
+  successResponse,
 };
