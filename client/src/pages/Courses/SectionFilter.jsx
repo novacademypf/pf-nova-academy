@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import estrella from "../../assets/icons/estrella.svg";
 import { setMenuOptions } from "../../redux/actions/filterActions";
 import { InputRange } from "./componentsFilters/InputRange";
+
 const SectionFilter = () => {
   /* const {categories}=useSelector((state)=>state.getAllCategories)*/
   const dispatch = useDispatch();

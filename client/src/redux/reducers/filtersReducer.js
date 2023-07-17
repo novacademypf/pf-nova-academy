@@ -6,7 +6,7 @@ import {
 const initialOptions = {
   searchBar: "",
   raiting: [],
-  precio: { min: 100, max: 200 },
+  precio: { min:100 , max: 200 },
 };
 const initialDataFilter = {
   dataFilter: [],
@@ -34,7 +34,7 @@ export const setMenuOptionsReducer = (state = initialOptions, action) => {
         
         return {
           ...state,
-          [action.name]: { ...action.value },
+          [action.name]: { ...state.precio,...action.value},
         };
       }
       if (action.name === "default") {

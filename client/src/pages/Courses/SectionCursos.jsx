@@ -16,7 +16,7 @@ const SectionCursos = () => {
   );
   const options = useSelector((state) => state.setMenuOptionsReducer)
   const dispatch = useDispatch();
-  console.log({ minPrice, maxPrice });
+ 
 
 
   const [currentPage, setCurrentPage] = useState(0);

@@ -19,7 +19,7 @@ export const DropDown = ({ title, name, data,onChange }) => {
           isOpen ? "border-[#7D5FFF] border-[1px] p-1" : ""
         }`}
       >
-        {isOpen &&
+        {true &&
           data &&
           data.map((item) => {
             console.log('-->',item)
@@ -32,6 +32,7 @@ export const DropDown = ({ title, name, data,onChange }) => {
               );
             }
           })}
+          
       </div>
     </>
   );
