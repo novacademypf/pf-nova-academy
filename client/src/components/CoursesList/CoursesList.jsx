@@ -120,7 +120,7 @@ const CoursesList = ({ courses }) => {
                             <img
                               className="hidden xl:block w-full"
                               src={course.images}
-                              alt="avatar"
+                              alt="avatar de curso"
                             />
                           )}
                         </div>

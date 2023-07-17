@@ -4,6 +4,7 @@ import { SIGN_UP_SUCCESS,
   CHECK_EMAIL_EXISTENCE_SUCCESS,
   CHECK_EMAIL_EXISTENCE_FAILURE,
   DELETE_USER,
+  GET_USERS_GOOGLE,
   GET_USERS,
  } from "../action-type/action-types";
 
@@ -13,6 +14,7 @@ const initialState = {
   checkEmailExistence: false,
   emailError: '',
   users: [],
+  usersGoogle: [],
 };
 
 const userReducer = (state = initialState, action) => {
@@ -51,13 +53,19 @@ const userReducer = (state = initialState, action) => {
         emailError: action.payload,
       };
 
-      case 'GET_USERS':
+      case GET_USERS:
       return {
         ...state,
         users: action.payload,
       };
 
-    case 'DELETE_USER':
+    case GET_USERS_GOOGLE:
+      return {
+        ...state,
+        usersGoogle: action.payload,
+      };
+
+    case DELETE_USER:
       const updatedUsers = state.users.filter((user) => user.id !== action.payload);
       return {
         ...state,

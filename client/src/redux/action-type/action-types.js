@@ -36,8 +36,9 @@ export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES";
 
 //Admin
 
-export const DELETE_USER = "DELETE_USER";
-export const GET_USERS = "GET_USERS";
+export const DELETE_USER='DELETE_USER';
+export const GET_USERS='GET_USERS';
+export const GET_USERS_GOOGLE='GET_USERS_GOOGLE';
 
 //Profile
 
