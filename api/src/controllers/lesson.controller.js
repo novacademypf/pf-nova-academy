@@ -2,7 +2,7 @@ const { Lesson, Module } = require("../db");
 
 const createLesson = async (req, res) => {
   try {
-    const { title, content, resource,  idModule} = req.body.headers.body;
+    const { title, content, resource,  idModule} = req.body;
     const module = await Module.findByPk(idModule);
     if (!module) {
       return res.status(404).json({ error: "Module not found" });

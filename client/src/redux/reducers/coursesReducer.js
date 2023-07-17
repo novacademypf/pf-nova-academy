@@ -1,9 +1,10 @@
-import { GET_ALL_COURSES, DELETE_COURSE, SAVE_COURSE} from "../action-type/action-types";
+import { GET_ALL_COURSES, DELETE_COURSE, SAVE_COURSE, GET_COURSE_BY_ID} from "../action-type/action-types";
 
 const initialState = {
   arrayCourses:[],
   courses: [],
-  isFilter:false
+  isFilter:false,
+  courseById: {}
 };
 
 export default function coursesReducer(state = initialState, action) {
@@ -37,6 +38,11 @@ export default function coursesReducer(state = initialState, action) {
       courses: action.payload,
 
      }
+     case GET_COURSE_BY_ID:
+      return{
+        ...state,
+        courseById: action.payload,
+      }
 
 
     default:

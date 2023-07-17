@@ -8,15 +8,16 @@ mercadopago.configure({
   access_token: YOUR_ACCESS_TOKEN,
 });
 
-const createOrder = async (items) => {
+const createOrder = async (body) => {
   try {
-    const itemsOrder = items.map((el) => {
+    const itemsOrder = body.items.map((el) => {
       return { idCourse: el.id };
     });
-    console.log(itemsOrder);
+    console.log("profileID -->", body.user.profileId);
     const order = await Order.create({
       items: itemsOrder,
       status: "created",
+      idProfile: body.user.profileId,
     });
     return order.idOrder;
   } catch (err) {
@@ -27,8 +28,8 @@ const createOrder = async (items) => {
 // Controlador para realizar un pago
 const createPayment = async (req, res) => {
   try {
-    const coursesList = req.body;
-    const externalRef = await createOrder(coursesList);
+    const coursesList = req.body.items;
+    const externalRef = await createOrder(req.body);
 
     // Crear el objeto de preferencia de pago
     const preference = {
