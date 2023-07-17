@@ -6,6 +6,7 @@ import {
   CHECK_EMAIL_EXISTENCE_SUCCESS,
   CHECK_EMAIL_EXISTENCE_FAILURE,
   GET_USERS,
+  GET_USERS_GOOGLE,
   DELETE_USER,
 } from "../action-type/action-types";
 
@@ -55,6 +56,22 @@ export const getUsers = () => {
       dispatch({
         type: GET_USERS,
         payload: response.data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+
+export const getUserGoogle = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get('http://localhost:3001/google');
+      console.log(response);
+      dispatch({
+        type: GET_USERS_GOOGLE,
+        payload: response.data.usersGoogle,
       });
     } catch (error) {
       console.error(error);
