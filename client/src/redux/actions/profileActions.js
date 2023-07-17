@@ -23,20 +23,15 @@ export const getProfile = () => {
 };
 
 export const getCoursesByProfileId = () => {
-  return async (dispatch) => {
-    try {
-      const token = localStorage.getItem("token");
-      console.log("token account", token);
+    return async (dispatch) => {
+        try {
+            const token = localStorage.getItem('token');
 
-      const response = await axios.get(
-        "http://localhost:3001/profile/courseForSale",
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
-      console.log("action profile", response.data);
+            const response = await axios.get('http://localhost:3001/profile/courseForSale', {
+                headers: {
+                    Authorization: token,
+                },
+            });
 
       dispatch({ type: GET_COURSE_BY_PROFILE, payload: response.data });
     } catch (error) {
