@@ -24,7 +24,7 @@ const MyAccount = () => {
       <div className="py-10">
         <div className="flex justify-center">
           <img
-            className="w-[10em] h-[10em] mb-3 rounded-lg border-2 border-cyan-400"
+            className="w-[10em] h-[10em] mb-3 rounded-lg border-2 border-cyan-700"
             src={userProfile?.photo}
             alt="Imagen de perfil"
           />
@@ -35,7 +35,7 @@ const MyAccount = () => {
         </div>
       </div>
 
-      <div className="container mx-auto flex justify-evenly items-start bg-cyan-100">
+      <div className="container mx-auto flex justify-evenly items-start bg-teal-50">
         <Card className="w-[30rem] my-10">
           <div className="flow-root">
             <div className="mb-4 flex items-center justify-between">
@@ -47,7 +47,7 @@ const MyAccount = () => {
               {courseByProfile.map((e) => {
                 return (
                   <Link to={`/courses-created/${e.id}`} key={e.id}>
-                    <li className="py-3 sm:py-4 hover:bg-cyan-200 px-4">
+                    <li className="py-3 sm:py-4 hover:bg-cyan-100 px-4">
                       <div className="flex items-center space-x-4">
                         <div className="shrink-0">
                           <img
@@ -86,7 +86,6 @@ const MyAccount = () => {
                 Cursos Comprados
               </h5>
             </div>
-            <div className="py-3 sm:py-4">
               <div className="flex items-center space-x-4">
                 <div className="shrink-0">
                   <img
@@ -111,7 +110,6 @@ const MyAccount = () => {
                   $320
                 </div>
               </div>
-            </div>
           </div>
         </Card>
       </div>
