@@ -1,8 +1,10 @@
-import { GET_ALL_COURSES, DELETE_COURSE, SAVE_COURSE} from "../action-type/action-types";
+import { GET_ALL_COURSES, DELETE_COURSE, SAVE_COURSE, GET_COURSE_BY_ID} from "../action-type/action-types";
 
 const initialState = {
+  arrayCourses:[],
   courses: [],
-  isFilter:false
+  isFilter:false,
+  courseById: {}
 };
 
 export default function coursesReducer(state = initialState, action) {
@@ -17,17 +19,31 @@ export default function coursesReducer(state = initialState, action) {
     }
 
     case DELETE_COURSE:
-      // Filtrar el curso a borrar según el ID
-      const updatedCourses = state.courses.filter(
-        (course) => course.id !== action.payload
-      );
+  // Filtrar el curso a borrar según el ID
+  const updatedCourseAll = state.arrayCourses.filter(
+    (course) => course.id !== action.payload
 
-      return {
+    );
+
+  return {
+    ...state,
+    arrayCourses: updatedCourseAll,
+  };
+
+
+    case GET_ALL_COURSES:
+
+     return {
+      ...state,
+      courses: action.payload,
+
+     }
+     case GET_COURSE_BY_ID:
+      return{
         ...state,
-        courses: updatedCourses,
-      };
+        courseById: action.payload,
+      }
 
-      
 
     default:
       return state;

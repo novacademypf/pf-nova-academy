@@ -4,8 +4,8 @@ const VerifyAuthorization = async (req, res, next) => {
   console.log("headers auth",req.body)
 
   try {
-    console.log("headers",req.body.headers.Authorization)
-    const token = req.body.headers.Authorization.split(" ").pop();
+    console.log("headers",req.headers.authorization)
+    const token = req.headers.authorization.split(" ").pop();
     console.log("token verifyAuthori", token)
     const tokenData = await verifyToken(token);
     console.log("tokendata verifyauthorization", tokenData)

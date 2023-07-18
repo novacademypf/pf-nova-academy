@@ -3,34 +3,46 @@ import { useDispatch, useSelector } from "react-redux";
 import Layout from "../../Layout";
 import { clearCart } from "../../redux/actions/shoppingCartActions";
 import CartItem from "../../components/CartItem/CartItem";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Checkout = () => {
   const coursesCart = useSelector((state) => state).shoppingCartReducer.cart;
+  const userProfile = useSelector((state) => state.profileReducer.userProfile);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   let totalPrice = coursesCart.reduce((acumulador, el) => {
     const subtotal = el.quantity * el.price;
     return acumulador + subtotal;
   }, 0);
 
-  let dataToPayment = coursesCart.map((el) => {
-    return {
-      id: el.id,
-      title: el.name,
-      currency_id: "COP",
-      picture_url: el.images[0],
-      description: el.description,
-      category_id: el.category[0],
-      quantity: el.quantity,
-      unit_price: el.price,
-    };
-  });
+  useEffect(() => {
+    coursesCart.length <= 0 ? navigate("/courses") : "";
+  }, [coursesCart]);
 
-  const handlePayment = async (products) => {
+  let dataToPayment = {
+    items: coursesCart.map((el) => {
+      return {
+        id: el.id,
+        title: el.name,
+        currency_id: "COP",
+        picture_url: el.images[0],
+        description: el.description,
+        category_id: el.category[0],
+        quantity: el.quantity,
+        unit_price: el.price * 100,
+      };
+    }),
+    user: userProfile,
+  };
+
+  const handlePayment = async (data) => {
+    Swal.showLoading();
     await axios
-      .post("http://localhost:3001/mercadopago", products)
+      .post("http://localhost:3001/mercadopago", data)
       .then(({ data }) => {
-        console.log(data);
         window.location.href = data.response.body.init_point;
       })
       .catch((err) => console.log(err));

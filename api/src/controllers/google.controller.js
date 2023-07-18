@@ -31,12 +31,34 @@ const postLoginGoogle = async (req, res) => {
       }
     }
 
-   
   } catch (error) {
     const status = error.status || 500;
     console.log(error.message);
     res.status(status).json({ error: error.message });
   }
 };
+const getGoogle = async (req, res) => {
+  try {
+    const users = await UserGoogle.findAll();
+    res.json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error retrieving users" });
+  }
+};
+const deleteGoogleById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await UserGoogle.findByPk(id);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    await user.destroy();
+    res.json({ message: "User deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error deleting user" });
+  }
+};
 
-module.exports = { postLoginGoogle };
+module.exports = { postLoginGoogle , getGoogle, deleteGoogleById};

@@ -6,6 +6,7 @@ import {
   CHECK_EMAIL_EXISTENCE_SUCCESS,
   CHECK_EMAIL_EXISTENCE_FAILURE,
   GET_USERS,
+  GET_USERS_GOOGLE,
   DELETE_USER,
 } from "../action-type/action-types";
 
@@ -51,6 +52,7 @@ export const getUsers = () => {
   return async (dispatch) => {
     try {
       const response = await axios.get('http://localhost:3001/user/');
+      console.log(response);
       dispatch({
         type: GET_USERS,
         payload: response.data,
@@ -61,15 +63,32 @@ export const getUsers = () => {
   };
 };
 
+
+export const getUserGoogle = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get('http://localhost:3001/google');
+      console.log(response);
+      dispatch({
+        type: GET_USERS_GOOGLE,
+        payload: response.data.usersGoogle,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
 export const deleteUser = (userId) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`http://localhost:3001/user/${userId}`);
+      await axios.delete(`http://localhost:3001/user/deleteUser/${userId}`);
       dispatch({
         type: DELETE_USER,
         payload: userId,
       });
     } catch (error) {
+      console.error('Curso no borrado');
       console.error(error);
     }
   };
