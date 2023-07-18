@@ -51,6 +51,11 @@ const UserProfile = ({ handleLogout, profile }) => {
               <button type="button">Crear curso</button>
             </NavLink>
           </li>
+          <li className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+            <NavLink to="/myorders">
+              <button type="button">Mis ordenes</button>
+            </NavLink>
+          </li>
 
           <li className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
             <button type="button" onClick={handleLogout}>
