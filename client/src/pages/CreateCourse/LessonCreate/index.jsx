@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import api from "../../../services/api";
 import { uploadFile } from "../../../firebase/config";
 import Swal from "sweetalert2";
 import { getCourseForSaleById } from "../../../redux/actions/coursesActions";
@@ -64,7 +63,7 @@ export default function CreateLesson({moduleId, setFlagFinally, lessons, setOpen
     return errores;
   }
   const deleteLesson = async () => {
-    await api.delete(`/lesson/deleteLesson/${lessons?.id}`);
+    await axios.delete(`/lesson/deleteLesson/${lessons?.id}`);
     await dispatch(getCourseForSaleById(id));
     setOpenModalLesson(false);
     Swal.fire({
@@ -100,7 +99,7 @@ export default function CreateLesson({moduleId, setFlagFinally, lessons, setOpen
     }
     if(location.pathname.startsWith("/courses-created")){
       console.log(body)
-      await api.put(`/lesson/updateLesson/${lessons?.id}`, body,
+      await axios.put(`/lesson/updateLesson/${lessons?.id}`, body,
     {
       headers: {
         'Authorization': localStorage.getItem("token"),
@@ -112,7 +111,7 @@ export default function CreateLesson({moduleId, setFlagFinally, lessons, setOpen
         title: "Actualizado Correctamente",
       });
     }else{
-      const lessonCreate = await api.post("/lesson/createLesson", body,
+      const lessonCreate = await axios.post("/lesson/createLesson", body,
     {
       headers: {
         'Authorization': localStorage.getItem("token"),

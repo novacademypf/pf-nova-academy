@@ -41,7 +41,7 @@ const Checkout = () => {
   const handlePayment = async (data) => {
     Swal.showLoading();
     await axios
-      .post("http://localhost:3001/mercadopago", data)
+      .post("/mercadopago", data)
       .then(({ data }) => {
         window.location.href = data.response.body.init_point;
       })

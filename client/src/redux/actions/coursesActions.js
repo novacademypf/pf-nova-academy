@@ -3,7 +3,6 @@ import {SAVE_COURSE,GET_ALL_COURSES, DELETE_COURSE, GET_COURSE_BY_ID } from "../
 
 import { getCategoryFilters, getCourseForSale } from "../../services/courseForSaleRequest";
 
-
 const endpoint = "/courseForSale?page=1&limit=10";
 
 export const getAllCourses = () => {
@@ -37,7 +36,7 @@ export const getCoursesTotal = () => {
 export const deleteCourse = (id) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`/courseForSale/deleteCourse/${id}`);
+      await axios.delete(`/courseForSale/deleteCourse/${courseId}`);
       dispatch({
         type: DELETE_COURSE,
         payload: id,

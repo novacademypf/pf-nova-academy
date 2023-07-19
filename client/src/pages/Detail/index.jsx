@@ -10,7 +10,7 @@ const Detail = () => {
     // console.log(useParams())
     console.log(courseId)
     const response = await axios.get(
-      `http://localhost:3001/courseForSale/${courseId}`
+      `/courseForSale/${courseId}`
     );
     const course = response.data;
     setCourse(course);
