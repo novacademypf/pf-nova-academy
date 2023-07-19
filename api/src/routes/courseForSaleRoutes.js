@@ -18,6 +18,7 @@ courseForsaleRouter.get("/filter",getFilterCourseForSale);
 courseForsaleRouter.get("/search", searchCoursesByName);
 courseForsaleRouter.get("/:courseId", getCourseForSaleById );
 
+
 courseForsaleRouter.post(       
   "/createCourse",
   VerifyAuthorization,
@@ -31,7 +32,6 @@ courseForsaleRouter.put(
   verificarRole("user"),
   updateCourseForSale
 );
-
 courseForsaleRouter.delete(
   "/deleteCourse/:courseId",
   deleteCourseForSale

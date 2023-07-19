@@ -1,14 +1,14 @@
-const { CourseForSale, Profile, User } = require("../db");
+const { CourseForSale, Profile, Module, Lesson } = require("../db");
 const getUserToken = require("../helpers/getUsertoken");
 const { Op, Sequelize } = require("sequelize");
 const { cursos, category } = require("../constants/data");
 
 const postCreateCourseForSale = async (req, res) => {
   try {
-    const { name, category, duration, description, images, price } =
-      req.body.headers.body;
+    const { name, category, duration, description, images, price } = req.body;
     const user = await getUserToken(req);
-    if (!name || !category || !duration || !description || !images || !price) {
+
+    if (!name || !category || !duration || !description || !images || !price ) {
       return res.status(404).json({ error: "Data missing" });
     }
     const newCourse = await CourseForSale.create({
@@ -39,7 +39,10 @@ const getCourseForSale = async (req, res) => {
           model: Profile,
           attributes: { exclude: ["photo"] },
         },
+        
       });
+      console.log(count)
+      console.log(rows)
       res.send({ courseCount: count, courseAll: rows });
     } else {
       const { count, rows } = await CourseForSale.findAndCountAll({
@@ -149,7 +152,20 @@ const deleteCourseForSale = async (req, res) => {
 const getCourseForSaleById = async (req, res) => {
   try {
     const { courseId } = req.params;
-    const course = await CourseForSale.findByPk(courseId);
+    const course = await CourseForSale.findByPk(courseId, {
+      include: [
+        {
+          model: Module,
+          attributes: ["id", "name", "description"],
+          include: [
+            {
+              model: Lesson,
+              attributes: ["id", "title", "content", "resource"],
+            },
+          ],
+        },
+      ],
+    });
     if (!course) {
       return res.status(404).json({ error: "Course not found" });
     }
@@ -159,6 +175,7 @@ const getCourseForSaleById = async (req, res) => {
     res.status(500).json({ error: "Error retrieving course" });
   }
 };
+
 const searchCoursesByName = async (req, res) => {
   try {
     const { name } = req.query;

@@ -52,7 +52,9 @@ const {
   Profile,
   CourseForSale,
   CourseBought,
-  UserGoogle,CourseRating
+  UserGoogle,
+  Order,
+  CourseRating
 } = sequelize.models;
 //relacion entre userGoogle y perfil uno a uno
 UserGoogle.hasOne(Profile, { foreignKey: "id", onDelete: "CASCADE" });
@@ -63,11 +65,19 @@ Profile.belongsTo(User, { foreignKey: "userId" });
 //relacion de uno a muchos de perfil a cursos en venta
 Profile.hasMany(CourseForSale, {
   foreignKey: "idProfile",
-  onDelete: 'CASCADE',
+  onDelete: "CASCADE",
 });
+
 CourseForSale.belongsTo(Profile, {
-  foreignKey: "idProfile"
+  foreignKey: "idProfile",
 });
+Profile.hasMany(Order, {
+  foreignKey: "idProfile",
+});
+Order.belongsTo(Profile, {
+  foreignKey: "idProfile",
+});
+
 //relacion de uno a muchos de perfil a curso comprado
 Profile.hasMany(CourseBought, {
   foreignKey: "idProfile",
@@ -81,7 +91,7 @@ Category.belongsToMany(CourseForSale, { through: "CourseCategory" });
 // relacion de cursos en venta a module, de uno a muchos
 CourseForSale.hasMany(Module, {
   foreignKey: "idCourseForSale",
-  onDelete: 'CASCADE',
+  onDelete: "CASCADE",
 });
 Module.belongsTo(CourseForSale, {
   foreignKey: "idCourseForSale",
@@ -89,7 +99,7 @@ Module.belongsTo(CourseForSale, {
 // relacion de module a lesson, de uno a muhcos
 Module.hasMany(Lesson, {
   foreignKey: "idModule",
-  onDelete: 'CASCADE',
+  onDelete: "CASCADE",
 });
 Lesson.belongsTo(Module, {
   foreignKey: "idModule",
