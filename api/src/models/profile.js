@@ -17,7 +17,11 @@ module.exports = (sequelize) => {
         allowNull: false
       },
       email: { type: DataTypes.STRING },
-      
+      status:{
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+        allowNull: false,
+      }
     }
     , {
       tableName: 'Profile',

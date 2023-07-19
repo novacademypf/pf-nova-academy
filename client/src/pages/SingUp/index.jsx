@@ -43,7 +43,7 @@ const SignUp = ({
     event.preventDefault();
 
     // Realizar la validación del email antes de enviar la solicitud al servidor
-    checkEmailExistence(email);
+    await checkEmailExistence(email);
 
     if (!validatePassword(password)) {
       setPasswordError(
@@ -54,7 +54,7 @@ const SignUp = ({
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/user/singup",
+        "/user/singup",
         {
           name,
           email,
@@ -62,6 +62,8 @@ const SignUp = ({
         },
         { headers: { "Content-Type": "application/json" } }
       );
+
+      const user = response.data;
 
       Swal.fire({
         icon: "success",
@@ -76,7 +78,7 @@ const SignUp = ({
         }
       });
 
-      const user = response.data;
+      
       signUpSuccess(user);
       setName("");
       setEmail("");

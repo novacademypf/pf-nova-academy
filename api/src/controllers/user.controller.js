@@ -63,12 +63,12 @@ const createUser = async (req, res) => {
   }
 };
 
-const getLoginUser = async (req, res) => {
+const postLoginUser = async (req, res) => {
   const { email, password } = req.body; // Se extraen el correo electrónico y la contraseña del cuerpo de la solicitud
   try {
     console.log("-->", email);
     const user = await User.findOne({ where: { email: email } }); // Se busca en la base de datos un usuario con el correo electrónico proporcionado
-    const profile = await Profile.findOne({ where: { email: email } });
+    const profile = await Profile.findOne({ where: { email: email, status: true } });
     console.log("login profile", profile);
     console.log("login user", user);
     if (!user) {
@@ -76,6 +76,7 @@ const getLoginUser = async (req, res) => {
       error.status = 404;
       throw error;
     } // Si no se encuentra ningún usuario, se lanza un error
+    
     const checkPassword = await compare(password, user.password); // Se compara la contraseña proporcionada con la contraseña almacenada en la base de datos
     const tokenSession = await createtoken(profile); // Si la contraseña coincide, se crea un token de sesión
     if (checkPassword) res.status(200).json(tokenSession);
@@ -126,7 +127,7 @@ const updateUserById = async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    await user.update({ name, email, password, role });
+    await user.update({ name, email, password, role, status });
     res.json(user);
   } catch (error) {
     console.error(error);
@@ -151,7 +152,7 @@ const deleteUserById = async (req, res) => {
 
 module.exports = {
   createUser,
-  getLoginUser,
+  postLoginUser,
   getUsers,
   getUserById,
   updateUserById,

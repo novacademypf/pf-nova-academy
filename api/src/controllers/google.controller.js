@@ -6,7 +6,7 @@ const postLoginGoogle = async (req, res) => {
 
   try {
     const user = await User.findOne({ where: { email: userEmail } });
-    const userGoogle = await UserGoogle.findOne({ where: { email: userEmail } });
+    const userGoogle = await UserGoogle.findOne({ where: { email: userEmail} });
 
     if (user) {
       console.log(1)
@@ -17,7 +17,7 @@ const postLoginGoogle = async (req, res) => {
       throw error;
     } else {
       if (userGoogle) {
-        const profile = await Profile.findOne({ where: { email: userEmail } });
+        const profile = await Profile.findOne({ where: { email: userEmail, status:true } });
         const tokenSession = await createtoken(profile);
         res.status(200).json({ token: tokenSession,message:"The user is already registered with a Google account." });
       } else {

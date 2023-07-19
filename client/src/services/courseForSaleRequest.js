@@ -1,7 +1,6 @@
-import api from "./api"
-
+import axios from "axios"
 export const getCourseForSale= async()=>{
-    const response = await api.get(`courseForSale`)   
+    const response = await axios.get(`/courseForSale`)   
     return response
 }
 export const getCategoryFilters = async(value,page=1,limit=10)=>{
@@ -14,7 +13,7 @@ const encodedCategories = categories&&categories.map(category => encodeURICompon
 const queryString = 'categories[]=' + encodedCategories.join('&categories[]=');
 
 try {
-    const response = await api.get(`courseForSale/filter?${queryString}&page=${page}&limit=${limit}`)
+    const response = await axios.get(`/courseForSale/filter?${queryString}&page=${page}&limit=${limit}`)
   
     return response
 } catch (error) {
