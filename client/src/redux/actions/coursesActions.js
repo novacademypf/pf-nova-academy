@@ -3,8 +3,6 @@ import {SAVE_COURSE,GET_ALL_COURSES, DELETE_COURSE, GET_COURSE_BY_ID } from "../
 
 import { getCategoryFilters, getCourseForSale } from "../../services/courseForSaleRequest";
 
-
-const endpoint = "/courseForSale?page=1&limit=10";
 const endpoint = "/courseForSale?page=1&limit=10";
 
 export const getAllCourses = () => {
