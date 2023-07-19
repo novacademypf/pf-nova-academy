@@ -5,6 +5,7 @@ const {
   loaderCategory,
   loaderUsers,
   loaderCourseForSale,
+  loaderRating,
 } = require("./src/helpers/loaderDataDb.js");
 
 // Syncing all the models at once.
@@ -21,6 +22,8 @@ const main = async () => {
     await loaderUsers();
     await loaderCategory();
     await loaderCourseForSale()
+    
+     await loaderRating()
   } catch (error) {
     console.error("Unable to connect to the database:", error.message);
   
