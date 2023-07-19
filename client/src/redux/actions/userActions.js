@@ -7,7 +7,9 @@ import {
   CHECK_EMAIL_EXISTENCE_FAILURE,
   GET_USERS,
   GET_USERS_GOOGLE,
+  DELETE_USER_GOOGLE,
   DELETE_USER,
+  TOGGLE_USER_STATUS,
 } from "../action-type/action-types";
 
 export const signUpSuccess = (user) => {
@@ -67,11 +69,11 @@ export const getUsers = () => {
 export const getUserGoogle = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get('/google');
+      const response = await axios.get('/google/');
       console.log(response);
       dispatch({
         type: GET_USERS_GOOGLE,
-        payload: response.data.usersGoogle,
+        payload: response.data,
       });
     } catch (error) {
       console.error(error);
@@ -88,8 +90,37 @@ export const deleteUser = (userId) => {
         payload: userId,
       });
     } catch (error) {
-      console.error('Curso no borrado');
+      console.error('usuario no borrado');
       console.error(error);
     }
   };
+};
+
+export const deleteUserGoogle = (id) => {
+  return async (dispatch) => {
+    try {
+      await axios.delete(`/deleteUser/${id}`);
+      dispatch({
+        type: DELETE_USER_GOOGLE,
+        payload: id,
+      });
+    } catch (error) {
+      console.error('usuario no borrado');
+      console.error(error);
+    }
+  };
+};
+
+
+export const toggleUserStatus = (userId, status) => async (dispatch) => {
+  try {
+    await axios.put(`/updateUser/${userId}`, { status });
+
+    dispatch({
+      type: TOGGLE_USER_STATUS,
+      payload: { userId, status: !status },
+    });
+  } catch (error) {
+    console.error('Error al cambiar el estado del usuario:', error);
+  }
 };

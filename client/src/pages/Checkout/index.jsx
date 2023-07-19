@@ -14,7 +14,7 @@ const Checkout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let totalPrice = coursesCart.reduce((acumulador, el) => {
-    const subtotal = el.quantity * el.price;
+    const subtotal = el.price;
     return acumulador + subtotal;
   }, 0);
 
@@ -31,7 +31,7 @@ const Checkout = () => {
         picture_url: el.images[0],
         description: el.description,
         category_id: el.category[0],
-        quantity: el.quantity,
+        quantity: 1,
         unit_price: el.price * 100,
       };
     }),

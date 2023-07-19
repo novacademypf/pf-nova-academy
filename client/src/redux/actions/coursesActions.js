@@ -5,6 +5,7 @@ import { getCategoryFilters, getCourseForSale } from "../../services/courseForSa
 
 
 const endpoint = "/courseForSale?page=1&limit=10";
+const endpoint = "/courseForSale?page=1&limit=10";
 
 export const getAllCourses = () => {
   return async (dispatch) => {
@@ -34,13 +35,13 @@ export const getCoursesTotal = () => {
   };
 };
 
-export const deleteCourse = (courseId) => {
+export const deleteCourse = (id) => {
   return async (dispatch) => {
     try {
       await axios.delete(`/courseForSale/deleteCourse/${courseId}`);
       dispatch({
         type: DELETE_COURSE,
-        payload: courseId,
+        payload: id,
       });
     } catch (error) {
       console.error(error);

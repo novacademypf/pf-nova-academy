@@ -43,7 +43,7 @@ const SignUp = ({
     event.preventDefault();
 
     // Realizar la validación del email antes de enviar la solicitud al servidor
-    checkEmailExistence(email);
+    await checkEmailExistence(email);
 
     if (!validatePassword(password)) {
       setPasswordError(
@@ -63,6 +63,8 @@ const SignUp = ({
         { headers: { "Content-Type": "application/json" } }
       );
 
+      const user = response.data;
+
       Swal.fire({
         icon: "success",
         title: "Registro completo",
@@ -76,7 +78,7 @@ const SignUp = ({
         }
       });
 
-      const user = response.data;
+      
       signUpSuccess(user);
       setName("");
       setEmail("");

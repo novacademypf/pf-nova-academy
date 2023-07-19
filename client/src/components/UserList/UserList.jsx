@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteUser } from '../../redux/actions/userActions';
+import { deleteUser, toggleUserStatus } from '../../redux/actions/userActions';
 import Swal from "sweetalert2";
 
 const UserList = ({ users }) => {
@@ -12,6 +12,7 @@ const UserList = ({ users }) => {
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
 
+
   useEffect(() => {
   }, [deletedUserIds]);
 
@@ -19,6 +20,10 @@ const UserList = ({ users }) => {
     console.log(userId);
     dispatch(deleteUser(userId));
     setDeletedUserIds([...deletedUserIds, userId]);
+  };
+
+  const handleToggleStatus = (userId, status) => {
+    dispatch(toggleUserStatus(userId, status));
   };
 
   const showConfirmationAlert = (userId, userName) => {
@@ -93,6 +98,9 @@ const UserList = ({ users }) => {
           if (deletedUserIds.includes(user.userId)) {
             return null; // Omitir el renderizado del usuario eliminado
           }
+          console.log(users);
+          console.log(`Status de usuario ${user.userId}: ${user.status}`);
+
           return (
             <div className="bg-white px-4 md:px-10 pb-5" key={user.userId}>
               <div className="overflow-x-auto">
@@ -115,6 +123,19 @@ const UserList = ({ users }) => {
                       </td>
                       <td className="pl-16">
                         <p>{user.email}</p>
+                      </td>
+
+                      <td className="pl-16">
+                        <p>{user.status}</p>
+                      </td>
+
+                      <td>
+                      <button
+  className="bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+  onClick={() => handleToggleStatus(user.userId, !user.status)} 
+>
+  {user.status ? 'Suspender cuenta' : 'Activar cuenta'}
+</button>
                       </td>
 
                       <td>

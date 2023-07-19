@@ -7,6 +7,8 @@ const Admin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Estado para indicar si el usuario ha iniciado sesión
+
 
   const navigate = useNavigate();
 
@@ -14,7 +16,7 @@ const Admin = () => {
     const adminUser = admin.find((user) => user.email === email && user.password === password);
 
     if (adminUser) {
-      // El correo electrónico y la contraseña son válidos, redirige al usuario a la página de inicio de administrador
+      setIsLoggedIn(true); // Marcar al usuario como autenticado
       navigate('/adminhome');
     } else {
       // El correo electrónico o la contraseña no son válidos, muestra un mensaje de error
