@@ -9,7 +9,7 @@ export const getProfile = () => {
   return async (dispatch) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:3001/profile/", {
+      const response = await axios.get("http://localhost:3001/profile/"/*"https://pf-nova-academy-production.up.railway.app/profile/"*/, {
         headers: {
           Authorization: token,
         },
@@ -29,7 +29,7 @@ export const getCoursesByProfileId = () => {
       const token = localStorage.getItem("token");
 
       const response = await axios.get(
-        "http://localhost:3001/profile/courseForSale",
+        "http://localhost:3001/profile/courseForSale" /*"https://pf-nova-academy-production.up.railway.app/profile/"*/,
         {
           headers: {
             Authorization: token,

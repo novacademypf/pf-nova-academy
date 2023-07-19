@@ -16,8 +16,8 @@ import Detail from "./pages/Detail";
 import About from "./pages/About";
 import ContactForm from "./pages/ContactForm/ContactForm";
 import CoursesCreated from "./pages/MyAccount/CoursesCreated";
-import axios from "axios";
-axios.defaults.baseURL = 'https://pf-nova-academy-production.up.railway.app/'
+/*import axios from "axios";
+axios.defaults.baseURL = 'https://pf-nova-academy-production.up.railway.app/'*/
 
 /* import { SearchCourse } from "./pages/SearchCourse/SearchCourse"; */
 import AdminHome from "./pages/AdminHome/AdminHome";
