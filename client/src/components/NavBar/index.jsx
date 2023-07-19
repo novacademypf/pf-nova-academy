@@ -17,7 +17,6 @@ const NavBar = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const dispatch = useDispatch();
   const location = useLocation().pathname;
-
   let checkRoute = location === "/checkout" ? false : true;
 
   const toggleMenu = () => {
@@ -34,12 +33,6 @@ const NavBar = () => {
 
   const deleteItemfromAside = (id) => {
     dispatch(delFromCart(id));
-    const prevLocalCart =
-      JSON.parse(localStorage.getItem("shoppingCart")) || [];
-    localStorage.setItem(
-      "shoppingCart",
-      JSON.stringify(prevLocalCart.filter((el) => el.id !== id))
-    );
   };
 
   const token = localStorage.getItem("token");

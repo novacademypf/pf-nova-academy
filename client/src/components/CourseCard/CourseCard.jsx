@@ -10,15 +10,6 @@ const CourseCard = ({ dataCard }) => {
 
   const handleCart = (data) => {
     dispatch(addToCart(data));
-    const prevLocalCart =
-      JSON.parse(localStorage.getItem("shoppingCart")) || [];
-
-    const isAlreadyInCart = prevLocalCart.some((el) => el.id === data.id);
-
-    if (!isAlreadyInCart) {
-      const mergedCart = [...prevLocalCart, data];
-      localStorage.setItem("shoppingCart", JSON.stringify(mergedCart));
-    }
   };
 
   return (

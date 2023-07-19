@@ -25,14 +25,17 @@ import PaymentResponse from "./pages/PaymentResponse/PaymentResponse";
 import { getProfile } from "./redux/actions/profileActions";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import MyOrders from "./pages/MyOrders/MyOrders";
+import { addFromStorage } from "./redux/actions/shoppingCartActions";
 
 const App = () => {
   const dispatch = useDispatch();
   const userProfile = useSelector((state) => state.profileReducer.userProfile);
+  const prevLocalCart = JSON.parse(localStorage.getItem("shoppingCart"));
 
   useEffect(() => {
     dispatch(getAllCourses());
     dispatch(getProfile());
+    prevLocalCart && dispatch(addFromStorage(prevLocalCart));
   }, []);
 
   const AppRouter = () => {
