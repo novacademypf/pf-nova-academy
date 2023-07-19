@@ -42,9 +42,10 @@ export const GET_USERS_GOOGLE='GET_USERS_GOOGLE';
 
 //Profile
 
-export const GET_PROFILE = "GET_PROFILE";
-export const GET_COURSE_BY_PROFILE = "GET_COURSE_BY_PROFILE";
-export const LOGOUT = "LOGOUT";
+export const GET_PROFILE='GET_PROFILE' ;
+export const GET_COURSE_BY_PROFILE='GET_COURSE_BY_PROFILE';
+export const LOGOUT= 'LOGOUT';
 
 //ORDERS
 export const GET_ORDERS = "GET_ORDERS";
+export const GET_ORDERS_COURSE = "GET_ORDERS_COURSE";

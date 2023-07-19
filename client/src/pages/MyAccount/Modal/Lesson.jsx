@@ -8,7 +8,7 @@ export default function ModalLesson({openModalLesson,setOpenModalLesson,lessons}
         <Modal.Header>Formulario de actualizacion</Modal.Header>
         <Modal.Body>
           {/* <FormCourse module={module} /> */}
-          <CreateLesson lessons={lessons}/>
+          <CreateLesson lessons={lessons} setOpenModalLesson={setOpenModalLesson}/>
         </Modal.Body>
         {/* <Modal.Footer>
           <Button onClick={() => setOpenModalModule(false)}>I accept</Button>
