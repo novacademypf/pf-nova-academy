@@ -5,7 +5,7 @@ export const getOrders = (profileId) => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `http://localhost:3001/orders/${profileId}`
+        `/orders/${profileId}`
       );
       console.log(response);
       dispatch({

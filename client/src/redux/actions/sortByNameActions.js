@@ -9,7 +9,7 @@ import { SORT_BY_NAME, SET_DATA } from "../action-type/action-types";
 
 /*export function getSortByName(name) {
     return async function (dispatch) {
-        const { data } = await axios.get(`http://localhost:3001/courseForSale?name=${name}`);
+        const { data } = await axios.get(`/courseForSale?name=${name}`);
         return dispatch({
             type: "SORT_BY_NAME",
             data: response
@@ -22,7 +22,7 @@ export const getSortByName = (name) => {
     return async function (dispatch){
       
         // Realizar la solicitud a la base de datos con la letra opcional
-        const {response} = await axios.get (`http://localhost:3001/courseForSale`); // ¡Reemplaza 'database.fetchData' con la llamada real a tu base de datos!
+        const {response} = await axios.get (`/courseForSale`); // ¡Reemplaza 'database.fetchData' con la llamada real a tu base de datos!
   
         // Actualizar el estado de Redux con los datos filtrados
         return dispatch({

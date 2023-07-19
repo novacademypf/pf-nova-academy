@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { useRoutes } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useRoutes, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCourses } from "./redux/actions/coursesActions";
 import Admin from "./pages/Admin/Admin";
@@ -16,8 +16,6 @@ import Detail from "./pages/Detail";
 import About from "./pages/About";
 import ContactForm from "./pages/ContactForm/ContactForm";
 import CoursesCreated from "./pages/MyAccount/CoursesCreated";
-
-/* import { SearchCourse } from "./pages/SearchCourse/SearchCourse"; */
 import AdminHome from "./pages/AdminHome/AdminHome";
 import CreateCourse from "./pages/CreateCourse";
 import { SearchCourse } from "./pages/SearchCourse/SearchCourse";
@@ -35,6 +33,12 @@ const App = () => {
   }, []);
 
   const AppRouter = () => {
+    const location = useLocation();
+
+    // Condición para no renderizar el Navbar en las rutas de AdminHome y Admin
+    const hideNavbarRoutes = ["/admin", "/adminhome"];
+    const shouldRenderNavbar = !hideNavbarRoutes.includes(location.pathname);
+
     let routes = useRoutes([
       { path: "/", element: <Landing /> },
       { path: "/home", element: <Home /> },
@@ -55,18 +59,18 @@ const App = () => {
       { path: "/contact", element: <ContactForm /> },
       { path: "/courses-created/:id", element: <CoursesCreated /> },
       { path: "/paymentresponse", element: <PaymentResponse /> },
-
       { path: "/*", element: <NotFound /> },
     ]);
 
-    return routes;
+    return (
+      <>
+        {shouldRenderNavbar && <NavBar />}
+        {routes}
+      </>
+    );
   };
-  return (
-    <div>
-      <NavBar />
-      <AppRouter />
-    </div>
-  );
+
+  return <AppRouter />;
 };
 
 export default App;

@@ -9,7 +9,7 @@ export const getProfile = () => {
   return async (dispatch) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:3001/profile/", {
+      const response = await axios.get("/profile/", {
         headers: {
           Authorization: token,
         },
@@ -27,7 +27,7 @@ export const getCoursesByProfileId = () => {
         try {
             const token = localStorage.getItem('token');
 
-            const response = await axios.get('http://localhost:3001/profile/courseForSale', {
+            const response = await axios.get('/profile/courseForSale', {
                 headers: {
                     Authorization: token,
                 },

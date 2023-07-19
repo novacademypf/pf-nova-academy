@@ -14,12 +14,12 @@ const CoursesList = ({ courses }) => {
   const totalpag = Math.ceil(courseCount / perPage); // número de páginas totales
   const [searchTerm, setSearchTerm] = useState('');
 
-  const handleDeleteCourse = (courseId) => {
-    dispatch(deleteCourse(courseId));
-    setDeletedCourseIds([...deletedCourseIds, courseId]);
+  const handleDeleteCourse = (id) => {
+    dispatch(deleteCourse(id));
+    setDeletedCourseIds([...deletedCourseIds, id]);
   };
 
-  const showConfirmationAlert = (courseId, courseName) => {
+  const showConfirmationAlert = (id, courseName) => {
     Swal.fire({
       title: 'Confirmación',
       text: `¿Está seguro que desea eliminar el curso ${courseName}?`,
@@ -29,7 +29,7 @@ const CoursesList = ({ courses }) => {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        deleteCourseWithAlert(courseId);
+        deleteCourseWithAlert(id);
       }
     });
   };
@@ -52,21 +52,18 @@ const CoursesList = ({ courses }) => {
     });
   };
 
-  const deleteCourseWithAlert = async (courseId) => {
+  const deleteCourseWithAlert = async (id) => {
     try {
-      handleDeleteCourse(courseId);
+      handleDeleteCourse(id);
       showAlert();
     } catch (error) {
       showErrorAlert(error);
     }
   };
 
-  const totalPageCount = Math.ceil(courseCount / perPage);
-
-  
-
   const indexOfLastCourse = currentPage * perPage;
   const indexOfFirstCourse = indexOfLastCourse - perPage;
+
   const currentCourses = arrayCourses
     .filter((course) => course.name.toLowerCase().includes(searchTerm.toLowerCase()))
     .slice(indexOfFirstCourse, indexOfLastCourse);
@@ -78,7 +75,7 @@ const CoursesList = ({ courses }) => {
   };
 
   const goToNextPage = () => {
-    if (currentPage < totalPageCount) {
+    if (currentPage < totalpag) {
       setCurrentPage(currentPage + 1);
     }
   };
@@ -137,7 +134,6 @@ const CoursesList = ({ courses }) => {
                     <td className="pl-16">
                       <p>${course.price}</p>
                     </td>
-                  
                     <td className="pl-16">
                       <p>Creado el {course.createdAt}</p>
                     </td>

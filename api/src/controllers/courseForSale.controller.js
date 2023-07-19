@@ -125,18 +125,17 @@ const updateCourseForSale = async (req, res) => {
 const deleteCourseForSale = async (req, res) => {
   try {
     const courseId = req.params.courseId;
-    const user = await getUserToken(req);
     const courseDelete = await CourseForSale.destroy({
-      where: { id: courseId, idProfile: user.idUser },
+      where: { id: courseId },
     });
+    
     if (courseDelete === 0) {
       return res
         .status(404)
         .json({ error: "Course not found for the current user profile" });
     } else {
-      res.send("courses deleted");
+      return res.status(200).json({ message: "Course deleted" });
     }
-    res.json(courseDelete);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
