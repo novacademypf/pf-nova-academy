@@ -4,5 +4,4 @@ const orderRoutes = Router();
 
 orderRoutes.get("/courses/:profileId", getCoursesOrders)
 orderRoutes.get("/:profileId", getOrders);
-
 module.exports = orderRoutes;

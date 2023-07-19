@@ -6,7 +6,6 @@ const UserProfile = ({ handleLogout, profile }) => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation().pathname;
   const profilePhoto = "https://source.unsplash.com/random/800x600/?avatar=1";
-  console.log(profile);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -50,6 +49,11 @@ const UserProfile = ({ handleLogout, profile }) => {
           <li className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
             <NavLink to="/create">
               <button type="button">Crear curso</button>
+            </NavLink>
+          </li>
+          <li className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+            <NavLink to="/myorders">
+              <button type="button">Mis ordenes</button>
             </NavLink>
           </li>
 

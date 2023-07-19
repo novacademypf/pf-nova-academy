@@ -14,19 +14,21 @@ const PaymentResponse = () => {
       icon: status === "ok" ? "success" : "error",
       title:
         status === "ok" ? "Pago procesado exitosamente" : "Pago no exitoso",
-
       confirmButtonText: "OK",
       backdrop: "static",
       allowOutsideClick: false,
     }).then((res) => {
-      if (res.isConfirmed) {
-        navigate("/account");
+      if (res.isConfirmed && status === "ok") {
+        navigate("/myorders");
+      } else {
+        navigate("/courses");
       }
     });
   };
   useEffect(() => {
     handleModal();
   }, []);
+
   return <Layout></Layout>;
 };
 
