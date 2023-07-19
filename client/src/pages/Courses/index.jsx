@@ -4,6 +4,9 @@ import SectionFilter from "./SectionFilter";
 import { filters } from "../../helpers/filters";
 import { saveDataFilter } from "../../redux/actions/filterActions";
 import { useEffect } from "react";
+import { getAllCategories } from "../../redux/actions/allCategoriesActions";
+
+
 
 const Courses = () => {
   const { courseAll, courseCount, maxPrice, minPrice } = useSelector(
@@ -13,8 +16,16 @@ const Courses = () => {
   );
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(getAllCategories())
+    console.log("useEffect")
     dispatch(saveDataFilter(filters("", courseAll)));
   }, [courseAll]);
+
+  /* useEffect(()=>{
+    console.log("useEffect")
+    dispatch(getAllCategories())
+  },[]) */
+
   return (
     <main className="relative top-[0 rem] flex ">
       <SectionFilter />
