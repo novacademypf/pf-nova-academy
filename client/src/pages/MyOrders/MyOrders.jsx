@@ -8,7 +8,6 @@ const MyOrders = () => {
   const dispatch = useDispatch();
   const orders = useSelector((state) => state.orderReducer.orders);
   const id = localStorage.getItem("profileId");
-  console.log(orders);
 
   useEffect(() => {
     dispatch(getOrders(id));
@@ -26,7 +25,7 @@ const MyOrders = () => {
           <div className="flex flex-row gap-2">
             Cursos comprados:
             {el.items.map((el) => (
-              <Link key={el.idCourse} to={`/detail/${el.idCourse}`}>
+              <Link key={el.idCourse} to={`/courses-purchased/${el.idCourse}`}>
                 {el.idCourse}
               </Link>
             ))}

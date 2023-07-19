@@ -41,11 +41,9 @@ const NavBar = () => {
   useEffect(() => {
     !userProfile && dispatch(getProfile());
     /* handleLocalStorage(courses); */
-    if (!cartIsOpen) courses.length > 0 && openCart();
     if (!checkRoute) closeCart();
-
     setLoggedIn(isUserLoggedIn);
-  }, [courses, dispatch, isUserLoggedIn]);
+  }, [dispatch, isUserLoggedIn]);
 
   const links = [
     { to: "/courses", name: "Cursos" },

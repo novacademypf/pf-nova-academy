@@ -49,18 +49,42 @@ const App = () => {
         element: <PrivateRoute element={<Checkout />} auth={userProfile} />,
       },
       { path: "/courses", element: <Courses /> },
-      { path: "/myorders", element: <MyOrders /> },
-      { path: "/account", element: <MyAccount /> },
+      {
+        path: "/myorders",
+        element: <PrivateRoute element={<MyOrders />} auth={userProfile} />,
+      },
+      {
+        path: "/account",
+        element: <PrivateRoute element={<MyAccount />} auth={userProfile} />,
+      },
       { path: "/login", element: <SingIn /> },
       { path: "/register", element: <SingUp /> },
       { path: "/detail/:courseId", element: <Detail /> },
-      { path: "/create", element: <CreateCourse /> },
+      {
+        path: "/create",
+        element: <PrivateRoute element={<CreateCourse />} auth={userProfile} />,
+      },
       { path: "/search", element: <SearchCourse /> },
       { path: "/about", element: <About /> },
       { path: "/contact", element: <ContactForm /> },
-      { path: "/courses-created/:id", element: <CoursesCreated /> },
-      { path: "/courses-purchased/:id", element: <CoursesCreated /> },
-      { path: "/paymentresponse", element: <PaymentResponse /> },
+      {
+        path: "/courses-created/:id",
+        element: (
+          <PrivateRoute element={<CoursesCreated />} auth={userProfile} />
+        ),
+      },
+      {
+        path: "/courses-purchased/:id",
+        element: (
+          <PrivateRoute element={<CoursesCreated />} auth={userProfile} />
+        ),
+      },
+      {
+        path: "/paymentresponse",
+        element: (
+          <PrivateRoute element={<PaymentResponse />} auth={userProfile} />
+        ),
+      },
 
       { path: "/*", element: <NotFound /> },
     ]);
