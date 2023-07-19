@@ -5,8 +5,7 @@ import FormCourse from "./ModuleCreate";
 import api from "../../services/api.js";
 import { uploadFile } from "../../firebase/config";
 import Swal from "sweetalert2";
-import { useLocation } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { getCourseForSaleById } from "../../redux/actions/coursesActions";
 export default function CreateCourse({ courseUpdate }) {
   const {id} = useParams()
