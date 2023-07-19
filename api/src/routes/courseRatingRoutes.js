@@ -7,3 +7,4 @@ courseRatingRoutes.post("/:idCourse/rate", VerifyAuthorization,postCourseRating)
 courseRatingRoutes.get('/:idCourse?',getCourseRating)
 courseRatingRoutes.put('/:idCourse/rate',VerifyAuthorization,putCourseRating)
 module.exports = courseRatingRoutes;
+

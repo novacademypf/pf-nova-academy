@@ -63,7 +63,7 @@ const createUser = async (req, res) => {
   }
 };
 
-const getLoginUser = async (req, res) => {
+const postLoginUser = async (req, res) => {
   const { email, password } = req.body; // Se extraen el correo electrónico y la contraseña del cuerpo de la solicitud
   try {
     console.log("-->", email);
@@ -152,7 +152,7 @@ const deleteUserById = async (req, res) => {
 
 module.exports = {
   createUser,
-  getLoginUser,
+  postLoginUser,
   getUsers,
   getUserById,
   updateUserById,

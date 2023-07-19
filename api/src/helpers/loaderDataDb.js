@@ -41,6 +41,8 @@ const loaderUsers = async () => {
       const profilesData = createdUsers.map((user) => ({
         userId: user.userId,
         name: user.name,
+        email: user.email,
+        role: user.role,
       }));
 
       await Profile.bulkCreate(profilesData, { transaction });
