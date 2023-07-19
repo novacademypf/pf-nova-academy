@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 const Carrousel = () => {
   const [images, setImages] = useState([]);
-  const courses = useSelector((state) => state).coursesReducer.courses.courseAll; // <--  Ali este es el array con la info de los cursos
-  
+  const courses = useSelector((state) => state).coursesReducer.courses
+    .courseAll; // <--  Ali este es el array con la info de los cursos
 
   useEffect(() => {
     const imageArray = [];
