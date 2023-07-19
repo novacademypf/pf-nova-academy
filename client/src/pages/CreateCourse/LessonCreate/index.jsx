@@ -6,11 +6,10 @@ import { uploadFile } from "../../../firebase/config";
 import Swal from "sweetalert2";
 import { getCourseForSaleById } from "../../../redux/actions/coursesActions";
 import { useParams } from "react-router-dom";
-export default function CreateLesson({moduleId, lesson, setLesson, setFlagFinally, lessons, setOpenModalLesson}) {
+export default function CreateLesson({moduleId, setFlagFinally, lessons, setOpenModalLesson}) {
   const dispatch = useDispatch();
   const {id} = useParams()
   const [resource, setResource] = useState(null)
-  const [lessonId, setLessonId] = useState(0)
   const [flagButton, setFlagButton] = useState(true)
   const [errors, setErrors] = useState({
     title: "",
@@ -64,17 +63,15 @@ export default function CreateLesson({moduleId, lesson, setLesson, setFlagFinall
     }
     return errores;
   }
-  const deleteLesson= ()  => {
-    api.delete(`/lesson/deleteLesson/${lessons?.id}`);
-    dispatch(getCourseForSaleById(id))
-    setOpenModalLesson(false)
-    // if(lesson===0) return;
-    // setLesson(lesson - 1);
+  const deleteLesson = async () => {
+    await api.delete(`/lesson/deleteLesson/${lessons?.id}`);
+    await dispatch(getCourseForSaleById(id));
+    setOpenModalLesson(false);
     Swal.fire({
       icon: "success",
       title: "Lección Eliminada Correctamente",
-    });
-  }
+    })
+  };
 
   const submitHandler = async (event)=>{
     event.preventDefault();
@@ -85,14 +82,12 @@ export default function CreateLesson({moduleId, lesson, setLesson, setFlagFinall
         text: "Debe ser PDF",
       });
     } else if(!form.title){
-      // return alert("Ingrese Titulo");
       return Swal.fire({
         icon: "error",
         title: "Oops...",
         text: "Ingrese Titulo",
       });
     } else if(!form.content){
-      // return alert("Ingrese Contenido");
       return Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -124,7 +119,6 @@ export default function CreateLesson({moduleId, lesson, setLesson, setFlagFinall
         },
       });
       setFlagButton(false)
-      setLessonId(lessonCreate.data.id);
       setFlagFinally(true)
       Swal.fire({
         icon: "success",

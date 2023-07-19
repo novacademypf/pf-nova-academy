@@ -1,69 +1,6 @@
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import ResultSearchBar from "../ResultSearchBar/ResultSearchBar";
-import Prueba from "./prueba";
-
-const SearchBar = () => {
-  const {courseAll} = useSelector((state) => state.coursesReducer.courses);
-  const [term, setTerm] = useState("");
-  const [filteredCourses, setFilteredCourses] = useState([]);
-  let navigate = useNavigate();
-
-  let coursesFlat = courseAll && courseAll.map((el) => {
-    return {
-      id: el.id,
-      name: el.name
-        .replace(/[,.-]/g, "")
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, ""),
-      description: el.description
-        .replace(/[,.-]/g, "")
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, ""),
-      category: el.category
-        .join(" ")
-        .replace(/[,.-]/g, "")
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, ""),
-      image: "https://picsum.photos/800/600?random=1",
-    };
-  });
-
-  const filterCourse = (value) => {
-    value = value.toLowerCase();
-    let filter = coursesFlat && coursesFlat.filter((el) => {
-      return (
-        el.name.includes(value) ||
-        el.description.includes(value) ||
-        el.category.includes(value)
-      );
-    });
-
-    setFilteredCourses(filter);
-  };
-
-  useEffect(() => {
-    filterCourse(term);
-  }, [term]);
-
-  const handleChange = (e) => {
-    const value = e.target.value;
-    setTerm(value);
-  };
-  const handleEnter = (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      navigate(`/search?name=${term}`);
-    }
-  };
-  return (
-    <>
-    <Prueba handleChange={handleChange} handleEnter={handleEnter} term={term}/>
-    {/* <form className="flex items-center mb-8 relative">
+const Prueba = ({handleEnter,handleChange,term}) => {
+    return (
+        <form className="flex items-center mb-8 relative">
           <label htmlFor="simple-search" className="sr-only">
             Buscar curso ...
           </label>
@@ -116,12 +53,7 @@ const SearchBar = () => {
             </svg>
             <span className="sr-only">Buscar curso...</span>
           </button>
-        </form> */} 
-      {term.length > 0 && term !== " " && (
-        <ResultSearchBar results={ filteredCourses} />
-      )}
-</>
-  );
-};
-
-export default SearchBar;
+        </form>  );
+}
+ 
+export default Prueba;
