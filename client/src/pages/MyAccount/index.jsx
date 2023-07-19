@@ -17,11 +17,15 @@ const MyAccount = () => {
   );
   console.log("userProfile ordersCourses", ordersCourses);
   console.log("userProfile courseByProfile", courseByProfile);
-  console.log("userProfile userProfile", userProfile.profileId);
+  console.log("userProfile userProfile", userProfile);
+  
+
+
+  const id= localStorage.getItem("profileId");
 
   useEffect(() => {
     // dispatch(getProfile());
-    // dispatch(getOrdersCourse(userProfile.profileId))
+    dispatch(getOrdersCourse(id))
     dispatch(getCoursesByProfileId());
   }, [dispatch]);
 
@@ -89,7 +93,7 @@ const MyAccount = () => {
         <div className="flow-root">
             <div className="mb-4 flex items-center justify-between">
               <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
-                Cursos Creados
+                Cursos Comprados
               </h5>
             </div>
             <ul className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -117,9 +121,9 @@ const MyAccount = () => {
                             {e.category}
                           </p>
                         </div>
-                        <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                        {/* <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                           ${e.price}
-                        </div>
+                        </div> */}
                       </div>
                     </li>
                   </Link>
@@ -127,37 +131,6 @@ const MyAccount = () => {
               })}
             </ul>
           </div>
-          {/* <div className="flow-root ">
-            <div className="mb-4 flex items-center justify-between">
-              <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
-                Cursos Comprados
-              </h5>
-            </div>
-              <div className="flex items-center space-x-4">
-                <div className="shrink-0">
-                  <img
-                    // Display
-                    // Name
-                    alt="Neil image"
-                    className="rounded-full"
-                    height="32"
-                    src="https://www.dzoom.org.es/wp-content/uploads/2020/02/portada-foto-perfil-redes-sociales-consejos-810x540.jpg"
-                    width="32"
-                  />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-medium text-gray-900 dark:text-white">
-                    Neil Sims
-                  </p>
-                  <p className="truncate text-sm text-gray-500 dark:text-gray-400">
-                    email@windster.com
-                  </p>
-                </div>
-                <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                  $320
-                </div>
-              </div>
-          </div> */}
         </Card>
       </div>
     </div>

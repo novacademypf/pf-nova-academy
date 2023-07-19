@@ -6,7 +6,7 @@ import { uploadFile } from "../../../firebase/config";
 import Swal from "sweetalert2";
 import { getCourseForSaleById } from "../../../redux/actions/coursesActions";
 import { useParams } from "react-router-dom";
-export default function CreateLesson({moduleId, lesson, setLesson, setFlagFinally, lessons}) {
+export default function CreateLesson({moduleId, lesson, setLesson, setFlagFinally, lessons, setOpenModalLesson}) {
   const dispatch = useDispatch();
   const {id} = useParams()
   const [resource, setResource] = useState(null)
@@ -65,9 +65,15 @@ export default function CreateLesson({moduleId, lesson, setLesson, setFlagFinall
     return errores;
   }
   const deleteLesson= ()  => {
-    api.delete(`/lesson/deleteLesson/${lessonId}`);
-    if(lesson===0) return;
-    setLesson(lesson - 1);
+    api.delete(`/lesson/deleteLesson/${lessons?.id}`);
+    dispatch(getCourseForSaleById(id))
+    setOpenModalLesson(false)
+    // if(lesson===0) return;
+    // setLesson(lesson - 1);
+    Swal.fire({
+      icon: "success",
+      title: "Lección Eliminada Correctamente",
+    });
   }
 
   const submitHandler = async (event)=>{
@@ -108,7 +114,7 @@ export default function CreateLesson({moduleId, lesson, setLesson, setFlagFinall
       dispatch(getCourseForSaleById(id))
       Swal.fire({
         icon: "success",
-        title: "Leccion creada",
+        title: "Actualizado Correctamente",
       });
     }else{
       const lessonCreate = await api.post("/lesson/createLesson", body,
@@ -172,7 +178,8 @@ export default function CreateLesson({moduleId, lesson, setLesson, setFlagFinall
           location.pathname.startsWith("/courses-created") ? (
             <div className="flex justify-center">
             <button className="px-4 m-4 py-2 bg-amber-300 rounded hover:bg-amber-100" onClick={(e)=> submitHandler(e)}>Actualizar Leccion</button>
-          </div>
+            <button className="px-4 m-4 py-2 text-white bg-red-700 rounded hover:bg-red-400" onClick={deleteLesson}>Eliminar Leccion</button>
+            </div>
           ) : (
             <div className="flex justify-center">
             <button className="px-4 m-4 py-2 bg-cyan-300 rounded hover:bg-cyan-100" onClick={(e)=> submitHandler(e)}>Crear Leccion</button>
@@ -181,8 +188,6 @@ export default function CreateLesson({moduleId, lesson, setLesson, setFlagFinall
         )
         :null
       }
-      
-      <button className="px-4 m-4 py-2 text-white bg-red-700 rounded hover:bg-red-400" onClick={(e)=> deleteLesson(e)}>Eliminar Leccion</button>
       </div>
     </div>
   );
