@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 const CourseCard = ({ dataCard }) => {
   const { id, name, price, description, images, category } = dataCard;
   const dispatch = useDispatch();
+
   const handleCart = (data) => {
     dispatch(addToCart(data));
   };

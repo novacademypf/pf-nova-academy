@@ -6,6 +6,7 @@ export const GET_COURSE_BY_ID = "GET_COURSE_BY_ID";
 
 //SHOPPINGCART
 export const ADD_TO_CART = "ADD_TO_CART";
+export const ADD_TO_CART_LOCAL = "ADD_TO_CART_LOCAL";
 export const REMOVE_ONE_FROM_CART = "REMOVE_ONE_FROM_CART";
 export const REMOVE_ALL_FROM_CART = "REMOVE_ALL_FROM_CART";
 export const CLEAR_CART = "CLEAR_CART";
@@ -38,15 +39,15 @@ export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES";
 
 //Admin
 
-export const DELETE_USER='DELETE_USER';
-export const GET_USERS='GET_USERS';
-export const GET_USERS_GOOGLE='GET_USERS_GOOGLE';
+export const DELETE_USER = "DELETE_USER";
+export const GET_USERS = "GET_USERS";
+export const GET_USERS_GOOGLE = "GET_USERS_GOOGLE";
 
 //Profile
 
-export const GET_PROFILE='GET_PROFILE' ;
-export const GET_COURSE_BY_PROFILE='GET_COURSE_BY_PROFILE';
-export const LOGOUT= 'LOGOUT';
+export const GET_PROFILE = "GET_PROFILE";
+export const GET_COURSE_BY_PROFILE = "GET_COURSE_BY_PROFILE";
+export const LOGOUT = "LOGOUT";
 
 //ORDERS
 export const GET_ORDERS = "GET_ORDERS";
