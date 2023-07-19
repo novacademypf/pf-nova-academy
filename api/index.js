@@ -1,6 +1,7 @@
 const server = require("./src/app.js");
 const { conn } = require("./src/db.js");
-
+require("dotenv").config();
+const { PORT } = process.env;
 
 
 const {
@@ -11,7 +12,6 @@ const {
 } = require("./src/helpers/loaderDataDb.js");
 
 // Syncing all the models at once.
-const PORT = 3001;
 const main = async () => {
   try {
     await conn.authenticate();
