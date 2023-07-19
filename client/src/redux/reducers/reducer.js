@@ -3,18 +3,14 @@ import shoppingCartReducer from "./shoppingCartReducer.js";
 import coursesReducer from "./coursesReducer.js";
 import userReducer from "./userReducer.js";
 import filterByCategoryRed from "./filterByCategoryReducer.js";
-import getAllCategories from "./allCategoriesReducer.js"
-import categoriesReducer from "./categoryReducer.js"
-import sortByNameReducer from "./sortByNameReducer.js";
-import {setMenuOptionsReducer,saveDataFilterReducer} from './filtersReducer.js'
-
-
 import getAllCategories from "./allCategoriesReducer.js";
 import categoriesReducer from "./categoryReducer.js";
-import { setOptionsFiltersReducer } from "./filtersReducer.js";
 import sortByNameReducer from "./sortByNameReducer.js";
-import filterByPriceRed from "./filterByPrice.js";
-import { filterReducer } from "./filtersReducer.js";
+import {
+  setMenuOptionsReducer,
+  saveDataFilterReducer,
+} from "./filtersReducer.js";
+
 import profileReducer from "./profileReducer.js";
 import orderReducer from "./orderReducer.js";
 
@@ -24,17 +20,10 @@ const reducer = combineReducers({
   coursesReducer: coursesReducer,
   userReducer: userReducer,
   getAllCategories: getAllCategories,
-  filterByCategoryRed:filterByCategoryRed,
+  filterByCategoryRed: filterByCategoryRed,
   setMenuOptionsReducer,
   saveDataFilterReducer,
   sortByNameReducer: sortByNameReducer,
-
-  
-   
-  filterByCategoryRed: filterByCategoryRed,
-  setOptionsFiltersReducer,
-  sortByNameReducer: sortByNameReducer,
-  filterReducer,
   profileReducer,
   orderReducer,
 });

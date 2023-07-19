@@ -35,8 +35,17 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       defaultValue: 0,
     },
+    totalRatings: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    ratingAverage: { // Nueva columna para almacenar el rating promedio
+      type: DataTypes.FLOAT,
+      defaultValue: 0,
+    },
   });
 };
+
 
 
 
