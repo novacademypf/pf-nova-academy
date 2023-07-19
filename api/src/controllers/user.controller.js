@@ -63,7 +63,7 @@ const createUser = async (req, res) => {
   }
 };
 
-const getLoginUser = async (req, res) => {
+const postLoginUser = async (req, res) => {
   const { email, password } = req.body; // Se extraen el correo electrónico y la contraseña del cuerpo de la solicitud
   try {
     console.log("-->", email);
@@ -127,7 +127,7 @@ const updateUserById = async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    await user.update({ name, email, password, role });
+    await user.update({ name, email, password, role, status });
     res.json(user);
   } catch (error) {
     console.error(error);
@@ -152,7 +152,7 @@ const deleteUserById = async (req, res) => {
 
 module.exports = {
   createUser,
-  getLoginUser,
+  postLoginUser,
   getUsers,
   getUserById,
   updateUserById,

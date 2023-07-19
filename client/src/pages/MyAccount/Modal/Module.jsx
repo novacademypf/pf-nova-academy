@@ -11,7 +11,7 @@ export default function ModalModule({openModalModule,setOpenModalModule,module})
       <Modal show={openModalModule} onClose={() => setOpenModalModule(false)}>
         <Modal.Header>Formulario de actualizacion</Modal.Header>
         <Modal.Body>
-          <FormCourse module={module} />
+          <FormCourse module={module} setOpenModalModule={setOpenModalModule}/>
         </Modal.Body>
         {/* <Modal.Footer>
           <Button onClick={() => setOpenModalModule(false)}>I accept</Button>

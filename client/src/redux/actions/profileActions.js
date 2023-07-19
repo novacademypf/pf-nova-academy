@@ -15,6 +15,7 @@ export const getProfile = () => {
         },
       });
       console.log(response.data);
+      localStorage.setItem("profileId", response.data.profileId);
       dispatch({ type: GET_PROFILE, payload: response.data });
     } catch (error) {
       console.error("Error al obtener el perfil del usuario:", error);
@@ -23,9 +24,9 @@ export const getProfile = () => {
 };
 
 export const getCoursesByProfileId = () => {
-    return async (dispatch) => {
-        try {
-            const token = localStorage.getItem('token');
+  return async (dispatch) => {
+    try {
+      const token = localStorage.getItem("token");
 
             const response = await axios.get('/profile/courseForSale', {
                 headers: {
@@ -45,6 +46,7 @@ export const getCoursesByProfileId = () => {
 export const logout = () => {
   return (dispatch) => {
     localStorage.removeItem("token");
+    localStorage.removeItem("profileId");
     dispatch({ type: LOGOUT });
   };
 };

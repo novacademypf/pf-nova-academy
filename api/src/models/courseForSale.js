@@ -1,4 +1,4 @@
-const { DataTypes, Sequelize } = require("sequelize");
+const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define("courseForSale", {
@@ -12,7 +12,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     category: {
-      type: DataTypes.ARRAY(Sequelize.STRING),
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
     },
     duration: {
@@ -23,10 +23,30 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    images: { type: DataTypes.STRING },
+    images: {
+      type: DataTypes.STRING,
+    },
     price: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    
+    totalRating: {
+      type: DataTypes.FLOAT,
+      defaultValue: 0,
+    },
+    totalRatings: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    ratingAverage: { // Nueva columna para almacenar el rating promedio
+      type: DataTypes.FLOAT,
+      defaultValue: 0,
+    },
   });
 };
+
+
+
+
+

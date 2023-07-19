@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Card, Tabs, Badge, Accordion } from "flowbite-react";
 import { Button, Modal } from "flowbite-react";
@@ -8,6 +8,7 @@ import CreateCourse from "../../CreateCourse";
 import api from "../../../services/api";
 import { useDispatch, useSelector } from "react-redux";
 import { getCourseForSaleById } from "../../../redux/actions/coursesActions";
+
 export default function CoursesCreated() {
   const { id } = useParams();
   const [openModalCourse, setOpenModalCourse] = useState(false);
@@ -15,13 +16,17 @@ export default function CoursesCreated() {
   const [openModalLesson, setOpenModalLesson] = useState(false);
   const [module, setModule] = useState({});
   const [lesson, setLesson] = useState({});
-  const courseCreated = useSelector((state)=> state.coursesReducer.courseById)
+  const courseCreated = useSelector((state) => state.coursesReducer.courseById)
   const dispatch = useDispatch()
-  const getModule = async (id)=>{
-      const response = await api.get(`/module/${id}`)
-      setModule(response.data)
-    }
-  const getLesson = async (id)=>{
+  const location = useLocation();
+
+  console.log(courseCreated)
+
+  const getModule = async (id) => {
+    const response = await api.get(`/module/${id}`)
+    setModule(response.data)
+  }
+  const getLesson = async (id) => {
     const response = await api.get(`/lesson/${id}`)
     setLesson(response.data)
   }
@@ -34,13 +39,13 @@ export default function CoursesCreated() {
     return <p>Cargando...</p>;
   }
 
-  const handleClickLesson = async (event)=>{
+  const handleClickLesson = async (event) => {
     const id = event.target.value
     getLesson(id)
     setOpenModalLesson(true)
   }
-  
-  const handleClickModule = async (event)=>{
+
+  const handleClickModule = async (event) => {
     const id = event.target.value
     getModule(id)
     setOpenModalModule(true)
@@ -63,12 +68,15 @@ export default function CoursesCreated() {
           >
             {courseCreated.duration}
           </Badge>
-          <Button
-            onClick={() => setOpenModalCourse(true)}
-            className="absolute top-0 right-0 m-4 text-sm"
-          >
-            Editar
-          </Button>
+          {!location.pathname.startsWith("/courses-purchased") ?
+            <Button
+              onClick={() => setOpenModalCourse(true)}
+              className="absolute top-0 right-0 m-4 text-sm"
+            >
+              Editar
+            </Button> :
+            null
+          }
         </div>
         <div>
           <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -87,32 +95,41 @@ export default function CoursesCreated() {
                 </p>
                 {module.Lessons.map((lesson) => {
                   return (
-                    <Accordion key={lesson.id}>
+                    <Accordion collapseAll key={lesson.id}>
                       <Accordion.Panel>
                         <Accordion.Title>
                           {lesson.title}
-                          <button
-                          value={lesson.id}
-                          className="mx-10 text-sm bg-amber-200 rounded-full px-1"
-                          onClick={handleClickLesson}
-                          >Editar</button>
+                          {!location.pathname.startsWith("/courses-purchased") ?
+                            <button
+                              value={lesson.id}
+                              className="mx-10 text-sm bg-amber-200 rounded-full px-1"
+                              onClick={handleClickLesson}
+                            >Editar</button> :
+                            null
+                          }
                         </Accordion.Title>
                         <Accordion.Content>
                           <p className="mb-2 text-gray-500 dark:text-gray-400">
                             {lesson.content}
                           </p>
+                          {/* <div className="w-full h-screen flex items-center justify-center">
+                          <iframe src={lesson.resource} width="100%" height="600px"></iframe>
+                          </div> */}
                         </Accordion.Content>
                       </Accordion.Panel>
                     </Accordion>
                   );
                 })}
-                <button
-                  value={module.id}
-                  className="w-full"
-                  onClick={handleClickModule}
-                >
-                  Editar Modulo
-                </button>
+                {!location.pathname.startsWith("/courses-purchased") ?
+                  <button
+                    value={module.id}
+                    className="w-full"
+                    onClick={handleClickModule}
+                  >
+                    Editar Modulo
+                  </button> :
+                  null
+                }
               </Tabs.Item>
             );
           })}
@@ -139,10 +156,10 @@ export default function CoursesCreated() {
         module={module}
       />
       <ModalLesson
-       openModalLesson={openModalLesson}
-       setOpenModalLesson={setOpenModalLesson}
-       lessons={lesson}
-      />  
+        openModalLesson={openModalLesson}
+        setOpenModalLesson={setOpenModalLesson}
+        lessons={lesson}
+      />
     </div>
   );
 }

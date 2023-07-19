@@ -22,6 +22,7 @@ import { SearchCourse } from "./pages/SearchCourse/SearchCourse";
 import PaymentResponse from "./pages/PaymentResponse/PaymentResponse";
 import { getProfile } from "./redux/actions/profileActions";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import MyOrders from "./pages/MyOrders/MyOrders";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -49,6 +50,7 @@ const App = () => {
         element: <PrivateRoute element={<Checkout />} auth={userProfile} />,
       },
       { path: "/courses", element: <Courses /> },
+      { path: "/myorders", element: <MyOrders /> },
       { path: "/account", element: <MyAccount /> },
       { path: "/login", element: <SingIn /> },
       { path: "/register", element: <SingUp /> },
@@ -58,6 +60,7 @@ const App = () => {
       { path: "/about", element: <About /> },
       { path: "/contact", element: <ContactForm /> },
       { path: "/courses-created/:id", element: <CoursesCreated /> },
+      { path: "/courses-purchased/:id", element: <CoursesCreated /> },
       { path: "/paymentresponse", element: <PaymentResponse /> },
       { path: "/*", element: <NotFound /> },
     ]);
