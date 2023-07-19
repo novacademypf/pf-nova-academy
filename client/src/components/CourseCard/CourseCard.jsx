@@ -7,8 +7,18 @@ import { Link } from "react-router-dom";
 const CourseCard = ({ dataCard }) => {
   const { id, name, price, description, images, category } = dataCard;
   const dispatch = useDispatch();
+
   const handleCart = (data) => {
     dispatch(addToCart(data));
+    const prevLocalCart =
+      JSON.parse(localStorage.getItem("shoppingCart")) || [];
+
+    const isAlreadyInCart = prevLocalCart.some((el) => el.id === data.id);
+
+    if (!isAlreadyInCart) {
+      const mergedCart = [...prevLocalCart, data];
+      localStorage.setItem("shoppingCart", JSON.stringify(mergedCart));
+    }
   };
 
   return (

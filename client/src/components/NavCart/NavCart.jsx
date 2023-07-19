@@ -1,5 +1,7 @@
 /*eslint-disable*/
 const NavCart = ({ cartIsOpen, closeCart, openCart, courses }) => {
+  const prevLocalCart = JSON.parse(localStorage.getItem("shoppingCart")) || [];
+  console.log(prevLocalCart);
   return (
     <ul className="flex flex-row">
       <li className="flex">
@@ -24,7 +26,7 @@ const NavCart = ({ cartIsOpen, closeCart, openCart, courses }) => {
           </svg>
         </button>
         <span className="bg-red-500  rounded-full  h-fit px-2">
-          {courses.length}
+          {prevLocalCart.length ? prevLocalCart.length : courses.length}
         </span>
       </li>
     </ul>

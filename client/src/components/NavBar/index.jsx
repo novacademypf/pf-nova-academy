@@ -11,11 +11,10 @@ import LandingButtons from "../LandingButtons/LandingButtons";
 /*eslint-disable*/
 const NavBar = () => {
   const userProfile = useSelector((state) => state.profileReducer.userProfile);
-
+  const courses = useSelector((state) => state.shoppingCartReducer.cart);
   const [isOpen, setIsOpen] = useState(false);
   const [cartIsOpen, setCartIsOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
-  const courses = useSelector((state) => state.shoppingCartReducer.cart);
   const dispatch = useDispatch();
   const location = useLocation().pathname;
 
@@ -35,18 +34,12 @@ const NavBar = () => {
 
   const deleteItemfromAside = (id) => {
     dispatch(delFromCart(id));
-  };
-
-  let cartStorage = JSON.parse(localStorage.getItem("shoppingCart")) || [];
-  const handleLocalStorage = (data) => {
-    /* if (cartStorage.length > 0 && !data.length) {
-      cartStorage.forEach((el) => {
-        dispatch(addToCart(el));
-      });
-    } */
-
-    localStorage.removeItem("shoppingCart");
-    localStorage.setItem("shoppingCart", JSON.stringify(data));
+    const prevLocalCart =
+      JSON.parse(localStorage.getItem("shoppingCart")) || [];
+    localStorage.setItem(
+      "shoppingCart",
+      JSON.stringify(prevLocalCart.filter((el) => el.id !== id))
+    );
   };
 
   const token = localStorage.getItem("token");
@@ -54,7 +47,7 @@ const NavBar = () => {
 
   useEffect(() => {
     !userProfile && dispatch(getProfile());
-    handleLocalStorage(courses);
+    /* handleLocalStorage(courses); */
     if (!cartIsOpen) courses.length > 0 && openCart();
     if (!checkRoute) closeCart();
 
@@ -154,7 +147,6 @@ const NavBar = () => {
           openCart={openCart}
           closeCart={closeCart}
           cartItems={courses}
-          cartLocal={cartStorage}
           deleteItemfromAside={deleteItemfromAside}
         />
       )}
