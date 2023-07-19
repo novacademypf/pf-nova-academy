@@ -47,3 +47,6 @@ export const GET_USERS='GET_USERS';
 export const GET_PROFILE='GET_PROFILE' ;
 export const GET_COURSE_BY_PROFILE='GET_COURSE_BY_PROFILE';
 export const LOGOUT= 'LOGOUT';
+
+//ORDERS
+export const GET_ORDERS = "GET_ORDERS";
