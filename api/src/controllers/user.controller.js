@@ -127,7 +127,7 @@ const updateUserById = async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    await user.update({ name, email, password, role });
+    await user.update({ name, email, password, role, status });
     res.json(user);
   } catch (error) {
     console.error(error);

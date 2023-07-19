@@ -39,15 +39,22 @@ export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES";
 
 //Admin
 
-export const DELETE_USER = "DELETE_USER";
-export const GET_USERS = "GET_USERS";
-export const GET_USERS_GOOGLE = "GET_USERS_GOOGLE";
+export const DELETE_USER='DELETE_USER';
+export const GET_USERS='GET_USERS';
+export const GET_USERS_GOOGLE='GET_USERS_GOOGLE';
+export const DELETE_USER_GOOGLE='DELETE_USER_GOOGLE';
+
+
+
 
 //Profile
 
 export const GET_PROFILE = "GET_PROFILE";
 export const GET_COURSE_BY_PROFILE = "GET_COURSE_BY_PROFILE";
 export const LOGOUT = "LOGOUT";
+export const TOGGLE_USER_STATUS= "TOGGLE_USER_STATUS";
+
+
 
 //ORDERS
 export const GET_ORDERS = "GET_ORDERS";
