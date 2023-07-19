@@ -5,9 +5,9 @@ import { Button, Modal } from "flowbite-react";
 import ModalModule from "../Modal/Module";
 import ModalLesson from "../Modal/Lesson";
 import CreateCourse from "../../CreateCourse";
-import api from "../../../services/api";
 import { useDispatch, useSelector } from "react-redux";
 import { getCourseForSaleById } from "../../../redux/actions/coursesActions";
+import axios from "axios";
 
 export default function CoursesCreated() {
   const { id } = useParams();
@@ -23,11 +23,11 @@ export default function CoursesCreated() {
   console.log(courseCreated)
 
   const getModule = async (id) => {
-    const response = await api.get(`/module/${id}`)
+    const response = await axios.get(`/module/${id}`)
     setModule(response.data)
   }
   const getLesson = async (id) => {
-    const response = await api.get(`/lesson/${id}`)
+    const response = await axios.get(`/lesson/${id}`)
     setLesson(response.data)
   }
   useEffect(() => {

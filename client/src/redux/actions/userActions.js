@@ -30,7 +30,7 @@ export const checkEmailExistence = (email) => {
 
     try {
       // realizo la consulta al back para verificar la existencia del email
-      const response = await axios.post("http://localhost:3001/user/signup", {
+      const response = await axios.post("/user/signup", {
         email,
       });
 
@@ -51,7 +51,7 @@ export const checkEmailExistence = (email) => {
 export const getUsers = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get('http://localhost:3001/user/');
+      const response = await axios.get('/user/');
       console.log(response);
       dispatch({
         type: GET_USERS,
@@ -67,7 +67,7 @@ export const getUsers = () => {
 export const getUserGoogle = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get('http://localhost:3001/google');
+      const response = await axios.get('/google');
       console.log(response);
       dispatch({
         type: GET_USERS_GOOGLE,
@@ -82,7 +82,7 @@ export const getUserGoogle = () => {
 export const deleteUser = (userId) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`http://localhost:3001/user/deleteUser/${userId}`);
+      await axios.delete(`/user/deleteUser/${userId}`);
       dispatch({
         type: DELETE_USER,
         payload: userId,

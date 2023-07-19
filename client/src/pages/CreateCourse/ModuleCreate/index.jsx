@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import CreateLesson from "../LessonCreate";
-import api from "../../../services/api";
 import Swal from "sweetalert2";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
@@ -65,7 +64,7 @@ export default function FormCourse({
   };
 
   const deleteModule = async () => {
-    await api.delete(`/module/deleteModule/${module?.id}`);
+    await axios.delete(`/module/deleteModule/${module?.id}`);
     await dispatch(getCourseForSaleById(id));
     // if (modules === 0) return;
     // setModules(modules - 1);
@@ -119,7 +118,7 @@ export default function FormCourse({
 
     if (location.pathname.startsWith("/courses-created")) {
       console.log(body)
-      const response = await api.put(`/module/updateModule/${module?.id}`, body, {
+      const response = await axios.put(`/module/updateModule/${module?.id}`, body, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -130,7 +129,7 @@ export default function FormCourse({
         title: "Actualizado Correctamente",
       });
     } else {
-      const moduleCreate = await api.post("/module/createModule", body, {
+      const moduleCreate = await axios.post("/module/createModule", body, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },

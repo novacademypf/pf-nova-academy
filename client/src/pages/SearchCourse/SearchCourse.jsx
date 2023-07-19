@@ -15,7 +15,7 @@ export const SearchCourse = () => {
   const getCoursesParams = async (name) => {
     try {
       let getCourses = await axios.get(
-        `http://localhost:3001/courseForSale/search?name=${name}`
+        `/courseForSale/search?name=${name}`
       );
       let data = await getCourses.data;
       console.log(data);
