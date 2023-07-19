@@ -26,6 +26,7 @@ const postCreateCourseForSale = async (req, res) => {
   }
 };
 
+
 const getCourseForSale = async (req, res) => {
   try {
     const { page, limit } = req.query;
@@ -41,24 +42,21 @@ const getCourseForSale = async (req, res) => {
       });
       res.send({ courseCount: count, courseAll: rows });
     } else {
-      const { count, rows } =
-        await CourseForSale.findAndCountAll({
-          include: {
-            model: Profile,
-            attributes: { exclude: ["photo"] },
-          },
-          
-        });
-        const maxPrice = await CourseForSale.max('price');
-        const minPrice = await CourseForSale.min('price');
-        
-        res.send({
-          courseCount: count,
-          courseAll: rows,
-          maxPrice,
-          minPrice
-        });
-     
+      const { count, rows } = await CourseForSale.findAndCountAll({
+        include: {
+          model: Profile,
+          attributes: { exclude: ["photo"] },
+        },
+      });
+      const maxPrice = await CourseForSale.max("price");
+      const minPrice = await CourseForSale.min("price");
+
+      res.send({
+        courseCount: count,
+        courseAll: rows,
+        maxPrice,
+        minPrice,
+      });
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -188,4 +186,5 @@ module.exports = {
   getCourseForSaleById,
   getFilterCourseForSale,
   searchCoursesByName,
+  
 };

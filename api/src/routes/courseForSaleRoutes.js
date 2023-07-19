@@ -6,7 +6,8 @@ const {
   getCourseForSaleById,
   getFilterCourseForSale,
   getCourseForSale,
-  searchCoursesByName
+  searchCoursesByName,
+  postRaitingCourse
 } = require("../controllers/courseForSale.controller");
 const VerifyAuthorization = require("../middleware/auth");
 const { verificarRole } = require("../middleware/authRole");

@@ -38,9 +38,10 @@ export const setMenuOptionsReducer = (state = initialOptions, action) => {
         };
       }
       if (action.name === "default") {
+        console.log(action.value)
         return {
-          ...state,
-          ["precio"]: { ...action.value },
+          state,
+            
         };
       }
       return {

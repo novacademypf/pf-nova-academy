@@ -14,7 +14,9 @@ const profileRoutes = require("./profileRoutes.js");
 const courseForsaleRouter = require("./courseForSaleRoutes.js");
 const mercadoPagoRoutes = require("./mercadoPagoRoutes.js");
 const googleRoutes = require("./googleRoutes.js");
+const courseRatingRoutes =require('./courseRatingRoutes.js')
 const router = Router();
+router.use('/courseRating',courseRatingRoutes)
 router.use("/courseForSale", courseForsaleRouter);
 router.use("/profile", profileRoutes);
 router.use("/courses", courseRoutes);

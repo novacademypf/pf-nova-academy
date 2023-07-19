@@ -52,7 +52,7 @@ const {
   Profile,
   CourseForSale,
   CourseBought,
-  UserGoogle
+  UserGoogle,CourseRating
 } = sequelize.models;
 //relacion entre userGoogle y perfil uno a uno
 UserGoogle.hasOne(Profile, { foreignKey: "id", onDelete: "CASCADE" });
@@ -94,6 +94,12 @@ Module.hasMany(Lesson, {
 Lesson.belongsTo(Module, {
   foreignKey: "idModule",
 });
+//relacion de courseRating a profile de uno a muchos
+CourseRating.belongsTo(Profile, { foreignKey: 'profileId' });
+Profile.hasMany(CourseRating, { foreignKey: 'profileId' });
+//relacion de courserating a courseForSale de uno a muchos
+CourseRating.belongsTo(CourseForSale, { foreignKey: 'courseForSaleId' });
+CourseForSale.hasMany(CourseRating, { foreignKey: 'courseForSaleId' });
 
 /* Profile.belongsToMany(Course, {
   through: "profile_Course",

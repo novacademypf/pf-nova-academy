@@ -2,7 +2,10 @@ import { redirect } from "react-router-dom";
 
 export const filters = (options, data) => {
   const { searchBar, precio, raiting } = options;
-if(precio?.min>=100 || precio?.max<=200&&searchBar?.length>0){
+if((precio?.min>=100 || precio?.max<=200)&&searchBar?.length>0){
+  console.log(searchBar.length)
+  console.log('esty aca 0')
+  console.log(precio?.min>=100 || precio?.max<=200&&searchBar?.length>0)
   const { dataNormalizada, textNormalizado } = normalizeText(searchBar, data);
     return dataNormalizada.filter((item) =>
       item.name.includes(textNormalizado)
@@ -13,6 +16,7 @@ if(precio?.min>=100 || precio?.max<=200&&searchBar?.length>0){
   const dataFilter = data && data.filter(
     (item) => item.price >= precio.min && item.price <= precio.max
   );
+  console.log('-->data2',dataFilter)
   return dataFilter;
  }
   if (searchBar?.length>0) {
