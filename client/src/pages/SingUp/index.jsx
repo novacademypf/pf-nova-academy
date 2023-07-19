@@ -54,7 +54,7 @@ const SignUp = ({
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/user/singup",
+        "/user/singup",
         {
           name,
           email,

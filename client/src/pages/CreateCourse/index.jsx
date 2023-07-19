@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCategories } from "../../redux/actions/allCategoriesActions";
 import FormCourse from "./ModuleCreate";
-import api from "../../services/api.js";
+import axios from "axios";
 import { uploadFile } from "../../firebase/config";
 import Swal from "sweetalert2";
 import { useLocation, useParams } from "react-router-dom";
@@ -199,7 +199,7 @@ export default function CreateCourse({ courseUpdate }) {
       : { ...form };
 
     if (location.pathname.startsWith("/courses-created")) {
-      await api.put(`/courseForSale/updateCourse/${courseUpdate?.id}`, body, {
+      await axios.put(`/courseForSale/updateCourse/${courseUpdate?.id}`, body, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -210,7 +210,7 @@ export default function CreateCourse({ courseUpdate }) {
         title: "Actualizado Correctamente",
       });
     } else {
-      const coursecreate = await api.post("/courseForSale/createCourse", body, {
+      const coursecreate = await axios.post("/courseForSale/createCourse", body, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
