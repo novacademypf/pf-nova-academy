@@ -50,6 +50,7 @@ const App = () => {
       { path: "/about", element: <About /> },
       { path: "/contact", element: <ContactForm /> },
       { path: "/courses-created/:id", element: <CoursesCreated /> },
+      { path: "/courses-purchased/:id", element: <CoursesCreated /> },
       { path: "/*", element: <NotFound /> },
     ]);
 

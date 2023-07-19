@@ -50,3 +50,4 @@ export const LOGOUT= 'LOGOUT';
 
 //ORDERS
 export const GET_ORDERS = "GET_ORDERS";
+export const GET_ORDERS_COURSE = "GET_ORDERS_COURSE";

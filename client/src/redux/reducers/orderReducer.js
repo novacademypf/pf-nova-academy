@@ -1,8 +1,9 @@
-import { GET_ORDERS } from "../action-type/action-types";
+import { GET_ORDERS, GET_ORDERS_COURSE } from "../action-type/action-types";
 
 const orderInitialState = {
   orders: [],
   purchasedCourses: [],
+  ordersCourses:[],
 };
 export default function orderReducer(state = orderInitialState, action) {
   switch (action.type) {
@@ -19,7 +20,12 @@ export default function orderReducer(state = orderInitialState, action) {
         purchasedCourses: [...new Set(courses)],
       };
     }
-
+    case GET_ORDERS_COURSE:{
+      return {
+        ...state,
+        ordersCourses: action.payload,
+      };
+    }
     default:
       return state;
   }

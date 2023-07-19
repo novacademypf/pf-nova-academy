@@ -10,6 +10,7 @@ import sortByNameReducer from "./sortByNameReducer.js";
 import filterByPriceRed from "./filterByPrice.js";
 import { filterReducer } from "./filtersReducer.js";
 import profileReducer from "./profileReducer.js";
+import orderReducer from "./orderReducer.js";
 
 const reducer = combineReducers({
   categoriesReducer: categoriesReducer,
@@ -22,6 +23,7 @@ const reducer = combineReducers({
   sortByNameReducer: sortByNameReducer,
   filterReducer,
   profileReducer,
+  orderReducer,
 });
 
 export default reducer;
