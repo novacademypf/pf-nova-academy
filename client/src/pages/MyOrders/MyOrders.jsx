@@ -15,23 +15,28 @@ const MyOrders = () => {
   return (
     <Layout>
       <h2>Mis Ordenes</h2>
-      {orders.map((el) => (
-        <div key={el.idOrder} className="border w-96  h-auto rounded p-4 m-4">
-          <div>Orden #: {el.idOrder}</div>
-          <div>
-            Status de la compra:{" "}
-            {el.payment_status === "approved" ? "Aprobado" : ""}
+      {orders
+        .map((el) => (
+          <div key={el.idOrder} className="border w-96  h-auto rounded p-4 m-4">
+            <div>Orden #: {el.idOrder}</div>
+            <div>
+              Status de la compra:{" "}
+              {el.payment_status === "approved" ? "Aprobado" : ""}
+            </div>
+            <div className="flex flex-row gap-2">
+              Cursos comprados:
+              {el.items.map((el) => (
+                <Link
+                  key={el.idCourse}
+                  to={`/courses-purchased/${el.idCourse}`}
+                >
+                  {el.idCourse}
+                </Link>
+              ))}
+            </div>
           </div>
-          <div className="flex flex-row gap-2">
-            Cursos comprados:
-            {el.items.map((el) => (
-              <Link key={el.idCourse} to={`/courses-purchased/${el.idCourse}`}>
-                {el.idCourse}
-              </Link>
-            ))}
-          </div>
-        </div>
-      ))}
+        ))
+        .reverse()}
     </Layout>
   );
 };

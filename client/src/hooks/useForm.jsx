@@ -52,7 +52,7 @@ export const useForm = (dataValue) => {
       const user = await loginUser(valueInput);
       localStorage.setItem("token", user.data);
       console.log("token user registrado", user.data);
-       dispatch(getProfile());
+      dispatch(getProfile());
       user.status === 200 && navigate("/");
     } catch (error) {
       error.response.status === 404 && setErrorsDb(error.response.data);

@@ -22,7 +22,7 @@ const PaymentResponse = () => {
     }).then((res) => {
       if (res.isConfirmed && status === "ok") {
         localStorage.removeItem("shoppingCart");
-        navigate("/myorders");
+        navigate("/account");
       } else {
         navigate("/courses");
       }
