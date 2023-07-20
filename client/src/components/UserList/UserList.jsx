@@ -41,6 +41,23 @@ const UserList = ({ users }) => {
     });
   };
 
+  const showToggleStatusAlert = (userId, userName, currentStatus) => {
+    const newStatus = !currentStatus;
+    const action = newStatus ? 'suspender' : 'activar';
+    Swal.fire({
+      title: 'Confirmación',
+      text: `¿Estás seguro que deseas ${action} la cuenta del usuario ${userName}?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        handleToggleStatus(userId, newStatus);
+      }
+    });
+  };
+
   const showAlert = () => {
     Swal.fire({
       title: 'Éxito',
@@ -131,11 +148,11 @@ const UserList = ({ users }) => {
 
                       <td>
                       <button
-                      className="bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-                      onClick={() => handleToggleStatus(user.userId, !user.status)} 
-                      >
-                         {user.status ? 'Suspender cuenta' : 'Activar cuenta'}
-                         </button>
+  className="bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+  onClick={() => showToggleStatusAlert(user.userId, user.name, user.status)}
+>
+  {user.status ? 'Suspender cuenta' : 'Activar cuenta'}
+</button>
                       </td>
 
                       <td>

@@ -59,3 +59,8 @@ export const TOGGLE_USER_STATUS= "TOGGLE_USER_STATUS";
 //ORDERS
 export const GET_ORDERS = "GET_ORDERS";
 export const GET_ORDERS_COURSE = "GET_ORDERS_COURSE";
+
+//login
+export const LOGIN_USER = "LOGIN_USER";
+export const LOGOUT_USER = "LOGOUT_USER";
+export const UPDATE_USER_STATUS = "UPDATE_USER_STATUS";
