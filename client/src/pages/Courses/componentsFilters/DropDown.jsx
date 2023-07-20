@@ -33,6 +33,10 @@ export const DropDown = ({ title, name, data,onChange }) => {
                 </label>
               );
             }
+
+            return <p key={item.id}>{item.name}</p>
+
+
           })}
           
       </div>
