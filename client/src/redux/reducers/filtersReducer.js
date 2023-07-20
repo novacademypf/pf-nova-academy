@@ -6,7 +6,8 @@ import {
 const initialOptions = {
   searchBar: "",
   raiting: [],
-  precio: { min:100 , max: 200 },
+  categories: [],
+  precio: { min: 100, max: 200 },
 };
 const initialDataFilter = {
   dataFilter: [],
@@ -14,7 +15,27 @@ const initialDataFilter = {
 export const setMenuOptionsReducer = (state = initialOptions, action) => {
   switch (action.type) {
     case SET_MENU_OPTIONS:
+      if(action.name == "categories") {
+        console.log(action.value,"AQUI1")
+        const isValueSelected = state.categories.includes(action.value);
+        if (isValueSelected) {
+          return {
+            ...state,
+            [action.name]: state.categories.filter(
+              (value) => value !== action.value
+            ),
+          };
+        } else {
+          return {
+            ...state,
+            [action.name]: [...state.categories, action.value],
+          };
+        }
+      }
+
+      
       if (action.name === "raiting") {
+        console.log(action.value,"AQUI2")
         const isValueSelected = state.raiting.includes(action.value);
         if (isValueSelected) {
           return {
@@ -31,19 +52,24 @@ export const setMenuOptionsReducer = (state = initialOptions, action) => {
         }
       }
       if (action.name === "precio") {
-        
+        console.log(action.value,"precio")
         return {
           ...state,
-          [action.name]: { ...state.precio,...action.value},
+          [action.name]: { ...state.precio, ...action.value },
         };
       }
       if (action.name === "default") {
-        console.log(action.value)
+        console.log(action.value,"default")
+        
         return {
-          state,
-            
+          ...state,
+          searchBar: "",
+          raiting: [],
+          precio: { min: 100, max: 200 },
         };
       }
+      console.log(action.name, "ACTION.NOMBRE")
+      console.log(action.value,"AQUI4")
       return {
         ...state,
         [action.name]: action.value,
