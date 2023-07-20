@@ -7,7 +7,7 @@ import store from "./redux/store/store";
 import "./index.css";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import axios from "axios";
-axios.defaults.baseURL = 'http://localhost:3001/'   //Definimos url por defecto para modificar en deploy donde se colocara la ruta de front donde realicemos deploy 
+axios.defaults.baseURL = 'https://pf-nova-academy-production.up.railway.app'   //Definimos url por defecto para modificar en deploy donde se colocara la ruta de front donde realicemos deploy 
 
 
 
