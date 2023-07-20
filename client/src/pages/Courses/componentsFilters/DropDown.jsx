@@ -42,11 +42,11 @@ export const DropDown = ({ title, name, data, onChange }) => {
                 /* checked={options.categories?.includes(item.name)} */
                 type="checkbox" 
                 name={name} 
-                id={item.value} 
+                id={item.name} 
                 onChange={onChange}/>
 
                 
-              <label  htmlFor={item.value}  className="flex items-center gap-[2px]">
+              <label  htmlFor={item.name}  className="flex items-center gap-[2px]">
                 {/* <input type="checkbox" value={item.id} checked={options.categories.includes(item.id)} name={name} id={item.id} onChange={onChange} /> */}
                 {item.name}
               </label></div>

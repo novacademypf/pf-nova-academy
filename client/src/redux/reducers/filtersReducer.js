@@ -7,7 +7,7 @@ const initialOptions = {
   searchBar: "",
   raiting: [],
   categories: [],
-  precio: { min: 100, max: 200 },
+  precio: { },
 };
 const initialDataFilter = {
   dataFilter: [],
@@ -65,7 +65,7 @@ export const setMenuOptionsReducer = (state = initialOptions, action) => {
           ...state,
           searchBar: "",
           raiting: [],
-          precio: { min: 100, max: 200 },
+          precio: { min: action.value.minPrice, max:action.value.maxPrice },
         };
       }
       console.log(action.name, "ACTION.NOMBRE")

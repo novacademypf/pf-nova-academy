@@ -1,8 +1,145 @@
 import { redirect } from "react-router-dom";
 
-export const filters = (options, data) => {
+export const filters = (options, data, payload) => {
   const { searchBar, precio, raiting, categories } = options;
-  if (categories?.length !== 0) {
+
+  const { dataNormalizada, textNormalizado } = normalizeText(searchBar, data);
+  console.log(payload);
+  const dataFilter = dataNormalizada || data;
+  if (
+    searchBar?.length > 0 &&
+    categories?.length > 0 &&
+    (precio.min > payload?.minPrice || precio.max < payload?.maxPrice) &&
+    raiting?.length > 0
+  ) {
+    const newData = dataFilter
+      .filter((item) => item.name.includes(textNormalizado))
+      .filter((item) => {
+        return item.category.some((item) => categories.includes(item));
+      })
+      .filter((item) => item.price >= precio.min && item.price <= precio.max)
+      .filter((item) => {
+        return raiting?.includes(Math.round(item.ratingAverage));
+      });
+    console.log("aca seracbar y categories y precio rating acaaaa-->", newData);
+    return newData;
+  }
+
+  if (
+    searchBar?.length > 0 &&
+    categories?.length > 0 &&
+    (precio.min > payload?.minPrice || precio.max < payload?.maxPrice)
+  ) {
+    console.log(
+      "searcbar categories precio---->aca",
+      (searchBar?.length > 0 &&
+        categories?.length > 0 &&
+        precio.min > payload?.minPrice) ||
+        precio.max < payload?.maxPrice
+    );
+    console.log({ searchBar, categories, precio, raiting });
+    const newData = dataFilter
+      .filter((item) => item.name.includes(textNormalizado))
+      .filter((item) => {
+        return item.category.some((item) => categories.includes(item));
+      })
+      .filter((item) => item.price >= precio.min && item.price <= precio.max);
+    console.log("aca seracbar y categories y precio-->", newData);
+    return newData;
+  }
+
+  if (searchBar?.length > 0 && categories?.length > 0) {
+    const newData = dataFilter
+      .filter((item) => item.name.includes(textNormalizado))
+      .filter((item) => {
+        return item.category.some((item) => categories.includes(item));
+      });
+    console.log("aca seracbar y categories-->", newData);
+    return newData;
+  }
+
+  if (searchBar?.length > 0) {
+    console.log("serachbar!==0");
+    const newData = dataFilter.filter((item) =>
+      item.name.includes(textNormalizado)
+    );
+    console.log(newData);
+    return newData;
+  }
+
+  // filtro catgories
+  if (categories?.length > 0 && raiting?.length > 0 && (precio.min > payload?.minPrice || precio.max < payload?.maxPrice)) {
+    const newData = dataFilter.filter((item) =>
+      item.category.some((cat) => categories.includes(cat))
+    ).filter((item) => {
+      return raiting?.includes(Math.round(item.ratingAverage));
+    }).filter(
+      (item) => item.price >= precio.min && item.price <= precio.max
+    );
+    console.log(" actegories 0", newData);
+    return newData;
+  }
+
+  if (categories?.length > 0 && raiting?.length > 0) {
+    const newData = dataFilter.filter((item) =>
+      item.category.some((cat) => categories.includes(cat))
+    ).filter((item) => {
+      return raiting?.includes(Math.round(item.ratingAverage));
+    });
+    console.log(" actegories 1", newData);
+    return newData;
+  }
+
+  if (categories?.length > 0) {
+    const newData = dataFilter.filter((item) =>
+      item.category.some((cat) => categories.includes(cat))
+    );
+    console.log("2", newData);
+    return newData;
+  }
+  //filtro raiting
+  if( raiting?.length!==0 && (precio.min > payload?.minPrice || precio.max < payload?.maxPrice)){
+    const newData = dataFilter.filter((item) => {
+      return raiting?.includes(Math.round(item.ratingAverage));
+    }).filter(
+      (item) => item.price >= precio.min && item.price <= precio.max
+    );
+    console.log(newData);
+    return newData;
+  }
+  if (raiting?.length !== 0) {
+    const newData = dataFilter.filter((item) => {
+      return raiting?.includes(Math.round(item.ratingAverage));
+    });
+    console.log(newData);
+    return newData;
+  }
+  //filtro precio
+  if (precio.min > payload?.minPrice || precio.max < payload?.maxPrice) {
+    console.log("aca precio filtro");
+    const newData = dataFilter.filter(
+      (item) => item.price >= precio.min && item.price <= precio.max
+    );
+    return newData;
+  }
+  /* // filtro x searhbar
+  if(searchBar?.length>0 && categories?.length>0){
+    const { dataNormalizada, textNormalizado } = normalizeText(searchBar, data);
+    const dataFilter= dataNormalizada.filter((item) =>
+      item.name.includes(textNormalizado)
+    ).filter((item)=>{return item.category.some((item)=>categories.includes(item))})
+    console.log('aca seracbar y categories-->',dataFilter)
+    return dataFilter
+  }
+  if (searchBar?.length > 0) {
+    const { dataNormalizada, textNormalizado } = normalizeText(searchBar, data);
+    console.log('serachbar!==0')
+    return dataNormalizada.filter((item) =>
+      item.name.includes(textNormalizado)
+    );
+  } */
+
+  /*  if (categories?.length !== 0) {
     const dataFilter =
       data &&
       data.filter((item) => {
@@ -46,7 +183,7 @@ export const filters = (options, data) => {
     return dataNormalizada.filter((item) =>
       item.name.includes(textNormalizado)
     );
-  }
+  } */
   return data;
 };
 

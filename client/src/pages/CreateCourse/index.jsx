@@ -6,7 +6,7 @@ import axios from "axios";
 import { uploadFile } from "../../firebase/config";
 import Swal from "sweetalert2";
 import { useLocation, useParams } from "react-router-dom";
-import { getCourseForSaleById } from "../../redux/actions/coursesActions";
+import { getAllCourses, getCourseForSaleById } from "../../redux/actions/coursesActions";
 export default function CreateCourse({ courseUpdate }) {
   const {id} = useParams()
   const dispatch = useDispatch()
@@ -232,7 +232,11 @@ export default function CreateCourse({ courseUpdate }) {
       price: "",
     });
   };
-
+useEffect(()=>{
+  if(flagBotton===true){
+    dispatch(getAllCourses())
+  }
+},[flagBotton])
   const clearPage = () => {
     setFlagBotton(false);
     setModules(0);

@@ -13,7 +13,7 @@ import { filters } from "../../helpers/filters";
 
 const SectionFilter = () => {
   const {categories}=useSelector((state)=>state.getAllCategories)
-  const { courseAll } = useSelector((state) => state.coursesReducer.courses);
+  const { courseAll,maxPrice,minPrice } = useSelector((state) => state.coursesReducer.courses);
   const options = useSelector((state) => state.setMenuOptionsReducer);
   
   const dispatch = useDispatch();
@@ -38,9 +38,9 @@ const SectionFilter = () => {
     dispatch(setMenuOptions(name, +value));
   };
   const handleDeleteFiltros = () => {
-    dispatch(setMenuOptions("default"));
+    dispatch(setMenuOptions("default",{maxPrice,minPrice}));
   };
-     
+  
   return (
     <section className=" bg-purple-300 w-[15em] min-w-[15em] py-[2em] px-[1em]  fixed  z-50 left-[0] h-[calc(100vh-5.5em)] right-0 flex-col  overflow-auto justify-center">
       <Searchbar />
