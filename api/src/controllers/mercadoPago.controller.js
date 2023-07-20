@@ -36,9 +36,9 @@ const createPayment = async (req, res) => {
       external_reference: `${externalRef}`,
       items: coursesList,
       back_urls: {
-        success: "https://pf-nova-academy.vercel.app/mercadopago/paymentresponse",
-        failure: "https://pf-nova-academy.vercel.app/",
-        pending: "https://pf-nova-academy.vercel.app/",
+        success: "https://pf-nova-academy-production.up.railway.app/mercadopago/paymentresponse",
+        failure: "https://pf-nova-academy-production.up.railway.app/",
+        pending: "https://pf-nova-academy-production.up.railway.app/",
       },
       auto_return: "approved",
       binary_mode: true,
