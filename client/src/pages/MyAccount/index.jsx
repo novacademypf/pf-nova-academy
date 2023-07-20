@@ -1,9 +1,6 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getProfile,
-  getCoursesByProfileId,
-} from "../../redux/actions/profileActions";
+import { getCoursesByProfileId } from "../../redux/actions/profileActions";
 import { getOrdersCourse } from "../../redux/actions/ordersActions";
 import { Link } from "react-router-dom";
 import { Card } from "flowbite-react";
@@ -11,21 +8,20 @@ import { Card } from "flowbite-react";
 const MyAccount = () => {
   const dispatch = useDispatch();
   const userProfile = useSelector((state) => state.profileReducer.userProfile);
-  const ordersCourses = useSelector((state) => state.orderReducer.ordersCourses);
+  const ordersCourses = useSelector(
+    (state) => state.orderReducer.ordersCourses
+  );
   const courseByProfile = useSelector(
     (state) => state.profileReducer.courseByProfile
   );
   console.log("userProfile ordersCourses", ordersCourses);
   console.log("userProfile courseByProfile", courseByProfile);
   console.log("userProfile userProfile", userProfile);
-  
 
-
-  const id= localStorage.getItem("profileId");
+  const id = localStorage.getItem("profileId");
 
   useEffect(() => {
-    // dispatch(getProfile());
-    dispatch(getOrdersCourse(id))
+    dispatch(getOrdersCourse(id));
     dispatch(getCoursesByProfileId());
   }, [dispatch]);
 
@@ -90,7 +86,7 @@ const MyAccount = () => {
           </div>
         </Card>
         <Card className="w-[30rem] my-10">
-        <div className="flow-root">
+          <div className="flow-root">
             <div className="mb-4 flex items-center justify-between">
               <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
                 Cursos Comprados

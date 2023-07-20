@@ -10,6 +10,9 @@ import {
   DELETE_USER_GOOGLE,
   DELETE_USER,
   TOGGLE_USER_STATUS,
+  LOGIN_USER,
+  LOGOUT_USER,
+  UPDATE_USER_STATUS
 } from "../action-type/action-types";
 
 export const signUpSuccess = (user) => {
@@ -114,7 +117,7 @@ export const deleteUserGoogle = (id) => {
 
 export const toggleUserStatus = (userId, status) => async (dispatch) => {
   try {
-    await axios.put(`/updateUser/${userId}`, { status });
+    await axios.put(`user/updateUser/${userId}`, { status });
 
     dispatch({
       type: TOGGLE_USER_STATUS,
@@ -123,4 +126,35 @@ export const toggleUserStatus = (userId, status) => async (dispatch) => {
   } catch (error) {
     console.error('Error al cambiar el estado del usuario:', error);
   }
+};
+
+////////////////Login
+
+export const loginUser = (userData) => {
+  // Aquí puedes realizar la lógica para autenticar al usuario en el servidor
+  // y obtener la información del usuario, luego actualizas el estado en el store
+  const user = {
+    // Datos del usuario obtenidos del servidor
+    id: 1,
+    email: userData.email,
+    status: true, // Aquí puedes establecer el estado del usuario según la lógica de tu aplicación
+  };
+
+  return {
+    type: LOGIN_USER,
+    payload: user,
+  };
+};
+
+export const logoutUser = () => {
+  return {
+    type: LOGOUT_USER,
+  };
+};
+
+export const updateUserStatus = (status) => {
+  return {
+    type: UPDATE_USER_STATUS,
+    payload: status,
+  };
 };

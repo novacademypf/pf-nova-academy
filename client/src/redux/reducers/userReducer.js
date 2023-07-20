@@ -8,6 +8,9 @@ import { SIGN_UP_SUCCESS,
   DELETE_USER_GOOGLE,
   GET_USERS,
   TOGGLE_USER_STATUS,
+  LOGIN_USER,
+  LOGOUT_USER,
+  UPDATE_USER_STATUS
  } from "../action-type/action-types";
 
 const initialState = {
@@ -84,6 +87,30 @@ const userReducer = (state = initialState, action) => {
           ...state,
           users: updatedUsers,
         };
+
+
+        case LOGIN_USER:
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case LOGOUT_USER:
+      return {
+        ...state,
+        user: null,
+      };
+    case UPDATE_USER_STATUS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          status: action.payload,
+        },
+      };
+
+
+
+      
 
     default:
       return state;

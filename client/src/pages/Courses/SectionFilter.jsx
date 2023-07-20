@@ -6,9 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import estrella from "../../assets/icons/estrella.svg";
 import { setMenuOptions } from "../../redux/actions/filterActions";
 import { InputRange } from "./componentsFilters/InputRange";
+import { getAllCategories } from "../../redux/actions/allCategoriesActions";
+
+
 
 const SectionFilter = () => {
-  /* const {categories}=useSelector((state)=>state.getAllCategories)*/
+  const {categories}=useSelector((state)=>state.getAllCategories)
   const dispatch = useDispatch();
   const estrellas = [
     { id: 1, img: [estrella] },
@@ -17,6 +20,13 @@ const SectionFilter = () => {
     { id: 4, img: [estrella, estrella, estrella, estrella] },
     { id: 5, img: [estrella, estrella, estrella, estrella, estrella] },
   ];
+
+  const handleCategory = (e) => {
+    const { value } = e.target;
+    dispatch(setMenuOptions("categoria", value));
+  };
+
+ 
 
   const handleRaiting = (e) => {
     const { name, value, checked } = e.target;
@@ -29,6 +39,15 @@ const SectionFilter = () => {
     <section className=" bg-purple-300 w-[15em] min-w-[15em] py-[2em] px-[1em]  fixed  z-50 left-[0] h-[calc(100vh-5.5em)] right-0 flex-col  overflow-auto justify-center">
       <Searchbar />
       <p className="border-[#7D5FFF] border-b">Filtros:</p>
+      <DropDown
+        title={"Categoria"}
+        name={"categoria"}
+        data={categories}
+        onChange={handleCategory}
+      />
+
+
+
       <DropDown
         title={"Raiting"}
         name={"raiting"}
