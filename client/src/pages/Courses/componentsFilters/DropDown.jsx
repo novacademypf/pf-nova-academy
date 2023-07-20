@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import chevron from "../../../assets/icons/chevron.svg";
 import { useDropDown } from "../../../hooks/useDropdown";
 
-export const DropDown = ({ title, name, data,onChange }) => {
+export const DropDown = ({ title, name, data, onChange }) => {
   const options = useSelector((state) => state.setMenuOptionsReducer)
   const { isOpen, toggleDropdown } = useDropDown();
  
@@ -24,21 +24,37 @@ export const DropDown = ({ title, name, data,onChange }) => {
         {true &&
           data &&
           data.map((item,i) => {
-            console.log('-->',item.id)
+           
             if (name === "raiting") {
               return (
-                <label key={item.id} htmlFor={item.id} className="flex items-center gap-[2px]">
+                <label key={item.id} htmlFor={item.id} className="flex items-center gap-[2px] bg-violet-200">
                   <input type="checkbox" value={item.id} checked={options.raiting.includes(item.id)} name={name} id={item.id} onChange={onChange} />
                   {item.img.map((start,index)=><img key={index} src={start} className="w-4 inline-block align-middle"/> )}
                 </label>
               );
             }
+            if (name === "categories") { 
+              console.log(name,"aquiESTAMOS")
+            return (
+              <div key={item.id} className="flex items-center gap-[2px] bg-violet-200">
+                <input 
+                value={item.name}
+                /* checked={options.categories?.includes(item.name)} */
+                type="checkbox" 
+                name={name} 
+                id={item.value} 
+                onChange={onChange}/>
 
-            return <p key={item.id}>{item.name}</p>
+                
+              <label  htmlFor={item.value}  className="flex items-center gap-[2px]">
+                {/* <input type="checkbox" value={item.id} checked={options.categories.includes(item.id)} name={name} id={item.id} onChange={onChange} /> */}
+                {item.name}
+              </label></div>
+              
+            );
 
-
-          })}
-          
+          }})}
+        
       </div>
     </>
   );

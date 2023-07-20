@@ -21,10 +21,10 @@ const Courses = () => {
     console.log('acaindex')
   }, [courseAll]);
 
-  /* useEffect(()=>{
+  useEffect(()=>{
     console.log("useEffect")
     dispatch(getAllCategories())
-  },[]) */
+  },[])
 
   return (
     <main className="relative top-[0 rem] flex ">
