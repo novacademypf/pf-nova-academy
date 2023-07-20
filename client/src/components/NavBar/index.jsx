@@ -52,7 +52,6 @@ const NavBar = () => {
 
   const handleLogout = () => {
     dispatch(logout());
-    setLoggedIn(false);
     /* window.location.href = "/login"; */
     navigate('/login')
   };
