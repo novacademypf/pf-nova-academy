@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/icons/logo.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { ShoppingCartAside } from "../ShoppingCartAside/ShoppingCartAside";
@@ -8,6 +8,7 @@ import { logout } from "../../redux/actions/profileActions";
 import UserProfile from "../UserProfile/UserProfile";
 import NavCart from "../NavCart/NavCart";
 import LandingButtons from "../LandingButtons/LandingButtons";
+import { getAllCourses } from "../../redux/actions/coursesActions";
 /*eslint-disable*/
 const NavBar = () => {
   const userProfile = useSelector((state) => state.profileReducer.userProfile);
@@ -18,6 +19,7 @@ const NavBar = () => {
   const dispatch = useDispatch();
   const location = useLocation().pathname;
   let checkRoute = location === "/checkout" ? false : true;
+const navigate = useNavigate()
   const isLog = localStorage.getItem("profileId");
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -51,7 +53,9 @@ const NavBar = () => {
 
   const handleLogout = () => {
     dispatch(logout());
-    window.location.href = "/login";
+    setLoggedIn(false);
+    /* window.location.href = "/login"; */
+    navigate('/login')
   };
   console.log("-> ", userProfile);
   return (
@@ -109,7 +113,7 @@ const NavBar = () => {
                   className={({ isActive }) =>
                     isActive ? activeStyle : "mx-2"
                   }
-                  onClick={toggleMenu}
+                  onClick={()=>{toggleMenu(),dispatch(getAllCourses())} }
                 >
                   {el.name}
                 </NavLink>

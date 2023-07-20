@@ -7,11 +7,37 @@ import { Link } from "react-router-dom";
 const CourseCard = ({ dataCard }) => {
   const { id, name, price, description, images, category, ratingAverage } = dataCard;
   const dispatch = useDispatch();
-
+  const renderStars = (ratingAverage) => {
+    const totalStars = 5;
+    const fullStar = '⭐';
+    const emptyStar = '☆';
+    const roundedRating = Math.round(ratingAverage * 2) / 2; // Redondear a 0.5 para obtener el número de estrellas completas
+  
+    const fullStarsCount = Math.floor(roundedRating);
+    const hasHalfStar = roundedRating % 1 !== 0;
+  
+    let stars = '';
+  
+    for (let i = 0; i < fullStarsCount; i++) {
+      stars += fullStar;
+    }
+  
+    if (hasHalfStar) {
+      stars += emptyStar;
+    }
+  
+    // Rellenar con estrellas vacías hasta alcanzar 5 estrellas
+    const remainingStars = totalStars - fullStarsCount - (hasHalfStar ? 1 : 0);
+    for (let i = 0; i < remainingStars; i++) {
+      stars += emptyStar;
+    }
+  
+    return stars;
+  };
   const handleCart = (data) => {
     dispatch(addToCart(data));
   };
-
+  const stars = renderStars(ratingAverage);
   return (
     <div className="relative w-full max-w-sm shadow bg-gray-400 rounded-md p-3">
       <figure className=" relative  h-auto w-full">
@@ -32,7 +58,7 @@ const CourseCard = ({ dataCard }) => {
       <div className="flex flex-col justify-between mb-2">
         <span className="text-md font-bold">{name}</span>
         <span className="text-sm font-light">{description}</span>
-        <span className="text-sm font-bold"> Calificación: {ratingAverage.toFixed(2)}</span>
+        <span className="text-sm font-bold"> Calificación: {/* ratingAverage.toFixed(2) */ stars}</span>
         {/*<span>⭐⭐⭐⭐⭐</span>*/}
       </div>
       <div>
