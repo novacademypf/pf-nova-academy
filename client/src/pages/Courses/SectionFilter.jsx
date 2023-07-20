@@ -38,6 +38,7 @@ const SectionFilter = () => {
     dispatch(setMenuOptions(name, +value));
   };
   const handleDeleteFiltros = () => {
+    console.log('esty aqui')
     dispatch(setMenuOptions("default",{maxPrice,minPrice}));
   };
   

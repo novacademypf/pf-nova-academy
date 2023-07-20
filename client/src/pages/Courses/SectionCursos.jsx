@@ -29,8 +29,11 @@ const SectionCursos = () => {
   const handlePageChange = ({ selected }) => {
     setCurrentPage(selected);
   };
-
-  const pageCount = Math.ceil((dataFilter.length) / itemsPerPage); // Número total de páginas
+  useEffect(() => {
+    // Actualizar la página actual cuando cambie el filtro
+    setCurrentPage(0);
+  }, [dataFilter]);
+  const pageCount = Math.ceil((dataFilter?.length || courseCount) / itemsPerPage); // Número total de páginas
   return (
     <section className="min-w-[calc(100%-15em)] left-[15em] absolute">
       {/* Aca va la paginación */}
