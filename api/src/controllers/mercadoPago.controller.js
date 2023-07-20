@@ -37,8 +37,8 @@ const createPayment = async (req, res) => {
       items: coursesList,
       back_urls: {
         success: "https://pf-nova-academy-production.up.railway.app/mercadopago/paymentresponse",
-        failure: "https://pf-nova-academy-production.up.railway.app/",
-        pending: "https://pf-nova-academy-production.up.railway.app/",
+        failure: "https://pf-nova-academy.vercel.app",
+        pending: "https://pf-nova-academy.vercel.app",
       },
       auto_return: "approved",
       binary_mode: true,
