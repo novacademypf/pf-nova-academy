@@ -1,19 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import CreateLesson from "../LessonCreate";
 import api from "../../../services/api";
 import Swal from "sweetalert2";
-
+import { useLocation } from "react-router-dom";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { getCourseForSaleById } from "../../../redux/actions/coursesActions";
 export default function FormCourse({
   courseId,
   setModules,
   modules,
   setFlagFinally,
+  module,
+  setOpenModalModule,
 }) {
   const dispatch = useDispatch();
   const [lesson, setLesson] = useState(0);
   const [moduleId, setModuleId] = useState(0);
   const [flagBotton, setFlagBotton] = useState(false);
+  const location = useLocation()
+  const { id } = useParams()
   const [errors, setErrors] = useState({
     name: "",
     description: "",
@@ -23,6 +30,23 @@ export default function FormCourse({
     description: "",
     courseId: courseId,
   });
+
+  useEffect(() => {
+    if (module !== undefined) {
+      const {
+        name,
+        description,
+      } = module;
+
+      if (name && description) {
+        setForm({
+          name: name,
+          description: description,
+        });
+      }
+    }
+  }, [module]);
+
   const renderLesson = () => {
     return Array.from({ length: lesson }, (_, index) => (
       <CreateLesson
@@ -40,10 +64,16 @@ export default function FormCourse({
     setLesson(lesson + 1);
   };
 
-  const deleteModule = () => {
-    api.delete(`/module/deleteModule/${moduleId}`);
-    if (modules === 0) return;
-    setModules(modules - 1);
+  const deleteModule = async () => {
+    await api.delete(`/module/deleteModule/${module?.id}`);
+    await dispatch(getCourseForSaleById(id));
+    // if (modules === 0) return;
+    // setModules(modules - 1);
+    setOpenModalModule(false);
+    Swal.fire({
+      icon: "success",
+      title: "Modulo Eliminado Correctamente",
+    })
   };
   const changeHandler = (event) => {
     const property = event.target.name;
@@ -86,20 +116,32 @@ export default function FormCourse({
     const body = {
       ...form,
     };
-    const moduleCreate = await api.post("/module/createModule", {
-      headers: {
-        Authorization: localStorage.getItem("token"),
-        body,
-      },
-    });
 
-    setFlagBotton(true);
-    setModuleId(moduleCreate.data.id);
-    // alert("Modulo creado, Agrega leccion")
-    Swal.fire({
-      icon: "success",
-      title: "Modulo creado, Agrega leccion",
-    });
+    if (location.pathname.startsWith("/courses-created")) {
+      console.log(body)
+      const response = await api.put(`/module/updateModule/${module?.id}`, body, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+      dispatch(getCourseForSaleById(id))
+      Swal.fire({
+        icon: "success",
+        title: "Actualizado Correctamente",
+      });
+    } else {
+      const moduleCreate = await api.post("/module/createModule", body, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+      setFlagBotton(true);
+      setModuleId(moduleCreate.data.id);
+      Swal.fire({
+        icon: "success",
+        title: "Modulo creado, Agrega leccion",
+      });
+    }
   };
   return (
     <div className="my-4 px-10 bg-slate-100 shadow-md rounded-lg container">
@@ -137,12 +179,29 @@ export default function FormCourse({
       </div>
       <div className="flex justify-center">
         {!flagBotton ? (
-          <button
-            className="px-4 m-4 py-2 bg-cyan-300 rounded hover:bg-cyan-100"
-            onClick={submitHandler}
-          >
-            Crear Modulo
-          </button>
+          location.pathname.startsWith("/courses-created") ? (
+            <div>
+              <button
+                className="px-4 m-4 py-2 text-white bg-amber-300 rounded hover:bg-amber-100"
+                onClick={submitHandler}
+              >
+                Actualizar Modulo
+              </button>
+              <button
+                className="px-4 m-4 py-2 text-white bg-red-700 rounded hover:bg-red-400"
+                onClick={deleteModule}
+              >
+                Eliminar Modulo
+              </button>
+            </div>
+          ) : (
+            <button
+              className="px-4 m-4 py-2 bg-cyan-300 rounded hover:bg-cyan-100"
+              onClick={submitHandler}
+            >
+              Crear Modulo
+            </button>
+          )
         ) : null}
         {flagBotton ? (
           <button
@@ -152,12 +211,7 @@ export default function FormCourse({
             Agregar Leccion
           </button>
         ) : null}
-        <button
-          className="px-4 m-4 py-2 text-white bg-red-700 rounded hover:bg-red-400"
-          onClick={deleteModule}
-        >
-          Eliminar Modulo
-        </button>
+
       </div>
       <div className="flex flex-wrap justify-evenly">{renderLesson()}</div>
     </div>

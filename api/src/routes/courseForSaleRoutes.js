@@ -6,7 +6,8 @@ const {
   getCourseForSaleById,
   getFilterCourseForSale,
   getCourseForSale,
-  searchCoursesByName
+  searchCoursesByName,
+  postRaitingCourse
 } = require("../controllers/courseForSale.controller");
 const VerifyAuthorization = require("../middleware/auth");
 const { verificarRole } = require("../middleware/authRole");
@@ -16,6 +17,7 @@ courseForsaleRouter.get("/",getCourseForSale);
 courseForsaleRouter.get("/filter",getFilterCourseForSale);
 courseForsaleRouter.get("/search", searchCoursesByName);
 courseForsaleRouter.get("/:courseId", getCourseForSaleById );
+
 
 courseForsaleRouter.post(       
   "/createCourse",
@@ -30,7 +32,6 @@ courseForsaleRouter.put(
   verificarRole("user"),
   updateCourseForSale
 );
-
 courseForsaleRouter.delete(
   "/deleteCourse/:courseId",
   deleteCourseForSale

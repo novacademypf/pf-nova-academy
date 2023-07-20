@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { validate } from "../helpers/validateSingIn";
 import { loginUser } from "../services/loginUserRequest";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getProfile } from "../redux/actions/profileActions";
 
 export const useForm = (dataValue) => {
   const [showModal, setShowModal] = useState(false);
@@ -9,6 +11,7 @@ export const useForm = (dataValue) => {
   const [errors, setErrors] = useState({});
   const [errorsDb, setErrorsDb] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   useEffect(() => {
     if (valueInput.isCheked) {
       window.localStorage.setItem("username", valueInput.email);
@@ -48,7 +51,8 @@ export const useForm = (dataValue) => {
       e.preventDefault();
       const user = await loginUser(valueInput);
       localStorage.setItem("token", user.data);
-      console.log("token user registrado",user.data)
+      console.log("token user registrado", user.data);
+       dispatch(getProfile());
       user.status === 200 && navigate("/");
     } catch (error) {
       error.response.status === 404 && setErrorsDb(error.response.data);

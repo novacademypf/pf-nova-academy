@@ -4,11 +4,12 @@ import { getAllCategories } from "../../redux/actions/allCategoriesActions";
 import FormCourse from "./ModuleCreate";
 import api from "../../services/api.js";
 import { uploadFile } from "../../firebase/config";
-import { useGoogleAuth } from "../../hooks/useGoogleAuth.jsx";
 import Swal from "sweetalert2";
-
-export default function CreateCourse() {
-  const dispatch = useDispatch();
+import { useLocation, useParams } from "react-router-dom";
+import { getCourseForSaleById } from "../../redux/actions/coursesActions";
+export default function CreateCourse({ courseUpdate }) {
+  const {id} = useParams()
+  const dispatch = useDispatch()
   const categoryList = useSelector(
     (state) => state.getAllCategories.categories
   );
@@ -18,6 +19,7 @@ export default function CreateCourse() {
   const [courseId, setCourseId] = useState(0);
   const [flagBotton, setFlagBotton] = useState(false);
   const [flagFinally, setFlagFinally] = useState(false);
+  const location = useLocation();
   const [errors, setErrors] = useState({
     name: "",
     category: [],
@@ -37,7 +39,29 @@ export default function CreateCourse() {
 
   useEffect(() => {
     dispatch(getAllCategories());
-  }, [dispatch]);
+
+    if (courseUpdate !== undefined) {
+      const {
+        name,
+        category,
+        duration,
+        description,
+        images,
+        price,
+      } = courseUpdate;
+
+      if (name && category && duration && description && images && price) {
+        setForm({
+          name: name,
+          category: category,
+          duration: duration,
+          description: description,
+          images: images,
+          price: price,
+        });
+      }
+    }
+  }, [dispatch, courseUpdate]);
 
   const renderModules = () => {
     return Array.from({ length: modules }, (_, index) => (
@@ -82,7 +106,7 @@ export default function CreateCourse() {
     }
     if (!form.price) {
       errores.price = "Ingrese un Precio";
-    } else if (!form.price.match(/^[0-9]+$/)) {
+    } else if (!form.price.toString().match(/^[0-9]+$/)) {
       errores.price = "Solo permite numeros";
     } else {
       errores.price = "";
@@ -91,6 +115,11 @@ export default function CreateCourse() {
       errores.images = "";
     } else {
       errores.images = "Debes cargar una imagen";
+    }
+    if(file && file.type && !file.type.startsWith("image")){
+      errores.images="Solo permite imagenes"
+    } else{
+      errores.images = "";
     }
     if (form.category.length > 0) {
       errores.category = "";
@@ -107,9 +136,16 @@ export default function CreateCourse() {
     setForm({ ...form, category: selectedCategoryIds });
     setErrors(validate({ ...form, category: selectedCategoryIds }));
   };
+
   const submitHandler = async (event) => {
     event.preventDefault();
-    if (!form.name) {
+    if(file && file.type && !file.type.startsWith("image")){
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Debe ser una Imagen",
+      });
+    } else if (!form.name) {
       return Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -139,35 +175,54 @@ export default function CreateCourse() {
         title: "Oops...",
         text: "Selecione Categoria",
       });
-    } else if (!form.price.match(/^[0-9]+$/)) {
+    } else if (!form.price.toString().match(/^[0-9]+$/)) {
       return Swal.fire({
         icon: "error",
         title: "Oops...",
         text: "Precio solo permite numeros",
       });
-    } else if (file === null) {
-      return Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Ingrese una Imagen",
+    } else if (courseUpdate === undefined) {
+      if (file === null) {
+        return Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Ingrese una Imagen",
+        });
+      }
+    }
+    console.log("file createCourse: ", file)
+    const body = file
+      ? {
+          ...form,
+          images: await uploadFile(file),
+        }
+      : { ...form };
+
+    if (location.pathname.startsWith("/courses-created")) {
+      await api.put(`/courseForSale/updateCourse/${courseUpdate?.id}`, body, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+      dispatch(getCourseForSaleById(id))
+      Swal.fire({
+        icon: "success",
+        title: "Actualizado Correctamente",
+      });
+    } else {
+      const coursecreate = await api.post("/courseForSale/createCourse", body, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+      setCourseId(coursecreate.data.id);
+      setFlagBotton(true);
+      Swal.fire({
+        icon: "success",
+        title: "Creado Correctamente",
       });
     }
-    const body = {
-      ...form,
-      images: await uploadFile(file),
-    };
-    const coursecreate = await api.post("/courseForSale/createCourse", {
-      headers: {
-        Authorization: localStorage.getItem("token"),
-        body,
-      },
-    });
-    setCourseId(coursecreate.data.id);
-    setFlagBotton(true);
-    Swal.fire({
-      icon: "success",
-      title: "Creado Correctamente",
-    });
+
     setErrors({
       name: "",
       category: [],
@@ -177,6 +232,7 @@ export default function CreateCourse() {
       price: "",
     });
   };
+
   const clearPage = () => {
     setFlagBotton(false);
     setModules(0);
@@ -201,9 +257,9 @@ export default function CreateCourse() {
   };
   return (
     <div className="container mx-auto px-20 bg-slate-300 rounded-lg">
-      <h1 className="text-4xl text-center my-5 p-5">DATOS DEL CURSO</h1>
-      <form className="flex flex-row justify-center bg-white rounded-lg p-8 shadow-md">
-        <div className="flex flex-col">
+      <h1 className="text-4xl text-center my-5 p-5">INFORMACION DEL CURSO</h1>
+      <form className="flex flex-row flex-wrap justify-center bg-white rounded-lg p-8 shadow-md">
+        <div className="flex flex-col mx-2">
           <label className="block mb-2 font-bold ">Nombre:</label>
           <input
             type="text"
@@ -225,6 +281,7 @@ export default function CreateCourse() {
             onChange={categorySelectionHandler}
             multiple
             className="w-96 p-2 mb-4 border border-gray-300 rounded"
+            value={courseUpdate?.category}
           >
             {categoryList.map((op) => (
               <option key={op.id} value={op.name}>
@@ -232,6 +289,7 @@ export default function CreateCourse() {
               </option>
             ))}
           </select>
+
           <div>
             {errors.category && (
               <span className="text-red-500 text-xs mt-1">
@@ -256,7 +314,7 @@ export default function CreateCourse() {
             )}
           </div>
         </div>
-        <div className="flex flex-col ml-8">
+        <div className="flex flex-col mx-2">
           <label className="block mb-2 font-bold ">Descripción:</label>
           <input
             type="text"
@@ -306,12 +364,21 @@ export default function CreateCourse() {
       </form>
       <div className="flex justify-center mt-4">
         {!flagBotton ? (
-          <button
-            className="px-4 py-2 bg-cyan-300 rounded hover:bg-cyan-100"
-            onClick={submitHandler}
-          >
-            Crear Curso
-          </button>
+          location.pathname.startsWith("/courses-created") ? (
+            <button
+              className="px-4 py-2 bg-amber-300 rounded hover:bg-amber-100"
+              onClick={submitHandler}
+            >
+              Actualizar Datos
+            </button>
+          ) : (
+            <button
+              className="px-4 py-2 bg-cyan-300 rounded hover:bg-cyan-100"
+              onClick={submitHandler}
+            >
+              Crear Curso
+            </button>
+          )
         ) : null}
         {flagBotton ? (
           <div>
@@ -325,7 +392,9 @@ export default function CreateCourse() {
         ) : null}
       </div>
 
-      <div className="flex flex-col text- justify-evenly mt-4">{renderModules()}</div>
+      <div className="flex flex-col text- justify-evenly mt-4">
+        {renderModules()}
+      </div>
       <div>
         {flagFinally ? (
           <button

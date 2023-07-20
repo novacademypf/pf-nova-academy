@@ -1,5 +1,5 @@
 import axios from "axios";
-import {SAVE_COURSE,GET_ALL_COURSES } from "../action-type/action-types";
+import {SAVE_COURSE,GET_ALL_COURSES, DELETE_COURSE, GET_COURSE_BY_ID } from "../action-type/action-types";
 
 import { getCategoryFilters, getCourseForSale } from "../../services/courseForSaleRequest";
 
@@ -35,9 +35,16 @@ export const getCoursesTotal = () => {
 };
 
 export const deleteCourse = (courseId) => {
-  return {
-    type: 'DELETE_COURSE',
-    payload: courseId,
+  return async (dispatch) => {
+    try {
+      await axios.delete(`http://localhost:3001/courseForSale/deleteCourse/${courseId}`);
+      dispatch({
+        type: DELETE_COURSE,
+        payload: courseId,
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 };
 
@@ -56,4 +63,31 @@ export const totalCourse=(course)=>{
     type:GET_ALL_COURSES,
     payload:course,
   }
+}
+
+function sortModulesAndLessons(data) {
+  // Ordenar los módulos por orden ascendente de id
+  data.Modules.sort((a, b) => a.id - b.id);
+
+  // Ordenar las lecciones dentro de cada módulo por orden ascendente de id
+  data.Modules.forEach((module) => {
+    module.Lessons.sort((a, b) => a.id - b.id);
+  });
+
+  return data;
+}
+export const getCourseForSaleById= (courseId)=>{
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/courseForSale/${courseId}`);
+      console.log(response);
+      const dataOrdered = sortModulesAndLessons(response.data)
+      dispatch({
+        type: GET_COURSE_BY_ID,
+        payload: dataOrdered,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 }
