@@ -17,7 +17,14 @@ export default function shoppingCartReducer(
   switch (action.type) {
     case ADD_TO_CART: {
       let newItem = action.payload;
-      return { ...state, cart: [...state.cart, { ...newItem, quantity: 1 }] };
+      let itemCart = state.cart.find((item) => item.id === newItem.id);
+
+      return itemCart
+        ? {
+            ...state,
+            cart: [...state.cart],
+          }
+        : { ...state, cart: [...state.cart, { ...newItem, quantity: 1 }] };
     }
     case ADD_TO_CART_LOCAL: {
       return { ...state, cart: action.payload };

@@ -3,7 +3,7 @@ import { Input } from "./inputForm";
 import { useForm } from "../../hooks/useForm";
 import ModalErrorForm from "./ModalErrorForm";
 
-const objForm = { email: "", password: "" };
+const objForm = { email: "", password: "", isCheked: false };
 export const FormSingIn = () => {
   const {
     handleOnChange,
@@ -33,14 +33,19 @@ export const FormSingIn = () => {
         onBlur={handleOnBlur}
         valueLabel={"Contraseña"}
         value={valueInput.password}
-        type='password'
       />
       {errors.password && (
         <p className="text-red-600 text-xs italic">{errors.password}</p>
       )}
 
       <div className=" flex justify-between font-semibold text-sm">
-      
+        <Input
+          name={"isCheked"}
+          type={"checkbox"}
+          onChange={handleOnChange}
+          checked={valueInput.isCheked}
+          valueLabel={"terminos y condiciones"}
+        />
 
         <a
           className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"

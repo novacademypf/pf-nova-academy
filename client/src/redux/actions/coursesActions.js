@@ -33,7 +33,7 @@ export const getCoursesTotal = () => {
   };
 };
 
-export const deleteCourse = (id) => {
+export const deleteCourse = (courseId) => {
   return async (dispatch) => {
     try {
       await axios.delete(`/courseForSale/deleteCourse/${courseId}`);

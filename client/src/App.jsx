@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useRoutes, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCourses } from "./redux/actions/coursesActions";
@@ -17,7 +17,7 @@ import About from "./pages/About";
 import ContactForm from "./pages/ContactForm/ContactForm";
 import CoursesCreated from "./pages/MyAccount/CoursesCreated";
 import axios from "axios";
-axios.defaults.baseURL = 'http://localhost:3001/'
+axios.defaults.baseURL = "http://localhost:3001/";
 /*import axios from "axios";
 axios.defaults.baseURL = 'https://pf-nova-academy-production.up.railway.app/'*/
 
@@ -26,21 +26,22 @@ import AdminHome from "./pages/AdminHome/AdminHome";
 import CreateCourse from "./pages/CreateCourse";
 import { SearchCourse } from "./pages/SearchCourse/SearchCourse";
 import PaymentResponse from "./pages/PaymentResponse/PaymentResponse";
-import { getProfile } from "./redux/actions/profileActions";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import MyOrders from "./pages/MyOrders/MyOrders";
 import { addFromStorage } from "./redux/actions/shoppingCartActions";
+import { getProfile } from "./redux/actions/profileActions";
 
 const App = () => {
   const dispatch = useDispatch();
   const userProfile = useSelector((state) => state.profileReducer.userProfile);
   const prevLocalCart = JSON.parse(localStorage.getItem("shoppingCart"));
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     dispatch(getAllCourses());
-    dispatch(getProfile());
+    token && dispatch(getProfile());
     prevLocalCart && dispatch(addFromStorage(prevLocalCart));
-  }, []);
+  }, [token]);
 
   const AppRouter = () => {
     const location = useLocation();
@@ -65,35 +66,29 @@ const App = () => {
       },
       {
         path: "/account",
-        element: <PrivateRoute element={<MyAccount />} auth={userProfile} />,
+        element: <MyAccount />,
       },
       { path: "/login", element: <SingIn /> },
       { path: "/register", element: <SingUp /> },
       { path: "/detail/:courseId", element: <Detail /> },
       {
         path: "/create",
-        element: <PrivateRoute element={<CreateCourse />} auth={userProfile} />,
+        element: <CreateCourse />,
       },
       { path: "/search", element: <SearchCourse /> },
       { path: "/about", element: <About /> },
       { path: "/contact", element: <ContactForm /> },
       {
         path: "/courses-created/:id",
-        element: (
-          <PrivateRoute element={<CoursesCreated />} auth={userProfile} />
-        ),
+        element: <CoursesCreated />,
       },
       {
         path: "/courses-purchased/:id",
-        element: (
-          <PrivateRoute element={<CoursesCreated />} auth={userProfile} />
-        ),
+        element: <CoursesCreated />,
       },
       {
         path: "/paymentresponse",
-        element: (
-          <PrivateRoute element={<PaymentResponse />} auth={userProfile} />
-        ),
+        element: <PaymentResponse />,
       },
 
       { path: "/*", element: <NotFound /> },
