@@ -6,6 +6,7 @@ export const filters = (options, data, payload) => {
   const { dataNormalizada, textNormalizado } = normalizeText(searchBar, data);
   console.log(payload);
   const dataFilter = dataNormalizada || data;
+   
   if (
     searchBar?.length > 0 &&
     categories?.length > 0 &&
@@ -202,7 +203,7 @@ export const filters = (options, data, payload) => {
       item.name.includes(textNormalizado)
     );
   } */
-  return data;
+  return dataNormalizada;
 };
 
 const normalizeText = (text, data) => {
@@ -219,6 +220,8 @@ const normalizeText = (text, data) => {
         .toLowerCase()
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, ""),
+        ratingAverage:Math.round(item.ratingAverage)
+
     }));
   return { dataNormalizada, textNormalizado };
 };

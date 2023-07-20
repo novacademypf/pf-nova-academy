@@ -56,7 +56,7 @@ const SectionFilter = () => {
 
 
       <DropDown
-        title={"Raiting"}
+        title={"Calificacion"}
         name={"raiting"}
         data={estrellas}
         onChange={handleRaiting}

@@ -35,6 +35,10 @@ const SectionCursos = () => {
   }, [dataFilter]);
 
   const pageCount = Math.ceil((dataFilter?.length || courseCount) / itemsPerPage); // Número total de páginas
+  if(dataFilter?.length===0){
+    return <div className="">no fount</div>
+  }
+  console.log('-->>>>>>>>>>',paginatedCourses)
   return (
     <section className="min-w-[calc(100%-15em)] left-[15em] absolute">
       {/* Aca va la paginación */}
