@@ -112,9 +112,9 @@ export default function CoursesCreated() {
                           <p className="mb-2 text-gray-500 dark:text-gray-400">
                             {lesson.content}
                           </p>
-                          {/* <div className="w-full h-screen flex items-center justify-center">
+                          <div className="w-full h-screen flex items-center justify-center">
                           <iframe src={lesson.resource} width="100%" height="600px"></iframe>
-                          </div> */}
+                          </div>
                         </Accordion.Content>
                       </Accordion.Panel>
                     </Accordion>
