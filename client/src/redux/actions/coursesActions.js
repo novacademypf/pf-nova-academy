@@ -3,8 +3,7 @@ import {SAVE_COURSE,GET_ALL_COURSES, DELETE_COURSE, GET_COURSE_BY_ID } from "../
 
 import { getCategoryFilters, getCourseForSale } from "../../services/courseForSaleRequest";
 
-
-const endpoint = "http://localhost:3001/courseForSale?page=1&limit=10";
+const endpoint = "/courseForSale?page=1&limit=10";
 
 export const getAllCourses = () => {
   return async (dispatch) => {
@@ -22,7 +21,7 @@ export const getAllCourses = () => {
 export const getCoursesTotal = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get('http://localhost:3001/courseForSale?page=1&limit=10');
+      const response = await axios.get('/courseForSale?page=1&limit=10');
       console.log(response);
       dispatch({
         type: GET_ALL_COURSES,
@@ -37,10 +36,10 @@ export const getCoursesTotal = () => {
 export const deleteCourse = (courseId) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`http://localhost:3001/courseForSale/deleteCourse/${courseId}`);
+      await axios.delete(`/courseForSale/deleteCourse/${courseId}`);
       dispatch({
         type: DELETE_COURSE,
-        payload: courseId,
+        payload: id,
       });
     } catch (error) {
       console.error(error);
@@ -79,7 +78,7 @@ function sortModulesAndLessons(data) {
 export const getCourseForSaleById= (courseId)=>{
   return async (dispatch) => {
     try {
-      const response = await axios.get(`http://localhost:3001/courseForSale/${courseId}`);
+      const response = await axios.get(`/courseForSale/${courseId}`);
       console.log(response);
       const dataOrdered = sortModulesAndLessons(response.data)
       dispatch({

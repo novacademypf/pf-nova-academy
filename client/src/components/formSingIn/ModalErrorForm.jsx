@@ -28,7 +28,7 @@ const ModalErrorForm = ({setShowModal,text }) => {
                 type="button"
                 onClick={handleCloseModal}
               >
-                Close
+                Cerrar
               </button>
               <button
                 className="bg-emerald-500 text-#000 active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -36,7 +36,7 @@ const ModalErrorForm = ({setShowModal,text }) => {
                 name="createAccount"
                 onClick={handleCloseModal}
               >
-                Create Account
+                Crear Cuenta
               </button>
             </div>
           </div>

@@ -43,7 +43,7 @@ const SignUp = ({
     event.preventDefault();
 
     // Realizar la validación del email antes de enviar la solicitud al servidor
-    checkEmailExistence(email);
+    await checkEmailExistence(email);
 
     if (!validatePassword(password)) {
       setPasswordError(
@@ -54,7 +54,7 @@ const SignUp = ({
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/user/singup",
+        "/user/singup",
         {
           name,
           email,
@@ -62,6 +62,8 @@ const SignUp = ({
         },
         { headers: { "Content-Type": "application/json" } }
       );
+
+      const user = response.data;
 
       Swal.fire({
         icon: "success",
@@ -72,11 +74,10 @@ const SignUp = ({
         allowOutsideClick: false,
       }).then((res) => {
         if (res.isConfirmed) {
-          navigate("/home");
+          navigate("/account");
         }
       });
 
-      const user = response.data;
       signUpSuccess(user);
       setName("");
       setEmail("");
@@ -150,8 +151,8 @@ const SignUp = ({
             </div>
 
             <button
-            className=" bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"              
-            type="submit"
+              className=" bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+              type="submit"
             >
               Registrarse
             </button>

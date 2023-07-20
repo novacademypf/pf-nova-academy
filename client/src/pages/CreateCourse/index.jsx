@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCategories } from "../../redux/actions/allCategoriesActions";
 import FormCourse from "./ModuleCreate";
-import api from "../../services/api.js";
+import axios from "axios";
 import { uploadFile } from "../../firebase/config";
 import Swal from "sweetalert2";
 import { useLocation, useParams } from "react-router-dom";
@@ -199,7 +199,7 @@ export default function CreateCourse({ courseUpdate }) {
       : { ...form };
 
     if (location.pathname.startsWith("/courses-created")) {
-      await api.put(`/courseForSale/updateCourse/${courseUpdate?.id}`, body, {
+      await axios.put(`/courseForSale/updateCourse/${courseUpdate?.id}`, body, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -210,7 +210,7 @@ export default function CreateCourse({ courseUpdate }) {
         title: "Actualizado Correctamente",
       });
     } else {
-      const coursecreate = await api.post("/courseForSale/createCourse", body, {
+      const coursecreate = await axios.post("/courseForSale/createCourse", body, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -331,16 +331,21 @@ export default function CreateCourse({ courseUpdate }) {
               </span>
             )}
           </div>
-          <label className="block mb-2 font-bold ">Imagen:</label>
+          <label className="block mb-2 font-bold  ">Imagen:</label>
           <input
             type="file"
-            className="w-96 p-2 mb-4 border border-gray-300 rounded"
+            className="w-96 p-2 mb-4 border border-gray-200 rounded"
             onChange={(e) => {
               setFile(e.target.files[0]);
             }}
             name="images"
             required
           />
+
+          
+
+          
+
           <div>
             {errors.images && (
               <span className="text-red-500 text-xs mt-1">{errors.images}</span>

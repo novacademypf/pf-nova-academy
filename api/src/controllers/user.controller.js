@@ -122,12 +122,12 @@ const getUserById = async (req, res) => {
 const updateUserById = async (req, res) => {
   try {
     const { userId } = req.params;
-    const { name, email, password, role } = req.body;
+    const { name, email, password, role, status } = req.body;
     const user = await User.findByPk(userId);
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    await user.update({ name, email, password, role });
+    await user.update({ name, email, password, role, status });
     res.json(user);
   } catch (error) {
     console.error(error);

@@ -14,7 +14,7 @@ const Checkout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let totalPrice = coursesCart.reduce((acumulador, el) => {
-    const subtotal = el.quantity * el.price;
+    const subtotal = el.price;
     return acumulador + subtotal;
   }, 0);
 
@@ -31,7 +31,7 @@ const Checkout = () => {
         picture_url: el.images[0],
         description: el.description,
         category_id: el.category[0],
-        quantity: el.quantity,
+        quantity: 1,
         unit_price: el.price * 100,
       };
     }),
@@ -41,7 +41,7 @@ const Checkout = () => {
   const handlePayment = async (data) => {
     Swal.showLoading();
     await axios
-      .post("http://localhost:3001/mercadopago", data)
+      .post("/mercadopago", data)
       .then(({ data }) => {
         window.location.href = data.response.body.init_point;
       })

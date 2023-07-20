@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 /* eslint-disable */
 
 const CourseCard = ({ dataCard }) => {
-  const { id, name, price, description, images, category } = dataCard;
+  const { id, name, price, description, images, category, ratingAverage } = dataCard;
   const dispatch = useDispatch();
+
   const handleCart = (data) => {
     dispatch(addToCart(data));
   };
@@ -31,7 +32,8 @@ const CourseCard = ({ dataCard }) => {
       <div className="flex flex-col justify-between mb-2">
         <span className="text-md font-bold">{name}</span>
         <span className="text-sm font-light">{description}</span>
-        <span>⭐⭐⭐⭐⭐</span>
+        <span className="text-sm font-bold"> Calificación: {ratingAverage.toFixed(2)}</span>
+        {/*<span>⭐⭐⭐⭐⭐</span>*/}
       </div>
       <div>
         <span className="text-lg font-medium">${price}</span>

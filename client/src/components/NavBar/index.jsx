@@ -4,21 +4,19 @@ import logo from "../../assets/icons/logo.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { ShoppingCartAside } from "../ShoppingCartAside/ShoppingCartAside";
 import { delFromCart } from "../../redux/actions/shoppingCartActions";
-import { getProfile, logout } from "../../redux/actions/profileActions";
+import { logout } from "../../redux/actions/profileActions";
 import UserProfile from "../UserProfile/UserProfile";
 import NavCart from "../NavCart/NavCart";
 import LandingButtons from "../LandingButtons/LandingButtons";
 /*eslint-disable*/
 const NavBar = () => {
   const userProfile = useSelector((state) => state.profileReducer.userProfile);
-
+  const courses = useSelector((state) => state.shoppingCartReducer.cart);
   const [isOpen, setIsOpen] = useState(false);
   const [cartIsOpen, setCartIsOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
-  const courses = useSelector((state) => state.shoppingCartReducer.cart);
   const dispatch = useDispatch();
   const location = useLocation().pathname;
-
   let checkRoute = location === "/checkout" ? false : true;
 
   const toggleMenu = () => {
@@ -37,29 +35,15 @@ const NavBar = () => {
     dispatch(delFromCart(id));
   };
 
-  let cartStorage = JSON.parse(localStorage.getItem("shoppingCart")) || [];
-  const handleLocalStorage = (data) => {
-    /* if (cartStorage.length > 0 && !data.length) {
-      cartStorage.forEach((el) => {
-        dispatch(addToCart(el));
-      });
-    } */
-
-    localStorage.removeItem("shoppingCart");
-    localStorage.setItem("shoppingCart", JSON.stringify(data));
-  };
-
   const token = localStorage.getItem("token");
   const isUserLoggedIn = token !== null && token !== "";
 
   useEffect(() => {
-    !userProfile && dispatch(getProfile());
-    handleLocalStorage(courses);
-    if (!cartIsOpen) courses.length > 0 && openCart();
+    //isUserLoggedIn && dispatch(getProfile());
+    /* handleLocalStorage(courses); */
     if (!checkRoute) closeCart();
-
     setLoggedIn(isUserLoggedIn);
-  }, [courses, dispatch, isUserLoggedIn]);
+  }, [dispatch, isUserLoggedIn]);
 
   const links = [
     { to: "/courses", name: "Cursos" },
@@ -154,7 +138,6 @@ const NavBar = () => {
           openCart={openCart}
           closeCart={closeCart}
           cartItems={courses}
-          cartLocal={cartStorage}
           deleteItemfromAside={deleteItemfromAside}
         />
       )}
