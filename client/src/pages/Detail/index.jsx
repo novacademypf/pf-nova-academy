@@ -8,6 +8,7 @@ const Detail = () => {
   const { courseId } = useParams();
   const [course, setCourse] = useState({});
   const dispatch = useDispatch();
+  const [ratings, setRatings] = useState([]);
 
   const getUser = async () => {
     // console.log(useParams())
@@ -22,8 +23,19 @@ const Detail = () => {
     dispatch(addToCart(data));
   };
 
+  const getRating = async () => {
+    // console.log(useParams())
+    console.log(courseId);
+    const response = await axios.get(`/courseRating/${courseId}`);
+    const ratings = response.data;
+    setRatings(ratings);
+    console.log(ratings);
+    return ratings;
+  };
+
   useEffect(() => {
     getUser();
+    getRating();
   }, []);
 
   return (
@@ -51,7 +63,7 @@ const Detail = () => {
           <h1 className="text-2xl font-bold mb-2">{course.name}</h1>
           <p className="text-gray-600 bg-gray-100">{course.description}</p>
           <h2 className="mt-4 text-lg font-semibold">
-            Duration: {course.duration} hours
+            Duración: {course.duration}
           </h2>
           <h1 className="mt-4 text-2xl font-bold">${course.price}</h1>
         </div>
@@ -64,6 +76,21 @@ const Detail = () => {
           >
             +
           </button>
+        </div>
+        <div className="container p-5">
+          {ratings.map((e, index) => (
+            // <h1>{e.rating}</h1>
+            <div
+              key={index}
+              className="mb-4 border border-gray-300 bg-gray-100 p-3 rounded-md"
+            >
+              <h2 className="font-bold mb-2">
+                Calificacion: {e.rating.toFixed(2)}
+              </h2>
+              <p>- {e.review}</p>
+              <h1 className="font-bold text-right mt-4">{e.Profile.name}</h1>
+            </div>
+          ))}
         </div>
       </div>
     </div>
