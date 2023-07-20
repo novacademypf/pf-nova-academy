@@ -9,7 +9,7 @@ export const DropDown = ({ title, name, data, onChange }) => {
   return (
     <>
       <div
-        className="mt-1 bg-white flex items-center justify-between max-w-full gap-1 border-b border-[#7D5FFF]"
+    className="mt-1 bg-white flex items-center justify-between max-w-full gap-1 border-b border-[#7D5FFF]"
         onClick={toggleDropdown}
         name={name}
       >
@@ -17,7 +17,7 @@ export const DropDown = ({ title, name, data, onChange }) => {
         <img src={chevron} alt="chevron" className="w-4 block align-middle" />
       </div>
       <div
-        className={`mt-1 bg-white rounded max-h-56 overflow-auto flex flex-col gap-1  ${
+        className={`mt-1 bg-white rounded max-h-[11.5rem] overflow-auto flex flex-col gap-1  ${
           isOpen ? "border-[#7D5FFF] border-[1px] p-1" : ""
         }`}
       >
@@ -27,7 +27,7 @@ export const DropDown = ({ title, name, data, onChange }) => {
            
             if (name === "raiting") {
               return (
-                <label key={item.id} htmlFor={item.id} className="flex items-center gap-[2px] bg-violet-200">
+                <label key={item.id} htmlFor={item.id} className="flex items-center gap-[2px]">
                   <input type="checkbox" value={item.id} checked={options.raiting.includes(item.id)} name={name} id={item.id} onChange={onChange} />
                   {item.img.map((start,index)=><img key={index} src={start} className="w-4 inline-block align-middle"/> )}
                 </label>
@@ -36,7 +36,7 @@ export const DropDown = ({ title, name, data, onChange }) => {
             if (name === "categories") { 
               console.log(name,"aquiESTAMOS")
             return (
-              <div key={item.id} className="flex items-center gap-[2px] bg-violet-200">
+              <div key={item.id} className="flex items-center gap-[2px] ">
                 <input 
                 value={item.name}
                 checked={options.categories?.includes(item.name)}
