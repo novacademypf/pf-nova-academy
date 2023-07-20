@@ -6,7 +6,7 @@ import {
 const initialOptions = {
   searchBar: "",
   raiting: [],
-  precio: { min:100 , max: 200 },
+  precio: { min: 100, max: 200 },
 };
 const initialDataFilter = {
   dataFilter: [],
@@ -31,17 +31,18 @@ export const setMenuOptionsReducer = (state = initialOptions, action) => {
         }
       }
       if (action.name === "precio") {
-        
         return {
           ...state,
-          [action.name]: { ...state.precio,...action.value},
+          [action.name]: { ...state.precio, ...action.value },
         };
       }
       if (action.name === "default") {
-        console.log(action.value)
+        console.log(action.value);
         return {
-          state,
-            
+          ...state,
+          searchBar: "",
+          raiting: [],
+          precio: { min: 100, max: 200 },
         };
       }
       return {

@@ -1,7 +1,9 @@
+import { useSelector } from "react-redux";
 import chevron from "../../../assets/icons/chevron.svg";
 import { useDropDown } from "../../../hooks/useDropdown";
 
 export const DropDown = ({ title, name, data,onChange }) => {
+  const options = useSelector((state) => state.setMenuOptionsReducer)
   const { isOpen, toggleDropdown } = useDropDown();
  
   return (
@@ -21,12 +23,12 @@ export const DropDown = ({ title, name, data,onChange }) => {
       >
         {true &&
           data &&
-          data.map((item) => {
-            console.log('-->',item)
+          data.map((item,i) => {
+            console.log('-->',item.id)
             if (name === "raiting") {
               return (
                 <label key={item.id} htmlFor={item.id} className="flex items-center gap-[2px]">
-                  <input type="checkbox" value={item.id} name={name} id={item.id} onChange={onChange} />
+                  <input type="checkbox" value={item.id} checked={options.raiting.includes(item.id)} name={name} id={item.id} onChange={onChange} />
                   {item.img.map((start,index)=><img key={index} src={start} className="w-4 inline-block align-middle"/> )}
                 </label>
               );
