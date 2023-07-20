@@ -83,7 +83,7 @@ const UserList = ({ users }) => {
   };
 
   if (currentUsers.length === 0) {
-    return <h2>No existen usuarios registrados por el momento</h2>;
+    return <h2>No existen usuarios registrados por el momento!</h2>;
   }
 
   return (
