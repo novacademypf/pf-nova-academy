@@ -60,6 +60,7 @@ const SectionCursos = () => {
           breakLinkClassName="font-bold pointer-events-none"
           previousLinkClassName="font-bold"
           renderOnZeroPageCount={null}
+          forcePage={currentPage} // Página actual
         />
       </div>
       <div className="sticky top-[3.5em] overflow-y-auto h-[calc(100vh-5.5em)]">
