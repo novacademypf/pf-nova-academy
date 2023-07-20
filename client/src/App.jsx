@@ -48,9 +48,6 @@ const App = () => {
     token && dispatch(getProfile());
     dispatch(getAllCategories())
     prevLocalCart && dispatch(addFromStorage(prevLocalCart));
-  
-      
-    
   }, [token]);
   useEffect(()=>{dispatch(setMenuOptions("default", { maxPrice, minPrice }));},[maxPrice,minPrice])
 
