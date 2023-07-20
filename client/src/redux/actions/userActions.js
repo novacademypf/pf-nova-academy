@@ -12,7 +12,7 @@ import {
   TOGGLE_USER_STATUS,
   LOGIN_USER,
   LOGOUT_USER,
-  UPDATE_USER_STATUS
+  UPDATE_USER_STATUS,
 } from "../action-type/action-types";
 
 export const signUpSuccess = (user) => {
@@ -41,22 +41,27 @@ export const checkEmailExistence = (email) => {
 
       // Si el email existe, se devuelve un mensaje de error
       if (response.data.exists) {
-        dispatch({ type: CHECK_EMAIL_EXISTENCE_FAILURE, payload: "El email ya está registrado" });
+        dispatch({
+          type: CHECK_EMAIL_EXISTENCE_FAILURE,
+          payload: "El email ya está registrado",
+        });
         console.log("El email ya está registrado");
       } else {
         dispatch({ type: CHECK_EMAIL_EXISTENCE_SUCCESS });
       }
     } catch (error) {
-      dispatch({ type: CHECK_EMAIL_EXISTENCE_FAILURE, payload: "Error al verificar el email" });
+      dispatch({
+        type: CHECK_EMAIL_EXISTENCE_FAILURE,
+        payload: "Error al verificar el email",
+      });
     }
   };
 };
 
-
 export const getUsers = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get('/user/');
+      const response = await axios.get("/user/");
       console.log(response);
       dispatch({
         type: GET_USERS,
@@ -68,11 +73,10 @@ export const getUsers = () => {
   };
 };
 
-
 export const getUserGoogle = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get('/google/');
+      const response = await axios.get("/google/");
       console.log(response);
       dispatch({
         type: GET_USERS_GOOGLE,
@@ -93,7 +97,7 @@ export const deleteUser = (userId) => {
         payload: userId,
       });
     } catch (error) {
-      console.error('usuario no borrado');
+      console.error("usuario no borrado");
       console.error(error);
     }
   };
@@ -108,12 +112,11 @@ export const deleteUserGoogle = (id) => {
         payload: id,
       });
     } catch (error) {
-      console.error('usuario no borrado');
+      console.error("usuario no borrado");
       console.error(error);
     }
   };
 };
-
 
 export const toggleUserStatus = (userId, status) => async (dispatch) => {
   try {
@@ -124,7 +127,7 @@ export const toggleUserStatus = (userId, status) => async (dispatch) => {
       payload: { userId, status: !status },
     });
   } catch (error) {
-    console.error('Error al cambiar el estado del usuario:', error);
+    console.error("Error al cambiar el estado del usuario:", error);
   }
 };
 
