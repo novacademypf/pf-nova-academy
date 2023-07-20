@@ -131,11 +131,11 @@ const UserList = ({ users }) => {
 
                       <td>
                       <button
-  className="bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-  onClick={() => handleToggleStatus(user.userId, !user.status)} 
->
-  {user.status ? 'Suspender cuenta' : 'Activar cuenta'}
-</button>
+                      className="bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                      onClick={() => handleToggleStatus(user.userId, !user.status)} 
+                      >
+                         {user.status ? 'Suspender cuenta' : 'Activar cuenta'}
+                         </button>
                       </td>
 
                       <td>

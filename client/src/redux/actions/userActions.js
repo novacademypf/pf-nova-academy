@@ -114,7 +114,7 @@ export const deleteUserGoogle = (id) => {
 
 export const toggleUserStatus = (userId, status) => async (dispatch) => {
   try {
-    await axios.put(`/updateUser/${userId}`, { status });
+    await axios.put(`user/updateUser/${userId}`, { status: !status });
 
     dispatch({
       type: TOGGLE_USER_STATUS,
