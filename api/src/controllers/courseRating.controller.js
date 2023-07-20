@@ -22,7 +22,7 @@ const postCourseRating = async (req, res) => {
         .json({ error: "El usuario ya ha valorado este curso." });
     }
 
-    await CourseRating.create({
+    const courseRatingCreated = await CourseRating.create({
       rating: +rating,
       review,
       profileId: idUser,
@@ -39,7 +39,7 @@ const postCourseRating = async (req, res) => {
       ratingAverage: newRatingAverage,
     });
 
-    return res.json({ message: "Valoración registrada exitosamente." });
+    return res.json(courseRatingCreated);
   } catch (error) {
     res.status(500).send(error.message);
   }
@@ -111,4 +111,20 @@ const putCourseRating = async (req, res) => {
     res.status(500).send(error.message)
   }
 };
-module.exports = { postCourseRating, putCourseRating,getCourseRating };
+
+const getCourseRatingByProfile = async (req, res) => {
+  const { idCourse } = req.params;
+
+  const { idUser } = await getUserToken(req);
+  const existingRating = await CourseRating.findOne({
+    where: { profileId: idUser, courseForSaleId: idCourse },
+  });
+
+  if (existingRating) {
+    return res.status(200).json({ status: true });
+  }
+  return res.status(200).json({ status: false })
+};
+
+
+module.exports = { postCourseRating, putCourseRating,getCourseRating, getCourseRatingByProfile };
