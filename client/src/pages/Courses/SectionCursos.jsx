@@ -24,7 +24,7 @@ const SectionCursos = () => {
 
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const paginatedCourses = courseAll && courseAll.slice(startIndex, endIndex); // Array de cursos paginados
+  const paginatedCourses = dataFilter && dataFilter.slice(startIndex, endIndex); // Array de cursos paginados
 
   const handlePageChange = ({ selected }) => {
     setCurrentPage(selected);
@@ -60,7 +60,7 @@ const SectionCursos = () => {
       </div>
       <div className="sticky top-[3.5em] overflow-y-auto h-[calc(100vh-5.5em)]">
         <div className="w-full relative top-[3.5em]">
-          <CourseCards courses={dataFilter&& dataFilter} />
+          <CourseCards courses={paginatedCourses} />
         </div>
       </div>
     </section>
