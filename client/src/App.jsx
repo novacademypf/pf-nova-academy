@@ -31,6 +31,7 @@ import MyOrders from "./pages/MyOrders/MyOrders";
 import { addFromStorage } from "./redux/actions/shoppingCartActions";
 import { setMenuOptions } from "./redux/actions/filterActions";
 import { getAllCategories } from "./redux/actions/allCategoriesActions";
+import { getProfile } from "./redux/actions/profileActions";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -40,16 +41,17 @@ const App = () => {
     (state) => {
       return state.coursesReducer.courses;
     }
-  );
+  );  const token = localStorage.getItem("token");
+
   useEffect(() => {
     dispatch(getAllCourses());
-    //dispatch(getProfile());
+    token && dispatch(getProfile());
     dispatch(getAllCategories())
     prevLocalCart && dispatch(addFromStorage(prevLocalCart));
   
       
     
-  }, []);
+  }, [token]);
   useEffect(()=>{dispatch(setMenuOptions("default", { maxPrice, minPrice }));},[maxPrice,minPrice])
 
   const AppRouter = () => {

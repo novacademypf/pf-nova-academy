@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 const Banner = () => {
+  const token = localStorage.getItem("token");
   return (
     <div className=" w-full h-1/2  px-6 xl:px-0 ">
       <div className="flex items-center justify-between  max-w-screen-xl h-auto md:flex-row flex-col py-12 space-y-6 md:space-y-0 w-full">
@@ -29,12 +30,21 @@ const Banner = () => {
             </p>
           </div>
           <div className="mt-8 flex justify-center items-center w-full">
-            <button
-              type="button"
-              className=" bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-            >
-              <Link to="/register">Registrate</Link>
-            </button>
+            {!token ? (
+              <button
+                type="button"
+                className=" bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+              >
+                <Link to="/register">Registrate</Link>
+              </button>
+            ) : (
+              <button
+                type="button"
+                className=" bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+              >
+                <Link to="/courses">Ver cursos</Link>
+              </button>
+            )}
           </div>
         </div>
         <div className="flex md:w-auto w-full justify-center flex-row space-x-4 md:space-x-0">
