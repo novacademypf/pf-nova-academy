@@ -36,9 +36,9 @@ const createPayment = async (req, res) => {
       external_reference: `${externalRef}`,
       items: coursesList,
       back_urls: {
-        success: "http://localhost:3001/mercadopago/paymentresponse",
-        failure: "http://127.0.0.1:5173/",
-        pending: "http://127.0.0.1:5173/",
+        success: "https://pf-nova-academy.vercel.app/mercadopago/paymentresponse",
+        failure: "https://pf-nova-academy.vercel.app/",
+        pending: "https://pf-nova-academy.vercel.app/",
       },
       auto_return: "approved",
       binary_mode: true,
@@ -75,10 +75,10 @@ const paymentResponse = async (req, res) => {
 
     if (payment_status !== "approved") throw new Error();
 
-    res.redirect("http://127.0.0.1:5173/paymentresponse?status=ok");
+    res.redirect("https://pf-nova-academy.vercel.app/paymentresponse?status=ok");
   } catch (err) {
     console.error(err);
-    res.redirect("http://127.0.0.1:5173/paymentresponse?status=error");
+    res.redirect("https://pf-nova-academy.vercel.app/paymentresponse?status=error");
   }
 };
 
