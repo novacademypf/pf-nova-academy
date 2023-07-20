@@ -1,20 +1,25 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/actions/shoppingCartActions";
 
 const Detail = () => {
   const { courseId } = useParams();
   const [course, setCourse] = useState({});
+  const dispatch = useDispatch();
 
   const getUser = async () => {
     // console.log(useParams())
-    console.log(courseId)
-    const response = await axios.get(
-      `/courseForSale/${courseId}`
-    );
+    console.log(courseId);
+    const response = await axios.get(`/courseForSale/${courseId}`);
     const course = response.data;
     setCourse(course);
     return course;
+  };
+
+  const handleCart = (data) => {
+    dispatch(addToCart(data));
   };
 
   useEffect(() => {
@@ -41,7 +46,7 @@ const Detail = () => {
           alt={course.name}
         />
       </div>
-      <div className="max-w-lg mx-auto bg-white shadow-md rounded-lg overflow-hidden">
+      <div className="relative max-w-lg mx-auto bg-white shadow-md rounded-lg overflow-hidden">
         <div className="p-6">
           <h1 className="text-2xl font-bold mb-2">{course.name}</h1>
           <p className="text-gray-600 bg-gray-100">{course.description}</p>
@@ -49,6 +54,16 @@ const Detail = () => {
             Duration: {course.duration} hours
           </h2>
           <h1 className="mt-4 text-2xl font-bold">${course.price}</h1>
+        </div>
+        <div>
+          <button
+            className="absolute bottom-4 right-4 flex justify-center items-center bg-red-500 w-8 h-8 rounded-full m-2 p-2  cursor-pointer"
+            onClick={() => {
+              handleCart(course);
+            }}
+          >
+            +
+          </button>
         </div>
       </div>
     </div>

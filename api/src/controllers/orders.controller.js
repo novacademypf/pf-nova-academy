@@ -26,6 +26,7 @@ function extractCourseIds(data) {
 const getCoursesOrders = async (req, res) => {
   try {
     const { profileId } = req.params;
+
     console.log("params", profileId);
     const ordersByUser = await Order.findAll({
       where: {
@@ -33,7 +34,7 @@ const getCoursesOrders = async (req, res) => {
       },
     });
 
-    const arrayIds = extractCourseIds(ordersByUser)
+    const arrayIds = extractCourseIds(ordersByUser);
 
     const courses = await CourseForSale.findAll({
       where: {
@@ -53,9 +54,9 @@ const getCoursesOrders = async (req, res) => {
       ],
     });
 
-    if (courses.length === 0) {
+    /*    if (courses.length === 0) {
       return res.status(404).json({ error: "Courses not found" });
-    }
+    } */
 
     res.json(courses);
   } catch (error) {

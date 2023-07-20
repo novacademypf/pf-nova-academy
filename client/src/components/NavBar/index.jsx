@@ -4,7 +4,7 @@ import logo from "../../assets/icons/logo.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { ShoppingCartAside } from "../ShoppingCartAside/ShoppingCartAside";
 import { delFromCart } from "../../redux/actions/shoppingCartActions";
-import { getProfile, logout } from "../../redux/actions/profileActions";
+import { logout } from "../../redux/actions/profileActions";
 import UserProfile from "../UserProfile/UserProfile";
 import NavCart from "../NavCart/NavCart";
 import LandingButtons from "../LandingButtons/LandingButtons";
@@ -39,7 +39,7 @@ const NavBar = () => {
   const isUserLoggedIn = token !== null && token !== "";
 
   useEffect(() => {
-    !userProfile && dispatch(getProfile());
+    //isUserLoggedIn && dispatch(getProfile());
     /* handleLocalStorage(courses); */
     if (!checkRoute) closeCart();
     setLoggedIn(isUserLoggedIn);
