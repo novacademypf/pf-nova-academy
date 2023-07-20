@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/icons/logo.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { ShoppingCartAside } from "../ShoppingCartAside/ShoppingCartAside";
@@ -18,7 +18,7 @@ const NavBar = () => {
   const dispatch = useDispatch();
   const location = useLocation().pathname;
   let checkRoute = location === "/checkout" ? false : true;
-
+const navigate = useNavigate()
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -54,7 +54,8 @@ const NavBar = () => {
   const handleLogout = () => {
     dispatch(logout());
     setLoggedIn(false);
-    window.location.href = "/login";
+    /* window.location.href = "/login"; */
+    navigate('/login')
   };
   return (
     <nav className="bg-[#00FFFF] h-[5.5em] top-0 z-40 sticky w-full">

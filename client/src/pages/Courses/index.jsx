@@ -14,17 +14,17 @@ const Courses = () => {
       return state.coursesReducer.courses;
     }
   );
+  const options = useSelector((state) => state.setMenuOptionsReducer);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAllCategories())
-    console.log("useEffect")
-    dispatch(saveDataFilter(filters("", courseAll)));
+    dispatch(saveDataFilter(filters(options, courseAll)));
+    console.log('acaindex')
   }, [courseAll]);
 
-  /* useEffect(()=>{
+  useEffect(()=>{
     console.log("useEffect")
     dispatch(getAllCategories())
-  },[]) */
+  },[])
 
   return (
     <main className="relative top-[0 rem] flex ">
