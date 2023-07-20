@@ -29,19 +29,27 @@ import PaymentResponse from "./pages/PaymentResponse/PaymentResponse";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import MyOrders from "./pages/MyOrders/MyOrders";
 import { addFromStorage } from "./redux/actions/shoppingCartActions";
+import { setMenuOptions } from "./redux/actions/filterActions";
+import { getAllCategories } from "./redux/actions/allCategoriesActions";
 import { getProfile } from "./redux/actions/profileActions";
 
 const App = () => {
   const dispatch = useDispatch();
   const userProfile = useSelector((state) => state.profileReducer.userProfile);
   const prevLocalCart = JSON.parse(localStorage.getItem("shoppingCart"));
-  const token = localStorage.getItem("token");
+  const { courseAll, courseCount, maxPrice, minPrice } = useSelector(
+    (state) => {
+      return state.coursesReducer.courses;
+    }
+  );  const token = localStorage.getItem("token");
 
   useEffect(() => {
     dispatch(getAllCourses());
     token && dispatch(getProfile());
+    dispatch(getAllCategories())
     prevLocalCart && dispatch(addFromStorage(prevLocalCart));
   }, [token]);
+  useEffect(()=>{dispatch(setMenuOptions("default", { maxPrice, minPrice }));},[maxPrice,minPrice])
 
   const AppRouter = () => {
     const location = useLocation();
