@@ -66,7 +66,7 @@ const Detail = () => {
               className="mb-4 border border-gray-300 bg-gray-100 p-3 rounded-md"
             >
               <h2 className="font-bold mb-2">
-                Calificacion: {e.rating.toFixed(2)}
+                Calificacion: {Math.round(e.rating)}
               </h2>
               <p>- {e.review}</p>
               <h1 className="font-bold text-right mt-4">{e.Profile.name}</h1>
