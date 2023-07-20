@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-<<<<<<< HEAD
-import {Searchbar} from "./componentsFilters/Searchbar";
-=======
 import { Searchbar } from "./componentsFilters/Searchbar";
 import { DropDown } from "./componentsFilters/DropDown";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,7 +10,6 @@ import {
 } from "../../redux/actions/filterActions";
 import { InputRange } from "./componentsFilters/InputRange";
 import { filters } from "../../helpers/filters";
->>>>>>> d7fb8a13fc2586bd655c9cad58e5497d885d09c3
 
 const SectionFilter = () => {
   const {categories}=useSelector((state)=>state.getAllCategories)
