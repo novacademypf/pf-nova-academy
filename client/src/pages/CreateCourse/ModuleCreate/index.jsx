@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import CreateLesson from "../LessonCreate";
-import api from "../../../services/api";
 import Swal from "sweetalert2";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
@@ -12,14 +11,15 @@ export default function FormCourse({
   setModules,
   modules,
   setFlagFinally,
-  module
+  module,
+  setOpenModalModule,
 }) {
   const dispatch = useDispatch();
   const [lesson, setLesson] = useState(0);
   const [moduleId, setModuleId] = useState(0);
   const [flagBotton, setFlagBotton] = useState(false);
   const location = useLocation()
-  const {id} = useParams()
+  const { id } = useParams()
   const [errors, setErrors] = useState({
     name: "",
     description: "",
@@ -45,7 +45,7 @@ export default function FormCourse({
       }
     }
   }, [module]);
-  
+
   const renderLesson = () => {
     return Array.from({ length: lesson }, (_, index) => (
       <CreateLesson
@@ -63,10 +63,16 @@ export default function FormCourse({
     setLesson(lesson + 1);
   };
 
-  const deleteModule = () => {
-    api.delete(`/module/deleteModule/${moduleId}`);
-    if (modules === 0) return;
-    setModules(modules - 1);
+  const deleteModule = async () => {
+    await axios.delete(`/module/deleteModule/${module?.id}`);
+    await dispatch(getCourseForSaleById(id));
+    // if (modules === 0) return;
+    // setModules(modules - 1);
+    setOpenModalModule(false);
+    Swal.fire({
+      icon: "success",
+      title: "Modulo Eliminado Correctamente",
+    })
   };
   const changeHandler = (event) => {
     const property = event.target.name;
@@ -110,9 +116,9 @@ export default function FormCourse({
       ...form,
     };
 
-    if(location.pathname.startsWith("/courses-created")){
+    if (location.pathname.startsWith("/courses-created")) {
       console.log(body)
-      const response = await api.put(`/module/updateModule/${module?.id}`, body, {
+      const response = await axios.put(`/module/updateModule/${module?.id}`, body, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -123,7 +129,7 @@ export default function FormCourse({
         title: "Actualizado Correctamente",
       });
     } else {
-      const moduleCreate = await api.post("/module/createModule", body, {
+      const moduleCreate = await axios.post("/module/createModule", body, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -171,14 +177,22 @@ export default function FormCourse({
         </div>
       </div>
       <div className="flex justify-center">
-      {!flagBotton ? (
+        {!flagBotton ? (
           location.pathname.startsWith("/courses-created") ? (
-            <button
-              className="px-4 m-4 py-2 text-white bg-amber-300 rounded hover:bg-amber-100"
-              onClick={submitHandler}
-            >
-              Actualizar Modulo
-            </button>
+            <div>
+              <button
+                className="px-4 m-4 py-2 text-white bg-amber-300 rounded hover:bg-amber-100"
+                onClick={submitHandler}
+              >
+                Actualizar Modulo
+              </button>
+              <button
+                className="px-4 m-4 py-2 text-white bg-red-700 rounded hover:bg-red-400"
+                onClick={deleteModule}
+              >
+                Eliminar Modulo
+              </button>
+            </div>
           ) : (
             <button
               className="px-4 m-4 py-2 bg-cyan-300 rounded hover:bg-cyan-100"
@@ -196,12 +210,7 @@ export default function FormCourse({
             Agregar Leccion
           </button>
         ) : null}
-        <button
-          className="px-4 m-4 py-2 text-white bg-red-700 rounded hover:bg-red-400"
-          onClick={deleteModule}
-        >
-          Eliminar Modulo
-        </button>
+
       </div>
       <div className="flex flex-wrap justify-evenly">{renderLesson()}</div>
     </div>
