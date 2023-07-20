@@ -30,7 +30,7 @@ const SectionCursos = () => {
     setCurrentPage(selected);
   };
 
-  const pageCount = Math.ceil((courseCount || 0) / itemsPerPage); // Número total de páginas
+  const pageCount = Math.ceil((dataFilter.length) / itemsPerPage); // Número total de páginas
   return (
     <section className="min-w-[calc(100%-15em)] left-[15em] absolute">
       {/* Aca va la paginación */}
