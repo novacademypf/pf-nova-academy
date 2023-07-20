@@ -41,15 +41,18 @@ const App = () => {
     (state) => {
       return state.coursesReducer.courses;
     }
-  );  const token = localStorage.getItem("token");
+  );
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     dispatch(getAllCourses());
     token && dispatch(getProfile());
-    dispatch(getAllCategories())
+    dispatch(getAllCategories());
     prevLocalCart && dispatch(addFromStorage(prevLocalCart));
   }, [token]);
-  useEffect(()=>{dispatch(setMenuOptions("default", { maxPrice, minPrice }));},[maxPrice,minPrice])
+  useEffect(() => {
+    dispatch(setMenuOptions("default", { maxPrice, minPrice }));
+  }, [maxPrice, minPrice]);
 
   const AppRouter = () => {
     const location = useLocation();
@@ -74,7 +77,7 @@ const App = () => {
       },
       {
         path: "/account",
-        element: <MyAccount />,
+        element: <PrivateRoute element={<MyAccount />} auth={userProfile} />,
       },
       { path: "/login", element: <SingIn /> },
       { path: "/register", element: <SingUp /> },

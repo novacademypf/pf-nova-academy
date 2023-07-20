@@ -6,6 +6,7 @@ import CartItem from "../../components/CartItem/CartItem";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { getProfile } from "../../redux/actions/profileActions";
 
 const Checkout = () => {
   const coursesCart = useSelector((state) => state).shoppingCartReducer.cart;
