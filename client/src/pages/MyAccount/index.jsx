@@ -15,7 +15,7 @@ const MyAccount = () => {
   );
   console.log("userProfile account", courseByProfile);
   useEffect(() => {
-    dispatch(getProfile());
+    // dispatch(getProfile());
     dispatch(getCoursesByProfileId());
   }, [dispatch]);
 
