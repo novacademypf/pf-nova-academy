@@ -12,7 +12,7 @@ import { InputRange } from "./componentsFilters/InputRange";
 import { filters } from "../../helpers/filters";
 
 const SectionFilter = () => {
-  /* const {categories}=useSelector((state)=>state.getAllCategories)*/
+  const {categories}=useSelector((state)=>state.getAllCategories)
   const { courseAll } = useSelector((state) => state.coursesReducer.courses);
   const options = useSelector((state) => state.setMenuOptionsReducer);
   const dispatch = useDispatch();
