@@ -64,15 +64,14 @@ const Detail = () => {
           </h2>
           <h1 className="mt-4 text-2xl font-bold">${course.price}</h1>
         </div>
-        <div className="container p-5 text-center">
+        <div className="container p-5">
               {ratings.map((e, index) => (
               // <h1>{e.rating}</h1>
-            <div className="mb-4 border border-gray-300 bg-gray-100 p-3 rounded-md">
-              <h1 className="font-bold">Calificacion: {e.rating.toFixed(2)}</h1>
-              <p key={index} >
-                - {e.review}
-              </p>
-            </div>
+              <div className="mb-4 border border-gray-300 bg-gray-100 p-3 rounded-md">
+                <h2 className="font-bold mb-2">Calificacion: {e.rating.toFixed(2)}</h2>
+                <p key={index}>- {e.review}</p>
+                <h1 className="font-bold text-right mt-4">{e.Profile.name}</h1>
+              </div>
           ))}
         </div>
       </div>
