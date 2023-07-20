@@ -5,6 +5,7 @@ import { filters } from "../../helpers/filters";
 import { saveDataFilter } from "../../redux/actions/filterActions";
 import { useEffect } from "react";
 import { getAllCategories } from "../../redux/actions/allCategoriesActions";
+import { getAllCourses } from "../../redux/actions/coursesActions";
 
 
 

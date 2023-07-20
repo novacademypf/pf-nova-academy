@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import CourseCards from "../../components/CourseCards/CourseCards";
-import { saveCourse } from "../../redux/actions/coursesActions";
+import { getAllCourses, saveCourse } from "../../redux/actions/coursesActions";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { saveDataFilter, setMenuOptions } from "../../redux/actions/filterActions";
@@ -33,6 +33,7 @@ const SectionCursos = () => {
     // Actualizar la página actual cuando cambie el filtro
     setCurrentPage(0);
   }, [dataFilter]);
+
   const pageCount = Math.ceil((dataFilter?.length || courseCount) / itemsPerPage); // Número total de páginas
   return (
     <section className="min-w-[calc(100%-15em)] left-[15em] absolute">
@@ -49,7 +50,7 @@ const SectionCursos = () => {
             "flex bg-purple-300 drop-shadow-lg rounded-[1em] px-4 py-2 jusify-center items-center gap-2"
           }
           pageClassName={
-            "w-[1.5em] h-[1.5em]  rounded-[50%] flex items-center justify-center"
+            "w-[1.5em] h-[1.5em]   rounded-[50%] flex items-center justify-center"
           }
           pageLinkClassName={
             "w-[1.5em] h-[1.5em] rounded-[50%] flex items-center font-bold  justify-center  "
