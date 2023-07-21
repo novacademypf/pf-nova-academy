@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useRoutes, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCourses } from "./redux/actions/coursesActions";
+import { getAllProfile } from './redux/actions/profileActions';
 import Admin from "./pages/Admin/Admin";
 import Checkout from "./pages/Checkout";
 import Courses from "./pages/Courses";

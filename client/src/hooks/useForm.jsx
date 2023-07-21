@@ -58,6 +58,8 @@ export const useForm = (dataValue) => {
       error.response.status === 404 && setErrorsDb(error.response.data);
       error.response.status === 401 && console.error(error.response.data);
       error.response.status === 403 && console.error(error.response.data);
+      error.response.status === 500 && console.error(error.response.data);
+
     }
   };
 

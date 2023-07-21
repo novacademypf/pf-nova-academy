@@ -3,6 +3,7 @@ import {
   GET_PROFILE,
   GET_COURSE_BY_PROFILE,
   LOGOUT,
+  GET_ALL_PROFILE,
 } from "../action-type/action-types";
 
 export const getProfile = () => {
@@ -49,3 +50,22 @@ export const logout = () => {
     dispatch({ type: LOGOUT });
   };
 };
+
+export const getAllProfile = () =>{
+  console.log('afuera ')
+  return async (dispatch) =>{
+    console.log('adentro ')
+    try {
+      const response = await axios.get("/profile/allProfile");
+
+      console.log('response data ver',response.data);
+
+      dispatch({ type: GET_ALL_PROFILE, payload: response.data });
+    } catch (error) {
+      console.error("Error al obtener el perfil de los usuarios:", error);
+    }
+    console.log('sali del getall')
+
+  }
+}
+
