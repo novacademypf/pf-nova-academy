@@ -17,11 +17,7 @@ function AdminHome() {
   useEffect(() => {
     dispatch(getUsers());
     dispatch(getUserGoogle());
-  }, []);
-
-  useEffect(() => {
-    dispatch(getCoursesTotal());
-  }, []);
+  },[]);
 
   return (
     <div className="pb-16">
