@@ -55,7 +55,11 @@ export const useForm = (dataValue) => {
       dispatch(getProfile());
       user.status === 200 && navigate("/");
     } catch (error) {
-      error.response.status === 404 && setErrorsDb(error.response.data);
+      error.response.status === 404 && Swal.fire({
+        title: 'Error',
+        text: "Usuario no encontrado",
+        icon: 'error',
+      });;
       error.response.status === 401 && Swal.fire({
         title: 'Error',
         text: "Contraseña invalida",
