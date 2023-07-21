@@ -46,7 +46,7 @@ const CourseCard = ({ dataCard }) => {
         </span>
         <Link to={`/detail/${id}`}>
           <img
-            src="https://picsum.photos/800/600"
+            src={images}
             alt={name}
             className="w-full rounded-lg object-cover "
           />

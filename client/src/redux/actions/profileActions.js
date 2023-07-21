@@ -28,14 +28,11 @@ export const getCoursesByProfileId = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await axios.get(
-        "/profile/courseForSale",
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
+      const response = await axios.get("/profile/courseForSale", {
+        headers: {
+          Authorization: token,
+        },
+      });
 
       dispatch({ type: GET_COURSE_BY_PROFILE, payload: response.data });
     } catch (error) {
@@ -49,7 +46,6 @@ export const getCoursesByProfileId = () => {
 export const logout = () => {
   return (dispatch) => {
     localStorage.removeItem("token");
-    localStorage.removeItem("profileId");
     dispatch({ type: LOGOUT });
   };
 };

@@ -9,12 +9,9 @@ function AdminHome() {
   const dispatch = useDispatch();
 
   const courses = useSelector((state) => state.coursesReducer.courses);
-  console.log(courses);
 
   const users = useSelector((state) => state.userReducer.users);
   const usersGoogle = useSelector((state) => state.userReducer.usersGoogle);
-  console.log(usersGoogle)
-
   const allUsers = [...users, ...usersGoogle];
 
   useEffect(() => {

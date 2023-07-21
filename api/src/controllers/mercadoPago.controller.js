@@ -75,10 +75,10 @@ const paymentResponse = async (req, res) => {
 
     if (payment_status !== "approved") throw new Error();
 
-    res.redirect("http://127.0.0.1:5173/paymentresponse?status=ok");
+    res.redirect("http://127.0.0.1:5173/#/paymentresponse?status=ok");
   } catch (err) {
     console.error(err);
-    res.redirect("http://127.0.0.1:5173/paymentresponse?status=error");
+    res.redirect("http://127.0.0.1:5173/#/paymentresponse?status=error");
   }
 };
 
