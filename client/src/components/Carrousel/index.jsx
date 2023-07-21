@@ -40,7 +40,7 @@ const Carrousel = () => {
   };
 
   return (
-    <div className=" carousel relative mb-4 ">
+    <div className="carousel relative mb-4 m-8">
       <div className="flex">
         {images.slice(currentIndex, currentIndex + 5).map((image, index) => {
           const courseId = courses && courses[index] && courses[index].id;

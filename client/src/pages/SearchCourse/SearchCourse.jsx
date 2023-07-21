@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import Layout from "../../Layout";
 
 export const SearchCourse = () => {
@@ -14,9 +14,7 @@ export const SearchCourse = () => {
 
   const getCoursesParams = async (name) => {
     try {
-      let getCourses = await axios.get(
-        `/courseForSale/search?name=${name}`
-      );
+      let getCourses = await axios.get(`/courseForSale/search?name=${name}`);
       let data = await getCourses.data;
       console.log(data);
       setCourses(data);
@@ -24,13 +22,36 @@ export const SearchCourse = () => {
       console.log(err);
     }
   };
+  const history = useNavigate();
 
+  const handleGoBack = () => {
+    history(-1);
+  };
   useEffect(() => {
     getCoursesParams(name);
   }, [name]);
 
   return (
-    <Layout>
+    <Layout className="relative">
+      <button
+        className=" absolute left-64 top-32 flex justify-center items-center  w-auto h-8 rounded-full m-2 p-2  cursor-pointer"
+        onClick={handleGoBack}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-8 h-8"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"
+          />
+        </svg>
+      </button>
       <div
         className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 m-8 mx-auto`}
       >
@@ -41,11 +62,7 @@ export const SearchCourse = () => {
               key={el.id}
             >
               <Link>
-                <img
-                  className="rounded-t-lg"
-                  src="https://picsum.photos/800/600?random=1"
-                  alt={el.name}
-                />
+                <img className="rounded-t-lg" src={el.images} alt={el.name} />
               </Link>
 
               <figcaption className="p-5">

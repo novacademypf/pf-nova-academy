@@ -40,7 +40,7 @@ const UserProfile = ({ handleLogout, profile }) => {
       <div
         className={`${
           isOpen ? "visible" : "hidden"
-        } z-10 fixed top-[69px] right-1 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow`}
+        } z-10 fixed top-[85px] right-[15%] w-48 bg-white divide-y divide-gray-100 rounded-lg shadow`}
       >
         <NavLink to={"/account"}>
           <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
