@@ -8,8 +8,13 @@ import {
 
 export const addToCart = (data) => {
   const prevLocalCart = JSON.parse(localStorage.getItem("shoppingCart")) || [];
-  const updatedCart = [...prevLocalCart, data];
-  localStorage.setItem("shoppingCart", JSON.stringify(updatedCart));
+
+  const isAlreadyInCart = prevLocalCart.some((item) => item.id === data.id);
+
+  if (!isAlreadyInCart) {
+    const mergedCart = [...prevLocalCart, data];
+    localStorage.setItem("shoppingCart", JSON.stringify(mergedCart));
+  }
   return { type: ADD_TO_CART, payload: data };
 };
 

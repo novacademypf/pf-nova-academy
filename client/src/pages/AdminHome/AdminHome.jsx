@@ -17,11 +17,11 @@ function AdminHome() {
   useEffect(() => {
     dispatch(getUsers());
     dispatch(getUserGoogle());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     dispatch(getCoursesTotal());
-  }, [dispatch]);
+  }, []);
 
   return (
     <div className="pb-16">
