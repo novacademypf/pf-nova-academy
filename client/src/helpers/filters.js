@@ -6,6 +6,7 @@ export const filters = (options, data, payload) => {
   const { dataNormalizada, textNormalizado } = normalizeText(searchBar, data);
   console.log(payload);
   const dataFilter = dataNormalizada || data;
+   
   if (
     searchBar?.length > 0 &&
     categories?.length > 0 &&
@@ -58,7 +59,16 @@ export const filters = (options, data, payload) => {
     console.log("aca seracbar y categories-->", newData);
     return newData;
   }
-
+ if(searchBar?.length > 0 && (precio.min > payload?.minPrice || precio.max < payload?.maxPrice) ){
+  
+  const newData = dataFilter.filter((item) =>
+    item.name.includes(textNormalizado)
+  ).filter(
+    (item) => item.price >= precio.min && item.price <= precio.max
+  );
+  console.log(newData);
+  return newData;
+ }
   if (searchBar?.length > 0) {
     console.log("serachbar!==0");
     const newData = dataFilter.filter((item) =>
@@ -80,7 +90,15 @@ export const filters = (options, data, payload) => {
     console.log(" actegories 0", newData);
     return newData;
   }
-
+  if(categories.length>0&&(precio.min > payload?.minPrice || precio.max < payload?.maxPrice)){
+    const newData = dataFilter.filter((item) =>
+      item.category.some((cat) => categories.includes(cat))
+    ).filter(
+      (item) => item.price >= precio.min && item.price <= precio.max
+    );
+   
+    return newData;
+  }
   if (categories?.length > 0 && raiting?.length > 0) {
     const newData = dataFilter.filter((item) =>
       item.category.some((cat) => categories.includes(cat))
@@ -185,7 +203,7 @@ export const filters = (options, data, payload) => {
       item.name.includes(textNormalizado)
     );
   } */
-  return data;
+  return dataNormalizada;
 };
 
 const normalizeText = (text, data) => {
@@ -202,6 +220,8 @@ const normalizeText = (text, data) => {
         .toLowerCase()
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, ""),
+        ratingAverage:Math.round(item.ratingAverage)
+
     }));
   return { dataNormalizada, textNormalizado };
 };

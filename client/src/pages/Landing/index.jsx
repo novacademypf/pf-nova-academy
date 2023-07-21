@@ -7,7 +7,6 @@ import Chatbot from "../../components/ChatBot/ChatBot";
 
 const Landing = () => {
   return (
-
     <>
       <Layout>
         <Banner />

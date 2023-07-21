@@ -14,6 +14,7 @@ export default function CreateCourse({ courseUpdate }) {
     (state) => state.getAllCategories.categories
   );
   const [file, setFile] = useState(null);
+  
   const [modules, setModules] = useState(0);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [courseId, setCourseId] = useState(0);
@@ -222,6 +223,7 @@ export default function CreateCourse({ courseUpdate }) {
         icon: "success",
         title: "Creado Correctamente",
       });
+      
     }
 
     setErrors({
@@ -233,11 +235,7 @@ export default function CreateCourse({ courseUpdate }) {
       price: "",
     });
   };
-/*useEffect(()=>{
-  if(flagBotton===true){
-    dispatch(getAllCourses())
-  }
-},[flagBotton])*/
+
   const clearPage = () => {
     setFlagBotton(false);
     setModules(0);
@@ -260,6 +258,7 @@ export default function CreateCourse({ courseUpdate }) {
     });
     setFlagFinally(false);
   };
+ 
   return (
     <div className="container mx-auto px-20 bg-slate-300 rounded-lg">
       <h1 className="text-4xl text-center my-5 p-5">INFORMACION DEL CURSO</h1>

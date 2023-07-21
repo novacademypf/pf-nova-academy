@@ -31,6 +31,7 @@ import MyOrders from "./pages/MyOrders/MyOrders";
 import { addFromStorage } from "./redux/actions/shoppingCartActions";
 import { setMenuOptions } from "./redux/actions/filterActions";
 import { getAllCategories } from "./redux/actions/allCategoriesActions";
+import { getProfile } from "./redux/actions/profileActions";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -41,16 +42,17 @@ const App = () => {
       return state.coursesReducer.courses;
     }
   );
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
     dispatch(getAllCourses());
-    //dispatch(getProfile());
-    dispatch(getAllCategories())
+    token && dispatch(getProfile());
+    dispatch(getAllCategories());
     prevLocalCart && dispatch(addFromStorage(prevLocalCart));
-  
-      
-    
-  }, []);
-  useEffect(()=>{dispatch(setMenuOptions("default", { maxPrice, minPrice }));},[maxPrice,minPrice])
+  }, [token]);
+  useEffect(() => {
+    dispatch(setMenuOptions("default", { maxPrice, minPrice }));
+  }, [maxPrice, minPrice]);
 
   const AppRouter = () => {
     const location = useLocation();
@@ -75,7 +77,7 @@ const App = () => {
       },
       {
         path: "/account",
-        element: <MyAccount />,
+        element: <PrivateRoute element={<MyAccount />} auth={userProfile} />,
       },
       { path: "/login", element: <SingIn /> },
       { path: "/register", element: <SingUp /> },

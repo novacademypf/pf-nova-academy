@@ -6,6 +6,7 @@ const UserProfile = ({ handleLogout, profile }) => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation().pathname;
   const profilePhoto = "https://source.unsplash.com/random/800x600/?avatar=1";
+  console.log("profile -> ", profile);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -41,8 +42,10 @@ const UserProfile = ({ handleLogout, profile }) => {
       >
         <NavLink to={"/account"}>
           <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-            <div>{profile.name}</div>
-            <div className="font-medium truncate">{profile.email}</div>
+            <div>{profile ? profile.name : "Nombre de usuario"}</div>
+            <div className="font-medium truncate">
+              {profile ? profile.email : "email"}
+            </div>
           </div>
         </NavLink>
         <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">

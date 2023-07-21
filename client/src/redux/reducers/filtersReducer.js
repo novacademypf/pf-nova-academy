@@ -65,6 +65,7 @@ export const setMenuOptionsReducer = (state = initialOptions, action) => {
           ...state,
           searchBar: "",
           raiting: [],
+          categories:[],
           precio: { min: action.value.minPrice, max:action.value.maxPrice },
         };
       }
