@@ -76,15 +76,15 @@ export default function CoursesCreated() {
               >
                 Editar
               </Button>
-
-              <Button
-                onClick={() => setOpenModalRating(true)}
-                className="absolute top-0 right-0 m-4 text-sm"
-              >
-                Reseña
-              </Button>
             </div>
-          ) : null}
+          ) : (
+            <Button
+              onClick={() => setOpenModalRating(true)}
+              className="absolute top-0 right-0 m-4 text-sm"
+            >
+              Reseña
+            </Button>
+          )}
         </div>
         <div>
           <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -124,7 +124,11 @@ export default function CoursesCreated() {
                             {lesson.content}
                           </p>
                           <div className="w-full h-screen flex items-center justify-center">
-                          <iframe src={lesson.resource} width="100%" height="600px"></iframe>
+                            <iframe
+                              src={lesson.resource}
+                              width="100%"
+                              height="600px"
+                            ></iframe>
                           </div>
                         </Accordion.Content>
                       </Accordion.Panel>

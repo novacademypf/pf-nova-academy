@@ -5,43 +5,46 @@ import ResultSearchBar from "../ResultSearchBar/ResultSearchBar";
 import Prueba from "./prueba";
 
 const SearchBar = () => {
-  const {courseAll} = useSelector((state) => state.coursesReducer.courses);
+  const { courseAll } = useSelector((state) => state.coursesReducer.courses);
   const [term, setTerm] = useState("");
   const [filteredCourses, setFilteredCourses] = useState([]);
   let navigate = useNavigate();
-
-  let coursesFlat = courseAll && courseAll.map((el) => {
-    return {
-      id: el.id,
-      name: el.name
-        .replace(/[,.-]/g, "")
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, ""),
-      description: el.description
-        .replace(/[,.-]/g, "")
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, ""),
-      category: el.category
-        .join(" ")
-        .replace(/[,.-]/g, "")
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, ""),
-      image: "https://picsum.photos/800/600?random=1",
-    };
-  });
+  let coursesFlat =
+    courseAll &&
+    courseAll.map((el) => {
+      return {
+        id: el.id,
+        name: el.name
+          .replace(/[,.-]/g, "")
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, ""),
+        description: el.description
+          .replace(/[,.-]/g, "")
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, ""),
+        category: el.category
+          .join(" ")
+          .replace(/[,.-]/g, "")
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, ""),
+        image: el.images,
+      };
+    });
 
   const filterCourse = (value) => {
     value = value.toLowerCase();
-    let filter = coursesFlat && coursesFlat.filter((el) => {
-      return (
-        el.name.includes(value) ||
-        el.description.includes(value) ||
-        el.category.includes(value)
-      );
-    });
+    let filter =
+      coursesFlat &&
+      coursesFlat.filter((el) => {
+        return (
+          el.name.includes(value) ||
+          el.description.includes(value) ||
+          el.category.includes(value)
+        );
+      });
 
     setFilteredCourses(filter);
   };
@@ -62,8 +65,12 @@ const SearchBar = () => {
   };
   return (
     <>
-    <Prueba handleChange={handleChange} handleEnter={handleEnter} term={term}/>
-    {/* <form className="flex items-center mb-8 relative">
+      <Prueba
+        handleChange={handleChange}
+        handleEnter={handleEnter}
+        term={term}
+      />
+      {/* <form className="flex items-center mb-8 relative">
           <label htmlFor="simple-search" className="sr-only">
             Buscar curso ...
           </label>
@@ -116,11 +123,11 @@ const SearchBar = () => {
             </svg>
             <span className="sr-only">Buscar curso...</span>
           </button>
-        </form> */} 
+        </form> */}
       {term.length > 0 && term !== " " && (
-        <ResultSearchBar results={ filteredCourses} />
+        <ResultSearchBar results={filteredCourses} />
       )}
-</>
+    </>
   );
 };
 

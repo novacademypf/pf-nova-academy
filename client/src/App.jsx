@@ -77,7 +77,7 @@ const App = () => {
       },
       {
         path: "/account",
-        element: <PrivateRoute element={<MyAccount />} auth={userProfile} />,
+        element: <MyAccount />,
       },
       { path: "/login", element: <SingIn /> },
       { path: "/register", element: <SingUp /> },
