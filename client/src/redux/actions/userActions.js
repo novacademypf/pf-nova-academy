@@ -106,7 +106,7 @@ export const deleteUser = (userId) => {
 export const deleteUserGoogle = (id) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`/deleteUser/${id}`);
+      await axios.delete(`/google/deleteUser/${id}`);
       dispatch({
         type: DELETE_USER_GOOGLE,
         payload: id,
