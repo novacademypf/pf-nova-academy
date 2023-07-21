@@ -15,7 +15,6 @@ const loaderCategory = async () => {
   if (categoriesCount === 0) {
     await Category.bulkCreate(category);
   }
-  console.log("esty cargando catehorias " + categoriesCount);
 };
 
 const loaderUsers = async () => {
@@ -49,7 +48,6 @@ const loaderUsers = async () => {
 
       await transaction.commit();
     }
-    console.log("esty cargando usaurios " + usersCount);
   } catch (error) {
     if (transaction) await transaction.rollback();
     console.error("Error loading users:", error);
@@ -61,7 +59,6 @@ const loaderCourseForSale = async () => {
 
   if (courseCount > 0) {
     // Si ya hay cursos en la base de datos, no se realiza la carga nuevamente
-    console.log("me esty cargando en la base de datos " + courseCount);
     return;
   }
   const profileIds = await Profile.findAll({ attributes: ["profileId"] });
@@ -90,7 +87,6 @@ const loaderCourseForSale = async () => {
     });
 
     await course.addCategory(categories);
-    console.log("cursos" + courseCount);
   }
 };
 
@@ -102,7 +98,6 @@ const loaderRating = async () => {
 
   if (courseCount > 0) {
   
-    console.log("me esty cargando los comentarios y rating en la base de datos " + courseCount);
     return;
   }
   

@@ -1,7 +1,6 @@
 const { Order, CourseForSale, Module, Lesson } = require("../db");
 const getOrders = async (req, res) => {
   const { profileId } = req.params;
-  console.log("params", profileId);
   const ordersByUser = await Order.findAll({
     where: {
       idProfile: profileId,
@@ -26,8 +25,6 @@ function extractCourseIds(data) {
 const getCoursesOrders = async (req, res) => {
   try {
     const { profileId } = req.params;
-
-    console.log("params", profileId);
     const ordersByUser = await Order.findAll({
       where: {
         idProfile: profileId,
@@ -53,11 +50,6 @@ const getCoursesOrders = async (req, res) => {
         },
       ],
     });
-
-    /*    if (courses.length === 0) {
-      return res.status(404).json({ error: "Courses not found" });
-    } */
-
     res.json(courses);
   } catch (error) {
     console.error(error);

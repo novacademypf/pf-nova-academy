@@ -52,7 +52,6 @@ export const useForm = (dataValue) => {
       e.preventDefault();
       const user = await loginUser(valueInput);
       localStorage.setItem("token", user.data);
-      console.log("token user registrado", user.data);
       dispatch(getProfile());
       user.status === 200 && navigate("/");
     } catch (error) {

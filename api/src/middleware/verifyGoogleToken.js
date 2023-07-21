@@ -17,7 +17,6 @@ const verifyGoogleToken = async (req, res, next) => {
       {},
       config
     );
-    console.log("--->>", response.data);
     req.user = {
       userEmail: response.data.email,
       userName: response.data.name,

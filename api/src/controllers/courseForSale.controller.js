@@ -41,8 +41,6 @@ const getCourseForSale = async (req, res) => {
         },
         
       });
-      console.log(count)
-      console.log(rows)
       res.send({ courseCount: count, courseAll: rows });
     } else {
       const { count, rows } = await CourseForSale.findAndCountAll({
@@ -179,7 +177,6 @@ const getCourseForSaleById = async (req, res) => {
 const searchCoursesByName = async (req, res) => {
   try {
     const { name } = req.query;
-    console.log(name);
     // const dataBaseCourses=await CourseForSale.find({name:{ $regex:name,$options:"i"}})
     const dataBaseCourses = await CourseForSale.findAll({
       where: {

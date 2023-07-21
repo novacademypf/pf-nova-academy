@@ -18,7 +18,6 @@ export const useSearchbar = () => {
 
     }
     useEffect(() => {
-      console.log('aca search bar')
         dispatch(saveDataFilter(filters(options, courseAll)))
     }, [options])
     return {

@@ -5,10 +5,6 @@ import Swal from "sweetalert2";
 
 const UserList = ({ profile }) => {
   const dispatch = useDispatch();
-
-  console.log('userlist',profile)
-
-
   const [deletedUserIds, setDeletedUserIds] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 5;
@@ -21,7 +17,6 @@ const UserList = ({ profile }) => {
   }, [deletedUserIds]);
 
   const handleDeleteUser = (profileId) => {
-    console.log(profileId);
     dispatch(deleteUser(profileId));
     setDeletedUserIds([...deletedUserIds, profileId]);
   };
