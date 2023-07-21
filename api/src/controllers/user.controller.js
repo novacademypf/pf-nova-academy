@@ -67,16 +67,17 @@ const postLoginUser = async (req, res) => {
   try {
     const user = await User.findOne({ where: { email: email } }); // Se busca en la base de datos un usuario con el correo electrónico proporcionado
     const profile = await Profile.findOne({ where: { email: email, status: true } });
-    if (!profile) {
-      const error = new Error("Baneado");
-      error.status = 423;
-      throw error;
-    }
     if (!user) {
       const error = new Error("user not found");
       error.status = 404;
       throw error;
     } // Si no se encuentra ningún usuario, se lanza un error
+    if (!profile) {
+      const error = new Error("Baneado");
+      error.status = 423;
+      throw error;
+    }
+    
     
     const checkPassword = await compare(password, user.password); // Se compara la contraseña proporcionada con la contraseña almacenada en la base de datos
     const tokenSession = await createtoken(profile); // Si la contraseña coincide, se crea un token de sesión
