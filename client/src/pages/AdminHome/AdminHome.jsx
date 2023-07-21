@@ -1,24 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import UserList from '../../components/UserList/UserList';
-import { getUsers, getUserGoogle } from '../../redux/actions/userActions';
-import { getCoursesTotal } from '../../redux/actions/coursesActions';
+import { getAllProfile } from '../../redux/actions/profileActions';
 import CoursesList from '../../components/CoursesList/CoursesList';
 
 function AdminHome() {
   const dispatch = useDispatch();
-
   const courses = useSelector((state) => state.coursesReducer.courses);
-
-  const users = useSelector((state) => state.userReducer.users);
-  const usersGoogle = useSelector((state) => state.userReducer.usersGoogle);
-  const allUsers = [...users, ...usersGoogle];
+  const profile = useSelector((state) => state.profileReducer.allProfile);
+  console.log(profile);
+  
 
   useEffect(() => {
-    dispatch(getUsers());
-    dispatch(getUserGoogle());
+    console.log('estoy en elk useeffect');
+    dispatch(getAllProfile());
   },[]);
 
+
+  
   return (
     <div className="pb-16">
       <div className="bg-gray-100 flex flex-col justify-center items-center pt-9 sm:pt-12 lg:pt-16 pb-24 sm:pb-52">
@@ -32,7 +31,7 @@ function AdminHome() {
         </div>
       </div>
       <div className="-mt-16 sm:-mt-48 lg:-mt-32 xl:-mt-40 2xl:container 2xl:mx-auto flex justify-center items-center space-y-4 px-4 md:px-6 2xl:px-0 mb-16">
-        <CoursesList courses={courses} />
+        <CoursesList courses={courses}/>
       </div>
 
       <div className="bg-gray-100 flex flex-col justify-center items-center pt-9 sm:pt-12 lg:pt-16 pb-24 sm:pb-52">
@@ -46,7 +45,9 @@ function AdminHome() {
         </div>
       </div>
       <div className="-mt-16 sm:-mt-48 lg:-mt-32 xl:-mt-40 2xl:container 2xl:mx-auto flex justify-center items-center space-y-4 px-4 md:px-6 2xl:px-0 mb-16">
-        <UserList users={allUsers} />
+
+      <UserList profile={profile ?? [] }  />
+
       </div>
     </div>
   );
