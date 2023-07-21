@@ -13,8 +13,7 @@ export function InputRange() {
     const { value, name } = e.target;
     let parsedValue = +value;
 
-    
-
+   
     dispatch(setMenuOptions("precio", { [name]: parsedValue }));
   };
   React.useEffect(()=>{
@@ -23,7 +22,7 @@ export function InputRange() {
     dispatch(saveDataFilter(filters(options,courseAll,{maxPrice,minPrice})))
   },[options])
   return (
-    <div className="bg-white max-w-full border-b border-t border-[#7D5FFF] mb-2 pb-2  mt-2">
+    <div className="bg-white max-w-full border-b border-t border-[#7D5FFF] rounded mb-2 pb-2  mt-2">
       <span className="text-[#7D5FFF] font-semibold">Precio</span>
       <div className="flex ">
         <label htmlFor="min" className="text-[#7D5FFF] font-semibold">min</label>
@@ -31,6 +30,7 @@ export function InputRange() {
           type="number"
           name="min"
           id="min"
+          min={minPrice}
           className="h-6 w-full"
           onChange={handlePriceChange}
           value={options.precio?.min || ''}
@@ -40,6 +40,7 @@ export function InputRange() {
           type="number"
           name="max"
           id="max"
+          max={maxPrice}
           className="h-6 w-full"
           value={options.precio?.max || ''}
           onChange={handlePriceChange}
