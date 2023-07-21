@@ -74,12 +74,11 @@ const paymentResponse = async (req, res) => {
     updateOrder.save();
 
     if (payment_status !== "approved") throw new Error();
-
-    res.redirect("https://pf-nova-academy.vercel.app");
+    res.redirect("https://pf-nova-academy.vercel.app/#/paymentresponse?status=ok");
   } catch (err) {
     console.error(err);
-    res.redirect("https://pf-nova-academy.vercel.app/paymentresponse?status=error");
-  }
+    res.redirect("https://pf-nova-academy.vercel.app/#/paymentresponse?status=error");
+    }
 };
 
 module.exports = {

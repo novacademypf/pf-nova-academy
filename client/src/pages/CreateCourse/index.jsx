@@ -6,7 +6,7 @@ import axios from "axios";
 import { uploadFile } from "../../firebase/config";
 import Swal from "sweetalert2";
 import { useLocation, useParams } from "react-router-dom";
-import { getCourseForSaleById } from "../../redux/actions/coursesActions";
+import { getAllCourses, getCourseForSaleById } from "../../redux/actions/coursesActions";
 export default function CreateCourse({ courseUpdate }) {
   const {id} = useParams()
   const dispatch = useDispatch()
@@ -14,6 +14,7 @@ export default function CreateCourse({ courseUpdate }) {
     (state) => state.getAllCategories.categories
   );
   const [file, setFile] = useState(null);
+  
   const [modules, setModules] = useState(0);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [courseId, setCourseId] = useState(0);
@@ -221,6 +222,7 @@ export default function CreateCourse({ courseUpdate }) {
         icon: "success",
         title: "Creado Correctamente",
       });
+      
     }
 
     setErrors({
@@ -255,6 +257,7 @@ export default function CreateCourse({ courseUpdate }) {
     });
     setFlagFinally(false);
   };
+ 
   return (
     <div className="container mx-auto px-20 bg-slate-300 rounded-lg">
       <h1 className="text-4xl text-center my-5 p-5">INFORMACION DEL CURSO</h1>

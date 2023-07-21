@@ -5,6 +5,7 @@ import { filters } from "../../helpers/filters";
 import { saveDataFilter } from "../../redux/actions/filterActions";
 import { useEffect } from "react";
 import { getAllCategories } from "../../redux/actions/allCategoriesActions";
+import { getAllCourses } from "../../redux/actions/coursesActions";
 
 
 
@@ -21,10 +22,7 @@ const Courses = () => {
     console.log('acaindex')
   }, [courseAll]);
 
-  useEffect(()=>{
-    console.log("useEffect")
-    dispatch(getAllCategories())
-  },[])
+  
 
   return (
     <main className="relative top-[0 rem] flex ">

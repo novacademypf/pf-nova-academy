@@ -8,6 +8,7 @@ import { logout } from "../../redux/actions/profileActions";
 import UserProfile from "../UserProfile/UserProfile";
 import NavCart from "../NavCart/NavCart";
 import LandingButtons from "../LandingButtons/LandingButtons";
+import { getAllCourses } from "../../redux/actions/coursesActions";
 /*eslint-disable*/
 const NavBar = () => {
   const userProfile = useSelector((state) => state.profileReducer.userProfile);
@@ -111,7 +112,7 @@ const NavBar = () => {
                   className={({ isActive }) =>
                     isActive ? activeStyle : "mx-2"
                   }
-                  onClick={toggleMenu}
+                  onClick={()=>{toggleMenu(),dispatch(getAllCourses())} }
                 >
                   {el.name}
                 </NavLink>
