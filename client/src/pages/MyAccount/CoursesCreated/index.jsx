@@ -76,15 +76,15 @@ export default function CoursesCreated() {
               >
                 Editar
               </Button>
-
-              <Button
-                onClick={() => setOpenModalRating(true)}
-                className="absolute top-0 right-0 m-4 text-sm"
-              >
-                Reseña
-              </Button>
             </div>
-          ) : null}
+          ) : (
+            <Button
+              onClick={() => setOpenModalRating(true)}
+              className="absolute top-0 right-0 m-4 text-sm"
+            >
+              Reseña
+            </Button>
+          )}
         </div>
         <div>
           <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
