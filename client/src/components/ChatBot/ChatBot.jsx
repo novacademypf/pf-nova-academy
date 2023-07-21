@@ -103,7 +103,7 @@ const ChatBot = () => {
               component: (
                 <button
                   className="mt-4 bg-blue-600 hover:underline px-4 py-2 text-white uppercase rounded text-xs tracking-wider"
-                  href="http://localhost:5173/register"
+                  href="https://pf-nova-academy.vercel.app/#/register"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={toggleMaximize}
@@ -119,7 +119,7 @@ const ChatBot = () => {
               component: (
                 <a
                   className="mt-4 bg-blue-600 hover:underline px-4 py-2 text-white uppercase rounded text-xs tracking-wider"
-                  href="http://localhost:5173/register"
+                  href="https://pf-nova-academy.vercel.app/#/register"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -151,7 +151,7 @@ const ChatBot = () => {
               component: (
                 <a
                   className="mt-4 bg-blue-600 hover:underline px-4 py-2 text-white uppercase rounded text-xs tracking-wider"
-                  href="http://localhost:5173/register"
+                  href="https://pf-nova-academy.vercel.app/#/register"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -179,7 +179,7 @@ const ChatBot = () => {
               component: (
                 <a
                   className="mt-4 bg-blue-600 hover:underline px-4 py-2 text-white uppercase rounded text-xs tracking-wider"
-                  href="http://localhost:5173/courses"
+                  href="https://pf-nova-academy.vercel.app/#/courses"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -200,11 +200,11 @@ const ChatBot = () => {
               component: (
                 <a
                   className="mt-4 bg-blue-600 hover:underline px-4 py-2 text-white uppercase rounded text-xs tracking-wider"
-                  href="http://localhost:5173/about"
+                  href="https://pf-nova-academy.vercel.app/#/about"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Qienes somos
+                  Quienes somos
                 </a>
               ),
               trigger: "Cierre",
@@ -221,7 +221,7 @@ const ChatBot = () => {
               component: (
                 <a
                   className="mt-4 bg-blue-600 hover:underline px-4 py-2 text-white uppercase rounded text-xs tracking-wider"
-                  href="http://localhost:5173/courses"
+                  href="https://pf-nova-academy.vercel.app/#/courses"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
