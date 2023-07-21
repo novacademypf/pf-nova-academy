@@ -74,7 +74,7 @@ const SignUp = ({
         allowOutsideClick: false,
       }).then((res) => {
         if (res.isConfirmed) {
-          navigate("/account");
+          navigate("/login");
         }
       });
 
