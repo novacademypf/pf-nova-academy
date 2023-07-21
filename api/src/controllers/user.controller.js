@@ -69,6 +69,12 @@ const postLoginUser = async (req, res) => {
     console.log("-->", email);
     const user = await User.findOne({ where: { email: email } }); // Se busca en la base de datos un usuario con el correo electrónico proporcionado
     const profile = await Profile.findOne({ where: { email: email, status: true } });
+    if (!profile) {
+      console.log("error baneado")
+      const error = new Error("Baneado");
+      error.status = 423;
+      throw error;
+    }
     console.log("login profile", profile);
     console.log("login user", user);
     if (!user) {
