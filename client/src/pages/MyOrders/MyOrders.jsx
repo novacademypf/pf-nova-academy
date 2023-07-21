@@ -7,7 +7,23 @@ import { Link } from "react-router-dom";
 const MyOrders = () => {
   const dispatch = useDispatch();
   const orders = useSelector((state) => state.orderReducer.orders);
+  const courses = useSelector(
+    (state) => state.coursesReducer.courses.courseAll
+  );
   const id = localStorage.getItem("profileId");
+  const coursesOrder = new Set([
+    ...orders
+      .map((el) => el.items.map((el) => el))
+      .flat()
+      .map((el) => el.idCourse),
+  ]);
+  const coursesOrderArray = Array.from(coursesOrder);
+
+  const cursosComprados = courses.filter((el) =>
+    coursesOrderArray.includes(el.id)
+  );
+
+  console.log(cursosComprados);
 
   useEffect(() => {
     dispatch(getOrders(id));
@@ -23,14 +39,11 @@ const MyOrders = () => {
               Status de la compra:{" "}
               {el.payment_status === "approved" ? "Aprobado" : ""}
             </div>
-            <div className="flex flex-row gap-2">
+            <div className="flex flex-col gap-2">
               Cursos comprados:
-              {el.items.map((el) => (
-                <Link
-                  key={el.idCourse}
-                  to={`/courses-purchased/${el.idCourse}`}
-                >
-                  {el.idCourse}
+              {cursosComprados.map((el) => (
+                <Link key={el.id} to={`/courses-purchased/${el.idCourse}`}>
+                  {el.name}
                 </Link>
               ))}
             </div>
