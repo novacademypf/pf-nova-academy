@@ -118,13 +118,13 @@ export const deleteUserGoogle = (id) => {
   };
 };
 
-export const toggleUserStatus = (userId, status) => async (dispatch) => {
+export const toggleUserStatus = (profileId, status) => async (dispatch) => {
   try {
-    await axios.put(`user/updateUser/${userId}`, { status });
+    await axios.put(`profile/updateProfile/${profileId}`, { status });
 
     dispatch({
       type: TOGGLE_USER_STATUS,
-      payload: { userId, status: !status },
+      payload: { profileId, status: !status },
     });
   } catch (error) {
     console.error("Error al cambiar el estado del usuario:", error);
@@ -161,3 +161,5 @@ export const updateUserStatus = (status) => {
     payload: status,
   };
 };
+
+

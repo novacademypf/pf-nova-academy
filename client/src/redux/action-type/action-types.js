@@ -53,6 +53,7 @@ export const GET_PROFILE = "GET_PROFILE";
 export const GET_COURSE_BY_PROFILE = "GET_COURSE_BY_PROFILE";
 export const LOGOUT = "LOGOUT";
 export const TOGGLE_USER_STATUS= "TOGGLE_USER_STATUS";
+export const GET_ALL_PROFILE = "GET_ALL_PROFILE";
 
 
 

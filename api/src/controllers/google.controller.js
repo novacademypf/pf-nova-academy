@@ -18,6 +18,14 @@ const postLoginGoogle = async (req, res) => {
     } else {
       if (userGoogle) {
         const profile = await Profile.findOne({ where: { email: userEmail, status:true } });
+        if (!profile ) {
+          console.log("error baneado")
+              const error = new Error(
+                "Baneado"
+              );
+              error.status = 423;
+              throw error;
+        }
         const tokenSession = await createtoken(profile);
         res.status(200).json({ token: tokenSession,message:"The user is already registered with a Google account." });
       } else {

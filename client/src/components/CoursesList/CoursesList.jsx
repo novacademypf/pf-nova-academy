@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect  } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteCourse } from '../../redux/actions/coursesActions';
 import Swal from 'sweetalert2';
@@ -18,6 +18,10 @@ const CoursesList = ({ courses }) => {
     dispatch(deleteCourse(id));
     setDeletedCourseIds([...deletedCourseIds, id]);
   };
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm]);
 
   const showConfirmationAlert = (id, courseName) => {
     Swal.fire({

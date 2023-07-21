@@ -39,5 +39,31 @@ const getCoursesByProfileId = async (req, res) => {
     res.status(500).json({ message: "Error al obtener los cursos" });
   }
 };
+const getAllProfile = async (req,res) => {
+  try {
+    const profile = await Profile.findAll();
+    res.json(profile);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error retrieving users" });
+  }
+}
 
-module.exports = { getProfile, getCoursesByProfileId };
+
+const updateProfile = async (req,res) => {
+  try {
+    const { profileId } = req.params;
+    const { status } = req.body;
+    const user = await Profile.findByPk(profileId);
+    if (!user) {
+      return res.status(404).json({ error: "Profile not found" });
+    }
+    await user.update({ status });
+    res.json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error updating Profile" });
+  }
+}
+
+module.exports = { getProfile, getCoursesByProfileId, getAllProfile, updateProfile };
