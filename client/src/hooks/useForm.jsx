@@ -56,7 +56,11 @@ export const useForm = (dataValue) => {
       user.status === 200 && navigate("/");
     } catch (error) {
       error.response.status === 404 && setErrorsDb(error.response.data);
-      error.response.status === 401 && console.error(error.response.data);
+      error.response.status === 401 && Swal.fire({
+        title: 'Error',
+        text: "Contraseña invalida",
+        icon: 'error',
+      });;
       error.response.status === 403 && console.error(error.response.data);
       error.response.status === 423 && Swal.fire({
         title: 'Error',
