@@ -6,7 +6,7 @@ const cursos = [
     description: "Aprende conceptos avanzados de matemáticas con este curso.",
     price: 150,
     duration: "8 semanas",
-    images: ["https://example.com/math-course.jpg"],
+    images: "https://cursos.aiu.edu/images/math.jpg",
   },
   {
     name: "Curso de Biología Molecular",
@@ -14,7 +14,7 @@ const cursos = [
     description: "Descubre los secretos de la biología molecular en este curso especializado.",
     price: 180,
     duration: "10 semanas",
-    images: ["https://example.com/biology-course.jpg"],
+    images: "https://www.unbosque.edu.co/sites/default/files/2020-03/biologia-molecular.png",
   },
 
   {
@@ -23,15 +23,15 @@ const cursos = [
     description: "Aprende a programar en Python desde cero con este curso práctico.",
     price: 100,
     duration: "6 semanas",
-    images: ["https://example.com/python-course.jpg"],
+    images: "https://becasyconvocatorias.org/wp-content/uploads/2020/07/Cursos-gratis-sobre-programaci%C3%B3n-en-Python-para-hacer-desde-tu-casa-1.jpg",
   },
   {
-    name: 'Curso de Matemáticas Avanzadas',
-    category: ['Matemáticas'],
+    name: 'Curso de Música',
+    category: ['Música'],
     description: 'Aprende conceptos avanzados de matemáticas con este curso.',
     price: 150,
     duration: '8 semanas',
-    images: ['https://example.com/math-course.jpg']
+    images: 'https://www.educaciontrespuntocero.com/cursos/wp-content/uploads/2022/04/Cursos-online-de-musica-978x652.jpg'
   },
   {
     name: 'Curso de Física Cuántica',
@@ -39,7 +39,7 @@ const cursos = [
     description: 'Explora los fundamentos de la física cuántica en este curso.',
     price: 200,
     duration: '6 semanas',
-    images: ['https://example.com/quantum-physics-course.jpg']
+    images: 'https://hotmart.s3.amazonaws.com/product_pictures/bdea7a41-e4eb-4409-9554-a10640c98502/cursofisicacuanticagratisviajeroseneltiempo.jpg'
   },
 ];
 

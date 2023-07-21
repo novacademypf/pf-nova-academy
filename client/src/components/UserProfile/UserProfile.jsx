@@ -5,7 +5,9 @@ import { NavLink, useLocation } from "react-router-dom";
 const UserProfile = ({ handleLogout, profile }) => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation().pathname;
-  const profilePhoto = "https://source.unsplash.com/random/800x600/?avatar=1";
+  const profilePhoto =
+    profile?.photo ?? "https://source.unsplash.com/random/800x600/?avatar=1";
+
   console.log("profile -> ", profile);
 
   const handleToggle = () => {
@@ -38,7 +40,7 @@ const UserProfile = ({ handleLogout, profile }) => {
       <div
         className={`${
           isOpen ? "visible" : "hidden"
-        } z-10 fixed top-[69px] right-1 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow`}
+        } z-10 fixed top-[85px] right-[15%] w-48 bg-white divide-y divide-gray-100 rounded-lg shadow`}
       >
         <NavLink to={"/account"}>
           <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
