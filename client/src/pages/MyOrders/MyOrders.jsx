@@ -30,19 +30,25 @@ const MyOrders = () => {
   }, []);
   return (
     <Layout>
-      <h2>Mis Ordenes</h2>
+      <h2 className=" font-bold m-4 text-xl">Mis Ordenes</h2>
       {orders
         .map((el) => (
           <div key={el.idOrder} className="border w-96  h-auto rounded p-4 m-4">
-            <div>Orden #: {el.idOrder}</div>
             <div>
-              Status de la compra:{" "}
+              <strong>Orden #:</strong> {el.idOrder}
+            </div>
+            <div>
+              <strong>Status de la compra: </strong>
               {el.payment_status === "approved" ? "Aprobado" : ""}
             </div>
             <div className="flex flex-col gap-2">
-              Cursos comprados:
+              <strong>Cursos comprados: </strong>
               {cursosComprados.map((el) => (
-                <Link key={el.id} to={`/courses-purchased/${el.idCourse}`}>
+                <Link
+                  key={el.id}
+                  to={`/courses-purchased/${el.idCourse}`}
+                  className="text-cyan-500"
+                >
                   {el.name}
                 </Link>
               ))}
