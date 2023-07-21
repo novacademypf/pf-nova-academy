@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import CourseCards from "../../components/CourseCards/CourseCards";
-import { getAllCourses, getAllCourses, saveCourse } from "../../redux/actions/coursesActions";
+import { getAllCourses, saveCourse } from "../../redux/actions/coursesActions";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import {

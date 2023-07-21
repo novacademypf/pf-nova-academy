@@ -9,7 +9,7 @@ import UserProfile from "../UserProfile/UserProfile";
 import NavCart from "../NavCart/NavCart";
 import LandingButtons from "../LandingButtons/LandingButtons";
 import { getAllCourses } from "../../redux/actions/coursesActions";
-import { getAllCourses } from "../../redux/actions/coursesActions";
+
 /*eslint-disable*/
 const NavBar = () => {
   const userProfile = useSelector((state) => state.profileReducer.userProfile);
