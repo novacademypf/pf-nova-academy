@@ -49,11 +49,11 @@ export const deleteCourse = (courseId) => {
 
 
 
-export const saveCourse=(course,isFilter)=>{
+export const saveCourse=(course)=>{
   return {
     type:SAVE_COURSE,
     payload:course,
-    isFilter:isFilter
+    
   }
 }
 

@@ -1,4 +1,5 @@
 import CourseCard from "../CourseCard/CourseCard";
+
 /* eslint-disable */
 
 const CourseCards = ({ courses }) => {

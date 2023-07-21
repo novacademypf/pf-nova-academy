@@ -205,6 +205,7 @@ export default function CreateCourse({ courseUpdate }) {
         },
       });
       dispatch(getCourseForSaleById(id))
+      dispatch(getAllCourses())
       Swal.fire({
         icon: "success",
         title: "Actualizado Correctamente",
@@ -232,11 +233,11 @@ export default function CreateCourse({ courseUpdate }) {
       price: "",
     });
   };
-useEffect(()=>{
+/*useEffect(()=>{
   if(flagBotton===true){
     dispatch(getAllCourses())
   }
-},[flagBotton])
+},[flagBotton])*/
   const clearPage = () => {
     setFlagBotton(false);
     setModules(0);

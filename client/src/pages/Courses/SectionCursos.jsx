@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import CourseCards from "../../components/CourseCards/CourseCards";
-import { saveCourse } from "../../redux/actions/coursesActions";
+import { getAllCourses, saveCourse } from "../../redux/actions/coursesActions";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { saveDataFilter, setMenuOptions } from "../../redux/actions/filterActions";
@@ -30,7 +30,14 @@ const SectionCursos = () => {
     setCurrentPage(selected);
   };
 
-  const pageCount = Math.ceil((dataFilter.length) / itemsPerPage); // Número total de páginas
+  useEffect(() => {
+    // Actualizar la página actual cuando cambie el filtro
+    setCurrentPage(0);
+    //dispatch(getAllCourses())
+  }, [dataFilter]);
+
+
+  const pageCount = Math.ceil((dataFilter?.length) / itemsPerPage); // Número total de páginas
   return (
     <section className="min-w-[calc(100%-15em)] left-[15em] absolute">
       {/* Aca va la paginación */}
