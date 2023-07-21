@@ -52,7 +52,7 @@ const createUser = async (req, res) => {
       <h1>Nova Academy</h1>
       <h2>Bienvenido ${user.name} a nuestra plataforma de Cursos</h2>
       <p>Felicitaciones estas registrado. En el siguiente link puedes iniciar sesion.</p>
-      <a href="http://127.0.0.1:5173/login">Iniciar Sesion</a>
+      <a href= "https://pf-nova-academy.vercel.app/#/login">Iniciar Sesion</a>
     </body>`,
     });
     res.send("user created successfully");

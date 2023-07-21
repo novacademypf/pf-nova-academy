@@ -14,6 +14,9 @@ const MyAccount = () => {
   const courseByProfile = useSelector(
     (state) => state.profileReducer.courseByProfile
   );
+  const profilePhoto =
+    userProfile?.photo ??
+    "https://source.unsplash.com/random/800x600/?avatar=1";
   console.log("userProfile ordersCourses", ordersCourses);
   console.log("userProfile courseByProfile", courseByProfile);
   console.log("userProfile userProfile", userProfile);
@@ -31,7 +34,7 @@ const MyAccount = () => {
         <div className="flex justify-center">
           <img
             className="w-[10em] h-[10em] mb-3 rounded-lg border-2 border-cyan-700"
-            src={userProfile?.photo}
+            src={profilePhoto}
             alt="Imagen de perfil"
           />
         </div>

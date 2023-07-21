@@ -115,9 +115,7 @@ const UserList = ({ users }) => {
           if (deletedUserIds.includes(user.userId)) {
             return null; // Omitir el renderizado del usuario eliminado
           }
-          console.log(users);
-          console.log(`Status de usuario ${user.userId}: ${user.status}`);
-
+          
           return (
             <div className="bg-white px-4 md:px-10 pb-5" key={user.userId}>
               <div className="overflow-x-auto">
