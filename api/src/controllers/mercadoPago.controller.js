@@ -13,7 +13,6 @@ const createOrder = async (body) => {
     const itemsOrder = body.items.map((el) => {
       return { idCourse: el.id };
     });
-    console.log("profileID -->", body.user.profileId);
     const order = await Order.create({
       items: itemsOrder,
       status: "created",
@@ -21,7 +20,7 @@ const createOrder = async (body) => {
     });
     return order.idOrder;
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 

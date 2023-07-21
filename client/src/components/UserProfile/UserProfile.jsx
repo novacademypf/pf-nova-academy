@@ -7,9 +7,6 @@ const UserProfile = ({ handleLogout, profile }) => {
   const location = useLocation().pathname;
   const profilePhoto =
     profile?.photo ?? "https://source.unsplash.com/random/800x600/?avatar=1";
-
-  console.log("profile -> ", profile);
-
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };

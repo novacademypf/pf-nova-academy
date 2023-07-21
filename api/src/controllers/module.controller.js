@@ -34,7 +34,6 @@ const getModuleById = async (req, res) => {
 
 
     const { moduleId } = req.params;
-    console.log(moduleId)
     const module = await Module.findByPk(moduleId);
     if (!module) {
       return res.status(404).json({ error: "Module not found" });

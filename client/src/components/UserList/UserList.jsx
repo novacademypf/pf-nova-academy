@@ -3,30 +3,30 @@ import { useDispatch } from 'react-redux';
 import { deleteUser, toggleUserStatus } from '../../redux/actions/userActions';
 import Swal from "sweetalert2";
 
-const UserList = ({ users }) => {
+const UserList = ({ profile }) => {
   const dispatch = useDispatch();
   const [deletedUserIds, setDeletedUserIds] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 5;
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+  const currentUsers = profile.slice(indexOfFirstUser, indexOfLastUser);
 
 
   useEffect(() => {
   }, [deletedUserIds]);
 
-  const handleDeleteUser = (userId) => {
-    console.log(userId);
-    dispatch(deleteUser(userId));
-    setDeletedUserIds([...deletedUserIds, userId]);
+  const handleDeleteUser = (profileId) => {
+    dispatch(deleteUser(profileId));
+    setDeletedUserIds([...deletedUserIds, profileId]);
   };
 
-  const handleToggleStatus = (userId, status) => {
-    dispatch(toggleUserStatus(userId, status));
+  const handleToggleStatus = (profileId, status) => {
+    
+    dispatch(toggleUserStatus(profileId, status));
   };
 
-  const showConfirmationAlert = (userId, userName) => {
+  const showConfirmationAlert = (profileId, userName) => {
     Swal.fire({
       title: 'Confirmación',
       text: `¿Está seguro que desea eliminar al usuario ${userName}?`,
@@ -36,14 +36,14 @@ const UserList = ({ users }) => {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        deleteUserWithAlert(userId);
+        deleteUserWithAlert(profileId);
       }
     });
   };
 
-  const showToggleStatusAlert = (userId, userName, currentStatus) => {
+  const showToggleStatusAlert = (profileId, userName, currentStatus) => {
     const newStatus = !currentStatus;
-    const action = newStatus ? 'suspender' : 'activar';
+    const action = newStatus ? 'activar' : 'suspender';
     Swal.fire({
       title: 'Confirmación',
       text: `¿Estás seguro que deseas ${action} la cuenta del usuario ${userName}?`,
@@ -53,7 +53,7 @@ const UserList = ({ users }) => {
       cancelButtonText: 'No',
     }).then((result) => {
       if (result.isConfirmed) {
-        handleToggleStatus(userId, newStatus);
+        handleToggleStatus(profileId, newStatus);
       }
     });
   };
@@ -76,16 +76,16 @@ const UserList = ({ users }) => {
     });
   };
 
-  const deleteUserWithAlert = async (userId) => {
+  const deleteUserWithAlert = async (profileId) => {
     try {
-      handleDeleteUser(userId);
+      handleDeleteUser(profileId);
       showAlert();
     } catch (error) {
       showErrorAlert(error);
     }
   };
 
-  const totalPages = Math.ceil(users.length / usersPerPage);
+  const totalPages = Math.ceil(profile.length / usersPerPage);
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
@@ -108,16 +108,16 @@ const UserList = ({ users }) => {
       <div className="xl:w-3/4 2xl:w-4/5 w-full">
         <div className="px-4 md:px-10 py-4 md:py-7">
           <div className="sm:flex items-center justify-between">
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-normal text-gray-800">Usuarios Activos {users.length}</p>
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-normal text-gray-800">Usuarios Activos {profile.length}</p>
           </div>
         </div>
         {currentUsers.map((user) => {
-          if (deletedUserIds.includes(user.userId)) {
+          if (deletedUserIds.includes(user.profileId)) {
             return null; // Omitir el renderizado del usuario eliminado
           }
           
           return (
-            <div className="bg-white px-4 md:px-10 pb-5" key={user.userId}>
+            <div className="bg-white px-4 md:px-10 pb-5" key={user.profileId}>
               <div className="overflow-x-auto">
                 <table className="w-full whitespace-nowrap">
                   <tbody>
@@ -147,7 +147,7 @@ const UserList = ({ users }) => {
                       <td>
                       <button
   className="bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-  onClick={() => showToggleStatusAlert(user.userId, user.name, user.status)}
+          onClick={() => showToggleStatusAlert(user.profileId, user.name, user.status)}
 >
   {user.status ? 'Suspender cuenta' : 'Activar cuenta'}
 </button>
@@ -156,7 +156,7 @@ const UserList = ({ users }) => {
                       <td>
                         <button
                           className="bg-[#00FFFF] hover:bg-cyan-200 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-                          onClick={() => showConfirmationAlert(user.userId, user.name)}
+                          onClick={() => showConfirmationAlert(user.profileId, user.name)}
                         >
                           Eliminar
                         </button>

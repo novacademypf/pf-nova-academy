@@ -31,7 +31,6 @@ const postCourseRating = async (req, res) => {
     const newRatingTotal = course.totalRating + parseInt(rating);
     const newRatingCount = course.totalRatings + 1;
     const newRatingAverage = newRatingTotal / newRatingCount;
-    console.log("ratingTotal-->", newRatingTotal);
    
     await course.update({
       totalRating: newRatingTotal,

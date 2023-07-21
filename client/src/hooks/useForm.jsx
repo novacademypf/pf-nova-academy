@@ -4,6 +4,7 @@ import { loginUser } from "../services/loginUserRequest";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getProfile } from "../redux/actions/profileActions";
+import Swal from "sweetalert2";
 
 export const useForm = (dataValue) => {
   const [showModal, setShowModal] = useState(false);
@@ -51,13 +52,17 @@ export const useForm = (dataValue) => {
       e.preventDefault();
       const user = await loginUser(valueInput);
       localStorage.setItem("token", user.data);
-      console.log("token user registrado", user.data);
       dispatch(getProfile());
       user.status === 200 && navigate("/");
     } catch (error) {
       error.response.status === 404 && setErrorsDb(error.response.data);
       error.response.status === 401 && console.error(error.response.data);
       error.response.status === 403 && console.error(error.response.data);
+      error.response.status === 423 && Swal.fire({
+        title: 'Error',
+        text: "Usuario Baneado",
+        icon: 'error',
+      });;
     }
   };
 

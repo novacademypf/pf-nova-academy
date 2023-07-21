@@ -17,13 +17,12 @@ export const useGoogleAuth = () => {
   }, [errorsDb]);
   const success = async (codeResponse) => {
     try {
+      
     } catch (error) {
       error.response.status === 409 && setErrorsDb(error.response.data);
     }
-    console.log(codeResponse);
     const response = await loginUserGoogle(codeResponse.access_token);
     localStorage.setItem("token", response.data.token);
-    console.log("test token login",response.data.token);
     dispatch(getProfile())
     response.data.token && response.status === 200 && navigate("/");
   };
@@ -34,6 +33,5 @@ export const useGoogleAuth = () => {
     onSuccess: success,
     onError: error,
   });
-
   return { login, errorsDb, showModal, setShowModal };
 };
