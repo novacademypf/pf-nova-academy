@@ -14,7 +14,8 @@ export const loginUserGoogle = async (data) => {
       },
     };
     try {
-      await axios.post("/google/verifyToken", {}, config);
+      const response= await axios.post("/google/verifyToken", {}, config);
+    return response
     } catch (error) {
       error.response.status === 423 && Swal.fire({
         title: 'Error',
@@ -23,5 +24,5 @@ export const loginUserGoogle = async (data) => {
       });;
     }
 
-    return response
+    
   };
