@@ -41,7 +41,7 @@ const SectionCursos = () => {
 
   console.log("-->>>>>>>>>>", paginatedCourses);
   return (
-    <section className="min-w-[calc(100%-15em)] left-[15em] absolute">
+    <section className="min-w-[calc(100%-15em)] left-[15em] absolute   ">
       {/* Aca va la paginación */}
       {dataFilter?.length === 0 ? (
         <div className=" bg-purple-200 h-[calc(100vh-5.5em)] flex flex-col justify-center items-center ">
